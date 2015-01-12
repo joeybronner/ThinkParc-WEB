@@ -5,7 +5,7 @@ include('./maclasse.php');
 include('./MySQLExeption.php');
 
 session_start(); 
-$db='FCT';
+
 if (isset($_POST['login']) && isset($_POST['pass'])){ 
 	$login = addslashes($_POST['login']);
 
@@ -97,7 +97,7 @@ $utilisateur = mysqli_num_rows($verif);
                                     <a href="#products" class="change-section">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-cubes"></i>
-                                            <h2>Products stocks</h2>
+                                            <h2>stocks</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -165,7 +165,7 @@ $utilisateur = mysqli_num_rows($verif);
                                     <a href="Reparation.html" class="change-section">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-cubes"></i>
-                                            <h2>Gestion du stock</h2>
+                                            <h2>Stock</h2>
                                         </div>
                                     </a>
                                 </div>
