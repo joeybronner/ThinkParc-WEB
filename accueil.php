@@ -58,7 +58,7 @@ $utilisateur = mysqli_num_rows($verif);
         <link rel="stylesheet" href="css/templatemo_main.css">
     </head>
     <body>
-
+		<a href="index.php?erreur=logout" class="btn btn-xs btn-warning">Deconnexion <span class="glyphicon glyphicon-off"></span></a>
         <div id="main-wrapper">
             <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -129,7 +129,7 @@ $utilisateur = mysqli_num_rows($verif);
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 pull-right">
                                     <a href="#company-intro" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>A propos de nous</h2>
+                                            <h2>Qui somme nous?</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -141,15 +141,7 @@ $utilisateur = mysqli_num_rows($verif);
                                     </a>
                                 </div>
 								</div>
-								  <div class="text-center">
-                                    <a href="deconnexion.php" class="change-section">
-                                        <div class="black-bg btn-menu">
-                                           <a href="index.php?erreur=logout" class="logout"> <h3>Deconnexion</h3></a>
-                                        </div>
-                                    </a>
-                                
-                              
-                            </div>
+								  
                         </section><!-- /.menu-section -->    
                         <section id="products-section" class="inactive" >
                             
@@ -164,8 +156,8 @@ $utilisateur = mysqli_num_rows($verif);
                                  	<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
                                     <a href="Reparation.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
-                                            <h2>Stock</h2>
+                                            <i class="fa fa-file"></i>
+                                            <h2>Consultation</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -173,12 +165,19 @@ $utilisateur = mysqli_num_rows($verif);
 									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
                                     <a href="Garages.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
-                                            <h2>Consultation</h2>
+                                            <i class="fa fa-sign-in"></i>
+                                            <h2>Entrées</h2>
                                         </div>
                                     </a>
                                 </div>
-						
+							<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
+                                    <a href="Garages.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-sign-out"></i>
+                                            <h2>Sorties</h2>
+                                        </div>
+                                    </a>
+                                </div>
 
                               
                                     
@@ -189,7 +188,7 @@ $utilisateur = mysqli_num_rows($verif);
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
                                     <a href="#menu" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>Back to menu</h2>
+                                            <h2>Retour au menu</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -247,7 +246,7 @@ $utilisateur = mysqli_num_rows($verif);
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="Reparation.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
+                                            <i class="fa fa-wrench"></i>
                                             <h2>Reparations</h2>
                                         </div>
                                     </a>
@@ -255,7 +254,7 @@ $utilisateur = mysqli_num_rows($verif);
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="Garages.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
+                                            <i class="fa fa-flag-checkered"></i>
                                             <h2>Garages</h2>
                                         </div>
                                     </a>
@@ -263,7 +262,7 @@ $utilisateur = mysqli_num_rows($verif);
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="PieceRechange.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
+                                            <i class="fa fa-recycle"></i>
                                             <h2>Pièces de rechanges</h2>
                                         </div>
                                     </a>
@@ -271,7 +270,7 @@ $utilisateur = mysqli_num_rows($verif);
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="Entretiens.html" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <i class="fa fa-cubes"></i>
+                                            <i class="fa fa-list-alt"></i>
                                             <h2>Entretiens</h2>
                                         </div>
                                     </a>
@@ -286,7 +285,7 @@ $utilisateur = mysqli_num_rows($verif);
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
                                     <a href="#menu" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>Back to menu</h2>
+                                            <h2>Retour au menu</h2>
                                         </div>
                                     </a>
                                 </div>
