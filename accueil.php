@@ -56,9 +56,13 @@ $utilisateur = mysqli_num_rows($verif);
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/templatemo_main.css">
+		<link rel="stylesheet" href="css/app.css">
     </head>
     <body>
-		<a href="index.php?erreur=logout" class="btn btn-xs btn-warning">Deconnexion <span class="glyphicon glyphicon-off"></span></a>
+	<div class="madiv">
+		<a href="index.php?erreur=logout" class="btn btn-sm btn-danger">Deconnexion <span class="glyphicon glyphicon-off"></span></a>
+	
+		</div>
         <div id="main-wrapper">
             <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -133,6 +137,7 @@ $utilisateur = mysqli_num_rows($verif);
                                         </div>
                                     </a>
                                 </div>
+
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 text-center">
                                     <a href="#testimonials" class="change-section">
                                         <div class="black-bg btn-menu">

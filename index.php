@@ -5,7 +5,7 @@ session_start();
 <html>
 <head>
 <meta charset="utf-8">
-<title>Think Parc</title>
+<title>Think Parc Software</title>
   <link rel="stylesheet" href="css/style3.css">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -13,7 +13,7 @@ session_start();
 <script type="text/javascript" src="placeholder.js"></script>
 </head>
 <body>
-
+<div class="titre">Think Parc Software</div>
 <br /><br /><br /><br /><br /><br /><br /><br /><br />
   <p align="center">
     <?php if(isset($_GET['erreur']) && ($_GET['erreur'] == "login")) { // Affiche l'erreur  ?>

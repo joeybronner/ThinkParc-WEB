@@ -39,6 +39,14 @@ form {
 	margin-top: 60px;
 }
 
+
+.madiv {
+  position: relative;
+  top: 2em;
+  left: 125em;
+
+}
+
 input.form-control , input[type="submit"] , .btn {
 	border-radius: 0px;
 }
