@@ -83,6 +83,7 @@ img {
 }
 .templatemo-site-title { 
     color: #fff !important; 
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
 
 .templatemo-site-title a {
@@ -130,7 +131,7 @@ img.slide {
 }
 
 .black-bg {
-    background-color: rgba(237,237,237,0.2); /* background des sections cliquables sur l'écran d'accueil */
+    background-color: rgba(0,0,0,0.8);
 }
 .black-bg:before, .black-bg:after {
     content: "";
@@ -194,7 +195,7 @@ img.slide {
 }
 
 .btn-menu {
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -208,7 +209,7 @@ img.slide {
 }
 
 .change-section {
-    color: #fff; /* couleur des logos */
+    color: #fff;
     text-decoration: none;
 }
 
@@ -222,7 +223,7 @@ img.slide {
 
 .change-section:hover {
     text-decoration: none;
-    color: #D35400; /* couleur du logo quand on passe sur la section */
+    color: #246BB2;
 }
 
 .change-section:hover .black-bg {
@@ -230,7 +231,7 @@ img.slide {
 }
 
 .change-section:hover .black-bg > h2 {
-	color: #D35400;
+    color: #246BB2;
 }
 
 @media (max-width: 991px) {

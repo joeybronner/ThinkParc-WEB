@@ -1,4 +1,46 @@
-<!DOCTYPE html>
+<?php 
+
+require_once('connexion.php'); 
+include('./maclasse.php');
+include('./MySQLExeption.php');
+
+session_start(); 
+$db='FCT';
+if (isset($_POST['login']) && isset($_POST['pass'])){ 
+	$login = addslashes($_POST['login']);
+
+	$pass = addslashes(md5($_POST['pass'])); 
+
+$verif_query=sprintf("SELECT * FROM users WHERE Login='$login' AND Password='$pass'");
+echo $verif_query;
+$verif = mysqli_query($db,$verif_query) or die(mysql_error());
+$row_verif = mysqli_fetch_assoc($verif);
+$utilisateur = mysqli_num_rows($verif);
+
+	
+	if ($utilisateur) {	
+	
+	    $_SESSION['authentification']; 
+		
+		// déclaration des variables de session
+		$_SESSION['privilege'] = $row_verif['privilege']; 
+		$_SESSION['nom'] = $row_verif['nom']; // Son nom
+		$_SESSION['prenom'] = $row_verif['prenom']; // Son Prénom
+		$_SESSION['login'] = $row_verif['login']; // Son Login
+		$_SESSION['pass'] = $row_verif['pass']; // Son mot de passe 
+		
+		header("Location:accueil.php"); // redirection si OK
+	}
+	else {
+	
+
+		header("Location:index.php?erreur=login"); // redirection si utilisateur non reconnu
+		
+	}
+}
+
+ 
+ ?>
 
 <html class="no-js"> 
     <head>
@@ -16,6 +58,7 @@
         <link rel="stylesheet" href="css/templatemo_main.css">
     </head>
     <body>
+
         <div id="main-wrapper">
             <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -23,9 +66,12 @@
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
                 <h1 class="templatemo-site-title">
-                    <a href="#">Think Parc</a>
-					<img src="images/logo_gray.png" width="5%" />
+                    <a href="#">Think Parc software</a>
                 </h1>
+				
+                <h3 class="templatemo-site-title">
+                	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
+                </h3>
             </div>
 
             <div class="image-section">
@@ -80,20 +126,28 @@
                                     </a>
                                 </div>
                             
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
+                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 pull-right">
                                     <a href="#company-intro" class="change-section">
                                         <div class="black-bg btn-menu">
                                             <h2>A propos de nous</h2>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
+                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 text-center">
                                     <a href="#testimonials" class="change-section">
                                         <div class="black-bg btn-menu">
                                             <h2>Documents techniques</h2>
                                         </div>
                                     </a>
                                 </div>
+								</div>
+								  <div class="text-center">
+                                    <a href="deconnexion.php" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                           <a href="index.php?erreur=logout" class="logout"> <h3>Deconnexion</h3></a>
+                                        </div>
+                                    </a>
+                                
                               
                             </div>
                         </section><!-- /.menu-section -->    
@@ -243,17 +297,14 @@
                                 <div class="black-bg col-sm-12 col-md-12 col-lg-12">
                                     <h2 class="text-center">Company Intro</h2>
                                     <div class="col-sm-12 col-md-12">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec purus quam, eleifend eget mattis vel, mollis eu lacus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque pulvinar ut lorem sit amet feugiat. Nullam cursus ante lectus, sed vehicula nisi consectetur ut. Fusce venenatis porta lectus at luctus. Nullam et sapien purus. Fusce congue non neque eu malesuada. Quisque dictum cursus pretium.</p>
-                                        <p><a href="#">Donec cursus</a> justo vel metus suscipit, sit amet gravida justo pulvinar. Sed non luctus est, vel viverra nisi. Suspendisse neque ipsum, porta vitae dui eget, feugiat pretium tortor. Praesent at dolor semper, egestas elit sit amet, consectetur eros. Praesent rutrum tempor mi, quis aliquet tellus bibendum eget. Etiam et suscipit nunc. Nulla faucibus hendrerit augue. Proin faucibus sem ligula, at egestas elit ultricies non.</p>
-                                        <p>Maecenas ac massa erat. Quisque ac volutpat odio, quis viverra tortor. Ut interdum ornare odio, ac iaculis est lacinia nec. Cras in pulvinar urna. Sed molestie, arcu ac auctor rhoncus, nisl justo dictum leo, eu interdum est nibh eget neque. Donec sed est nec velit fringilla lobortis. Aliquam eu elit ut arcu auctor dictum. Nulla vel lobortis enim. In hac habitasse platea dictumst. Maecenas ultricies egestas dui, eu dignissim justo semper non. </p>
-                                    </div>
+								<p>Bienvenue sur Think Parc, logiciel de gestion de stock et de parc automobile</p>  </div>
                                 </div>
                             </div>
                             <div class="row margin-top-20">
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
                                     <a href="#menu" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>Back to menu</h2>
+                                            <h2>Retour au menu</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -263,11 +314,10 @@
                             <div class="row">
                                 <div class="black-bg col-sm-12 col-md-12 col-lg-12">
                                     
-                                    <h2 class="text-center">Testimonials and Awards</h2>
+                                    <h2 class="text-center">Documents techniques</h2>
                                     <div class="col-sm-12 col-md-12">
-                                        <p>Maecenas euismod viverra enim, sed sodales nunc sagittis vel. Nullam placerat dignissim turpis, nec auctor leo malesuada vitae. Nunc a arcu fringilla, rutrum erat blandit, sollicitudin ipsum. Vivamus vitae cursus nibh. Etiam libero sapien, dictum sed dignissim a, lobortis quis sem. Morbi placerat, est eu vehicula dignissim, magna lacus tristique turpis, ut sollicitudin ante nulla at sem. Fusce neque nulla, fermentum at turpis elementum, venenatis viverra felis. Donec eget ipsum non dolor pulvinar ultricies vel id risus. Etiam tincidunt aliquet massa, sodales gravida magna posuere sit amet. Nullam tempus nec urna iaculis lacinia.</p>
-                                        <p>Sed adipiscing ultricies diam ut blandit. <a href="#">Nullam lobortis</a> egestas velit, quis vulputate leo feugiat a. Etiam venenatis odio quis pharetra pulvinar. Maecenas nec tempus lectus. Ut quam nisl, tempus eu rutrum at, volutpat at tortor. Donec dapibus gravida elit. Sed venenatis malesuada elementum. Donec vestibulum odio metus, vel tempor magna luctus et. Suspendisse porttitor, justo eget interdum faucibus, turpis nibh lacinia urna, vitae porta erat odio eu est. Duis laoreet dui id mi ultricies, ut dictum elit aliquet. Vivamus et libero enim. Curabitur adipiscing quis turpis sed consequat. Morbi ut arcu at sapien tempus lobortis. Etiam congue, enim eget condimentum consequat, mauris dolor tincidunt eros, vitae suscipit justo turpis sed turpis. Etiam adipiscing et orci ac condimentum.</p>
-                                    </div>
+										<p> Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
+										</div>
 
                                 </div>
                             </div>
@@ -275,7 +325,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
                                     <a href="#menu" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>Back to menu</h2>
+                                            <h2>Retour au menu</h2>
                                         </div>
                                     </a>
                                 </div>
