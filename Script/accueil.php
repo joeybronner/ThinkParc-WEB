@@ -87,6 +87,12 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                 	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
                 </h3>
             </div>
+			<div class="madiv">
+			<img src="../images/logoEDF.png">
+			</div>
+			<div class="madivlogofct">
+			<img src="../images/logoentreprise.jpg">
+			</div>
 
             <div class="image-section">
                 <div class="image-container">
@@ -115,6 +121,7 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                                         </div>
                                     </a>
                                 </div>
+								
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
                                     <a href="#services" class="change-section">
                                         <div class="black-bg btn-menu">
@@ -178,6 +185,7 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                                    
 									
                                 </div>
+
 							 </a>
 									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
                                     <a href="Entrees.php">

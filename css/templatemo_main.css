@@ -30,11 +30,11 @@ p {
 }
 
 a {
-	color: #FF6;
+	color: white;
 }
 
 a:hover {
-	color: #F60;
+	color: green;
 }
 
 hr {
