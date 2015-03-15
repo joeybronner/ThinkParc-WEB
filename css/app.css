@@ -43,7 +43,40 @@ form {
 .madiv {
   position: relative;
   top: 2em;
-  left: 125em;
+  left: 115em;
+
+}
+
+.madivinfo {
+  position: relative;
+  top: 2em;
+  left: 114em;
+
+}
+
+.madivlogofct {
+  position: relative;
+  top: -1em;
+  right: -112em;
+
+}
+.madivretour {
+  position: relative;
+  top: -1em;
+  right: -8em;
+
+}
+
+img {
+width:160px; 
+height:70px;
+
+}
+
+.divlogo {
+  position: relative;
+  top: 6em;
+  right: -5em;
 
 }
 
