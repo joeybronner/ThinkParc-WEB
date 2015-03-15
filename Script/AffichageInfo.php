@@ -59,7 +59,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="./resources/demos/style.css">
 
 		
  <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700' rel='stylesheet' type='text/css'>
@@ -126,7 +126,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 <br /><br /><br />
 
 
-<link rel="stylesheet" href="formul_files/formoid1/formoid-flat-green.css" type="text/css" />
+<link rel="stylesheet" href="../css/formul_files/formoid1/formoid-flat-green.css" type="text/css" />
 <form action="Enregistrementlogo.php" enctype="multipart/form-data" class="formoid-flat-green" style="background-color:#dcd5d6;font-size:14px;font-family:'Lato', sans-serif;color:#313131;max-width:480px;min-width:150px" method="get"><div class="title"><h2>Changer/Ajouter logo</h2></div>
 	
 <div class="element-file"><label class="title">Logo</label><label class="large" ><div class="button">Choisir un fichier</div><input type="file" class="file_input" name="logo" /><div class="file_text">Parcourir mes fichiers</div></label></div>

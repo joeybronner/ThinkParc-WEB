@@ -44,7 +44,8 @@ form {
   position: relative;
   top: -13em;
   left: 3em;
-
+	   width: 200px;
+    height: 200px;
 }
 
 .madivinfo {
