@@ -43,7 +43,7 @@ $dbh = new maclasse();
 		<!-- if success-->
 		<?php
 
-			if($dbh->RecordCar())
+			if($dbh->RecordAdministratif())
 			{
 			
 			
@@ -51,7 +51,7 @@ $dbh = new maclasse();
 <div class="bs-example">
     <div class="alert alert-success">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <center><strong>Success!</strong> La voiture a bien été ajouté.</center>
+        <center><strong>Success!</strong> La fiche administrative a bien été ajouté.</center>
     </div>
 </div>
 <center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='accueil.php'"><i class="icon-white icon-th-large"></i> Retour à l'accueil</button></center>
@@ -65,8 +65,8 @@ $dbh = new maclasse();
 <div class="bs-example">
     <div class="alert alert-danger alert-error">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <center><strong>Erreur!</strong> Un problème est survenue lors de l'enregistrement.</center>
-		<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='Formul.php'"><i class="icon-white icon-th-large"></i> Retour au formulaire</button></center>
+        <center><strong>Erreur!</strong> Un problème est survenue lors de l'enregistrement de la fiche administrative.</center>
+		<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='FormulAdministratif.php'"><i class="icon-white icon-th-large"></i> Retour au formulaire</button></center>
 
     </div>
 </div>

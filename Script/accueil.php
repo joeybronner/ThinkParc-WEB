@@ -54,7 +54,7 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
 	
         <meta name="description" content="">
         <meta name="" content="width=device-width">
-        
+    
        
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../css/bootstrap.css">
@@ -87,9 +87,12 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                 	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
                 </h3>
             </div>
+			
 			<div class="madiv">
 			<img src="../images/logoEDF.png">
+			
 			</div>
+
 			<div class="madivlogofct">
 
 			<img src="../images/logoentreprise.jpg">
@@ -229,7 +232,7 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                                         <p>Utiliser ce module pour gérer les véhicules de votre parc automobile.</p>
                 
                                   
-										<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="ConsultationVehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-book"></i>
@@ -238,8 +241,18 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
 										<br/>
 										</div>
                                     </a>
+									
+											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="administratif.php">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-book"></i>
+                                            <h2>Administratif</h2>
+                                        </div>  
+										<br/>
+										</div>
+                                    </a>
 										
-									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="Formul.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>
@@ -247,7 +260,7 @@ if (isset($_POST['login']) && isset($_POST['pass'])){
                                         </div>  <br/>
                                     </a></div>
 									
-									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="ConsultationVehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-trash-o"></i>
