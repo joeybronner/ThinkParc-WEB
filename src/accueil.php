@@ -1,46 +1,9 @@
 <?php 
-
-	require_once('connexion.php'); 
+	require_once('../db/config.php'); 
 	include('./maclasse.php');
 	include('./MySQLExeption.php');
 
-	session_start(); 
-
-if (isset($_POST['login']) && isset($_POST['pass'])){ 
-
-	$login = addslashes($_POST['login']);
-	$pass = addslashes(md5($_POST['pass'])); 
-
-	$verif_query=sprintf("SELECT * FROM users WHERE Login='$login' AND Password='$pass'");
-	echo $verif_query;
-	$verif = mysqli_query($db,$verif_query) or die(mysql_error());
-	$row_verif = mysqli_fetch_assoc($verif);
-	$utilisateur = mysqli_num_rows($verif);
-
-	
-	if ($utilisateur) {	
-	
-	    $_SESSION['authentification']; 
-		
-		// déclaration des variables de session
-		$_SESSION['privilege'] = $row_verif['privilege']; 
-		$_SESSION['nom'] = $row_verif['nom']; // Son nom
-		$_SESSION['prenom'] = $row_verif['prenom']; // Son Prénom
-		$_SESSION['id'] = $row_verif['id']; // Son id
-		$_SESSION['login'] = $row_verif['login']; // Son Login
-		$_SESSION['pass'] = $row_verif['pass']; // Son mot de passe 
-		
-		header("Location:accueil.php"); // redirection si OK
-	}
-	else {
-	
-
-		header("Location:index.php?erreur=login"); // redirection si utilisateur non reconnu
-		
-	}
-}
-
- 
+    session_start();
  ?>
 
 <html class="no-js"> 
