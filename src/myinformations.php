@@ -98,7 +98,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
          <td><b><?php echo $Valeur['Nom'];?></b></td>
          <td><b><?php echo $Valeur['Prenom'];?></b></td>
          <td><b><?php echo $Valeur['Login'];?></b></td>
-         <td><img src="<?php echo $Valeur['image'];?>"/></td>
+         <td><img src="../images/<?php echo $Valeur['image']; ?>"/></td>
        </tr>
        <?php
      }
