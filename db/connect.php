@@ -50,7 +50,7 @@ else
 			// Redirection
 			header('Location: ../src/accueil.php'); 
 		} else {
-			header('Location: ../index.html'); 					// Home
+			header('Location: ../index.html');
 		}
 	}
 }

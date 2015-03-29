@@ -43,9 +43,9 @@
   
    public function getinfouser() {
  
-				$a=$_SESSION['id'];
+				$a=$_SESSION['fct_id'];
 			
-				$sql1="SELECT id, nom, prenom, login, image FROM users WHERE id = '".$a."'";
+				$sql1="SELECT id, Nom, Prenom, Login, image FROM users WHERE id = '".$a."'";
 				
                 $req1 = $this->dbh->query($sql1);
               
