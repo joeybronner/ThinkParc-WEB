@@ -84,12 +84,11 @@ img {
 	z-index: 1;
 }
 .templatemo-site-title { 
-    color: #fff !important; 
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+    color: grey !important;
 }
 
 .templatemo-site-title a {
-	color: #fff;
+	color: grey;
 	text-decoration: none;
 }
 
