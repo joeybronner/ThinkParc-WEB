@@ -98,10 +98,12 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
          <td><b><?php echo $Valeur['Nom'];?></b></td>
          <td><b><?php echo $Valeur['Prenom'];?></b></td>
          <td><b><?php echo $Valeur['Login'];?></b></td>
-         <td><img src="../images/<?php echo $Valeur['image']; ?>"/></td>
+		 
+         <td><pre><?php  print_r($_FILES); ?></td>
        </tr>
        <?php
      }
+	 
 
      ?>
    </table>
@@ -113,7 +115,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
  <link rel="stylesheet" href="../css/formul_files/formoid1/formoid-flat-green.css" type="text/css" />
  <form action="Enregistrementlogo.php" enctype="multipart/form-data" class="formoid-flat-green" style="background-color:#dcd5d6;font-size:14px;font-family:'Lato', sans-serif;color:#313131;max-width:480px;min-width:150px" method="get"><div class="title"><h2>Changer/Ajouter logo</h2></div>
 
-  <div class="element-file"><label class="title">Logo</label><label class="large" ><div class="button">Choisir un fichier</div><input type="file" class="file_input" name="logo" /><div class="file_text">Parcourir mes fichiers</div></label></div>
+  <div class="element-file"><label class="title">Logo</label><label class="large" ><div class="button">Choisir un fichier</div><input type="file" class="file_input" name="file" /><div class="file_text">Parcourir mes fichiers</div></label></div>
   <div class="submit"><input type="submit" value="Envoyer" /></div></form><p class="frmd"><script type="text/javascript" src="formul_files/formoid1/formoid-flat-green.js"></script>
   <!-- Stop Formoid form-->
 

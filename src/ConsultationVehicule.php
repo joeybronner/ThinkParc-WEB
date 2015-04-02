@@ -15,8 +15,6 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login'])))
 
 <title>FCT</title>
 
-<link href="default.css" rel="stylesheet" type="text/css" media="screen" />
-
     <script type="text/javascript" src="../js/jquery.js"></script>
 	 <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
 
@@ -35,27 +33,22 @@ $(document).ready(function() {
 } );
 
 
+				/**Retourne la valeur du select selectId*/
+				function getSelectValue(selectId)
+				{
+					/**On récupère l'élement html <select>*/
+					var selectElmt = document.getElementById(selectId);
+					/**
+					selectElmt.options correspond au tableau des balises <option> du select
+					selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
+					*/
+					return selectElmt.options[selectElmt.selectedIndex].value;
+				}
+
 </script>
-<style type="text/css" title="currentStyle">
-			@import "../css/demo_page.css"; 
-			@import "../css/demo_table.css";
 
-</style>
 
-<script type="text/javascript"><!--//--><![CDATA[//><!--
-sfHover = function() {
-   var sfEls = document.getElementById("nav").getElementsByTagName("li");
-   for (var i=0; i<sfEls.length; i++) {
-      sfEls[i].onmouseover=function() {
-         this.className+=" sfhover";
-      }
-      sfEls[i].onmouseout=function() {
-      this.className=this.className.replace(new RegExp(" sfhover\b"), "");
-      }
-   }
-}
-if (window.attachEvent) window.attachEvent("onload", sfHover);
-//--><!]]></script>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -79,7 +72,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	?>
  
 		
-<form class="formoid-solid-dark"  method="get" action="consultationadministratif.php">
+<form class="formoid-solid-dark"  method="get">
 <center>
 
 </form> </p>
@@ -93,6 +86,8 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 <table class="table table-striped table-bordered table-condensed">   
    <thead> <!-- En-tÃªte du tableau -->
        <tr>
+	    <th>Marque</th> 
+		<th>Modele</th>
            <th>Mise en circulation</th>
 		   <th>Kilometrage</th>
 		   <th>Energie</th>
@@ -121,6 +116,8 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 	?>
 	
 			<tr>
+			  <td><b><?php echo $Valeur['libelle'];?></b></td>
+			    <td><b><?php echo $Valeur['modele'];?></b></td>
            <td><b><?php echo $Valeur['misecirculation'];?></b></td>
 		   <td><b><?php echo $Valeur['kilometrage'];?></b></td>
 		    <td><b><?php echo $Valeur['energie'];?></b></td>
@@ -146,20 +143,33 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 
 <br /><br /><br />
 			<div class="element-select"><label class="title">Selectionner un matricule</label><div class="item-cont"><div class="large"><span><select name="matricule" >
-<?php 
+				<option selected disabled>Liste vehicule</option>
+			<?php 
 		$dbh = new maclasse();
-	foreach ($dbh->getimmatriculation() as $Val)
+	foreach ($dbh->getimmatriculationenregistre() as $Val)
     {
 	?>
 	
 		<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
 		
 	<?php
+		
+		
+	
 	}
+	
+	$monid = $Val['id'];
+	echo $monid;
 	?>
+      <script>
+	  //var selectValue = getSelectValue('matricule');
+	  var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
+
+	 </script>
+		
 		</select><i></i><span class="icon-place"></span></span></div></div></div>
 		<br /><br />
-		 <center><a href="consultationadministratif.php?id=<?php echo $Val['id'];?>"><b><input type="button" name="Administratif" value="Voir ses informations administratif"></b></a></center>
+		 <center><a href="consultationadministratif.php?id="<?php echo $monid;?>/"><b><input type="button" name="Administratif" value="Voir ses informations administratif"></b></a></center>
 </form>
 
 <!-- end footer -->

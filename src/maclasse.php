@@ -23,7 +23,35 @@
   public function getvehicule() {
  
 			
-				$sql1="SELECT * FROM vehicule";
+				$sql1="SELECT * FROM vehicule v, marque m, modele mo WHERE v.id_marque = m.id and v.id_modele = mo.id";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+   public function getvehiculemarque() {
+ 
+			
+				$sql1="SELECT id,libelle FROM marque";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+    public function getvehiculemodele() {
+ 
+				$a=$select1;
+				
+				
+					
+				//$sql1="SELECT id,modele FROM modele WHERE modele like '%".$a."%'";
+				$sql1="SELECT id,modele FROM modele";
+
+				echo $sql1;
+				
+				
 				
                 $req1 = $this->dbh->query($sql1);
               
@@ -52,9 +80,10 @@
                 return $req1;
  }
  
-    public function getimmatriculation() {
+		// Recuperation des véhicules déjà enregistré avec formulaire administratif
+    public function getimmatriculationenregistre() {
  
-				//$a=$_SESSION['id'];
+				$a=$_GET['id'];
 			
 				$sql1="SELECT v.id, matricule FROM vehicule v, administratif a WHERE a.id_vehicule=v.id";
 				
@@ -62,7 +91,18 @@
               
                 return $req1;
  }
-  
+		// véhicule non enregistré dans l'administratif
+		
+      public function getimmatriculation() {
+ 
+			
+			
+				$sql1="SELECT id, matricule FROM vehicule WHERE id NOT IN ( select id_vehicule from administratif)";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
   public function Recordlogo()
   {
 	$a=$_GET['logo'];
@@ -87,7 +127,8 @@
   
   public function RecordCar()
 	{
-		
+		$mar=$_GET['marque'];
+		$mod=$_GET['modele'];
 		$a=$_GET['genre'];
 		$b=$_GET['categorie'];
 		$c=$_GET['misecirculation'];
@@ -103,8 +144,8 @@
 		$m=$_GET['commentaire'];
 
 	
-		 $sql1='Insert into Vehicule (genre, categorie, misecirculation, kilometrage, energie, date, numerodeserie, matricule, dateachat, equipement, affectation, etat, commentaire) 
-		 values ("'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';	
+		 $sql1='Insert into Vehicule (id_marque, id_modele, genre, categorie, misecirculation, kilometrage, energie, date, numerodeserie, matricule, dateachat, equipement, affectation, etat, commentaire) 
+		 values ("'.$mar.'","'.$mod.'","'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';	
 		 
 		 echo $sql1;
 		 

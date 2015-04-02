@@ -47,10 +47,6 @@ table {
   border-spacing: 0;
 }
 
-.bodylogin {
-
-}
-
 .titre{
   margin-top:10px;
   text-align:center;
@@ -111,7 +107,7 @@ table {
 body {
   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   color: #404040;
-  background: #FFFFFF;
+  background: #00649c;
 }
 
 h2{
