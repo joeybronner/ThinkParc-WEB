@@ -45,8 +45,8 @@ form {
   position: relative;
   top: -13em;
   left: 3em;
-	   width: 100px;
-    height: 100px;
+	   width: 200px;
+    height: 200px;
 }
 
 .madivinfo {
@@ -58,8 +58,8 @@ form {
 
 .madivlogofct {
   position: relative;
-  top: -14em;
-  right: -125em;
+  top: -19em;
+  right: -113em;
 
 }
 .madivretour {

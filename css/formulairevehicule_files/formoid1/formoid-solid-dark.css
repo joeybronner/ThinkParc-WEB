@@ -221,8 +221,6 @@ Solid style
 }
 
 .formoid-solid-dark label {
-  display: block;
-  margin-bottom: 3px;
   clear: both;
 }
 
@@ -507,11 +505,11 @@ Not advised to edit stuff below this line
 .formoid-solid-dark .element-file .file_text,
 .formoid-solid-dark select{
   border-style: solid;
-  border-width: 2px;
+  border-width: 5px;
   border-color: #bdc3c7;
   -webkit-transition: border-color 0.5s ease-in-out;
   transition: border-color 0.5s ease-in-out;
-  border-radius:3px;
+  border-radius:6px;
 
   padding: 10px 10px 9px 2.3em;
   

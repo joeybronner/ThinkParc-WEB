@@ -28,11 +28,13 @@ $dbh = new maclasse();
 		include('./navbar.html');
 	?>
 <!-- Start  form-->
-<link rel="stylesheet" href="../css/formuladministratif_files/formoid1/formoid-solid-dark.css" type="text/css" />
+<link rel="stylesheet" href="../css/formulairevehicule_files/formoid1/formoid-solid-dark.css" type="text/css" />
 <script type="text/javascript" src="../css/formuladministratif_files/formoid1/jquery.min.js"></script>
-<form class="formoid-solid-dark" style="background-color:#888888;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="get" action="AjoutAdministratif.php"><div class="title"><h2>Formulaire administratif</h2></div>
-	<div class="element-select"><label class="title">Matricule du véhicule</label><div class="item-cont"><div class="large"><span><select name="matricule" >
-<?php 
+<form class="formoid-solid-dark" style="background-color:#888888;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:520px;min-width:150px" method="get" action="AjoutAdministratif.php"><div class="title"><h2>Formulaire administratif</h2></div>
+	<div class="element-select"><div class="item-cont"><span><select name="matricule" class="medium" >
+	<option selected disabled>Matricule de la machine</option>
+	<?php 
+
 		$dbh = new maclasse();
 	foreach ($dbh->getimmatriculation() as $Valeur)
     {
@@ -43,14 +45,12 @@ $dbh = new maclasse();
 	<?php
 	}
 	?>
-		</select><i></i><span class="icon-place"></span></span></div></div></div>
+		</select></span><i></i><span class="icon-place"></span></div></div>
 		
-	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="prixachat" placeholder="Prix d'achat"/><span class="icon-place"></span></div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="fournisseur" placeholder="Fournisseur"/><span class="icon-place"></span></div></div>
-	<div class="element-date"><label class="title">Date du dernier contrôle technique</label><div class="item-cont"><input class="medium" data-format="yyyy-mm-dd" type="date" name="derniercontrole" placeholder="Date du dernier contrôle technique"/><span class="icon-place"></span></div></div>
-	<div class="element-date"><label class="title">Date du prochain Contrôle technique </label><div class="item-cont"><input class="medium" data-format="yyyy-mm-dd" type="date" name="prochaincontrole" placeholder="Date du prochain Contrôle technique "/><span class="icon-place"></span></div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="numcontratassurance" placeholder="N° Contrat Assurance"/><span class="icon-place"></span></div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="large" type="text" name="nomassurance" placeholder="Nom Compagnie Assurance"/><span class="icon-place"></span></div></div>
+	<div class="element-date"><label class="title">Date du dernier contrôle technique  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Date du prochain contrôle technique</label><div class="item-cont"><input class="medium" data-format="yyyy-mm-dd" type="date" name="derniercontrole" placeholder="Date du dernier contrôle technique"/><input class="medium" data-format="yyyy-mm-dd" type="date" name="prochaincontrole" placeholder="Date du prochain Contrôle technique "/><span class="icon-place"></span></div></div>
+	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="numcontratassurance" placeholder="N° Contrat Assurance"/><input class="medium" type="text" name="nomassurance" placeholder="Nom Assurance"/><span class="icon-place"></span></div></div>
+		<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="prixachat" placeholder="Prix d'achat"/><input class="medium" type="text" name="fournisseur" placeholder="Nom du fournisseur"/><span class="icon-place"></span></div></div>
+
 	<div class="element-date"><label class="title">Date échéance assurance </label><div class="item-cont"><input class="medium" data-format="yyyy-mm-dd" type="date" name="echeanceassurance" placeholder="Date échéance assurance "/><span class="icon-place"></span></div></div>
 	<div class="element-textarea"><label class="title"></label><div class="item-cont"><textarea class="small" name="conducteur" cols="20" rows="5" placeholder="Nom du (des) conducteur(s) "></textarea><span class="icon-place"></span></div></div>
 <div class="submit"><input type="submit" value="Enregistrer"/></div></form>

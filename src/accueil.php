@@ -3,36 +3,50 @@
 	include('./MySQLExeption.php');
 
     session_start();
-    if (!isset($_SESSION["fct_login"])) {
-      header("Location: ../index.html");
-    }
  ?>
 
 <html class="no-js"> 
     <head>
+	
+	
 	<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta charset="utf-8">
+   
         <title>FCT Partners</title>
+	
         <meta name="description" content="">
-        <meta name="" content="width=device-width">   
+        <meta name="" content="width=device-width">
+    
+       
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/templatemo_main.css">
 		<link rel="stylesheet" href="../css/app.css">
     </head>
     <body>
-    <!-- Navbar -->
-	<?php include('./navbar.html'); ?>
+
+	<?php
+	
+		include('./navbar.html');
+	?>
+
+	
+	
 		</div>
         <div id="main-wrapper">
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
                 <h1 class="templatemo-site-title">
                     <a href="#">Think Parc software</a>
                 </h1>
+				
                 <h3 class="templatemo-site-title">
-                	by FCT Partners
+                	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
                 </h3>
             </div>
 			
