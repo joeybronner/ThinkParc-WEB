@@ -1074,9 +1074,10 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.5em;
+  /*line-height: 1.42857143;*/
+  line-height: 1;
   color: #333;
   background-color: #fff;
 }
@@ -1562,8 +1563,8 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  /*padding-right: 15px;
+  padding-left: 15px;*/
   margin-right: auto;
   margin-left: auto;
 }
@@ -1583,8 +1584,8 @@ pre code {
   }
 }
 .container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
+  /*padding-right: 15px;*/
+  /*padding-left: 15px;*/
   margin-right: auto;
   margin-left: auto;
 }
@@ -2966,11 +2967,11 @@ select[multiple].form-group-lg .form-control {
 }
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 2px 5px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 1em;
   font-weight: normal;
-  line-height: 1.42857143;
+  line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -2983,7 +2984,7 @@ select[multiple].form-group-lg .form-control {
           user-select: none;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 4px;
+  /*border-radius: 4px;*/
 }
 .btn:focus,
 .btn:active:focus,
@@ -3246,7 +3247,7 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger {
   color: #fff;
   background-color: #d9534f;
-  border-color: #d43f3a;
+  border-color: #d9534f;
 }
 .btn-danger:hover,
 .btn-danger:focus,
@@ -3254,14 +3255,16 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger:active,
 .btn-danger.active,
 .open > .dropdown-toggle.btn-danger {
-  color: #fff;
-  background-color: #c9302c;
-  border-color: #ac2925;
+  color: #d9534f;
+  background-color: #fff;
+  border-color: #fff;
+  /*background-color: #c9302c;
+  border-color: #ac2925;*/
 }
 .btn-danger:active,
 .btn-danger.active,
 .open > .dropdown-toggle.btn-danger {
-  background-image: none;
+  /*background-image: none;*/
 }
 .btn-danger.disabled,
 .btn-danger[disabled],
@@ -3330,10 +3333,10 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-sm,
 .btn-group-sm > .btn {
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 1.2em;
+  line-height: 1;
+  /*border-radius: 3px;*/
 }
 .btn-xs,
 .btn-group-xs > .btn {
@@ -4050,13 +4053,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 40px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
   .navbar {
-    border-radius: 4px;
+    /*border-radius: 4px;*/
   }
 }
 @media (min-width: 768px) {
@@ -4065,8 +4068,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-collapse {
-  padding-right: 15px;
-  padding-left: 15px;
+  /*padding-right: 15px;
+  padding-left: 15px;*/
   overflow-x: visible;
   -webkit-overflow-scrolling: touch;
   border-top: 1px solid transparent;
@@ -4114,8 +4117,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse {
-  margin-right: -15px;
-  margin-left: -15px;
+  /*margin-right: -15px;
+  margin-left: -15px;*/
 }
 @media (min-width: 768px) {
   .container > .navbar-header,
@@ -4141,6 +4144,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   right: 0;
   left: 0;
   z-index: 1030;
+  background-color:fff;
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
@@ -4174,7 +4178,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
-    margin-left: -15px;
+    /*margin-left: -15px;*/
   }
 }
 .navbar-toggle {
@@ -4207,7 +4211,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  /*margin: 7.5px -15px;*/
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -4246,8 +4250,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    /*padding-top: 15px;
+    padding-bottom: 15px;*/
   }
 }
 .navbar-form {
@@ -4343,27 +4347,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-.navbar-btn.btn-sm {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.navbar-btn.btn-xs {
-  margin-top: 14px;
-  margin-bottom: 14px;
-}
-.navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+
 @media (min-width: 768px) {
   .navbar-text {
     float: left;
-    margin-right: 15px;
-    margin-left: 15px;
   }
 }
 @media (min-width: 768px) {
@@ -4372,7 +4359,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
@@ -4857,7 +4843,7 @@ a.badge:focus {
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
-  border-radius: 6px;
+  /*border-radius: 6px;*/
 }
 .jumbotron .container {
   max-width: 100%;
@@ -4868,8 +4854,8 @@ a.badge:focus {
   }
   .container .jumbotron,
   .container-fluid .jumbotron {
-    padding-right: 60px;
-    padding-left: 60px;
+    /*padding-right: 60px;
+    padding-left: 60px;*/
   }
   .jumbotron h1,
   .jumbotron .h1 {

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="../css/templatemo_main.css">
 		<link rel="stylesheet" href="../css/app.css">
 </head>
-<body class="blurBg-true" style="background-color:#464646">
+<body>
 
 
 	<?php
@@ -21,7 +21,7 @@
 <!-- Start Formoid form-->
 <link rel="stylesheet" href="../css/formulairevehicule_files/formoid1/formoid-solid-dark.css" type="text/css" />
 <script type="text/javascript" src="../css/formulairevehicule_files/formoid1/jquery.min.js"></script>
-<form class="formoid-solid-dark" style="background-color:#7d7d7d;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#005500;max-width:480px;min-width:150px" method="get" action="EnregistrementVehicule.php"><div class="title"><h2>Enregistrer un vehicule</h2></div>
+<form class="formoid-solid-dark" style="background-color:#7d7d7d;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#005500;max-width:80%;min-width:50%" method="get" action="EnregistrementVehicule.php"><div class="title"><h2>Enregistrer un vehicule</h2></div>
 	<div class="element-select"><label class="title"><span class="required">* Genre</span></label><div class="item-cont"><div class="large"><span><select name="genre" required="required">
 
 		<option value="Vehicule Particulier">Véhicule Particulier</option>
