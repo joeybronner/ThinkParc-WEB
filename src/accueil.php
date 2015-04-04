@@ -7,7 +7,7 @@
 
 <html> 
     <head>
-	<meta name="viewport" content="width=device-width, user-scalable=yes" />
+		<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta charset="utf-8">
         <title>FCT Partners</title>
         <meta name="description" content="">
@@ -16,39 +16,37 @@
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/templatemo_main.css">
 		<link rel="stylesheet" href="../css/app.css">
+		<script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
+        <script src="../js/jquery.backstretch.min.js"></script>
+        <script src="../js/templatemo_script.js"></script>
+		<script src="../js/bootstrap.js"></script>
     </head>
     <body>
 	
 	<?php include('./navbar.html'); ?>
     
 	<div id="main-wrapper">
-            <!--[if lt IE 7]>
-                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-            <![endif]-->
-
+	<!--
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
                 <h1 class="templatemo-site-title">
                     <a href="#">Think Parc software</a>
                 </h1>
-				
                 <h3 class="templatemo-site-title">
                 	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
                 </h3>
             </div>
 			
 			<div class="madiv">
-			<img src="../images/logoEDF.png">
+				<img src="../images/logoEDF.png">
+			</div>
 			
-			</div>
-
 			<div class="madivlogofct">
-
-			<img src="../images/logoentreprise.jpg">
+				<img src="../images/logoentreprise.jpg">
 			</div>
-
+	-->
             <div class="image-section">
                 <div class="image-container">
-					
                     <img src="../images/logo.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
                     <img src="../images/zoom-bg-2.jpg" id="products-img" class="inactive" alt="Product stocks">
                     <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
@@ -62,14 +60,13 @@
             <div class="container">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 templatemo-content-wrapper">
                     <div class="templatemo-content">
-                        
                         <section id="menu-section" class="active">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
                                     <a href="#products" class="change-section">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-cubes"></i>
-                                            <h2>stocks</h2>
+                                            <h2>Stocks</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -362,12 +359,6 @@
         <div id="preloader">
             <div id="status">&nbsp;</div>
         </div><!-- /#preloader -->
-        
-        <script src="../js/jquery.min.js"></script>
-        <script src="../js/jquery-ui.min.js"></script>
-        <script src="../js/jquery.backstretch.min.js"></script>
-        <script src="../js/templatemo_script.js"></script>
-		 <script src="../js/bootstrap.js"></script>
-
+      
     </body> 
 </html>
