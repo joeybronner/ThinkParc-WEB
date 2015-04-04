@@ -5,37 +5,23 @@
     session_start();
  ?>
 
-<html class="no-js"> 
+<html> 
     <head>
-	
-	
 	<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta charset="utf-8">
-   
         <title>FCT Partners</title>
-	
         <meta name="description" content="">
         <meta name="" content="width=device-width">
-    
-       
-        <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/templatemo_main.css">
 		<link rel="stylesheet" href="../css/app.css">
     </head>
     <body>
-
-	<?php
 	
-		include('./navbar.html');
-	?>
-
-	
-	
-		</div>
-        <div id="main-wrapper">
+	<?php include('./navbar.html'); ?>
+    
+	<div id="main-wrapper">
             <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
@@ -154,7 +140,7 @@
 
 							 </a>
 									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
-                                    <a href="Entrees.php">
+                                    <a href="entrees.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-in"></i>
                                             <h2>Entrées</h2>
@@ -163,7 +149,7 @@
                                     </a>
                                
 							<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
-                                    <a href="Sorties.php">
+                                    <a href="sorties.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-out"></i>
                                             <h2>Sorties</h2>
@@ -195,7 +181,7 @@
                 
                                   
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="ConsultationVehicule.php">
+                                    <a href="consultationvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-book"></i>
                                             <h2>Consultation</h2>
@@ -215,7 +201,7 @@
                                     </a>
 										
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="Formul.php">
+                                    <a href="formul.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>
                                             <h2>Ajout</h2>
@@ -223,7 +209,7 @@
                                     </a></div>
 									
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="ConsultationVehicule.php">
+                                    <a href="consultationvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-trash-o"></i>
                                             <h2>Suppression</h2>
