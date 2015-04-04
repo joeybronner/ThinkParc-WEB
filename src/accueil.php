@@ -47,7 +47,7 @@
 	-->
             <div class="image-section">
                 <div class="image-container">
-                    <img src="../images/logo.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+                    <img src="../images/board2.JPG" id="menu-img" class="main-img inactive" alt="FCT Partners">
                     <img src="../images/zoom-bg-2.jpg" id="products-img" class="inactive" alt="Product stocks">
                     <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
                     <img src="../images/zoom-bg-4.jpg" id="about-img" class="inactive" alt="Véhicules">
@@ -351,14 +351,10 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
                     <p class="footer-text">Copyright &copy; 2015 FCT Partners</p>
-                </div><!-- /.footer --> 
+                </div> 
             </div>
 
-		</div><!-- /#main-wrapper -->
-        
-        <div id="preloader">
-            <div id="status">&nbsp;</div>
-        </div><!-- /#preloader -->
+		</div>
       
     </body> 
 </html>

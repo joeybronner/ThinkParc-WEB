@@ -16,6 +16,7 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<link rel="stylesheet" href="../css/templatemo_main.css">
+	<link rel="stylesheet" href="../css/app.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="../css/formul_files/formoid1/formoid-flat-green.css" type="text/css" />
 	<script type="text/javascript" src="../js/jquery.js"></script>
