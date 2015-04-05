@@ -159,7 +159,8 @@ img.slide {
 
 .templatemo-content h2 {
     color:#fff;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
     
 }
 
@@ -208,7 +209,7 @@ img.slide {
 }
 .btn-menu > h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 2em;
 }
 
 .change-section {
