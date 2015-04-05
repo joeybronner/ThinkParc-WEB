@@ -2580,7 +2580,7 @@ input[type="search"] {
   input[type="time"],
   input[type="datetime-local"],
   input[type="month"] {
-    line-height: 34px;
+    /*line-height: 34px;*/
   }
   input[type="date"].input-sm,
   input[type="time"].input-sm,

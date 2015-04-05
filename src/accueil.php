@@ -1,8 +1,10 @@
 <?php 
 	include('./maclasse.php');
 	include('./MySQLExeption.php');
-
     session_start();
+	if(!isset($_SESSION['fct_login']) && $_SESSION['fct_login'] == "") {
+		header('Location: http://www.think-parc.com');
+    }
  ?>
 
 <html> 

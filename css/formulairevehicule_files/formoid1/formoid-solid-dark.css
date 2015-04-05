@@ -6,6 +6,7 @@ html{
 }
 .formoid-solid-dark{
   margin:0 auto;
+  width:70%
 }
 .formoid-solid-dark>div,
 .formoid-solid-dark>.title{
@@ -36,8 +37,6 @@ html{
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
-  border-radius: 4px;
-
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
@@ -67,7 +66,7 @@ html{
 
 
 .formoid-solid-dark .large{
-  width: 100%;
+  width: 50%;
   *width: 94%;
 }
 .formoid-solid-dark .medium{
@@ -160,12 +159,13 @@ Solid style
 
 */
 @font-face {
-  font-family: formoid;
+  /*font-family: formoid;
   src:url('formoid.eot');
   src:url('formoid.eot?#iefix') format('embedded-opentype'),
   url('formoid.ttf') format('truetype'),
   url('formoid.woff') format('woff'),
-  url('formoid.svg#formoid') format('svg');
+  url('formoid.svg#formoid') format('svg');*/
+  font-family: Roboto;
   font-weight: normal;
   font-style: normal;
 }
@@ -183,22 +183,31 @@ Solid style
 .formoid-solid-dark{
   font-size: 1em;
   line-height: 1.231;
-
-  border-radius: 5px 5px 0 0;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  margin-bottom:15px;
+  background-color: rgba(0,0,0,0.7);
 }
 .formoid-solid-dark label.title{
-  font-size: 1em;
-  font-weight: 500;
+  color:#fff;
+  font-size: 1.5em;
+  font-weight: 300;
   width: auto;
 }
+
+.formoid-solid-dark label.info{
+  color:#fff;
+  font-size: 1.2em;
+  display: block;
+  font-weight: 300;
+  width: auto;
+}
+
 .formoid-solid-dark input[type=button]{
   outline: none;
   font-size: 1em;
 }
 .formoid-solid-dark input[type=submit]{
   outline: none;
-  font-size: 1.2em;
+  font-size: 0.5em;
 }
 .formoid-solid-dark>div{
   position: relative;
@@ -241,6 +250,10 @@ Not advised to edit stuff below this line
 /* submit + title */
 .formoid-solid-dark div.submit,
 .formoid-solid-dark div.title{
+  color:#fff;
+  font-size:2.5em;
+  padding-left:30px;
+  font-weight:400;
   margin: 0;
   padding-top: 1em;
   padding-bottom: 1em;
@@ -248,11 +261,10 @@ Not advised to edit stuff below this line
 .formoid-solid-dark div.submit{
   vertical-align: middle;
   text-align: right;
-  border-top: 2px solid #d6dbdf;
-  background-color: #F3F5FA;
+  border-top: 3px solid #242424;
+  background-color: #333;
 }
 .formoid-solid-dark div.title {
-  border-radius: 5px 5px 0 0;
 }
 .formoid-solid-dark div.title h2{
   margin-left: 27px;
@@ -275,11 +287,11 @@ Not advised to edit stuff below this line
   -moz-appearance: none;
   appearance: normal;
 
-  border: 2px solid #bdc3c7;
+  border: 1px solid #bdc3c7;
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
-  border-radius:3px;
-  box-shadow: inset 0 -0.3em 0 rgba(0, 0, 0, 0.2);
+  /*border-radius:3px;
+  box-shadow: inset 0 -0.3em 0 rgba(0, 0, 0, 0.2);*/
 }
 
 .formoid-solid-dark input[type=button][disabled] {
@@ -389,7 +401,7 @@ Not advised to edit stuff below this line
   position:absolute;
   float: left;
   opacity:0.01;
-  font-size: 1.3em;
+  font-size: 2em;
   width: 1.2em;
   height: 1em;
   margin: 0;
@@ -411,10 +423,9 @@ Not advised to edit stuff below this line
 }
 .formoid-solid-dark input[type=checkbox]+span:before{
   position: relative;
-  font-family: formoid;
-  margin-right: 0.2em;
-  color: transparent;
+  margin-right: 1em;
   font-size: 1em;
+  color:#fff;
   line-height: 1;
   vertical-align:top;
   -webkit-font-smoothing: antialiased;
@@ -423,11 +434,11 @@ Not advised to edit stuff below this line
 /* checkbox */
 .formoid-solid-dark input[type=checkbox]+span:before{
   content: "\e004";
-  font-size: 0.65em;
+  font-size: 1em;
+  color:white;
   padding: 0.3em;
-  font-weight: bold;
   margin-right: 0.6em;
-  line-height: 2;
+  line-height: 1;
   border-style: solid;
   border-width: 0.3em;
   -webkit-transition: border-color .5s ease-in-out;
@@ -438,7 +449,7 @@ Not advised to edit stuff below this line
 /* radio */
 .formoid-solid-dark input[type=radio]+span:before {
   position: relative;
-  font-family: formoid;
+  font-family: Roboto;
   margin-right: 0.2em;
   color: transparent;
   font-size: 1.4em;
@@ -467,7 +478,7 @@ Not advised to edit stuff below this line
   display: none;
 }
 .formoid-solid-dark .rating-star:after {
-  font-family: formoid;
+  font-family: Roboto;
   font-size: 2em;
   -webkit-transition: color .5s ease-in-out;
   transition: color .5s ease-in-out;
@@ -505,23 +516,19 @@ Not advised to edit stuff below this line
 .formoid-solid-dark .element-file .file_text,
 .formoid-solid-dark select{
   border-style: solid;
-  border-width: 5px;
+  border-width: 1px;
   border-color: #bdc3c7;
   -webkit-transition: border-color 0.5s ease-in-out;
   transition: border-color 0.5s ease-in-out;
-  border-radius:6px;
-
+  border-radius:3px;
   padding: 10px 10px 9px 2.3em;
-  
   outline:none;
   -o-box-sizing: border-box;
   box-sizing: border-box;
-
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: normal;
-  
-  font-size: 1em;
+  font-size: 1.5em;
 }
 .formoid-solid-dark .element-address input[type=text],
 .formoid-solid-dark .element-name input[type=text],
@@ -820,13 +827,16 @@ Not advised to edit stuff below this line
   border-color: #34495E;
 }
 .formoid-solid-dark div.title{
-  background-color: #34495E;
+  /*background-color: #34495E;
   border-top: 1px solid #707F8E;
-  border-bottom: 5px solid #283645;
+  border-bottom: 5px solid #283645;*/
+  background-color: #333;
+  border-top: 1px solid #242424;
+  border-bottom: 3px solid #242424;
 }
 
 .formoid-solid-dark input[type=submit]{
-  background-color: #34495E;
+  background-color: #4183D7;
 }
 
 .formoid-solid-dark input[type=submit]:hover{
