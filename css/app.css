@@ -1,15 +1,10 @@
 body {
-	background: #ffffff;
+	background: #252525;
 	font-family: 'Open Sans';
 	font-weight: 300;
-	margin-top:60px;
+	margin-top:80px;
 }
 
-.center {
-     float: none;
-     margin-left: auto;
-     margin-right: auto;
-}
 
 .main {
 	background: white url(machine_a_ecrire.jpg) right top no-repeat;
