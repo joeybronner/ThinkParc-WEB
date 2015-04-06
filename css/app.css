@@ -5,6 +5,11 @@ body {
 	margin-top:60px;
 }
 
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
 
 .main {
 	background: white url(machine_a_ecrire.jpg) right top no-repeat;
