@@ -69,9 +69,9 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 			?>
 			<tr>
 				<td><b><?php echo $Valeur['id'];?></b></td>
-				<td><b><?php echo $Valeur['Nom'];?></b></td>
-				<td><b><?php echo $Valeur['Prenom'];?></b></td>
-				<td><b><?php echo $Valeur['Login'];?></b></td>
+				<td><b><?php echo $Valeur['nom'];?></b></td>
+				<td><b><?php echo $Valeur['prenom'];?></b></td>
+				<td><b><?php echo $Valeur['login'];?></b></td>
 				<td><pre><?php  print_r($_FILES); ?></td>
 			</tr>
 			<?php

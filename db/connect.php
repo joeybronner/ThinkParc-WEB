@@ -11,7 +11,7 @@ $password=$_POST['pass'];
 require('config.php');
 
 // Check if login exists
-$query = "SELECT * FROM users WHERE Login='" . $login . "'";
+$query = "SELECT * FROM users WHERE login='" . $login . "'";
 $result = $connection->query($query); 
 
 if(mysqli_num_rows($result)==0)
@@ -23,7 +23,7 @@ if(mysqli_num_rows($result)==0)
 else
 {
     // Check if login & password are OK
-	$requete_2 = $connection->query($query . " AND Password='" . $password . "'")
+	$requete_2 = $connection->query($query . " AND password='" . $password . "'")
 	or die ( mysqli_error() );
 
 	if(mysqli_num_rows($requete_2)==0)
@@ -42,11 +42,10 @@ else
 			session_start();
 			$_SESSION['fct_authentification'];
 			$_SESSION['fct_privilege'] = $user['privilege'];
-			$_SESSION['fct_nom'] = $user['Nom'];
-			$_SESSION['fct_prenom'] = $user['Prenom'];
+			$_SESSION['fct_nom'] = $user['nom'];
+			$_SESSION['fct_prenom'] = $user['prenom'];
 			$_SESSION['fct_id'] = $user['id'];
-			$_SESSION['fct_login'] = $user['Login'];
-			$_SESSION['fct_password'] = $user['Password'];
+			$_SESSION['fct_login'] = $user['login'];
 			// Redirection
 			header('Location: ../src/accueil.php'); 
 		} else {
