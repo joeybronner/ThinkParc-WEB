@@ -50,10 +50,10 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
 	</head>
-<body>
+<body background="../images/blanco.jpg">
 
 	<?php include('./navbar.html'); ?>
-		<h2>Informations vehicules</h2>
+		<center><h2>Informations vehicules</h2></center>
  
 	
 	<div class="table-responsive">
@@ -104,12 +104,12 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 	?>
 </table>
 </div>
-
-	<div class="element-select"><label class="title">Selectionner un matricule</label>
+<center>
+	<div class="element-select"><label class="title"><h5>Selectionner un matricule</h5></label>
 		<div class="item-cont">
 			<div class="large">
 			<span>
-				<select name="matricule">
+				<select name="matricule" class="large">
 					<option selected disabled>Liste vehicule</option>
 					<?php 
 						$dbh = new maclasse();
@@ -128,9 +128,9 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			</div>
 		</div>
 	</div>
-	<center>
+		<br />
 		<a href="consultationadministratif.php?id="<?php echo $monid;?>"">
-			<input type="button" name="Administratif" value="Voir ses informations administratif">
+			<input type="button" name="Administratif" class="medium" value="Voir ses informations administratif">
 		</a>
 	</center>
 </form>

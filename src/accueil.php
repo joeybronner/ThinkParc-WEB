@@ -26,8 +26,67 @@
     </head>
     <body>
 	
+	
+	
 	<?php include('./navbar.html'); ?>
-    
+
+	<div class="row">
+		<div class="col-lg-2 col-sm-3 col-xs-13 col-md-3 col-lg-offset-0  margin-top-20 sidebar fixed">
+    <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+    <div class="list-group">
+        <span href="#" class="list-group-item active">
+            Tableau de bord
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+		 <a href="ExpAssurance.php" class="list-group-item">
+            <i class="fa fa-book"></i> Reporting 
+        </a>
+        <a href="AllNotifications.php" class="list-group-item">
+            <i class="fa fa-location-arrow"></i> Machines transférées  <span class="badge">1</span>
+			</a>
+			 <a href="ExpAssurance.php" class="list-group-item">
+            <i class="fa fa-wrench"></i> Machines en maintenance <span class="badge">3</span>
+        </a>
+     
+        <a href="ExpAssurance.php" class="list-group-item">
+            <i class="fa fa-calendar-o"></i> Echéance assurance <span class="badge">3</span>
+        </a>
+        <a href="ExpControle.php" class="list-group-item">
+            <i class="fa fa-automobile"></i> Echéance controle technique <span class="badge">4</span>
+        </a>
+      
+    </div>        
+</div>
+	</div>
+		
+</div>
+		<!--
+		Permet de fermer la sidebar
+		-->
+	<script type="text/javascript">
+	$(function(){
+
+	$('#slide-submenu').on('click',function() {			        
+        $(this).closest('.list-group').fadeOut('slide',function(){
+        	$('.mini-submenu').fadeIn();	
+        });
+        
+      });
+
+	$('.mini-submenu').on('click',function(){		
+        $(this).next('.list-group').toggle('slide');
+        $('.mini-submenu').hide();
+	})
+})
+
+	</script>
+		
 	<div id="main-wrapper">
 	<!--
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
@@ -47,9 +106,10 @@
 				<img src="../images/logoentreprise.jpg">
 			</div>
 	-->
+
             <div class="image-section">
                 <div class="image-container">
-                    <img src="../images/board2.JPG" id="menu-img" class="main-img inactive" alt="FCT Partners">
+                    <img src="../images/zoom-bg-7.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
                     <img src="../images/zoom-bg-2.jpg" id="products-img" class="inactive" alt="Product stocks">
                     <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
                     <img src="../images/zoom-bg-4.jpg" id="about-img" class="inactive" alt="Véhicules">
@@ -101,7 +161,7 @@
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 pull-right">
                                     <a href="#company-intro" class="change-section">
                                         <div class="black-bg btn-menu">
-                                            <h2>Qui somme nous?</h2>
+                                            <h2>Options</h2>
                                         </div>
                                     </a>
                                 </div>
@@ -307,11 +367,49 @@
                             </div>
                         </section><!-- /.contact-section -->    
                         <section id="company-intro-section" class="inactive">
-                            <div class="row">
+                           <div class="row">
                                 <div class="black-bg col-sm-12 col-md-12 col-lg-12">
-                                    <h2 class="text-center">Company Intro</h2>
+                                    <h2 class="text-center">Options</h2>
+                                    
                                     <div class="col-sm-12 col-md-12">
-								<p>Bienvenue sur Think Parc, logiciel de gestion de stock et de parc automobile</p>  </div>
+                                        <p> Vous trouverez dans cette rubrique, toutes les options disponibles</p>
+                                    </div>
+                                    
+                                 	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="docmachines.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-bookmark-o"></i>
+                                            <h2>Ajout marque</h2>
+                                        </div>
+                               <br/>
+                                </div>     </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="docvehicules.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-bookmark"></i>
+                                            <h2>Ajout modèle</h2>
+                                        </div>
+                                  <br/>
+                                </div>  </a>
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="doctechnique.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-download"></i>
+                                            <h2>Ajout document</h2>
+                                        </div>
+                                   <br/>
+                                </div> </a>
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="fichierspdf.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-users"></i>
+                                            <h2>Ajout utilisateur</h2>
+                                        </div> <br/>
+										</div>
+                                    </a>
+                               
+
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                             <div class="row margin-top-20">
@@ -325,15 +423,53 @@
                             </div>
                         </section><!-- /.company-intor-section -->    
                         <section id="testimonials-section" class="inactive">
-                            <div class="row">
+                              <div class="row">
                                 <div class="black-bg col-sm-12 col-md-12 col-lg-12">
+                                    <h2 class="text-center">Documents Techniques</h2>
                                     
-                                    <h2 class="text-center">Documents techniques</h2>
                                     <div class="col-sm-12 col-md-12">
-										<p> Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
+                                        <p> Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
+                                    </div>
+                                    
+                                 	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="docmachines.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-wrench"></i>
+                                            <h2>Documents techniques machines</h2>
+                                        </div>
+                               <br/>
+                                </div>     </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="docvehicules.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-flag-checkered"></i>
+                                            <h2>Documents techniques véhicules</h2>
+                                        </div>
+                                  <br/>
+                                </div>  </a>
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="doctechnique.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-recycle"></i>
+                                            <h2>Documents techniques FCT Software</h2>
+                                        </div>
+                                   <br/>
+                                </div> </a>
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                    <a href="fichierspdf.html" class="change-section">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-list-alt"></i>
+                                            <h2>Autres documents format PDF</h2>
+                                        </div> <br/>
 										</div>
-									
-										
+                                    </a>
+                               
+
+                              
+                                    
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
                             <div class="row margin-top-20">
                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
                                     <a href="#menu" class="change-section">
@@ -343,15 +479,10 @@
                                     </a>
                                 </div>
                             </div>
-                        </section><!-- /.company-intor-section -->    
-
-                        
-                    </div><!-- /.templatemo-content -->  
-                </div><!-- /.templatemo-content-wrapper --> 
             </div><!-- /.row --> 
 
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer fixed">
                     <p class="footer-text">Copyright &copy; 2015 FCT Partners</p>
                 </div> 
             </div>

@@ -1,14 +1,34 @@
 body {
-	background: #ffffff;
+	
 	font-family: 'Open Sans';
 	font-weight: 300;
-	margin-top:60px;
+	margin-top:80px;
 }
 
-.center {
-     float: none;
-     margin-left: auto;
-     margin-right: auto;
+#menu  {
+float:center;
+width:340px;
+margin-top: 8px;
+position: fixed;
+
+}
+
+
+.large{
+  width: 30%;
+  *width: 98%;
+  text-align: center;
+  font-size: 13px;
+}
+.medium{
+  width: 15%;
+  *width: 98%;
+  text-align: center;
+  font-size: 13px;
+}
+.small{
+  width: 25%;
+  *width: 23%;
 }
 
 .main {
@@ -29,14 +49,14 @@ body {
 h1 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
-	color: #555;
+	color: black;
 	margin-bottom: 0;
 }
 
 h2 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
-	color: #999;
+	color: black;
 	font-size: 18px;
 	margin-top: 5px;
 }
@@ -45,6 +65,15 @@ form {
 	margin-top: 60px;
 }
 
+td
+{
+color : black;
+}
+
+th
+{
+color : red;
+}
 
 .madiv {
   position: relative;

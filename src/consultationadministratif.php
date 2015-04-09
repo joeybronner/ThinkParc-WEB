@@ -1,7 +1,7 @@
 <?php
 include('./maclasse.php');
 include('./MySQLExeption.php');
-include('./connexion.php');
+include('../db/config.php');
 session_start();
 if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 	exit("<center><h2>Acces interdit ! Veuillez vous authentifier</h2><br><br><a href='index.php'>Se connecter</a></center> ");

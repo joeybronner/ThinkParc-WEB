@@ -51,7 +51,8 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 <body>
 	<?php include('./navbar.html'); ?>
 	<div id="main-wrapper">
-		<table id="example" class="display" width="100%">
+		<center>
+		<table id="example" class="display" width="80%" border="1">
 			<thead>
 				<tr>
 					<th>id</th>
@@ -78,8 +79,10 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 				}
 			?>
 		</table>
+			</center>
 	</div>
 	
+	<center>
 	<form action="enregistrementlogo.php" enctype="multipart/form-data" class="formoid-flat-green" style="background-color:#dcd5d6;font-size:14px;font-family:'Lato', sans-serif;color:#313131;max-width:480px;min-width:150px" method="get">
 		<div class="title">
 			<h2>Changer/Ajouter logo</h2>
@@ -96,5 +99,6 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 			<input type="submit" value="Envoyer" />
 		</div>
 	</form>
+	</center>
 </body>
 </html>
