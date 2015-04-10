@@ -49,6 +49,8 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			//var selectValue = getSelectValue('matricule');
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
+			
+		
 	</head>
 <body background="../images/blanco.jpg">
 
@@ -109,7 +111,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 		<div class="item-cont">
 			<div class="large">
 			<span>
-				<select name="matricule" class="large">
+				<select name="matricule[]" class="large">
 					<option selected disabled>Liste vehicule</option>
 					<?php 
 						$dbh = new maclasse();
@@ -119,8 +121,10 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 					<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
 					<?php
 						}
-						$monid = $Val['id'];
-						echo $monid;
+						$monid = $Val['matricule'];
+						echo $selectElmt;
+						
+						
 					?>
 				</select>
 				<span class="icon-place"></span>
@@ -129,7 +133,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 		</div>
 	</div>
 		<br />
-		<a href="consultationadministratif.php?id="<?php echo $monid;?>"">
+		<a href="consultationadministratif.php?id="<?php echo $monid?>"">
 			<input type="button" name="Administratif" class="medium" value="Voir ses informations administratif">
 		</a>
 	</center>
