@@ -3,7 +3,7 @@
 	include('./MySQLExeption.php');
     session_start();
 	if(!isset($_SESSION['fct_login']) && $_SESSION['fct_login'] == "") {
-		header('Location: http://www.think-parc.com');
+		//header('Location: #');
     }
  ?>
 
@@ -114,8 +114,8 @@
                     <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
                     <img src="../images/zoom-bg-4.jpg" id="about-img" class="inactive" alt="Véhicules">
                     <img src="../images/zoom-bg-5.jpg" id="contact-img" class="inactive" alt="Contact">
-                    <img src="../images/zoom-bg-6.jpg" id="company-intro-img" class="main-img inactive" alt="Company Intro">
-                    <img src="../images/zoom-bg-7.jpg" id="testimonials-img" class="main-img inactive" alt="Testimonials">
+                    <img src="../images/zoom-bg-6.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
+                    <img src="../images/zoom-bg-7.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
                 </div>
             </div>
 
@@ -259,6 +259,11 @@
 										</div>
                                     </a>
 										
+										<?php
+									// Privilège destiné uniquement aux administrateurs
+									if ($_SESSION['fct_privilege']=='admin') 
+									{
+									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="formul.php">
                                         <div class="black-bg btn-menu">
@@ -266,7 +271,14 @@
                                             <h2>Ajout</h2>
                                         </div>  <br/>
                                     </a></div>
+									<?php
+									}
 									
+								
+									// Privilège destiné uniquement aux administrateurs
+									if ($_SESSION['fct_privilege']=='admin') 
+									{
+									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="consultationvehicule.php">
                                         <div class="black-bg btn-menu">
@@ -274,6 +286,11 @@
                                             <h2>Suppression</h2>
                                         </div>  </div>
                                     </a>
+									<?php
+									}
+									
+									?>
+									
                                 </div>
                                 </div>
 								<br/>
@@ -376,38 +393,53 @@
                                     </div>
                                     
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="docmachines.html" class="change-section">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-bookmark-o"></i>
-                                            <h2>Ajout marque</h2>
+                                            <h2>Ajout Marque</h2>
                                         </div>
-                               <br/>
-                                </div>     </a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="docvehicules.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-bookmark"></i>
-                                            <h2>Ajout modèle</h2>
+                                            <h2>Ajout Modèle</h2>
                                         </div>
-                                  <br/>
-                                </div>  </a>
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="doctechnique.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-download"></i>
                                             <h2>Ajout document</h2>
                                         </div>
-                                   <br/>
-                                </div> </a>
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="fichierspdf.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-users"></i>
-                                            <h2>Ajout utilisateur</h2>
-                                        </div> <br/>
-										</div>
-                                    </a>
-                               
+                                            <h2>Ajout utilisateurs</h2>
+                                        </div>
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
 
                                     <div class="clearfix"></div>
                                 </div>
@@ -423,50 +455,63 @@
                             </div>
                         </section><!-- /.company-intor-section -->    
                         <section id="testimonials-section" class="inactive">
-                              <div class="row">
+                               <div class="row">
                                 <div class="black-bg col-sm-12 col-md-12 col-lg-12">
                                     <h2 class="text-center">Documents Techniques</h2>
                                     
                                     <div class="col-sm-12 col-md-12">
-                                        <p> Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
+                                        <p>Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
                                     </div>
                                     
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="docmachines.html" class="change-section">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-wrench"></i>
                                             <h2>Documents techniques machines</h2>
                                         </div>
-                               <br/>
-                                </div>     </a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="docvehicules.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-flag-checkered"></i>
                                             <h2>Documents techniques véhicules</h2>
                                         </div>
-                                  <br/>
-                                </div>  </a>
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="doctechnique.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-recycle"></i>
                                             <h2>Documents techniques FCT Software</h2>
                                         </div>
-                                   <br/>
-                                </div> </a>
-								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="fichierspdf.html" class="change-section">
+										<br/>
+                                   
+									
+                                </div>
+
+							 </a>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="Consultation.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-list-alt"></i>
                                             <h2>Autres documents format PDF</h2>
-                                        </div> <br/>
-										</div>
-                                    </a>
-                               
+                                        </div>
+										<br/>
+                                   
+									
+                                </div>
 
-                              
-                                    
+							 </a>
+
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -479,6 +524,7 @@
                                     </a>
                                 </div>
                             </div>
+							</section>
             </div><!-- /.row --> 
 
             <div class="row">

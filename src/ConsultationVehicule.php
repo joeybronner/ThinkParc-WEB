@@ -49,13 +49,46 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			//var selectValue = getSelectValue('matricule');
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
+		<script>
+		function SetData(){
+		   var select = document.getElementById('matricule');
+		   var matricule = select.options[select.selectedIndex].value;
+		   document.myform.action = "consultationadministratif.php?id=="+matricule ; # or .getAttribute('action')
+		   myform.submit();
+		}
+		</script>
+		
 	</head>
 <body background="../images/blanco.jpg">
 
 	<?php include('./navbar.html'); ?>
-		<center><h2>Informations vehicules</h2></center>
- 
-	
+	<center>
+		<h2>Informations vehicules</h2>
+		<div class="element-select"><label class="title"><h5>Selectionner un matricule</h5></label>
+			<div class="item-cont">
+				<div class="large">
+				<span>
+					<form method="post" action="consultationadministratif.php">
+						<select name="id" class="large"> 
+							<option selected disabled>Liste vehicule</option>
+							<?php 
+								$dbh = new maclasse();
+								foreach ($dbh->getimmatriculationenregistre() as $Val) {
+							?>
+								<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
+							<?php
+								}
+								$monid = $Val['matricule'];
+							?>  
+						</select>
+						<input TYPE="submit" name="submit" value="Voir ses informations administratif" />
+					</form>
+					<span class="icon-place"></span>
+				</span>
+				</div>
+			</div>
+		</div>
+	</center>
 	<div class="table-responsive">
 	<table class="table table-striped table-bordered table-condensed">   
 		<thead> <!-- En-tÃªte du tableau -->
@@ -104,35 +137,6 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 	?>
 </table>
 </div>
-<center>
-	<div class="element-select"><label class="title"><h5>Selectionner un matricule</h5></label>
-		<div class="item-cont">
-			<div class="large">
-			<span>
-				<select name="matricule" class="large">
-					<option selected disabled>Liste vehicule</option>
-					<?php 
-						$dbh = new maclasse();
-						foreach ($dbh->getimmatriculationenregistre() as $Val) {
-					?>
-
-					<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
-					<?php
-						}
-						$monid = $Val['id'];
-						echo $monid;
-					?>
-				</select>
-				<span class="icon-place"></span>
-			</span>
-			</div>
-		</div>
-	</div>
-		<br />
-		<a href="consultationadministratif.php?id="<?php echo $monid;?>"">
-			<input type="button" name="Administratif" class="medium" value="Voir ses informations administratif">
-		</a>
-	</center>
 </form>
 </body>
 </html>

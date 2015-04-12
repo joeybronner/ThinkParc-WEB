@@ -60,7 +60,7 @@
  
  public function getvehiculee() {
  
-				$a=$_GET['id'];
+				$a=$_POST['id'];
 				
 				$sql1="SELECT * FROM vehicule v, administratif a WHERE a.id_vehicule=v.id and a.id_vehicule = '".$a."'";
 				echo $sql1;

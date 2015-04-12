@@ -1,15 +1,10 @@
 body {
-<<<<<<< HEAD
 	
-=======
-	background: #252525;
->>>>>>> origin/master
 	font-family: 'Open Sans';
 	font-weight: 300;
 	margin-top:80px;
 }
 
-<<<<<<< HEAD
 #menu  {
 float:center;
 width:340px;
@@ -35,8 +30,6 @@ position: fixed;
   width: 25%;
   *width: 23%;
 }
-=======
->>>>>>> origin/master
 
 .main {
 	background: white url(machine_a_ecrire.jpg) right top no-repeat;
