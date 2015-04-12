@@ -49,14 +49,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			//var selectValue = getSelectValue('matricule');
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
-		<script>
-		function SetData(){
-		   var select = document.getElementById('matricule');
-		   var matricule = select.options[select.selectedIndex].value;
-		   document.myform.action = "consultationadministratif.php?id=="+matricule ; # or .getAttribute('action')
-		   myform.submit();
-		}
-		</script>
+		
 		
 	</head>
 <body background="../images/blanco.jpg">
@@ -78,7 +71,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 								<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
 							<?php
 								}
-								$monid = $Val['matricule'];
+							
 							?>  
 						</select>
 						<input TYPE="submit" name="submit" value="Voir ses informations administratif" />
