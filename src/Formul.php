@@ -50,35 +50,7 @@ function recup_modele()
 <!-- Start Formoid form-->
 <link rel="stylesheet" href="../css/formulairevehicule_files/formoid1/formoid-solid-dark.css" type="text/css" />
 <script type="text/javascript" src="../css/formulairevehicule_files/formoid1/jquery.min.js"></script>
-<<<<<<< HEAD
 <form class="formoid-solid-dark" style="background-color:#7d7d7d;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#005500;max-width:480px;min-width:150px" method="get" action="EnregistrementVehicule.php"><div class="title"><h2>Enregistrer une machine</h2></div>
-=======
-<form class="formoid-solid-dark" style="background-color:#7d7d7d;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#005500;max-width:480px;min-width:150px" method="get" action="EnregistrementVehicule.php"><div class="title"><h2>Enregistrer un vehicule</h2></div>
-	<div class="element-select">
-		<label class="title">
-			<span class="required">* Genre</span>
-				</label>
-					<div class="item-cont">
-						<div class="large">
-							<span>
-							<select name="genre" required="required">
-
-							<option value="Vehicule Particulier">Véhicule Particulier</option>
-							<option value="Camionnette de PTAC < ou = 3,5 tonnes">Camionnette de PTAC < ou = 3,5 tonnes</option>
-							<option value="Tricycle ">Tricycle </option>
-							<option value="Quadricycle ">Quadricycle </option>
-							<option value="Vehicule utilitaire">Véhicule utilitaire</option>
-							<option value="Moto ">Moto </option>
-							<option value="Tracteur routier">Tracteur routier</option>
-							<option value="Transport en commun de personne">Transport en commun de personne</option>
-							</select>
-								<i></i>
-									<span class="icon-place"></span>
-							</span>
-						</div>
-					</div>
-	</div>
->>>>>>> origin/master
 	
 	<div class="element-select">
 		<div class="item-cont">
@@ -206,7 +178,6 @@ function recup_modele()
 <input class="medium" data-format="yyyy-mm-dd" type="date" name="dateachat" required="required" placeholder="Date d’Achat " /><input class="medium" data-format="yyyy-mm-dd" type="date" name="misecirculation" placeholder="Date de Mise en Route"/>    
 	<span class="icon-place"></span>
 		</div>
-<<<<<<< HEAD
 			</div>
 
 	<div class="element-input">
@@ -223,7 +194,7 @@ function recup_modele()
 	<div class="element-textarea">
 	<label class="title"></label>
 	<div class="item-cont">
-	<textarea class="small" name="commentaire" cols="20" rows="5" placeholder="Commentaires "></textarea>
+	<textarea class="small" name="commentaire" cols="20" rows="5" placeholder="Commentaires "></textarea>
 	<span class="icon-place"></span>
 	</div>
 	</div>
@@ -248,12 +219,6 @@ function recup_modele()
 		<div class="column column3"><label><input type="checkbox" name="etat" value="Vendu"/><span>Vendu</span></label></div><span class="clearfix"></span>
 </div>
 <div class="submit"><input type="submit" value="Enregistrer"/></div></form>
-=======
-			<span class="clearfix"></span>
-	</div>
-	
-	<div class="submit"><input type="submit" value="Enregistrer"/></div></form>
->>>>>>> origin/master
 <!-- Stop Formoid form-->
 
 
