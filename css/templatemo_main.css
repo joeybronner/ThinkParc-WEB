@@ -155,7 +155,7 @@ img.slide {
 
 .templatemo-content-wrapper {
     overflow:hidden;
-	bottom: 70px;
+	bottom : 150px;
 }
 
 .templatemo-content h2 {
@@ -179,8 +179,9 @@ img.slide {
 .footer {
 	width:100%;
     overflow:hidden; 
-    float: center;
+    bottom: 0px;
 	background-color:#474747;
+	
 }
 
 .footer-text {

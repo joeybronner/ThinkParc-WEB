@@ -280,7 +280,7 @@
 									{
 									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="consultationvehicule.php">
+                                    <a href="suppressionvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-trash-o"></i>
                                             <h2>Suppression</h2>
@@ -526,11 +526,13 @@
                             </div>
 							</section>
             </div><!-- /.row --> 
+
 		</div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer fixed">
-                <p class="footer-text">Copyright &copy; 2015 FCT Partners</p>
-            </div> 
-		</div>      
+		    <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer fixed">
+                    <p class="footer-text">Copyright &copy; 2015 FCT Partners</p>
+                </div> 
+            </div>
+      
     </body> 
 </html>

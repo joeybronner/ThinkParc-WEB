@@ -20,10 +20,31 @@
 	}
   }
   
+    public function deletevehicule() {
+  
+		$b=$_GET['id'];
+		$sql1 = "delete from vehicule WHERE id='".$b."'";
+		
+	    $req1 = $this->dbh->query($sql1);
+              
+        return $req1;
+ }
+ 
+  public function deleteadministratif() {
+  
+		$b=$_GET['id'];
+		$sql1 = "delete from administratif WHERE id='".$b."'";
+		
+	    $req1 = $this->dbh->query($sql1);
+              
+        return $req1;
+ }
+	
   public function getvehicule() {
  
 			
-				$sql1="SELECT * FROM vehicule v, marque m, modele mo WHERE v.id_marque = m.id and v.id_modele = mo.id";
+				$sql1="SELECT v.id, libelle, modele, misecirculation, kilometrage, energie, genre, categorie, numerodeserie, dateachat, date, equipement, commentaire, etat, matricule, affectation
+				FROM vehicule v, marque m, modele mo WHERE v.id_marque = m.id and v.id_modele = mo.id";
 				
                 $req1 = $this->dbh->query($sql1);
               
@@ -49,7 +70,7 @@
 				//$sql1="SELECT id,modele FROM modele WHERE modele like '%".$a."%'";
 				$sql1="SELECT id,modele FROM modele";
 
-				echo $sql1;
+				
 				
 				
 				
@@ -63,7 +84,7 @@
 				$a=$_POST['id'];
 				
 				$sql1="SELECT * FROM vehicule v, administratif a WHERE a.id_vehicule=v.id and a.id_vehicule = '".$a."'";
-				echo $sql1;
+				
                 $req1 = $this->dbh->query($sql1);
               
                 return $req1;
@@ -147,7 +168,7 @@
 		 $sql1='Insert into Vehicule (id_marque, id_modele, genre, categorie, misecirculation, kilometrage, energie, date, numerodeserie, matricule, dateachat, equipement, affectation, etat, commentaire) 
 		 values ("'.$mar.'","'.$mod.'","'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';	
 		 
-		 echo $sql1;
+		 
 		 
 		 $req1 = $this->dbh->query($sql1);
          
@@ -179,7 +200,7 @@
 		 $sql1='Insert into administratif (id_vehicule, prixachat, fournisseur, derniercontrole, prochaincontrole, numcontratassurance, nomassurance, echeanceassurance, conducteur) 
 		 values ("'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'")';	
 		 
-		 echo $sql1;
+		 
 		 
 		 $req1 = $this->dbh->query($sql1);
          

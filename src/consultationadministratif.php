@@ -66,9 +66,17 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			<th>Assureur</th>
 		    <th>Echeance du contrat</th>
 		    <th>Conducteur(s)</th>
+				<?php
+				if ($_SESSION['fct_privilege'] =='admin')
+				{
+				?>
+				<th>Supp</th>
+				<?php
+				}
+				?>
 		</tr>
    </thead>
-
+		<form method="get" action="deleteadministratif.php">
     <?php 
 		$dbh = new maclasse();
 		foreach ($dbh->getvehiculee() as $Valeur) {
@@ -82,10 +90,21 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			<td><b><?php echo $Valeur['nomassurance'];?></b></td>
 			<td><b><?php echo $Valeur['echeanceassurance'];?></b></td>
 			<td><b><?php echo $Valeur['conducteur'];?></b></td>	  
+			<?php
+				if ($_SESSION['fct_privilege'] =='admin')
+				{
+				?>
+				
+			<td><a href="deleteadministratif.php?id=<?php echo $Valeur['id'];?>" onclick="return(confirm('Etes-vous sur de vouloir supprimer cette fiche?'));"><button class="btn btn-danger" type="button" data-toggle="dropdown" aria-expanded="false">Supp</button></a></td>
+
+				<?php
+				}
+				?>
 		</tr>
     <?php
 		}
 	?>
+	</form>
 	</table>
 </div>
 </body>

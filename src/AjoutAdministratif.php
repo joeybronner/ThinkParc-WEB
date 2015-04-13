@@ -1,8 +1,8 @@
 <?php
 
-require_once('./connexion.php'); 
 include('./maclasse.php');
 include('./MySQLExeption.php');
+include('../db/config.php');
 
 session_start();
 

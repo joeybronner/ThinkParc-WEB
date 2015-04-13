@@ -54,30 +54,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 	<?php include('./navbar.html'); ?>
 	<center>
 		<h2>Informations vehicules</h2>
-		<div class="element-select">
-			<div class="item-cont">
-				<div class="large">
-				<span>
-					<form method="post" action="consultationadministratif.php">
-					<h5>Selectionner un matricule</h5>
-						<select name="id" class="large"> 
-							<option selected disabled>Liste vehicule</option>
-							<?php 
-								$dbh = new maclasse();
-								foreach ($dbh->getimmatriculationenregistre() as $Val) {
-							?>
-									<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
-							<?php
-								}
-							?>  
-						</select>
-						<input TYPE="submit" name="submit" value="Voir ses informations administratif" />
-					</form>
-					<span class="icon-place"></span>
-				</span>
-				</div>
-			</div>
-		</div>
+	
 	</center>
 	<div class="table-responsive">
 		
@@ -99,10 +76,17 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			    <th>Etat</th>
 			    <th>Matriculation</th>
 			    <th>Affectation</th>
-			
+				<?php
+				if ($_SESSION['fct_privilege'] =='admin')
+				{
+				?>
+				<th>Supp</th>
+				<?php
+				}
+				?>
 			</tr>
 		</thead>
-
+		<form method="get" action="deletevehicule.php">
 
     <?php 
 		$dbh = new maclasse();
@@ -124,7 +108,16 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			<td><b><?php echo $Valeur['etat'];?></b></td>
 			<td><b><?php echo $Valeur['matricule'];?></b></td>
 			<td><b><?php echo $Valeur['affectation'];?></b></td>
-		
+			<?php
+				if ($_SESSION['fct_privilege'] =='admin')
+				{
+				?>
+				
+			<td><a href="deletevehicule.php?id=<?php echo $Valeur['id'];?>" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce vehicule?'));"><button class="btn btn-danger" type="button" data-toggle="dropdown" aria-expanded="false">Supp</button></a></td>
+
+				<?php
+				}
+				?>
 		</tr>
     <?php
 		}

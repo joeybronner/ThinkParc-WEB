@@ -49,6 +49,13 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 	</script>
 </head>
 <body>
+<?php
+$_FILES['icone']['name']     //Le nom original du fichier, comme sur le disque du visiteur (exemple : mon_icone.png).
+$_FILES['icone']['type']     //Le type du fichier. Par exemple, cela peut être « image/png ».
+$_FILES['icone']['size']     //La taille du fichier en octets.
+$_FILES['icone']['tmp_name'] //L'adresse vers le fichier uploadé dans le répertoire temporaire.
+$_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
+?>
 	<?php include('./navbar.html'); ?>
 	<div id="main-wrapper">
 		<center>
@@ -94,6 +101,13 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 					<input type="file" class="file_input" name="file" />
 				<div class="file_text">Parcourir mes fichiers</div>
 			</label>
+			<?php
+//Créer un dossier 'fichiers/1/'
+  mkdir('fichier/1/', 0777, true);
+ 
+//Créer un identifiant difficile à deviner
+  $nom = md5(uniqid(rand(), true));
+?>
 		</div>
 		<div class="submit">
 			<input type="submit" value="Envoyer" />
