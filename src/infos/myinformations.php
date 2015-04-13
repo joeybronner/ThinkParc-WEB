@@ -1,25 +1,19 @@
 <?php
-include('./maclasse.php');
-include('./MySQLExeption.php');
+require_once('../../db/config.php'); 
+include('../../db/db_functions.php');
 session_start();
-
-if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
-	exit("<center><h2>Acces interdit ! Veuillez vous authentifier</h2><br><br><a href='index.php'>Se connecter</a></center> ");
-}
-
+$dbh = new db_functions();
 ?>
 
 <html>
 <head>
 	<title>FCT</title>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	<link rel="stylesheet" href="../css/bootstrap.css">
-	<link rel="stylesheet" href="../css/font-awesome.min.css">
-	<link rel="stylesheet" href="../css/templatemo_main.css">
-	<link rel="stylesheet" href="../css/app.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" href="../css/formul_files/formoid1/formoid-flat-green.css" type="text/css" />
-	<script type="text/javascript" src="../js/jquery.js"></script>
+	<link rel="stylesheet" href="../../css/bootstrap.css">
+	<link rel="stylesheet" href="../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../css/templatemo_main.css">
+	<link rel="stylesheet" href="../../css/app.css">
+	<link rel="stylesheet" href="../../css/formul_files/formoid1/formoid-flat-green.css" type="text/css" />
+	<script type="text/javascript" src="../../js/jquery.js"></script>
 	  <script type="text/javascript">
 	  $(document).ready(function() {  
 		$('#example').dataTable( {
@@ -50,13 +44,14 @@ if ((!isset($_SESSION['fct_login'])) && (!empty($_SESSION['fct_login']))) {
 </head>
 <body>
 <?php
+/*
 $_FILES['icone']['name']     //Le nom original du fichier, comme sur le disque du visiteur (exemple : mon_icone.png).
 $_FILES['icone']['type']     //Le type du fichier. Par exemple, cela peut être « image/png ».
 $_FILES['icone']['size']     //La taille du fichier en octets.
 $_FILES['icone']['tmp_name'] //L'adresse vers le fichier uploadé dans le répertoire temporaire.
-$_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
+$_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.*/
 ?>
-	<?php include('./navbar.html'); ?>
+	<?php include('../header/navbar.php'); ?>
 	<div id="main-wrapper">
 		<center>
 		<table id="example" class="display" width="80%" border="1">
@@ -71,7 +66,6 @@ $_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fich
 			</thead>
 
 			<?php 
-				$dbh = new maclasse();
 				foreach ($dbh->getinfouser() as $Valeur)
 				{
 			?>
@@ -80,7 +74,7 @@ $_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fich
 				<td><b><?php echo $Valeur['nom'];?></b></td>
 				<td><b><?php echo $Valeur['prenom'];?></b></td>
 				<td><b><?php echo $Valeur['login'];?></b></td>
-				<td><pre><?php  print_r($_FILES); ?></td>
+				<!--<td><pre><?php  //print_r($_FILES); ?></td>-->
 			</tr>
 			<?php
 				}
@@ -102,11 +96,12 @@ $_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fich
 				<div class="file_text">Parcourir mes fichiers</div>
 			</label>
 			<?php
-//Créer un dossier 'fichiers/1/'
-  mkdir('fichier/1/', 0777, true);
+			
+	//Créer un dossier 'fichiers/1/'
+	//mkdir('fichier/1/', 0777, true);
  
 //Créer un identifiant difficile à deviner
-  $nom = md5(uniqid(rand(), true));
+  //$nom = md5(uniqid(rand(), true));
 ?>
 		</div>
 		<div class="submit">

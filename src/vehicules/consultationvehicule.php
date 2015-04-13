@@ -1,10 +1,6 @@
 <?php
-include('./maclasse.php');
-include('./MySQLExeption.php');
+include('../../db/db_functions.php');
 session_start();
-if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
-	exit("<center><h2>Acces interdit ! Veuillez vous authentifier</h2><br><br><a href='index.php'>Se connecter</a></center> ");
-	}
 ?>
 <html>
 	<head>
@@ -12,14 +8,12 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 		<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta name="description" content="">
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/templatemo_main.css">
-		<link rel="stylesheet" href="../css/app.css">
-		<script type="text/javascript" src="../js/jquery.js"></script>
-		<script type="text/javascript" src="../js/jquery.dataTables.js"></script>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/templatemo_main.css">
+		<link rel="stylesheet" href="../../css/app.css">
+		<script type="text/javascript" src="../../js/jquery.js"></script>
+		<script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#example').dataTable( {
@@ -49,12 +43,35 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
 	</head>
-<body background="../images/blanco.jpg">
+<body background="../../images/blanco.jpg">
 
-	<?php include('./navbar.html'); ?>
+	<?php include('../header/navbar.php'); ?>
 	<center>
 		<h2>Informations vehicules</h2>
-	
+		<div class="element-select">
+			<div class="item-cont">
+				<div class="large">
+				<span>
+					<form method="post" action="consultationadministratif.php">
+					<h5>Selectionner un matricule</h5>
+						<select name="id" class="large"> 
+							<option selected disabled>Liste vehicule</option>
+							<?php 
+								$dbh = new db_functions();
+								foreach ($dbh->getimmatriculationenregistre() as $Val) {
+							?>
+									<option value="<?php echo $Val['id'];?>"><?php echo $Val['matricule'];?></option>
+							<?php
+								}
+							?>  
+						</select>
+						<input TYPE="submit" name="submit" value="Voir ses informations administratif" />
+					</form>
+					<span class="icon-place"></span>
+				</span>
+				</div>
+			</div>
+		</div>
 	</center>
 	<div class="table-responsive">
 		
@@ -76,20 +93,13 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			    <th>Etat</th>
 			    <th>Matriculation</th>
 			    <th>Affectation</th>
-				<?php
-				if ($_SESSION['fct_privilege'] =='admin')
-				{
-				?>
-				<th>Supp</th>
-				<?php
-				}
-				?>
+			
 			</tr>
 		</thead>
-		<form method="get" action="deletevehicule.php">
+
 
     <?php 
-		$dbh = new maclasse();
+		$dbh = new db_functions();
 		foreach ($dbh->getvehicule() as $Valeur) {
 	?>
 		<tr>
@@ -108,16 +118,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 			<td><b><?php echo $Valeur['etat'];?></b></td>
 			<td><b><?php echo $Valeur['matricule'];?></b></td>
 			<td><b><?php echo $Valeur['affectation'];?></b></td>
-			<?php
-				if ($_SESSION['fct_privilege'] =='admin')
-				{
-				?>
-				
-			<td><a href="deletevehicule.php?id=<?php echo $Valeur['id'];?>" onclick="return(confirm('Etes-vous sur de vouloir supprimer ce vehicule?'));"><button class="btn btn-danger" type="button" data-toggle="dropdown" aria-expanded="false">Supp</button></a></td>
-
-				<?php
-				}
-				?>
+		
 		</tr>
     <?php
 		}

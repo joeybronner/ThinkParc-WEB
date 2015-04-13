@@ -1,11 +1,7 @@
 <?php
-include('./maclasse.php');
-include('./MySQLExeption.php');
-include('../db/config.php');
+require_once('../../db/config.php'); 
+include('../../db/db_functions.php');
 session_start();
-if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
-	exit("<center><h2>Acces interdit ! Veuillez vous authentifier</h2><br><br><a href='index.php'>Se connecter</a></center> ");
-}
 ?>
 
 <html>
@@ -15,12 +11,12 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 		<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta name="description" content="">
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/templatemo_main.css">
-		<link rel="stylesheet" href="../css/app.css">
-		<script type="text/javascript" src="../js/jquery.js"></script>
-		<script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+        <link rel="stylesheet" href="../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/templatemo_main.css">
+		<link rel="stylesheet" href="../../css/app.css">
+		<script type="text/javascript" src="../../js/jquery.js"></script>
+		<script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#example').dataTable( {
@@ -51,7 +47,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
 	</head>
 <body>
 
-<?php include('./navbar.html'); ?>
+<?php include('../header/navbar.php'); ?>
 
 	
 <div class="table-responsive">
@@ -78,7 +74,7 @@ if ((!isset($_SESSION['login'])) && (!empty($_SESSION['login']))) {
    </thead>
 		<form method="get" action="deleteadministratif.php">
     <?php 
-		$dbh = new maclasse();
+		$dbh = new db_functions();
 		foreach ($dbh->getvehiculee() as $Valeur) {
 	?>
 		<tr>

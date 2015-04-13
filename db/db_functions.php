@@ -1,24 +1,38 @@
 <?php
 //session_start();
-  class maclasse
+  class db_functions
   {
   public $dbh,$db;
     
 	
     public function __construct()
     {
-        $this->dbh = new PDO('mysql:host=127.0.0.1;dbname=FCT','root','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-	// Connection au serveur
-		try {
-		$dns = 'mysql:host=localhost;dbname=FCT';
-		$user = 'root';
-		$pass = '';
-		$connection = new PDO( $dns, $user, $pass );
-		} catch ( Exception $e ) {
-		echo "Connection à MySQL impossible : ", $e->getMessage();
-		die();
+		if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1') {
+			$this->dbh = new PDO('mysql:host=127.0.0.1;dbname=FCT','root','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			// Connection au serveur
+			try {
+				$dns = 'mysql:host=localhost;dbname=FCT';
+				$user = 'root';
+				$pass = '';
+				$connection = new PDO( $dns, $user, $pass );
+			} catch ( Exception $e ) {
+				echo "Connection à MySQL impossible : ", $e->getMessage();
+				die();
+			}
+		} else {
+			$this->dbh = new PDO('mysql:host=thinkparqnroot.mysql.db;dbname=thinkparqnroot','thinkparqnroot','Thinkparc1', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			// Connection au serveur
+			try {
+				$dns = 'mysql:host=thinkparqnroot.mysql.db;dbname=thinkparqnroot';
+				$user = 'thinkparqnroot';
+				$pass = 'Thinkparc1';
+				$connection = new PDO( $dns, $user, $pass );
+			} catch ( Exception $e ) {
+				echo "Connection à MySQL impossible : ", $e->getMessage();
+				die();
+			}
+		}
 	}
-  }
   
     public function deletevehicule() {
   

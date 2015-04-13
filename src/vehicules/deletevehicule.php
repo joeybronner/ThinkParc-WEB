@@ -1,13 +1,8 @@
 <?php
-
-require_once('../db/config.php'); 
-include('./maclasse.php');
-include('./MySQLExeption.php');
-
+require_once('../../db/config.php'); 
+include('../../db/db_functions.php');
 session_start();
-
-$dbh = new maclasse();
-//$dbh->RecordCar();
+$dbh = new db_functions();
 ?>
 
 <html> 
@@ -17,10 +12,10 @@ $dbh = new maclasse();
         <meta name="description" content="">
         <meta name="" content="width=device-width">
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/templatemo_main.css">
-		<link rel="stylesheet" href="../css/app.css">
+        <link rel="stylesheet" href="../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/templatemo_main.css">
+		<link rel="stylesheet" href="../../css/app.css">
     </head>
     <body>
 	<div>

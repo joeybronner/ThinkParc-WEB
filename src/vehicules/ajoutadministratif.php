@@ -1,13 +1,8 @@
 <?php
-
-include('./maclasse.php');
-include('./MySQLExeption.php');
-include('../db/config.php');
-
+require_once('../../db/config.php'); 
+include('../../db/db_functions.php');
 session_start();
-
-$dbh = new maclasse();
-//$dbh->RecordCar();
+$dbh = new db_functions();
 ?>
 
 <html class="no-js"> 
@@ -16,10 +11,10 @@ $dbh = new maclasse();
 		<meta name="viewport" content="width=device-width, user-scalable=yes" />
         <meta name="description" content="">
 		<meta charset="utf-8">
-        <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/templatemo_main.css">
-		<link rel="stylesheet" href="../css/app.css">
+        <link rel="stylesheet" href="../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/templatemo_main.css">
+		<link rel="stylesheet" href="../../css/app.css">
     </head>
     <body>
 
@@ -46,7 +41,7 @@ $dbh = new maclasse();
 			<div class="alert alert-danger alert-error">
 				<a href="#" class="close" data-dismiss="alert">&times;</a>
 				<center><strong>Erreur!</strong> Un problème est survenue lors de l'enregistrement de la fiche administrative.</center>
-				<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='FormulAdministratif.php'"><i class="icon-white icon-th-large"></i> Retour au formulaire</button></center>
+				<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='administratif.php'"><i class="icon-white icon-th-large"></i> Retour au formulaire</button></center>
 			</div>
 		</div>
 	<?php
