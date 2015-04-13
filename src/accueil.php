@@ -1,6 +1,5 @@
 <?php 
-	include('./maclasse.php');
-	include('./MySQLExeption.php');
+	include('../db/db_functions.php');
     session_start();
 	if(!isset($_SESSION['fct_login']) && $_SESSION['fct_login'] == "") {
 		//header('Location: #');
@@ -28,7 +27,7 @@
 	
 	
 	
-	<?php include('./navbar.html'); ?>
+	<?php include('header/navbar.php'); ?>
 
 	<div class="row">
 		<div class="col-lg-2 col-sm-3 col-xs-13 col-md-3 col-lg-offset-0  margin-top-20 sidebar fixed">
@@ -44,20 +43,20 @@
                 <i class="fa fa-times"></i>
             </span>
         </span>
-		 <a href="ExpAssurance.php" class="list-group-item">
+		 <a href="#" class="list-group-item">
             <i class="fa fa-book"></i> Reporting 
         </a>
-        <a href="AllNotifications.php" class="list-group-item">
+        <a href="#" class="list-group-item">
             <i class="fa fa-location-arrow"></i> Machines transférées  <span class="badge">1</span>
 			</a>
-			 <a href="ExpAssurance.php" class="list-group-item">
+			 <a href="#" class="list-group-item">
             <i class="fa fa-wrench"></i> Machines en maintenance <span class="badge">3</span>
         </a>
      
-        <a href="ExpAssurance.php" class="list-group-item">
+        <a href="#" class="list-group-item">
             <i class="fa fa-calendar-o"></i> Echéance assurance <span class="badge">3</span>
         </a>
-        <a href="ExpControle.php" class="list-group-item">
+        <a href="#" class="list-group-item">
             <i class="fa fa-automobile"></i> Echéance controle technique <span class="badge">4</span>
         </a>
       
@@ -187,7 +186,7 @@
                                     </div>
                                     
                                  	<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-file"></i>
                                             <h2>Consultation</h2>
@@ -199,7 +198,7 @@
 
 							 </a>
 									<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
-                                    <a href="entrees.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-in"></i>
                                             <h2>Entrées</h2>
@@ -208,7 +207,7 @@
                                     </a>
                                
 							<div class="col-xs-7 col-sm-4 col-md-4 col-lg-4 ">
-                                    <a href="sorties.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-out"></i>
                                             <h2>Sorties</h2>
@@ -240,7 +239,7 @@
                 
                                   
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="consultationvehicule.php">
+                                    <a href="vehicules/consultationvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-book"></i>
                                             <h2>Consultation</h2>
@@ -250,7 +249,7 @@
                                     </a>
 									
 											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="administratif.php">
+                                    <a href="vehicules/administratif.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-book"></i>
                                             <h2>Administratif</h2>
@@ -265,7 +264,7 @@
 									{
 									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="formul.php">
+                                    <a href="vehicules/ajoutvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>
                                             <h2>Ajout</h2>
@@ -280,7 +279,7 @@
 									{
 									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="consultationvehicule.php">
+                                    <a href="vehicules/suppressionvehicule.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-trash-o"></i>
                                             <h2>Suppression</h2>
@@ -393,7 +392,7 @@
                                     </div>
                                     
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-bookmark-o"></i>
                                             <h2>Ajout Marque</h2>
@@ -405,7 +404,7 @@
 
 							 </a>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-bookmark"></i>
                                             <h2>Ajout Modèle</h2>
@@ -417,7 +416,7 @@
 
 							 </a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-download"></i>
                                             <h2>Ajout document</h2>
@@ -429,7 +428,7 @@
 
 							 </a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-users"></i>
                                             <h2>Ajout utilisateurs</h2>
@@ -464,7 +463,7 @@
                                     </div>
                                     
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-wrench"></i>
                                             <h2>Documents techniques machines</h2>
@@ -476,7 +475,7 @@
 
 							 </a>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-flag-checkered"></i>
                                             <h2>Documents techniques véhicules</h2>
@@ -488,7 +487,7 @@
 
 							 </a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-recycle"></i>
                                             <h2>Documents techniques FCT Software</h2>
@@ -500,7 +499,7 @@
 
 							 </a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="Consultation.php">
+                                    <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-list-alt"></i>
                                             <h2>Autres documents format PDF</h2>
@@ -527,13 +526,9 @@
 							</section>
             </div><!-- /.row --> 
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer fixed">
-                    <p class="footer-text">Copyright &copy; 2015 FCT Partners</p>
-                </div> 
-            </div>
-
 		</div>
+		
+		<?php include('footer/footer.php'); ?>
       
     </body> 
 </html>
