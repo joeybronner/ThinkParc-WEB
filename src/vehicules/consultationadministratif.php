@@ -75,11 +75,7 @@ session_start();
 		<form method="get" action="deleteadministratif.php">
     <?php 
 		$dbh = new db_functions();
-<<<<<<< HEAD:src/vehicules/consultationadministratif.php
 		foreach ($dbh->getvehiculeadministratif() as $Valeur) {
-=======
-		foreach ($dbh->getvehiculee() as $Valeur) {
->>>>>>> 9db3c4b80bf0b3d6cdee713c4ef9b4fc8a694543:src/vehicules/consultationadministratif.php
 	?>
 		<tr>
 			<td><b><?php echo $Valeur['prixachat'];?></b></td>

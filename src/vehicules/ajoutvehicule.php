@@ -91,7 +91,6 @@ session_start();
 		<div class="element-select">
 			<div class="item-cont">
 				<span>
-<<<<<<< HEAD:src/vehicules/ajoutvehicule.php
 					<select name="genre" class="medium" ><option selected disabled>Genre</option><?php 
 
 					$dbh = new db_functions();
@@ -105,20 +104,13 @@ session_start();
 				<?php
 				}
 				?><span></select><select name="categorie" class="medium" >
-=======
-					<select name="genre" class="medium" ><option selected disabled>Genre</option><option value="Vehicule Particulier">Véhicule Particulier</option><option value="Camionnette de PTAC < ou = 3,5 tonnes">Camionnette de PTAC < ou = 3,5 tonnes</option><option value="Tricycle ">Tricycle </option><option value="Quadricycle ">Quadricycle </option><option value="Vehicule utilitaire">Véhicule utilitaire</option><option value="Moto ">Moto </option><option value="Tracteur routier">Tracteur routier</option><option value="Transport en commun de personne">Transport en commun de personne</option></select></span><span><select name="categorie" class="medium" >
->>>>>>> 9db3c4b80bf0b3d6cdee713c4ef9b4fc8a694543:src/vehicules/ajoutvehicule.php
 				<option selected disabled>Catégorie</option>
 			<?php 
-
-					$dbh = new db_functions();
+				$dbh = new db_functions();
 				foreach ($dbh->getcategorie() as $Valeur)
 				{
-				
 				?>
-				
 					<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['categorie'];?></option>
-					
 				<?php
 				}
 				?>
@@ -126,7 +118,6 @@ session_start();
 		</span>
 			<i></i>
 				<span class="icon-place"></span>
-				
 					</div>
 						</div>
 		
@@ -236,22 +227,16 @@ session_start();
 	<span>
 	<select name="affectation" required="required">
 		<option selected disabled>Lieu d'affectation</option>
-<<<<<<< HEAD:src/vehicules/ajoutvehicule.php
 		<?php 
-
-					$dbh = new db_functions();
+				$dbh = new db_functions();
 				foreach ($dbh->getaffectation() as $Valeur)
 				{
-				
 				?>
-				
-					<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['affectation'];?></option>
-					
+					<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['affectation'];?></option>	
 				<?php
 				}
-				?></select><i></i><span class="icon-place"></span></span></div></div></div>
-	
-
+				?>
+	</select><i></i><span class="icon-place"></span></span></div></div></div>
 			<div class="element-select">
 			<label class="title">
 				<span class="required">*</span>
@@ -262,36 +247,18 @@ session_start();
 	<select name="etat" required="required">
 		<option selected disabled>Etat</option>
 		<?php 
-
-					$dbh = new db_functions();
+				$dbh = new db_functions();
 				foreach ($dbh->getetat() as $Valeur)
 				{
-				
 				?>
-				
 					<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['etat'];?></option>
-					
 				<?php
 				}
-				?></select><i></i><span class="icon-place"></span></span></div></div></div>
+		?>
+	</select><i></i><span class="icon-place"></span></span></div></div></div>
 		
-=======
-		<option value="site 1">site 1</option>
-		<option value="site 2">site 2</option>
-		<option value="site 3">site 3</option></select><i></i><span class="icon-place"></span></span></div></div></div>
-		<br />
-
-		<div class="element-checkbox">	
-		<label class="title">Etat</label>		
-		<div class="column column3"><label><input type="checkbox" name="etat" value="Hors Parc "/><span>Hors Parc</span></label></div><span class="clearfix"></span>
-		<div class="column column3"><label><input type="checkbox" name="etat" value="Reforme "/><span>Réformé</span></label></div><span class="clearfix"></span>
-		<div class="column column3"><label><input type="checkbox" name="etat" value="Vendu"/><span>Vendu</span></label></div><span class="clearfix"></span>
-		</div>
->>>>>>> 9db3c4b80bf0b3d6cdee713c4ef9b4fc8a694543:src/vehicules/ajoutvehicule.php
 <div class="submit"><input type="submit" value="Enregistrer"/></div></form>
 <!-- Stop Formoid form-->
-
-
 
 </body>
 </html>

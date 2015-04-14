@@ -57,8 +57,16 @@
   public function getvehicule() {
  
 			
-				$sql1="SELECT v.id, libelle, modele, misecirculation, kilometrage, energie, genre, categorie, numerodeserie, dateachat, date, equipement, commentaire, etat, matricule, affectation
-				FROM vehicule v, marque m, modele mo WHERE v.id_marque = m.id and v.id_modele = mo.id";
+				$sql1="SELECT *
+				FROM vehicule v, marque m, modele mo, categorie ca, energie en, genre ge, equipement eq, etat et, affectation af 
+				WHERE v.id_marque = m.id and v.id_modele = mo.id
+				AND v.id_affectation=af.id
+				AND v.id_categorie=ca.id
+				AND v.id_energie=en.id
+				AND v.id_equipement=eq.id
+				AND v.id_etat=et.id
+				AND v.id_genre=ge.id";
+				
 				
                 $req1 = $this->dbh->query($sql1);
               
@@ -93,11 +101,95 @@
                 return $req1;
  }
  
- public function getvehiculee() {
+     public function getenergie() {
+ 
+
+				$sql1="SELECT id,energie FROM energie";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+					
+			public function getaffectation() {
+ 
+
+				$sql1="SELECT id,affectation FROM affectation";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+					
+					public function getcategorie() {
+ 
+
+				$sql1="SELECT id,categorie FROM categorie";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+			
+			public function getetat() {
+ 
+
+				$sql1="SELECT id,etat FROM etat";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+					
+					
+			public function getgenre() {
+ 
+
+				$sql1="SELECT id,genre FROM genre";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+					
+					
+								
+			public function getequipement() {
+ 
+
+				$sql1="SELECT id,equipement FROM equipement";
+
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+					}
+					
+					
+ public function getvehiculeadministratif() {
  
 				$a=$_POST['id'];
 				
-				$sql1="SELECT * FROM vehicule v, administratif a WHERE a.id_vehicule=v.id and a.id_vehicule = '".$a."'";
+				$sql1="SELECT * FROM vehicule v, administratif a, fournisseur fo, assurance ass 
+				WHERE a.id_vehicule=v.id 
+				AND a.id_fournisseur=fo.id
+				AND a.id_nomassurance=ass.id
+				and a.id_vehicule = '".$a."'";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+  public function getassurance() {
+ 
+				$sql1="SELECT id, nomassurance FROM assurance";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+  public function getfournisseur() {
+ 
+				$sql1="SELECT id, fournisseur FROM fournisseur";
 				
                 $req1 = $this->dbh->query($sql1);
               
@@ -179,7 +271,7 @@
 		$m=$_GET['commentaire'];
 
 	
-		 $sql1='Insert into Vehicule (id_marque, id_modele, genre, categorie, misecirculation, kilometrage, energie, date, numerodeserie, matricule, dateachat, equipement, affectation, etat, commentaire) 
+		 $sql1='Insert into Vehicule (id_marque, id_modele, id_genre, id_categorie, misecirculation, kilometrage, id_energie, date, numerodeserie, matricule, dateachat, id_equipement, id_affectation, id_etat, commentaire) 
 		 values ("'.$mar.'","'.$mod.'","'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';	
 		 
 		 
@@ -205,13 +297,13 @@
 		$d=$_GET['derniercontrole'];
 		$e=$_GET['prochaincontrole'];
 		$f=$_GET['numcontratassurance'];
-		$g=$_GET['nomassurance'];
+		$g=$_GET['assurance'];
 		$h=$_GET['echeanceassurance'];
 		$i=$_GET['conducteur'];
 		
 
 	
-		 $sql1='Insert into administratif (id_vehicule, prixachat, fournisseur, derniercontrole, prochaincontrole, numcontratassurance, nomassurance, echeanceassurance, conducteur) 
+		 $sql1='Insert into administratif (id_vehicule, prixachat, id_fournisseur, derniercontrole, prochaincontrole, numcontratassurance, id_nomassurance, echeanceassurance, conducteur) 
 		 values ("'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'")';	
 		 
 		 

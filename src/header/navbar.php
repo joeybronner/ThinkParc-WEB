@@ -1,9 +1,5 @@
 <?php if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1') {
-<<<<<<< HEAD
     $path = '/projects/ThinkParc-WEB/';
-=======
-    $path = '/thinkparc-web/';
->>>>>>> 9db3c4b80bf0b3d6cdee713c4ef9b4fc8a694543
 } else {
     $path = '/';
 }
