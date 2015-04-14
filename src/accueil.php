@@ -84,7 +84,7 @@
             </div>
 
             <div class="container">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 templatemo-content-wrapper">
+                <div style="margin-top:-50px;" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 templatemo-content-wrapper">
                     <div class="templatemo-content">
                         <section id="menu-section" class="active">
                             <div class="row">
