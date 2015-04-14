@@ -29,42 +29,7 @@
 	
 	<?php include('header/navbar.php'); ?>
 
-	<div class="row">
-		<div class="col-lg-2 col-sm-3 col-xs-13 col-md-3 col-lg-offset-0  margin-top-20 sidebar fixed">
-    <div class="mini-submenu">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </div>
-    <div class="list-group">
-        <span href="#" class="list-group-item active">
-            Tableau de bord
-            <span class="pull-right" id="slide-submenu">
-                <i class="fa fa-times"></i>
-            </span>
-        </span>
-		 <a href="#" class="list-group-item">
-            <i class="fa fa-book"></i> Reporting 
-        </a>
-        <a href="#" class="list-group-item">
-            <i class="fa fa-location-arrow"></i> Machines transférées  <span class="badge">1</span>
-			</a>
-			 <a href="#" class="list-group-item">
-            <i class="fa fa-wrench"></i> Machines en maintenance <span class="badge">3</span>
-        </a>
-     
-        <a href="#" class="list-group-item">
-            <i class="fa fa-calendar-o"></i> Echéance assurance <span class="badge">3</span>
-        </a>
-        <a href="#" class="list-group-item">
-            <i class="fa fa-automobile"></i> Echéance controle technique <span class="badge">4</span>
-        </a>
-      
-    </div>        
-</div>
-	</div>
-		
-</div>
+
 		<!--
 		Permet de fermer la sidebar
 		-->
@@ -123,6 +88,18 @@
                     <div class="templatemo-content">
                         <section id="menu-section" class="active">
                             <div class="row">
+
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+                                        <div class="black-bg btn-menu">
+                                            <h2>News</h2>
+											<ul> 
+												<li>News 1 
+												<li>News 2 
+												<li>News 3 
+											</ul>
+                                        </div>
+                                </div>
+							
                                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
                                     <a href="#products" class="change-section">
                                         <div class="black-bg btn-menu">
@@ -172,7 +149,32 @@
                                         </div>
                                     </a>
                                 </div>
-								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-bottom-20 text-center">
+                                        <div class="black-bg btn-menu">
+                                            <h2>Vue rapide</h2>
+											<table>
+											  <tr>
+												<td>Machines transférées</td> 
+												<td>1</td>
+											  </tr>
+											  <tr>
+												<td>Machines en maintenance</td> 
+												<td>3</td>
+											  </tr>
+											  <tr>
+												<td>Echéance assurance</td> 
+												<td>3</td>
+											  </tr>
+											  <tr>
+												<td>Echéance controle technique</td> 
+												<td>4</td>
+											  </tr>
+											</table>
+                                        </div>
+                                </div>
+							
+							</div>
 								  
                         </section><!-- /.menu-section -->    
                         <section id="products-section" class="inactive" >
@@ -527,8 +529,10 @@
             </div><!-- /.row --> 
 
 		</div>
-		
 		<?php include('footer/footer.php'); ?>
-      
+		</div>
+		
+    </div>
+	
     </body> 
 </html>
