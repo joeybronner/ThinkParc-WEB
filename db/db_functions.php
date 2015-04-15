@@ -230,25 +230,21 @@
               
                 return $req1;
  }
-  public function Recordlogo()
+  public function Recordlogo($img)
   {
-	$a=$_GET['logo'];
-	$b=$_SESSION['id'];
-
+	$b=$_SESSION['fct_id'];
 	
-		 $sql1='Update users set image= "'.$a.'" where id="'.$b.'"';
-		 
-		 $req1 = $this->dbh->query($sql1);
-		    
-		 if (!$req1) {
-				return "Erreur de requete";
-				} else
-				{
-                return $req1;
-  
-				}
-  
-  
+	$sql1=	'UPDATE users ' .
+			'SET image= "'.$img.'" ' . 
+			'WHERE id="'.$b.'"';
+	 
+	$req1 = $this->dbh->query($sql1);
+	    
+	if (!$req1) {
+		return "Erreur de requete";
+	} else {
+        return $req1;
+	}
   }
   
   

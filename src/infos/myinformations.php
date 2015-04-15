@@ -43,71 +43,92 @@ $dbh = new db_functions();
 	</script>
 </head>
 <body>
-<?php
-/*
-$_FILES['icone']['name']     //Le nom original du fichier, comme sur le disque du visiteur (exemple : mon_icone.png).
-$_FILES['icone']['type']     //Le type du fichier. Par exemple, cela peut être « image/png ».
-$_FILES['icone']['size']     //La taille du fichier en octets.
-$_FILES['icone']['tmp_name'] //L'adresse vers le fichier uploadé dans le répertoire temporaire.
-$_FILES['icone']['error']    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.*/
-?>
 	<?php include('../header/navbar.php'); ?>
-	<div id="main-wrapper">
-		<center>
-		<table id="example" class="display" width="80%" border="1">
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>nom</th>
-					<th>prenom</th>
-					<th>login</th>
-					<th>image</th>
-			   </tr>
-			</thead>
-
-			<?php 
-				foreach ($dbh->getinfouser() as $Valeur)
-				{
-			?>
-			<tr>
-				<td><b><?php echo $Valeur['id'];?></b></td>
-				<td><b><?php echo $Valeur['nom'];?></b></td>
-				<td><b><?php echo $Valeur['prenom'];?></b></td>
-				<td><b><?php echo $Valeur['login'];?></b></td>
-				<!--<td><pre><?php  //print_r($_FILES); ?></td>-->
-			</tr>
-			<?php
-				}
-			?>
-		</table>
-			</center>
-	</div>
+	<?php
+		$dbh->getinfouser();			
+		foreach ($dbh->getinfouser() as $Valeur) {
+			$id = $Valeur['id'];
+			$nom = $Valeur['nom'];
+			$prenom = $Valeur['prenom'];
+			$login = $Valeur['login'];
+			$image = $Valeur['image'];
+		}	
+	?>
 	
-	<center>
-	<form action="enregistrementlogo.php" enctype="multipart/form-data" class="formoid-flat-green" style="background-color:#dcd5d6;font-size:14px;font-family:'Lato', sans-serif;color:#313131;max-width:480px;min-width:150px" method="get">
-		<div class="title">
-			<h2>Changer/Ajouter logo</h2>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+        <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Mes informations</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+					<img alt="userpic" src="<?php echo "users_images/" . $image; ?>" class="img-circle imguser">
+				</div>
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+					  <tr>
+                        <td><b>ID</b></td>
+                        <td><?php echo $id; ?></td>
+                      </tr>
+                      <tr>
+                        <td><b>Nom</b></td>
+                        <td><?php echo $nom; ?></td>
+                      </tr>
+                      <tr>
+                        <td><b>Prenom</b></td>
+                        <td><?php echo $prenom; ?></td>
+                      </tr>
+                      <tr>
+                        <td><b>Login</b></td>
+                        <td><?php echo $login; ?></td>
+                      </tr>
+					  <tr>
+                        <td><b>Image</b></td>
+                        <td><?php echo $image; ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 		</div>
-		<div class="element-file">
-			<label class="title">Logo</label>
-			<label class="large">
-				<div class="button">Choisir un fichier</div>
-					<input type="file" class="file_input" name="file" />
-				<div class="file_text">Parcourir mes fichiers</div>
-			</label>
-			<?php
-			
-	//Créer un dossier 'fichiers/1/'
-	//mkdir('fichier/1/', 0777, true);
- 
-//Créer un identifiant difficile à deviner
-  //$nom = md5(uniqid(rand(), true));
-?>
+		
+		<div class="panel panel-info">
+            <div class="panel-heading">
+				<h3 class="panel-title">Modifier mon mot de passe</h3>
+            </div>
+            <div class="panel-body">
+				<div class="row">
+					<div class="col-md-12 col-lg-12" align="center">		
+						...
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="submit">
-			<input type="submit" value="Envoyer" />
+	
+		<div class="panel panel-info">
+            <div class="panel-heading">
+				<h3 class="panel-title">Modifier mon image</h3>
+            </div>
+            <div class="panel-body">
+				<div class="row">
+					<div class="col-md-12 col-lg-12" align="center">		
+						<form class="formimg" action="ajouterimage.php" method="post" enctype="multipart/form-data">
+							<div class="row">
+								<div class="form-group col-xs-6" align="left">
+									<input type="file" name="fileToUpload" id="fileToUpload">
+								</div>
+								<div class="form-group col-xs-6" align="right">
+									<input type="submit" value="Valider" name="submit">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-	</form>
-	</center>
 </body>
 </html>

@@ -65,6 +65,10 @@ form {
 	margin-top: 60px;
 }
 
+.formimg {
+	margin:0px;
+}
+
 td
 {
 color : black;
@@ -107,6 +111,11 @@ img {
 width:160px; 
 height:70px;
 
+}
+
+.imguser {
+width:150px; 
+height:auto;
 }
 
 .divlogo {
