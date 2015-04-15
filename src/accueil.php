@@ -73,7 +73,7 @@
 
             <div class="image-section">
                 <div class="image-container">
-                    <img src="../images/zoom-bg-7.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+                    <img src="../images/zoom-bg-6.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
                     <img src="../images/zoom-bg-2.jpg" id="products-img" class="inactive" alt="Product stocks">
                     <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
                     <img src="../images/zoom-bg-4.jpg" id="about-img" class="inactive" alt="Véhicules">
