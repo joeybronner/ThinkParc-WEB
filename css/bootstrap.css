@@ -2505,6 +2505,25 @@ input[type="checkbox"] {
 input[type="file"] {
   display: block;
 }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
 input[type="range"] {
   display: block;
   width: 100%;
@@ -3716,7 +3735,6 @@ tbody.collapse.in {
   z-index: 2;
   float: left;
   width: 100%;
-  margin-bottom: 0;
 }
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,

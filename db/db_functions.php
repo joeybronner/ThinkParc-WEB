@@ -200,7 +200,7 @@
  
 				$a=$_SESSION['fct_id'];
 			
-				$sql1="SELECT id, nom, prenom, login, image FROM users WHERE id = '".$a."'";
+				$sql1="SELECT id, nom, prenom, login, image, email, password FROM users WHERE id = '".$a."'";
 				
                 $req1 = $this->dbh->query($sql1);
               
@@ -247,6 +247,24 @@
 	}
   }
   
+	public function updatePassword($password) {
+		$id=$_SESSION['fct_id'];
+		
+		// Prepare request
+		$sql1=	'UPDATE users ' .
+				'SET password= "'.$password.'" ' .
+				'WHERE id="'.$id.'"';
+		 
+		// Execute request
+		$req1 = $this->dbh->query($sql1);
+         
+		// Return result 
+		if (!$req1) {
+			return "error";
+		} else {
+            return $req1;
+		}
+	}
   
   public function RecordCar()
 	{

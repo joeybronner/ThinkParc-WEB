@@ -53,6 +53,7 @@ $dbh = new db_functions();
 			$prenom = $Valeur['prenom'];
 			$login = $Valeur['login'];
 			$image = $Valeur['image'];
+			$email = $Valeur['email'];
 		}	
 	?>
 	
@@ -87,6 +88,10 @@ $dbh = new db_functions();
                         <td><?php echo $login; ?></td>
                       </tr>
 					  <tr>
+                        <td><b>Email</b></td>
+                        <td><?php echo $email; ?></td>
+                      </tr>
+					  <tr>
                         <td><b>Mot de passe</b></td>
                         <td>********</td>
                       </tr>
@@ -108,7 +113,29 @@ $dbh = new db_functions();
             <div class="panel-body">
 				<div class="row">
 					<div class="col-md-12 col-lg-12" align="center">		
-						...
+						<div class="input-group input-group-sm">
+							<form class="formimg" action="modifiermdp.php" method="post" enctype="multipart/form-data">
+								<div class="row">
+									<div class="form-group col-xs-9" align="left">
+										<input type="password" class="form-control" name="ancienmdp" placeholder="Ancien mot de passe" aria-describedby="sizing-addon3">
+										<input type="password" class="form-control" name="nouveaumdp" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
+										<input type="password" class="form-control" name="confirmationmdp" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
+									</div>
+									<div class="form-group col-xs-3" align="right">
+										<input type="submit" class="btn btn-default" name="submit" value="Valider">
+									</div>
+									<?php
+									if (isset($_GET['pass'])) {
+										if ($_GET['pass'] == "success") {
+											echo '<div style="color:#009933;">' . $_SESSION['fct_message'] . '</div>';
+										} else {
+											echo '<div style="color:#CC0000;">' . $_SESSION['fct_message'] . '</div>';
+										}
+									}
+									?>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -123,18 +150,20 @@ $dbh = new db_functions();
 					<div class="col-md-12 col-lg-12" align="center">		
 						<form class="formimg" action="ajouterimage.php" method="post" enctype="multipart/form-data">
 							<div class="row">
-								<div class="form-group col-xs-6" align="left">
-									<input type="file" name="fileToUpload" id="fileToUpload">
+								<div class="form-group col-xs-9" align="left">
+									<span class="btn btn-default btn-file">
+										Parcourir les fichiers... <input type="file" name="fileToUpload" id="fileToUpload">
+									</span>
 								</div>
-								<div class="form-group col-xs-6" align="right">
-									<input type="submit" value="Valider" name="submit">
+								<div class="form-group col-xs-3" align="right">
+									<input type="submit" class="btn btn-default" name="submit" value="Valider">
 								</div>
 								<?php
 									if (isset($_GET['add'])) {
 										if ($_GET['add'] == "success") {
-											echo '<div style="color:#009933;">' . $_SESSION['fct_message'] . '<div>';
+											echo '<div style="color:#009933;">' . $_SESSION['fct_message'] . '</div>';
 										} else {
-											echo '<div style="color:#CC0000;">' . $_SESSION['fct_message'] . '<div>';
+											echo '<div style="color:#CC0000;">' . $_SESSION['fct_message'] . '</div>';
 										}
 									}
 								?>
