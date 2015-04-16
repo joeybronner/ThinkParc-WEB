@@ -8,6 +8,7 @@ $dbh = new db_functions();
 <html>
 <head>
 	<title>FCT</title>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../../css/bootstrap.css">
 	<link rel="stylesheet" href="../../css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../css/templatemo_main.css">
@@ -86,6 +87,10 @@ $dbh = new db_functions();
                         <td><?php echo $login; ?></td>
                       </tr>
 					  <tr>
+                        <td><b>Mot de passe</b></td>
+                        <td>********</td>
+                      </tr>
+					  <tr>
                         <td><b>Image</b></td>
                         <td><?php echo $image; ?></td>
                       </tr>
@@ -124,6 +129,15 @@ $dbh = new db_functions();
 								<div class="form-group col-xs-6" align="right">
 									<input type="submit" value="Valider" name="submit">
 								</div>
+								<?php
+									if (isset($_GET['add'])) {
+										if ($_GET['add'] == "success") {
+											echo '<div style="color:#009933;">' . $_SESSION['fct_message'] . '<div>';
+										} else {
+											echo '<div style="color:#CC0000;">' . $_SESSION['fct_message'] . '<div>';
+										}
+									}
+								?>
 							</div>
 						</form>
 					</div>
