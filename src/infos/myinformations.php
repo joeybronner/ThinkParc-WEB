@@ -32,7 +32,8 @@ $dbh = new db_functions();
 			$email = $Valeur['email'];
 		}	
 	?>
-		
+	
+	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
