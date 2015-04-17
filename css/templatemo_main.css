@@ -128,7 +128,7 @@ img.slide {
 .templatemo-content {
     position: static;
     overflow: hidden; 
-    margin-top: 20%;
+    /*margin-top: 20%;*/
     padding-bottom: 6%;
 }
 
