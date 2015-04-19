@@ -265,6 +265,56 @@
             return $req1;
 		}
 	}
+	
+	public function getAllNews() {
+		$request="SELECT * FROM news ORDER BY date DESC";		
+        return $this->dbh->query($request);
+	}
+	
+	public function addNews($msg, $auteur, $actif) {
+		$now = date('Y-m-d H:i:s');
+		$msgescaped = mysql_real_escape_string($msg);
+		$request =	'INSERT INTO news (date, msg, auteur, actif) ' .
+					'VALUES ("'.$now.'", "'.$msgescaped.'", "'.$auteur.'", '.$actif.')';
+		$result = $this->dbh->query($request);
+		    
+		if (!$result) {
+			return false;
+		} else {
+            return true;
+		}
+	}
+	
+	public function getRandomActiveNews($limit) {
+		$request =	'SELECT * ' .
+					'FROM news ' .
+					'WHERE actif=1 ' .
+					'ORDER BY RAND() ' .
+					'LIMIT '.$limit.';';
+		return $this->dbh->query($request);
+	}
+	
+	public function getNewsStatus($id) {
+		$request =	'SELECT actif ' .
+					'FROM news ' .
+					'WHERE id='.$id.';';
+		$result = $this->dbh->query($request);
+		$row = $result->fetch();
+		return $row['actif'];
+	}
+	
+	public function updateNewsStatus($id, $newValue) {
+		$request =	'UPDATE news ' .
+					'SET actif='.$newValue.' ' .
+					'WHERE id='.$id.';';
+		$this->dbh->query($request);
+	}
+	
+	public function deleteNews($id) {
+		$request =	'DELETE FROM news ' .
+					'WHERE id='.$id.';';
+		$this->dbh->query($request);
+	}
   
   public function RecordCar()
 	{

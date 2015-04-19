@@ -4,6 +4,7 @@
 	if(!isset($_SESSION['fct_login']) && $_SESSION['fct_login'] == "") {
 		//header('Location: #');
     }
+	$dbh = new db_functions();
  ?>
 
 <html> 
@@ -91,12 +92,23 @@
 
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
                                         <div class="black-bg btn-menu">
+											<i class="fa fa-users"></i>
                                             <h2>News</h2>
-											<ul> 
-												<li>News 1 
-												<li>News 2 
-												<li>News 3 
-											</ul>
+											<div style="width:60%;margin:auto;">
+												<?php	
+													foreach ($dbh->getRandomActiveNews(1) as $news) {
+														$id = $news['id'];
+														$auteur = $news['auteur'];
+														$msg = $news['msg'];
+														$date = $news['date'];
+														echo '<center>';
+														echo '<h6><i>Posté le '.$date.'</i></h6>';
+														echo '<h2>'.$msg.'</h2>';
+														echo '<h5>'.$auteur.'</h5>';
+														echo '</center>';
+													}
+												?>
+											</div>
                                         </div>
                                 </div>
 							

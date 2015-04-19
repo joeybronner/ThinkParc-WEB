@@ -13,6 +13,10 @@ position: fixed;
 
 }
 
+table .news {
+width:100%;
+font-size:8px;
+}
 
 .large{
   width: 30%;
