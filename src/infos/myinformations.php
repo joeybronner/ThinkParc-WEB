@@ -13,11 +13,32 @@ $dbh = new db_functions();
 	<link rel="stylesheet" href="../../css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../css/templatemo_main.css">
 	<link rel="stylesheet" href="../../css/app.css">
+	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../js/jquery-ui.min.js"></script>
     <script src="../../js/jquery.backstretch.min.js"></script>
     <script src="../../js/templatemo_script.js"></script>
 	<script src="../../js/bootstrap.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+	<script>
+	$(document).on('change', 'input:checkbox[name^="post_actif_"]', function (event) {
+		var currentId = $(this).attr('id');
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					$.toast({
+						heading: 'News',
+						text: 'Modification effectuée.',
+						icon: 'info'
+					})
+			}
+		}
+		xmlhttp.open("UPDATE","updatenews.php?id="+currentId,true);
+		xmlhttp.send();
+	});
+	</script>
+	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
 </head>
 <body>
 	<?php include('../header/navbar.php'); ?>
@@ -30,7 +51,8 @@ $dbh = new db_functions();
 			$login = $Valeur['login'];
 			$image = $Valeur['image'];
 			$email = $Valeur['email'];
-		}	
+		}
+		$privilege = $_SESSION['fct_privilege'];
 	?>
 	
 	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
@@ -90,9 +112,9 @@ $dbh = new db_functions();
 								<form class="formimg" action="modifiermdp.php" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="form-group col-xs-9" align="left">
-											<input type="password" class="form-control" style="margin-bottom:3px;" name="ancienmdp" placeholder="Ancien mot de passe" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" style="margin-bottom:3px;" name="nouveaumdp" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" name="confirmationmdp" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="ancienmdp" name="ancienmdp" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="nouveaumdp" name="nouveaumdp" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" id="confirmationmdp" name="confirmationmdp" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
 										</div>
 										<div class="form-group col-xs-3" align="right">
 											<input type="submit" class="btn btn-default" name="submit" value="Valider">
@@ -100,9 +122,17 @@ $dbh = new db_functions();
 										<?php
 										if (isset($_GET['pass'])) {
 											if ($_GET['pass'] == "success") {
-												echo '<div style="color:#009933;"><h5>' . $_SESSION['fct_message'] . '</h5></div>';
+												echo '	<script>
+															$(document).ready(function() {
+																$.toast({heading: "Succès",text: "'. $_SESSION['fct_message'] .'", icon: "success"});}
+															);
+														</script>';
 											} else {
-												echo '<div style="color:#CC0000;"><h5>' . $_SESSION['fct_message'] . '</h5></div>';
+												echo '	<script>
+															$(document).ready(function() {
+																$.toast({heading: "Erreur",text: "'. $_SESSION['fct_message'] .'", icon: "error"});}
+															);
+														</script>';
 											}
 										}
 										?>
@@ -112,8 +142,7 @@ $dbh = new db_functions();
 						</div>
 					</div>
 				</div>
-			</div>
-		
+			</div>		
 			<div class="black-bg btn-menu margin-bottom-20">
 				<h2>Modifier mon image</h2>
 				<div class="panel-body">
@@ -132,9 +161,17 @@ $dbh = new db_functions();
 									<?php
 										if (isset($_GET['add'])) {
 											if ($_GET['add'] == "success") {
-												echo '<div style="color:#009933;"><h5>' . $_SESSION['fct_message'] . '</h5></div>';
+												echo '	<script>
+															$(document).ready(function() {
+																$.toast({heading: "Succès",text: "'. $_SESSION['fct_message'] .'", icon: "success"});}
+															);
+														</script>';
 											} else {
-												echo '<div style="color:#CC0000;"><h5>' . $_SESSION['fct_message'] . '</h5></div>';
+												echo '	<script>
+															$(document).ready(function() {
+																$.toast({heading: "Erreur",text: "'. $_SESSION['fct_message'] .'", icon: "error"});}
+															);
+														</script>';
 											}
 										}
 									?>
@@ -144,6 +181,56 @@ $dbh = new db_functions();
 					</div>
 				</div>
 			</div>
+			
+			<?php
+			if ($privilege == "admin") {
+			?>
+			<div class="black-bg btn-menu margin-bottom-20">
+				<h2>Gestion des news</h2>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 col-lg-12" align="center">
+							<div class="row">
+								<form class="formimg" action="ajouternews.php" method="post" enctype="multipart/form-data">
+									<div class="form-group col-xs-9" align="left">
+										<textarea id="newstext" name="newstext" class="form-control" rows="3" maxlength="140" placeholder="Publier une nouvelle"></textarea>
+									</div>
+									<div class="form-group col-xs-3" align="right">
+										<input type="submit" class="btn btn-default" name="submit" value="Publier">
+									</div>
+								</form>
+								<div id="post_actif_" class="form-group col-xs-12">
+										<table class="table" style="width:100%;font-size:12px;">
+												<?php	
+													foreach ($dbh->getAllNews() as $news) {
+														$id = $news['id'];
+														$date = $news['date'];
+														$auteur = $news['auteur'];
+														$msg = $news['msg'];
+														$actif = $news['actif'];
+														
+														echo '<tr>';
+														echo '<td>'.$date.'<td>';
+														echo '<td>'.$msg.'<td>';
+														if ($actif==1) {
+															echo '<td><input id="'.$id.'" name="post_actif_'.$id.'" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="mini" checked></td>';
+														} else {
+															echo '<td><input id="'.$id.'" name="post_actif_'.$id.'" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="mini"></td>';
+														}
+														echo '<td><a href="deletenews.php?id='.$id.'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+														echo '</tr>';
+													}
+												?>
+										</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 </body>
