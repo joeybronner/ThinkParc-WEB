@@ -30,7 +30,7 @@ $dbh = new db_functions();
 				</div>
 			</div>
 			<center>
-				<button class="btn btn-success btn-small" onClick="javascript:document.location.href='accueil.php'">
+				<button class="btn btn-success btn-small" onClick="javascript:document.location.href='../accueil.php'">
 				Retour à l'accueil
 				</button>
 			</center>

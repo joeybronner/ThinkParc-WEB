@@ -43,7 +43,12 @@ $dbh = new db_functions();
 		</select></span><i></i><span class="icon-place"></span></div></div>
 		
 	<div class="element-date"><label class="title">Date du dernier contrôle technique  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Date du prochain contrôle technique</label><div class="item-cont"><input class="medium" data-format="yyyy-mm-dd" type="date" name="derniercontrole" placeholder="Date du dernier contrôle technique"/><input class="medium" data-format="yyyy-mm-dd" type="date" name="prochaincontrole" placeholder="Date du prochain Contrôle technique "/><span class="icon-place"></span></div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="numcontratassurance" placeholder="N° Contrat Assurance"/>	<div class="element-select"><div class="item-cont"><span><select name="assurance" class="medium" >
+	<div class="element-input"><label class="title"></label>
+<div class="item-cont"><input class="medium" type="text" name="numcontratassurance" placeholder="N° Contrat Assurance"/><input class="medium" type="text" name="prixachat" placeholder="Prix d'achat"/></div>
+</div></div>	
+
+
+<div class="element-select"><div class="item-cont"><span><select name="assurance" class="medium" >
 	<option selected disabled>Assureur</option>
 	<?php 
 
@@ -57,9 +62,8 @@ $dbh = new db_functions();
 	<?php
 	}
 	?>
-		</select></span><i></i><span class="icon-place"></span></div></div></div></div>
-		<div class="element-input"><label class="title"></label><div class="item-cont"><input class="medium" type="text" name="prixachat" placeholder="Prix d'achat"/></div></div>
-		<div class="element-select"><div class="item-cont"><span><select name="fournisseur" class="medium" >
+		</select></span><i></i><span class="icon-place">
+		<select name="fournisseur" class="medium" >
 	<option selected disabled>Fournisseur</option>
 	<?php 
 

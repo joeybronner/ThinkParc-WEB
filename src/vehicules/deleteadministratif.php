@@ -27,7 +27,7 @@ $dbh = new db_functions();
 				<div class="alert alert-danger alert-error">
 					<a href="#" class="close" data-dismiss="alert">&times;</a>
 					<center><strong>Erreur!</strong> Un problème est survenue lors de la suppression.</center>
-					<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='consultationadministratif.php'">
+					<center><button class="btn btn-success btn-small" onClick="javascript:document.location.href='consultationvehicule.php'">
 					Retour au formulaire</button></center>
 				</div>
 			</div>
@@ -43,7 +43,7 @@ $dbh = new db_functions();
 				</div>
 			</div>
 			<center>
-				<button class="btn btn-success btn-small" onClick="javascript:document.location.href='consultationadministratif.php'">
+				<button class="btn btn-success btn-small" onClick="javascript:document.location.href='consultationvehicule.php'">
 				Retour à l'accueil
 				</button>
 			</center>

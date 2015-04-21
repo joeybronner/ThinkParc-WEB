@@ -1,9 +1,5 @@
 <?php if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1') {
-<<<<<<< HEAD
     $path = '/projects/ThinkParc-WEB/';
-=======
-    $path = '/thinkparc-web/';
->>>>>>> 9db3c4b80bf0b3d6cdee713c4ef9b4fc8a694543
 } else {
     $path = '/';
 }
@@ -27,12 +23,12 @@
     		 
 			 
 				  <ul class="nav navbar-nav">
-                  <li class="hidden-xs"><img src="<?php echo $path; ?>images/logoentreprise.jpg" class="btn btn-xs"></li>
+                  <li class="hidden-xs"><img style="height:40px; width:auto;" src="<?php echo $path; ?>images/logoentreprise.jpg" class="btn btn-xs"></li>
     		  </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li class="hidden-xs"><img src="<?php echo $path; ?>images/logofct.jpg" class="btn btn-sm"></li>
-			  <li><a href="<?php echo $path; ?>src/infos/myinformations.php" class="btn btn-sm btn-link">Mes informations <span class="glyphicon glyphicon-list-alt"></span></a></li>
+              <li class="hidden-xs"><img style="height:40px; width:auto;" src="<?php echo $path; ?>images/logofct.png" class="btn btn-sm"></li>
+			  <li><a href="<?php echo $path; ?>src/infos/myinformations.php" class="btn btn-sm btn-link"><span class="glyphicon glyphicon-list-alt"></span> Mes informations</a></li>
               <li><a href="<?php echo $path; ?>src/exit/exit.php" class="btn btn-sm btn-danger">Deconnexion <span class="glyphicon glyphicon-off"></span></a></li>
             </ul>                
                 </div>

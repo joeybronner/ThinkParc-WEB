@@ -12,38 +12,12 @@ session_start();
         <link rel="stylesheet" href="../../css/font-awesome.min.css">
         <link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
-		<script type="text/javascript" src="../../js/jquery.js"></script>
-		<script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#example').dataTable( {
-					"bPaginate": false,
-					"bLengthChange": false,
-					"bStateSave": true,
-					"bFilter": false,
-					"bSort": false,
-					"bInfo": false,
-					"bAutoWidth": false,
-					
-				} );
-			} );
-			/**Retourne la valeur du select selectId*/
-			function getSelectValue(selectId)
-			{
-				/**On récupère l'élement html <select>*/
-				var selectElmt = document.getElementById(selectId);
-				/**
-				selectElmt.options correspond au tableau des balises <option> du select
-				selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
-				*/
-				return selectElmt.options[selectElmt.selectedIndex].value;
-			}
-		</script>
+
 		<script>
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
 	</head>
-<body background="../../images/blanco.jpg">
+<body background="../../images/bleu.png">
 
 	<?php include('../header/navbar.php'); ?>
 	<center>
@@ -52,7 +26,7 @@ session_start();
 			<div class="item-cont">
 				<div class="large">
 				<span>
-					<form method="post" action="consultationadministratif.php">
+					<form method="GET" action="consultationadministratif.php">
 					<h5>Selectionner un matricule</h5>
 						<select name="id" class="large"> 
 							<option selected disabled>Liste vehicule</option>

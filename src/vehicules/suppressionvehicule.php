@@ -15,42 +15,18 @@ $dbh = new db_functions();
         <link rel="stylesheet" href="../../css/font-awesome.min.css">
         <link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
-		<script type="text/javascript" src="../../js/jquery.js"></script>
-		<script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#example').dataTable( {
-					"bPaginate": false,
-					"bLengthChange": false,
-					"bStateSave": true,
-					"bFilter": false,
-					"bSort": false,
-					"bInfo": false,
-					"bAutoWidth": false,
-					
-				} );
-			} );
-			/**Retourne la valeur du select selectId*/
-			function getSelectValue(selectId)
-			{
-				/**On récupère l'élement html <select>*/
-				var selectElmt = document.getElementById(selectId);
-				/**
-				selectElmt.options correspond au tableau des balises <option> du select
-				selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
-				*/
-				return selectElmt.options[selectElmt.selectedIndex].value;
-			}
-		</script>
+
 		<script>
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
 		</script>
 	</head>
-<body background="../../images/blanco.jpg">
+<body background="../../images/bleu.png">
 
 	<?php include('../header/navbar.php'); ?>
 	<center>
-		<h2>Informations vehicules</h2>
+		<h3>Informations vehicules</h3>
+		 <?php $count = $dbh->getnbCar() ?>
+		<h2> <?php ECHO 'Nombre de véhicules : '.$count['total']; ?></h2>
 	
 	</center>
 	<div class="table-responsive">
@@ -86,7 +62,7 @@ $dbh = new db_functions();
 		<form method="get" action="deletevehicule.php">
 
     <?php 
-		foreach ($dbh->getvehicule() as $Valeur) {
+		foreach ($dbh->getCar() as $Valeur) {
 	?>
 		<tr>
 			<td><b><?php echo $Valeur['libelle'];?></b></td>
