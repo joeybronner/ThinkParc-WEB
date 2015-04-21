@@ -1078,8 +1078,13 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
+<<<<<<< HEAD
   color: black;
   background-color: black;
+=======
+  color: #fff;
+  background-color: #fff;
+>>>>>>> origin/master
 }
 input,
 button,
@@ -4414,6 +4419,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a {
   /*color: #777;*/
+<<<<<<< HEAD
 }
 
 .btn-danger:hover,
@@ -4428,6 +4434,22 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #333;
   background-color: white;
 }
+=======
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  color: #d43f3a;
+  background-color: #f8f8f8;
+  border-color: #f8f8f8;
+}
+
+.btn-infos:hover,
+.btn-infos:focus {
+  color: #333;
+  background-color: white;
+}
+>>>>>>> origin/master
 /*
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
