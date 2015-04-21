@@ -207,15 +207,6 @@
 				AND a.id_nomassurance=ass.id
 				and a.id_vehicule = '".$a."'";
 				
-<<<<<<< HEAD
-=======
-				$sql1="SELECT * FROM vehicule v, administratif a, fournisseur fo, assurance ass 
-				WHERE a.id_vehicule=v.id 
-				AND a.id_fournisseur=fo.id
-				AND a.id_nomassurance=ass.id
-				and a.id_vehicule = '".$a."'";
-				
->>>>>>> origin/master
                 $req1 = $this->dbh->query($sql1);
               
                 return $req1;
