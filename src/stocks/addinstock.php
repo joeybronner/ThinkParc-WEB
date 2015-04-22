@@ -31,7 +31,8 @@ $dbh = new db_functions();
 	?>
 	
 	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+	<center>
+	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
 				<h2>Fiche produit</h2>
@@ -137,13 +138,21 @@ $dbh = new db_functions();
 							</td>
 						  </tr>
 						  <tr>
-							<td><b>Quantit&eacute;e en stock</b></td>
+							<td><b>Quantit&eacute;e</b></td>
 							<td>
-							<input type="text" name="quantite" class="small">
+							<input type="text" name="quantite" class="small" placeholder="quantité">
+								<FORM>
+							<INPUT type="checkbox" name="piece" value="3"> Pièce
+							<INPUT type="checkbox" name="litre" value="1"> Litre
+							<INPUT type="checkbox" name="bidon" value="1"> Bidon
+							<INPUT type="checkbox" name="fut" value="2"> Fut
+							<INPUT type="checkbox" name="tube" value="3"> Tube
+							</FORM>
 							<a href="stockmultisite.php" target="_blank"><i>voir le stock multi site</i></a>
+						
 							</td>
-							
-						  </tr>
+							</tr>
+						
 						  <tr>
 							<td><b>Emplacements</b></td>
 							<td>
@@ -209,6 +218,9 @@ $dbh = new db_functions();
 				  </div>
 				</div>
 			</div>
+
 	</div>
+	</div>
+	</center>
 </body>
 </html>

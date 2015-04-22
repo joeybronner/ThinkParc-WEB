@@ -199,7 +199,7 @@
                                         <p>Cette espace vous permet de gérer les <a href="Reparation.html">stocks</a> de produits. Il vous permet aussi les consulter</p>
                                     </div>
                                     
-                                 	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+                                 	<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-eye"></i>
@@ -211,7 +211,7 @@
                                 </div>
 
 							 </a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+									<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="stocks/addinstock.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-in"></i>
@@ -220,7 +220,7 @@
 										</div>
                                     </a>
                                
-							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+							<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-out"></i>
@@ -230,7 +230,7 @@
                                 </div>
 								</a>
 								
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+									<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-shopping-cart"></i>
@@ -240,7 +240,7 @@
                                 </div>
 								</a>
 								
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+									<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-random"></i>
@@ -250,7 +250,7 @@
                                 </div>
 								</a>
                               
-                              	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+                              	<div class="col-xs-6 col-sm-3 col-md-4 col-lg-4 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>

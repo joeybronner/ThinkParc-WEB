@@ -56,7 +56,7 @@ abbr[title] {
 b,
 strong {
   font-weight: bold;
-  color: white;
+  color: black;
 }
 dfn {
   font-style: italic;
@@ -2491,6 +2491,7 @@ label {
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
+  color:white;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
