@@ -114,16 +114,74 @@
                 return $req1;
  }
  
-    public function getvehiculemodele() {
+    public function getfamille() {
  
-				$a=$select1;
+			
+				$sql1="SELECT id,libelle FROM famille";
 				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+     public function getsousfamille1() {
+ 
+			
+				$sql1="SELECT id,libelle FROM sousfamille1";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+     public function getsousfamille2() {
+ 
+			
+				$sql1="SELECT id,libelle FROM sousfamille2";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+     public function getsousfamille3() {
+ 
+			
+				$sql1="SELECT id,libelle FROM sousfamille3";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+     public function gettype() {
+ 
+			
+				$sql1="SELECT id,libelle FROM type";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+      public function getaffectationpiece() {
+ 
+			
+				$sql1="SELECT id,libelle FROM affectation_piece";
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
+    public function getvehiculemodele($marque) {
+ 
+				//$a=$mamarque;
+				//$mamarque=$_GET["marque"];
 				
 					
-				//$sql1="SELECT id,modele FROM modele WHERE modele like '%".$a."%'";
-				$sql1="SELECT id,modele FROM modele";
+				$sql1="SELECT id,modele FROM modele WHERE modele like '%".$marque."%'";
+				//$sql1="SELECT id,modele FROM modele";
 
-				
+				echo $sql1;
 				
 				
 				

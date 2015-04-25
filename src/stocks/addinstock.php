@@ -31,8 +31,7 @@ $dbh = new db_functions();
 	?>
 	
 	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-	<center>
-	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2 toppad" >
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
 				<h2>Fiche produit</h2>
@@ -50,7 +49,7 @@ $dbh = new db_functions();
 							<option selected disabled>Famille</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->getfamille() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -62,7 +61,7 @@ $dbh = new db_functions();
 							<option selected disabled>Sous famille</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->getsousfamille1() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -70,11 +69,11 @@ $dbh = new db_functions();
 							}
 						?>
 							</select>
-								<select name="sousfamillen2" class="large" >
+								<select name="sousfamille2" class="large" >
 							<option selected disabled>Sous famille N2</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->getsousfamille2() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -89,7 +88,7 @@ $dbh = new db_functions();
 							<option selected disabled>Sous famille N3</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->getsousfamille3() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -110,11 +109,11 @@ $dbh = new db_functions();
 						  <tr>
 							<td><b>Type de pi&egrave;ce</b></td>
 							<td>
-								<select name="famille" class="large" >
+								<select name="type" class="large" >
 							<option selected disabled>Choix</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->gettype() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -138,21 +137,13 @@ $dbh = new db_functions();
 							</td>
 						  </tr>
 						  <tr>
-							<td><b>Quantit&eacute;e</b></td>
+							<td><b>Quantit&eacute;e en stock</b></td>
 							<td>
-							<input type="text" name="quantite" class="small" placeholder="quantité">
-								<FORM>
-							<INPUT type="checkbox" name="piece" value="3"> Pièce
-							<INPUT type="checkbox" name="litre" value="1"> Litre
-							<INPUT type="checkbox" name="bidon" value="1"> Bidon
-							<INPUT type="checkbox" name="fut" value="2"> Fut
-							<INPUT type="checkbox" name="tube" value="3"> Tube
-							</FORM>
+							<input type="text" name="quantite" class="small">
 							<a href="stockmultisite.php" target="_blank"><i>voir le stock multi site</i></a>
-						
 							</td>
-							</tr>
-						
+							
+						  </tr>
 						  <tr>
 							<td><b>Emplacements</b></td>
 							<td>
@@ -174,11 +165,11 @@ $dbh = new db_functions();
 								  <tr>
 							<td><b>Affectation</b></td>
 							<td>
-								<select name="famille" class="large" >
+								<select name="affectation_piece" class="large" >
 							<option selected disabled>Destin&eacute; a</option>
 						<?php 
 							$dbh = new db_functions();
-							foreach ($dbh->getvehiculemarque() as $Valeur)
+							foreach ($dbh->getaffectationpiece() as $Valeur)
 							{
 						?>
 							<option value="<?php echo $Valeur['id'];?>"><?php echo $Valeur['libelle'];?></option>
@@ -218,9 +209,6 @@ $dbh = new db_functions();
 				  </div>
 				</div>
 			</div>
-
 	</div>
-	</div>
-	</center>
 </body>
 </html>

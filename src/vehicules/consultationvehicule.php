@@ -12,50 +12,6 @@ session_start();
         <link rel="stylesheet" href="../../css/font-awesome.min.css">
         <link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
-		
-		<script type="text/javascript" src="../../js/jquery.js"></script>
-	 <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
-
-	<script type="text/javascript">
-$(document).ready(function() {
-    $('#example').dataTable( {
-        "bPaginate": true,
-        "bLengthChange": true,
-		"bStateSave": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": true,
-		
-    } );
-} );
-
-
-				/**Retourne la valeur du select selectId*/
-				function getSelectValue(selectId)
-				{
-					/**On récupère l'élement html <select>*/
-					var selectElmt = document.getElementById(selectId);
-					/**
-					selectElmt.options correspond au tableau des balises <option> du select
-					selectElmt.selectedIndex correspond à l'index du tableau options qui est actuellement sélectionné
-					*/
-					return selectElmt.options[selectElmt.selectedIndex].value;
-				}
-
-</script>
-
-<style type="text/css" title="currentStyle">
-			@import "../../css/DataTable/demo_page.css"; 
-			@import "../../css/DataTable/jquery.dataTables.css";
-			@import "../../css/DataTable/demo_table.css";
-
-</style>
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
 
 		<script>
 			var selectValue = document.getElementById('matricule').options[document.getElementById('matricule').selectedIndex].value;
@@ -93,7 +49,7 @@ $(document).ready(function() {
 	</center>
 	<div class="table-responsive">
 		
-	<table id="example">   
+	<table class="table table-striped table-bordered table-condensed">   
 		<thead> <!-- En-tÃªte du tableau -->
 			<tr>
 				<th>Marque</th> 
