@@ -424,41 +424,33 @@
 		$this->dbh->query($request);
 	}
   
-  public function RecordCar()
-	{
-		$mar=$_GET['marque'];
-		$mod=$_GET['modele'];
-		$a=$_GET['genre'];
-		$b=$_GET['categorie'];
-		$c=$_GET['misecirculation'];
-		$d=$_GET['kilometrage'];
-		$e=$_GET['energie'];
-		$f=$_GET['date'];
-		$g=$_GET['numerodeserie'];
-		$h=$_GET['matricule'];
-		$i=$_GET['dateachat'];
-		$j=$_GET['equipement'];
-		$k=$_GET['affectation'];
-		$l=$_GET['etat'];
-		$m=$_GET['commentaire'];
+public function RecordCar() {
 
+	$mar=$_GET['marque'];
+	$mod=$_GET['modele'];
+	$a=$_GET['genre'];
+	$b=$_GET['categorie'];
+	$c=$_GET['misecirculation'];
+	$d=$_GET['kilometrage'];
+	$e=$_GET['energie'];
+	$f=$_GET['date'];
+	$g=$_GET['numerodeserie'];
+	$h=$_GET['matricule'];
+	$i=$_GET['dateachat'];
+	$j=$_GET['equipement'];
+	$k=$_GET['affectation'];
+	$l=$_GET['etat'];
+	$m=$_GET['commentaire'];
 	
-		 $sql1='Insert into Vehicule (id_marque, id_modele, id_genre, id_categorie, misecirculation, kilometrage, id_energie, date, numerodeserie, matricule, dateachat, id_equipement, id_affectation, id_etat, commentaire) 
-		 values ("'.$mar.'","'.$mod.'","'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';	
-		 
-		 
-		 
-		 $req1 = $this->dbh->query($sql1);
-         
-		    
-		 if (!$req1) {
-				return "Erreur de requete";
-				} else
-				{
-                return $req1;
-  
-				}
-		}
+	$sql1=	'INSERT INTO vehicule (id_marque, id_modele, id_genre, id_categorie, misecirculation, kilometrage, id_energie, date, numerodeserie, matricule, dateachat, id_equipement, id_affectation, id_etat, commentaire)' . 
+			'VALUES ("'.$mar.'","'.$mod.'","'.$a.'","'.$b.'","'.$c.'","'.$d.'","'.$e.'","'.$f.'","'.$g.'","'.$h.'","'.$i.'","'.$j.'","'.$k.'","'.$l.'","'.$m.'")';
+	    
+	if (!$this->dbh->query($sql1)) {
+		return false;
+	} else {
+        return true;
+	}
+}
 				
   public function RecordAdministratif()
 	{

@@ -36,11 +36,11 @@ session_start();
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>Marque & Modèle</h5></td>
+											<td><h5>* Marque & Modèle</h5></td>
 										</tr>
 										<tr>
 											<td>
-												<select name="marque" class="form-control">
+												<select name="marque" required="required" class="form-control">
 													<option selected disabled>Marque de la machine</option>
 													<?php 
 													$dbh = new db_functions();
@@ -53,7 +53,7 @@ session_start();
 												</select>
 											</td>
 											<td>
-												<select name="modele" class="form-control">
+												<select name="modele" required="required" class="form-control">
 													<option selected disabled>Modèle de la machine</option>
 													<?php 
 													$dbh = new db_functions();
@@ -67,11 +67,11 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Genre & Catégorie</h5></td>
+											<td><h5>* Genre & Catégorie</h5></td>
 										</tr>
 										<tr>
 											<td>
-												<select name="genre" class="form-control">
+												<select name="genre" required="required" class="form-control">
 													<option selected disabled>Genre</option>
 													<?php 
 													$dbh = new db_functions();
@@ -84,7 +84,7 @@ session_start();
 												</select>
 											</td>
 											<td>
-												<select name="categorie" class="form-control">
+												<select name="categorie" required="required" class="form-control">
 													<option selected disabled>Catégorie</option>
 													<?php 
 													$dbh = new db_functions();
@@ -98,7 +98,7 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Energie & Equipements spéciaux</h5></td>
+											<td><h5>* Energie & Equipements spéciaux</h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -129,7 +129,7 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Date d'enregistrement</h5></td>
+											<td><h5>* Date d'enregistrement</h5></td>
 											<td>
 												<input data-format="yyyy-mm-dd" type="date" name="date" required="required" placeholder=" Date"/>
 											</td>
@@ -146,19 +146,19 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Date d'achat</h5></td>
+											<td><h5>* Date d'achat</h5></td>
 											<td>
 												<input data-format="yyyy-mm-dd" type="date" name="dateachat" required="required" placeholder="Date d’achat">
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Date de mise en circulation</h5></td>
+											<td><h5>* Date de mise en circulation</h5></td>
 											<td>
-												<input data-format="yyyy-mm-dd" type="date" name="misecirculation" placeholder="Date de mise en circulation">
+												<input data-format="yyyy-mm-dd" type="date" name="misecirculation" required="required" placeholder="Date de mise en circulation">
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Kilométrage</h5></td>
+											<td><h5>* Kilométrage</h5></td>
 											<td>
 												<input class="form-control" type="text" name="kilometrage" required="required" placeholder="100 000"/>
 											</td>
@@ -173,7 +173,7 @@ session_start();
 											
 										</tr>
 										<tr>
-											<td><h5>Lieu d'affectation</h5></td>
+											<td><h5>* Lieu d'affectation</h5></td>
 											<td>
 												<select name="affectation" required="required" class="form-control">
 												<option selected disabled>Affectation</option>
@@ -189,7 +189,7 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Etat</h5></td>
+											<td><h5>* Etat</h5></td>
 											<td>
 												<select name="etat" required="required" class="form-control">
 												<option selected disabled>Etat</option>
