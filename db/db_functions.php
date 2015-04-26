@@ -190,6 +190,24 @@
                 return $req1;
  }
  
+    public function getvehiculemodeles() {
+ 
+				//$a=$mamarque;
+				//$mamarque=$_GET["marque"];
+				
+					
+				$sql1="SELECT id,modele FROM modele";
+				//$sql1="SELECT id,modele FROM modele";
+
+				echo $sql1;
+				
+				
+				
+                $req1 = $this->dbh->query($sql1);
+              
+                return $req1;
+ }
+ 
      public function getenergie() {
  
 

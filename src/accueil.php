@@ -92,7 +92,7 @@
 
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
                                         <div class="black-bg btn-menu">
-											<i class="fa fa-users"></i>
+											<i class="fa fa-users white"></i>
                                             <h2>News</h2>
 											<div style="width:60%;margin:auto;">
 												<?php	
@@ -200,25 +200,24 @@
                                     </div>
                                     
                                  	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
-                                    <a href="#">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-eye"></i>
-                                            <h2>Consultation</h2>
-                                        </div>
-										<br/>
-                                   
-									
-                                </div>
+										<a href="#">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-eye"></i>
+												<h2>Consultation</h2>
+											</div>
+											<br/>
+										</a>
+									</div>
 
-							 </a>
+							
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
-                                    <a href="stocks/addinstock.php">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-sign-in"></i>
-                                            <h2>Ajout produit</h2>
-                                        </div><br/>
-										</div>
-                                    </a>
+										<a href="stocks/addinstock.php">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-sign-in"></i>
+												<h2>Ajout produit</h2>
+											</div><br/>
+										</a>
+									</div>
                                
 							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
                                     <a href="#">
@@ -279,7 +278,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="col-sm-12 col-md-12 col-lg-12 black-bg">
-                                        <h2><span class="green"><a href="">Parc Automobile</a></span></h2>
+                                        <h2 class="text-center">Parc automobile</h2>
                                         <p>Utiliser ce module pour gérer les véhicules de votre parc automobile.</p>
                 
                                   

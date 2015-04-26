@@ -1090,13 +1090,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #23527c;
-  text-decoration: underline;
+
 }
 a:focus {
   outline: thin dotted;
@@ -2256,6 +2255,18 @@ th {
   vertical-align: top;
   border-top: 1px solid #ddd;
 }
+
+.table-no-border > thead > tr > th,
+.table-no-border > tbody > tr > th,
+.table-no-border > tfoot > tr > th,
+.table-no-border > thead > tr > td,
+.table-no-border > tbody > tr > td,
+.table-no-border > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+}
+
 .table > thead > tr > th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;

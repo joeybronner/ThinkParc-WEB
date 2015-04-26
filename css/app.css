@@ -139,7 +139,7 @@ height:auto;
 }
 
 input.form-control , input[type="submit"] , .btn {
-	border-radius: 0px;
+	border-radius: 5px;
 }
 
 .btn {
