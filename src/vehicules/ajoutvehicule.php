@@ -205,7 +205,7 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td><input type="submit" class="btn btn-success" value="Enregistrer"/></td>
+											<td colspan="2" align="right"><input type="submit" class="btn btn-success" value="Enregistrer"/></td>
 										</tr>
 									</tbody>
 								</table>
