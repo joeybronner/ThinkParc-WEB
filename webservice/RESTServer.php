@@ -1,53 +1,24 @@
 <?php
-////////////////////////////////////////////////////////////////////////////////
-//
-// Copyright (c) 2009 Jacob Wright
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
-////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Constants used in RestServer Class.
  */
-class RestFormat
-{
-
+class RESTFormat {
 	const PLAIN = 'text/plain';
 	const HTML = 'text/html';
-	const AMF = 'applicaton/x-amf';
 	const JSON = 'application/json';
 	const XML = 'application/xml';
 	static public $formats = array(
-		'plain' => RestFormat::PLAIN,
-		'txt' => RestFormat::PLAIN,
-		'html' => RestFormat::HTML,
-		'amf' => RestFormat::AMF,
-		'json' => RestFormat::JSON,
-		'xml'  => RestFormat::XML,
+		'plain' => RESTFormat::PLAIN,
+		'txt' => RESTFormat::PLAIN,
+		'html' => RESTFormat::HTML,
+		'json' => RESTFormat::JSON,
+		'xml'  => RESTFormat::XML,
 	);
 }
 
 /**
- * Description of RestServer
- *
- * @author jacob
+ * Description of RESTServer
  */
 class RESTServer
 {
@@ -69,8 +40,7 @@ class RESTServer
 	 * 
 	 * @param string $mode The mode, either debug or production
 	 */
-	public function  __construct($mode = 'debug', $realm = 'Rest Server')
-	{
+	public function  __construct($mode = 'debug', $realm = 'REST Server') {
 		$this->mode = $mode;
 		$this->realm = $realm;
 		$dir = dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']));
@@ -79,8 +49,7 @@ class RESTServer
 		else $this->root = $dir;
 	}
 	
-	public function  __destruct()
-	{
+	public function  __destruct() {
 		if ($this->mode == 'production' && !$this->cached) {
 			if (function_exists('apc_store')) {
 				apc_store('urlMap', $this->map);
@@ -90,14 +59,12 @@ class RESTServer
 		}
 	}
 	
-	public function refreshCache()
-	{
+	public function refreshCache() {
 		$this->map = array();
 		$this->cached = false;
 	}
 	
-	public function unauthorized($ask = false)
-	{
+	public function unauthorized($ask = false) {
 		if ($ask) {
 			header("WWW-Authenticate: Basic realm=\"$this->realm\"");
 		}
@@ -105,8 +72,7 @@ class RESTServer
 	}
 	
 	
-	public function handle()
-	{
+	public function handle() {
 		$this->url = $this->getPath();
 		$this->method = $this->getMethod();
 		$this->format = $this->getFormat();
@@ -154,8 +120,7 @@ class RESTServer
 		}
 	}
 
-	public function addClass($class, $basePath = '')
-	{
+	public function addClass($class, $basePath = '') {
 		$this->loadCache();
 		
 		if (!$this->cached) {
@@ -176,13 +141,11 @@ class RESTServer
 		}
 	}
 	
-	public function addErrorClass($class)
-	{
+	public function addErrorClass($class) {
 		$this->errorClasses[] = $class;
 	}
 	
-	public function handleError($statusCode, $errorMessage = null)
-	{
+	public function handleError($statusCode, $errorMessage = null) {
 		$method = "handle$statusCode";
 		foreach ($this->errorClasses as $class) {
 			if (is_object($class)) {
@@ -208,8 +171,7 @@ class RESTServer
 		$this->sendData(array('error' => array('code' => $statusCode, 'message' => $message)));
 	}
 	
-	protected function loadCache()
-	{
+	protected function loadCache() {
 		if ($this->cached !== null) {
 			return;
 		}
@@ -235,8 +197,7 @@ class RESTServer
 		}
 	}
 	
-	protected function findUrl()
-	{
+	protected function findUrl() {
 		$urls = $this->map[$this->method];
 		if (!$urls) return null;
 		
@@ -288,8 +249,7 @@ class RESTServer
 		}
 	}
 
-	protected function generateMap($class, $basePath)
-	{
+	protected function generateMap($class, $basePath) {
 		if (is_object($class)) {
 			$reflection = new ReflectionObject($class);
 		} elseif (class_exists($class)) {
@@ -326,8 +286,7 @@ class RESTServer
 		}
 	}
 
-	public function getPath()
-	{
+	public function getPath() {
 		$path = preg_replace('/\?.*$/', '', $_SERVER['REQUEST_URI']);
 		// remove root from path
 		if ($this->root) $path = preg_replace('/^' . preg_quote($this->root, '/') . '/', '', $path);
@@ -336,8 +295,7 @@ class RESTServer
 		return $path;
 	}
 	
-	public function getMethod()
-	{
+	public function getMethod() {
 		$method = $_SERVER['REQUEST_METHOD'];
 		$override = isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) ? $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] : (isset($_GET['method']) ? $_GET['method'] : '');
 		if ($method == 'POST' && strtoupper($override) == 'PUT') {
@@ -348,9 +306,8 @@ class RESTServer
 		return $method;
 	}
 	
-	public function getFormat()
-	{
-		$format = RestFormat::PLAIN;
+	public function getFormat() {
+		$format = RESTFormat::PLAIN;
 		$accept_mod = preg_replace('/\s+/i', '', $_SERVER['HTTP_ACCEPT']); // ensures that exploding the HTTP_ACCEPT string does not get confused by whitespaces
 		$accept = explode(',', $accept_mod);
 		$override = '';
@@ -369,61 +326,37 @@ class RESTServer
 
 		// Give GET parameters precedence before all other options to alter the format
 		$override = isset($_GET['format']) ? $_GET['format'] : $override;
-		if (isset(RestFormat::$formats[$override])) {
-			$format = RestFormat::$formats[$override];
-		} elseif (in_array(RestFormat::AMF, $accept)) {
-			$format = RestFormat::AMF;
-		} elseif (in_array(RestFormat::JSON, $accept)) {
-			$format = RestFormat::JSON;
+		if (isset(RESTFormat::$formats[$override])) {
+			$format = RESTFormat::$formats[$override];
+		} elseif (in_array(RESTFormat::JSON, $accept)) {
+			$format = RESTFormat::JSON;
 		}
 		return $format;
 	}
 	
-	public function getData()
-	{
+	public function getData() {
 		$data = file_get_contents('php://input');
-		
-		if ($this->format == RestFormat::AMF) {
-			require_once 'Zend/Amf/Parse/InputStream.php';
-			require_once 'Zend/Amf/Parse/Amf3/Deserializer.php';
-			$stream = new Zend_Amf_Parse_InputStream($data);
-			$deserializer = new Zend_Amf_Parse_Amf3_Deserializer($stream);
-			$data = $deserializer->readTypeMarker();
-		} else {
-			$data = json_decode($data);
-		}
-		
-		return $data;
+		return json_decode($data);
 	}
 	
 
-	public function sendData($data)
-	{
+	public function sendData($data) {
 		header("Cache-Control: no-cache, must-revalidate");
 		header("Expires: 0");
 		header('Content-Type: ' . $this->format);
-
-		if ($this->format == RestFormat::AMF) {
-			require_once 'Zend/Amf/Parse/OutputStream.php';
-			require_once 'Zend/Amf/Parse/Amf3/Serializer.php';
-			$stream = new Zend_Amf_Parse_OutputStream();
-			$serializer = new Zend_Amf_Parse_Amf3_Serializer($stream);
-			$serializer->writeTypeMarker($data);
-			$data = $stream->getStream();}
-
-		elseif ($this->format == RestFormat::XML) {
-
-		if (is_object($data) && method_exists($data, '__keepOut')) {
-				$data = clone $data;
-				foreach ($data->__keepOut() as $prop) {
-					unset($data->$prop);
-				}
-			}
-			$data = $this->xml_encode($data);
-			if ($data && $this->mode == 'debug') {
-				$data = $this->json_format($data);
-			}
 		
+		if ($this->format == RESTFormat::XML) {
+			if (is_object($data) && method_exists($data, '__keepOut')) {
+					$data = clone $data;
+					foreach ($data->__keepOut() as $prop) {
+						unset($data->$prop);
+					}
+				}
+				$data = $this->xml_encode($data);
+				if ($data && $this->mode == 'debug') {
+					$data = $this->json_format($data);
+				}
+			
 		} else {
 			if (is_object($data) && method_exists($data, '__keepOut')) {
 				$data = clone $data;
@@ -440,8 +373,7 @@ class RESTServer
 		echo $data;
 	}
 
-	public function setStatus($code)
-	{
+	public function setStatus($code) {
 		$code .= ' ' . $this->codes[strval($code)];
 		header("{$_SERVER['SERVER_PROTOCOL']} $code");
 	}
@@ -485,8 +417,7 @@ class RESTServer
     }
 }
 	// Pretty print some JSON
-	private function json_format($json)
-	{
+	private function json_format($json) {
 		$tab = "  ";
 		$new_json = "";
 		$indent_level = 0;
@@ -589,11 +520,9 @@ class RESTServer
 	);
 }
 
-class RestException extends Exception
-{
+class RestException extends Exception {
 	
-	public function __construct($code, $message = null)
-	{
+	public function __construct($code, $message = null) {
 		parent::__construct($message, $code);
 	}
 	
