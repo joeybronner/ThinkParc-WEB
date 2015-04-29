@@ -518,18 +518,16 @@
                                 </div>
 
 							 </a>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <a href="#">
+								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                    <a href="documents/docstechniquesvehicules.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-flag-checkered"></i>
                                             <h2>Documents techniques véhicules</h2>
                                         </div>
-										<br/>
-                                   
-									
+									</a>
                                 </div>
 
-							 </a>
+							 
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
