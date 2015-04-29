@@ -35,7 +35,6 @@ $dbh = new db_functions();
 		<?php
 		} else {
 		?>
-			<!-- no success-->
 			<div class="bs-example">
 				<div class="alert alert-danger alert-error">
 					<a href="#" class="close" data-dismiss="alert">&times;</a>
