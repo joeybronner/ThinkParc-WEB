@@ -1,8 +1,5 @@
 <?php
-require_once('../../db/config.php'); 
-include('../../db/db_functions.php');
-session_start();
-$dbh = new db_functions();
+require('../../db/check_session.php');
 ?>
 
 <html>
@@ -14,13 +11,14 @@ $dbh = new db_functions();
 	<link rel="stylesheet" href="../../css/templatemo_main.css">
 	<link rel="stylesheet" href="../../css/app.css">
 	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<!--<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">-->
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../js/jquery-ui.min.js"></script>
     <script src="../../js/jquery.backstretch.min.js"></script>
     <script src="../../js/templatemo_script.js"></script>
 	<script src="../../js/bootstrap.js"></script>
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+	<!--<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>-->
+	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
 	<script>
 	$(document).on('change', 'input:checkbox[name^="post_actif_"]', function (event) {
 		var currentId = $(this).attr('id');
@@ -38,22 +36,10 @@ $dbh = new db_functions();
 		xmlhttp.send();
 	});
 	</script>
-	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
+	
 </head>
 <body>
 	<?php include('../header/navbar.php'); ?>
-	<?php
-		$dbh->getinfouser();			
-		foreach ($dbh->getinfouser() as $Valeur) {
-			$id = $Valeur['id'];
-			$nom = $Valeur['nom'];
-			$prenom = $Valeur['prenom'];
-			$login = $Valeur['login'];
-			$image = $Valeur['image'];
-			$email = $Valeur['email'];
-		}
-		$privilege = $_SESSION['fct_privilege'];
-	?>
 	
 	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
@@ -63,30 +49,30 @@ $dbh = new db_functions();
 				<div class="panel-body">
 				  <div class="row">
 					<div class="col-md-3 col-lg-3 " align="center">
-						<img alt="userpic" src="<?php echo "users_images/" . $image; ?>" style="margin:10px;" class="img-circle imguser">
+						<img alt="userpic" src="<?php echo "users_images/".$_SESSION['fct_image']; ?>" style="margin:10px;" class="img-circle imguser">
 					</div>
 					<div class=" col-md-9 col-lg-9 "> 
 					  <table class="table table-user-information">
 						<tbody>
 						  <tr>
 							<td><b>ID</b></td>
-							<td class="infos"><?php echo $id; ?></td>
+							<td class="infos"><?php echo $_SESSION['fct_id_user']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Nom</b></td>
-							<td><?php echo $nom; ?></td>
+							<td><b>Firstname</b></td>
+							<td><?php echo $_SESSION['fct_firstname']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Prenom</b></td>
-							<td><?php echo $prenom; ?></td>
+							<td><b>Lastname</b></td>
+							<td><?php echo $_SESSION['fct_lastname']; ?></td>
 						  </tr>
 						  <tr>
 							<td><b>Login</b></td>
-							<td><?php echo $login; ?></td>
+							<td><?php echo $_SESSION['fct_login']; ?></td>
 						  </tr>
 						  <tr>
 							<td><b>Email</b></td>
-							<td><?php echo $email; ?></td>
+							<td><?php echo $_SESSION['fct_email']; ?></td>
 						  </tr>
 						  <tr>
 							<td><b>Mot de passe</b></td>
@@ -94,7 +80,7 @@ $dbh = new db_functions();
 						  </tr>
 						  <tr>
 							<td><b>Image</b></td>
-							<td><?php echo $image; ?></td>
+							<td><?php echo $_SESSION['fct_image']; ?></td>
 						  </tr>
 						</tbody>
 					  </table>
@@ -183,7 +169,7 @@ $dbh = new db_functions();
 			</div>
 			
 			<?php
-			if ($privilege == "admin") {
+			if ($_SESSION['fct_id_role'] == 1) {
 			?>
 			<div class="black-bg btn-menu margin-bottom-20">
 				<h2>Gestion des news</h2>
@@ -200,8 +186,23 @@ $dbh = new db_functions();
 									</div>
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
-										<table class="table" style="width:100%;font-size:12px;">
-												<?php	
+											<script>
+												$(function getNews(){
+													$.ajax({
+														type: 		"GET",
+														url:		"http://think-parc.com/webservice/v1/news/all",  
+														success:	function(data) {
+																		var response = JSON.parse(data);
+																		var content = '<table class="table" style="width:100%;font-size:12px;">';
+																		content = content + 'hahahah';
+																		content = content + '</table>';
+																		document.getElementById("post_actif_").innerHTML = content;
+																	}
+													});
+												});
+											</script>
+												<?php
+												/*
 													foreach ($dbh->getAllNews() as $news) {
 														$id = $news['id'];
 														$date = $news['date'];
@@ -220,8 +221,8 @@ $dbh = new db_functions();
 														echo '<td><a href="deletenews.php?id='.$id.'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
 														echo '</tr>';
 													}
+													*/
 												?>
-										</table>
 								</div>
 							</div>
 						</div>

@@ -5,11 +5,11 @@ require '../RESTServer.php';
 
 // Imports WS classes
 require 'about/About.php';
-require 'vehicles/Vehicles.php';
 require 'vehicle/Vehicle.php';
+require 'news/News.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
-$server->addClass('Vehicles');
 $server->addClass('Vehicle');
+$server->addClass('News');
 $server->handle();

@@ -1,10 +1,5 @@
 <?php 
-	include('../db/db_functions.php');
-    session_start();
-	if(!isset($_SESSION['fct_login']) && $_SESSION['fct_login'] == "") {
-		//header('Location: #');
-    }
-	$dbh = new db_functions();
+require('../db/check_session.php');
  ?>
 
 <html> 
@@ -23,38 +18,43 @@
         <script src="../js/jquery.backstretch.min.js"></script>
         <script src="../js/templatemo_script.js"></script>
 		<script src="../js/bootstrap.js"></script>
+		<!-- A supprimer ?!
+		<script type="text/javascript">
+		$(function(){
+			$('#slide-submenu').on('click',function() {			        
+				$(this).closest('.list-group').fadeOut('slide',function(){
+					$('.mini-submenu').fadeIn();	
+				});
+				
+			  });
+
+			$('.mini-submenu').on('click',function(){		
+					$(this).next('.list-group').toggle('slide');
+					$('.mini-submenu').hide();
+			})
+		})
+		</script>-->
+		<script>
+		$(function getNews(){
+		   	$.ajax({
+				type: 		"GET",
+				url:		"http://think-parc.com/webservice/v1/news/random",  
+				success:	function(data) {
+								var response = JSON.parse(data);
+								var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + response[0].date_news + '</h6>';
+								content = content + '<h5>' + response[0].msg + '</h5>';
+								document.getElementById("newsContent").innerHTML = content;
+							}
+			});
+		});
+		</script>
     </head>
+	
     <body>
-	
-	
-	
+
 	<?php include('header/navbar.php'); ?>
-
-
-		<!--
-		Permet de fermer la sidebar
-		-->
-	<script type="text/javascript">
-	$(function(){
-
-	$('#slide-submenu').on('click',function() {			        
-        $(this).closest('.list-group').fadeOut('slide',function(){
-        	$('.mini-submenu').fadeIn();	
-        });
-        
-      });
-
-	$('.mini-submenu').on('click',function(){		
-        $(this).next('.list-group').toggle('slide');
-        $('.mini-submenu').hide();
-	})
-})
-
-	</script>
 		
 	<div id="main-wrapper">
-
-
             <div class="image-section">
                 <div class="image-container">
                     <img src="../images/zoom-bg-6.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
@@ -77,20 +77,8 @@
                                         <div class="black-bg btn-menu">
 											<i class="fa fa-users white"></i>
                                             <h2>News</h2>
-											<div style="width:60%;margin:auto;">
-												<?php	
-													foreach ($dbh->getRandomActiveNews(1) as $news) {
-														$id = $news['id'];
-														$auteur = $news['auteur'];
-														$msg = $news['msg'];
-														$date = $news['date'];
-														echo '<center>';
-														echo '<h6><i>Posté le '.$date.'</i></h6>';
-														echo '<h2>'.$msg.'</h2>';
-														echo '<h5>'.$auteur.'</h5>';
-														echo '</center>';
-													}
-												?>
+											<div id="newsContent" style="width:60%;margin:auto;">
+												<!-- Here are loaded news -->
 											</div>
                                         </div>
                                 </div>

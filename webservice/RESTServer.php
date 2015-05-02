@@ -368,6 +368,8 @@ class RESTServer
 	public function sendData($data) {
 		header("Cache-Control: no-cache, must-revalidate");
 		header("Expires: 0");
+		// header for development (allows all access)
+		header("Access-Control-Allow-Origin: *");
 		header('Content-Type: ' . $this->format);
 		
 		if ($this->format == RESTFormat::XML) {
