@@ -1,5 +1,30 @@
 <?php
 
+/////////////////////////////////////////////////////////////////
+// Methods:
+// 		- constuctor
+//   	- destructor
+//		- refreshCache()
+//		- unauthorized(true/false)
+//		- handle
+//		- addClass(name, path)
+//		- addErrorClass(name)
+//		- handleError($statusCode, $errorMessage = null)
+//		- loadCache()
+//		- findUrl()
+//		- generateMap(class, path)
+//		- getPath()
+//		- getMethod()
+//		- getFormat()
+//		- getData()
+// 		- sendData()
+//		- setStatus(code)
+//		- xml_encode()
+//		- json_format(string)
+//		- Exceptions
+//
+/////////////////////////////////////////////////////////////////
+
 /**
  * Constants used in RestServer Class.
  */

@@ -76,7 +76,7 @@ h2 {
 }
 
 form {
-	margin-top: 0px;
+	margin-top: 60px;
 }
 
 .formimg {
@@ -84,7 +84,7 @@ form {
 }
 
 td {
-color : white;
+color : black;
 }
 
 th
@@ -139,7 +139,7 @@ height:auto;
 }
 
 input.form-control , input[type="submit"] , .btn {
-	border-radius: 5px;
+	border-radius: 0px;
 }
 
 .btn {

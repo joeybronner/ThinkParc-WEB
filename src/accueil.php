@@ -53,24 +53,7 @@
 	</script>
 		
 	<div id="main-wrapper">
-	<!--
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center templatemo-logo margin-top-20">
-                <h1 class="templatemo-site-title">
-                    <a href="#">Think Parc software</a>
-                </h1>
-                <h3 class="templatemo-site-title">
-                	by <a href="#"><span class="blue">FCT</span><span class="green"> Partners</span></a>
-                </h3>
-            </div>
-			
-			<div class="madiv">
-				<img src="../images/logoEDF.png">
-			</div>
-			
-			<div class="madivlogofct">
-				<img src="../images/logoentreprise.jpg">
-			</div>
-	-->
+
 
             <div class="image-section">
                 <div class="image-container">
