@@ -18,26 +18,10 @@ require('../db/check_session.php');
         <script src="../js/jquery.backstretch.min.js"></script>
         <script src="../js/templatemo_script.js"></script>
 		<script src="../js/bootstrap.js"></script>
-		<!-- A supprimer ?!
-		<script type="text/javascript">
-		$(function(){
-			$('#slide-submenu').on('click',function() {			        
-				$(this).closest('.list-group').fadeOut('slide',function(){
-					$('.mini-submenu').fadeIn();	
-				});
-				
-			  });
-
-			$('.mini-submenu').on('click',function(){		
-					$(this).next('.list-group').toggle('slide');
-					$('.mini-submenu').hide();
-			})
-		})
-		</script>-->
 		<script>
 		$(function getNews(){
 		   	$.ajax({
-				type: 		"GET",
+				method: 	"GET",
 				url:		"http://think-parc.com/webservice/v1/news/random",  
 				success:	function(data) {
 								var response = JSON.parse(data);

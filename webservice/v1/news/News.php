@@ -38,5 +38,23 @@ class News {
 			return array("error" => "".$e->getMessage());
 		}
     }
+	
+    /**
+     * Description.
+     *
+     * @url PUT /news/status
+     */
+    public function updateNewsStatus() {
+		try {
+			global $con;
+			$sql = 	"UPDATE news ".
+					"SET active = 1 ".
+					"WHERE id_news = 1;";
+			$stmt = $con->query($sql);
+			return array("success" => "OK");
+		} catch(PDOException $e) {
+			return array("error" => "".$e->getMessage());
+		}
+    }
 }
 ?>

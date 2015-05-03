@@ -11,32 +11,27 @@ require('../../db/check_session.php');
 	<link rel="stylesheet" href="../../css/templatemo_main.css">
 	<link rel="stylesheet" href="../../css/app.css">
 	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-	<!--<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">-->
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../js/jquery-ui.min.js"></script>
     <script src="../../js/jquery.backstretch.min.js"></script>
     <script src="../../js/templatemo_script.js"></script>
 	<script src="../../js/bootstrap.js"></script>
-	<!--<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>-->
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
-	<script>
-	$(document).on('change', 'input:checkbox[name^="post_actif_"]', function (event) {
-		var currentId = $(this).attr('id');
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					$.toast({
-						heading: 'News',
-						text: 'Modification effectuée.',
-						icon: 'info'
-					})
-			}
-		}
-		xmlhttp.open("UPDATE","updatenews.php?id="+currentId,true);
-		xmlhttp.send();
-	});
+	<script>	
+	function updateNewsStatus(id, status) {
+		console.log("mise à jour de " + id + " au statut : " + status);
+		$.ajax({
+			method: 	"PUT",
+			url:		"../../webservice/v1/news/status",  
+			success:	function(data) {
+							alert('ok');
+							getNews();
+						}
+		});
+	}
 	</script>
-	
 </head>
 <body>
 	<?php include('../header/navbar.php'); ?>
@@ -186,43 +181,33 @@ require('../../db/check_session.php');
 									</div>
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
-											<script>
-												$(function getNews(){
-													$.ajax({
-														type: 		"GET",
-														url:		"http://think-parc.com/webservice/v1/news/all",  
-														success:	function(data) {
-																		var response = JSON.parse(data);
-																		var content = '<table class="table" style="width:100%;font-size:12px;">';
-																		content = content + 'hahahah';
-																		content = content + '</table>';
-																		document.getElementById("post_actif_").innerHTML = content;
+									<script>
+										$(function getNews(){
+											$.ajax({
+												method: 		"GET",
+												url:		"http://think-parc.com/webservice/v1/news/all",  
+												success:	function(data) {
+																var response = JSON.parse(data);
+																var content = '<table class="table" style="width:100%;font-size:12px;">';
+																for(var i = 0; i < response.length; i++) {
+																	var news = response[i];
+																	content += '<tr>';
+																	content += '<td>' + news.date_news + '<td>';
+																	content += '<td>' + news.msg + '<td>';
+																	if (news.active==1) {
+																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 0);" checked></td>';
+																	} else {
+																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 1);"></td>';
 																	}
-													});
-												});
-											</script>
-												<?php
-												/*
-													foreach ($dbh->getAllNews() as $news) {
-														$id = $news['id'];
-														$date = $news['date'];
-														$auteur = $news['auteur'];
-														$msg = $news['msg'];
-														$actif = $news['actif'];
-														
-														echo '<tr>';
-														echo '<td>'.$date.'<td>';
-														echo '<td>'.$msg.'<td>';
-														if ($actif==1) {
-															echo '<td><input id="'.$id.'" name="post_actif_'.$id.'" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="mini" checked></td>';
-														} else {
-															echo '<td><input id="'.$id.'" name="post_actif_'.$id.'" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="mini"></td>';
-														}
-														echo '<td><a href="deletenews.php?id='.$id.'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
-														echo '</tr>';
-													}
-													*/
-												?>
+																	content += '<td><a href="deletenews.php?id=' + news.id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+																	content += '</tr>';
+																}
+																content += '</table>';
+																document.getElementById("post_actif_").innerHTML = content;
+															}
+											});
+										});
+									</script>
 								</div>
 							</div>
 						</div>
