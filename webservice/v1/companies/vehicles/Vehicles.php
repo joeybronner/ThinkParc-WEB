@@ -4,12 +4,12 @@ class Vehicle {
     /**
      * Return all vehicles for a specific company.
      *
-     * @url GET /vehicle/$id_vehicule/model
+     * @url GET /companies/$id_company/vehicles/$id_vehicle/model
      */
     public function getModel($id_vehicule = null) {
 		try {
 			global $con;
-			$sql = "SELECT modele FROM modeles";
+			$sql = "SELECT model FROM models";
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;

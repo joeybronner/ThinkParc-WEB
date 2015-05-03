@@ -5,7 +5,7 @@ require '../RESTServer.php';
 
 // Imports WS classes
 require 'about/About.php';
-require 'vehicle/Vehicle.php';
+require 'companies/vehicles/Vehicles.php';
 require 'news/News.php';
 
 $server = new RESTServer('debug');
