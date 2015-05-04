@@ -76,7 +76,7 @@ require('../../db/check_session.php');
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
 							<div class="input-group input-group-sm">
-								<form class="formimg" action="javascript:updatePassword();" method="post" enctype="multipart/form-data">
+								<form class="formimg" action="javascript:updatePassword(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="form-group col-xs-9" align="left">
 											<input type="password" class="form-control" style="margin-bottom:3px;" id="oldpass" name="oldpass" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
@@ -86,19 +86,15 @@ require('../../db/check_session.php');
 										<div class="form-group col-xs-3" align="right">
 											<input type="submit" class="btn btn-default" name="submit" value="Valider">
 											<script>
-												function updatePassword() {
-													var oldpass = document.getElementById("oldpass").value;
+												function updatePassword(id) {
 													var newpass = document.getElementById("newpass").value;
-													sessionStorage.setItem("oldpass", oldpass);
-													sessionStorage.setItem("newpass", newpass);
 													$.ajax({
 														type: 		"GET",
-														url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update",  
+														url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update/" + id + "/" + newpass,  
 														success:	function(data) {
 																		$(document).ready(function() {
 																			$.toast({heading: "Success",text: "Password successfully updated.", icon: "success"});
 																		});
-																		document.getElementById()
 																	},
 														error:		function(xhr, status, error) {
 																		$(document).ready(function() {
@@ -106,8 +102,6 @@ require('../../db/check_session.php');
 																		});
 																	}
 													});
-													sessionStorage.removeItem("oldpass");
-													sessionStorage.removeItem("newpass");
 												}
 											</script>
 										</div>
