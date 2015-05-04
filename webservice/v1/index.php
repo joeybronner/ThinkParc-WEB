@@ -7,9 +7,11 @@ require '../RESTServer.php';
 require 'about/About.php';
 require 'companies/vehicles/Vehicles.php';
 require 'news/News.php';
+require 'companies/stocks/Stocks.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
 $server->addClass('Vehicle');
 $server->addClass('News');
+$server->addClass('Stocks');
 $server->handle();

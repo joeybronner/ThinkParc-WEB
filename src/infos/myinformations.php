@@ -19,19 +19,6 @@ require('../../db/check_session.php');
 	<script src="../../js/bootstrap.js"></script>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
-	<script>	
-	function updateNewsStatus(id, status) {
-		console.log("mise à jour de " + id + " au statut : " + status);
-		$.ajax({
-			method: 	"PUT",
-			url:		"../../webservice/v1/news/status",  
-			success:	function(data) {
-							alert('ok');
-							getNews();
-						}
-		});
-	}
-	</script>
 </head>
 <body>
 	<?php include('../header/navbar.php'); ?>
@@ -182,9 +169,12 @@ require('../../db/check_session.php');
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
 									<script>
-										$(function getNews(){
+										$(function onLoad(){
+											getNews();
+										});
+										function getNews(){
 											$.ajax({
-												method: 		"GET",
+												method: 	"GET",
 												url:		"http://think-parc.com/webservice/v1/news/all",  
 												success:	function(data) {
 																var response = JSON.parse(data);
@@ -206,7 +196,19 @@ require('../../db/check_session.php');
 																document.getElementById("post_actif_").innerHTML = content;
 															}
 											});
-										});
+										};
+										function updateNewsStatus(id, status) {
+											$.ajax({
+												type: 		"GET",
+												url:		"http://www.think-parc.com/webservice/v1/news/" + id + "/status/" + status,  
+												success:	function(data) {
+																$(document).ready(function() {
+																	$.toast({heading: "Success",text: "News successfully updated.", icon: "success"});}
+																);
+																getNews();
+															}
+											});
+										}
 									</script>
 								</div>
 							</div>

@@ -42,14 +42,14 @@ class News {
     /**
      * Description.
      *
-     * @url PUT /news/status
+     * @url GET /news/$id_news/status/$status
      */
-    public function updateNewsStatus() {
+    public function updateNewsStatus($id_news = null, $status = null) {
 		try {
 			global $con;
 			$sql = 	"UPDATE news ".
-					"SET active = 1 ".
-					"WHERE id_news = 1;";
+					"SET active = ".$status." ".
+					"WHERE id_news = ".$id_news.";";
 			$stmt = $con->query($sql);
 			return array("success" => "OK");
 		} catch(PDOException $e) {
