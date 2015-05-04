@@ -70,40 +70,47 @@ require('../../db/check_session.php');
 				  </div>
 				</div>
 			</div>
-			
 			<div class="black-bg btn-menu margin-bottom-20">
 				<h2>Modifier mon mot de passe</h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
 							<div class="input-group input-group-sm">
-								<form class="formimg" action="modifiermdp.php" method="post" enctype="multipart/form-data">
+								<form class="formimg" action="javascript:updatePassword();" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="form-group col-xs-9" align="left">
-											<input type="password" class="form-control" style="margin-bottom:3px;" id="ancienmdp" name="ancienmdp" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" style="margin-bottom:3px;" id="nouveaumdp" name="nouveaumdp" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" id="confirmationmdp" name="confirmationmdp" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="oldpass" name="oldpass" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="newpass" name="newpass" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" id="confpass" name="confpass" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
 										</div>
 										<div class="form-group col-xs-3" align="right">
 											<input type="submit" class="btn btn-default" name="submit" value="Valider">
+											<script>
+												function updatePassword() {
+													var oldpass = document.getElementById("oldpass").value;
+													var newpass = document.getElementById("newpass").value;
+													sessionStorage.setItem("oldpass", oldpass);
+													sessionStorage.setItem("newpass", newpass);
+													$.ajax({
+														type: 		"GET",
+														url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update",  
+														success:	function(data) {
+																		$(document).ready(function() {
+																			$.toast({heading: "Success",text: "Password successfully updated.", icon: "success"});
+																		});
+																		document.getElementById()
+																	},
+														error:		function(xhr, status, error) {
+																		$(document).ready(function() {
+																			$.toast({heading: "Error",text: "Error", icon: "error"});
+																		});
+																	}
+													});
+													sessionStorage.removeItem("oldpass");
+													sessionStorage.removeItem("newpass");
+												}
+											</script>
 										</div>
-										<?php
-										if (isset($_GET['pass'])) {
-											if ($_GET['pass'] == "success") {
-												echo '	<script>
-															$(document).ready(function() {
-																$.toast({heading: "Succès",text: "'. $_SESSION['fct_message'] .'", icon: "success"});}
-															);
-														</script>';
-											} else {
-												echo '	<script>
-															$(document).ready(function() {
-																$.toast({heading: "Erreur",text: "'. $_SESSION['fct_message'] .'", icon: "error"});}
-															);
-														</script>';
-											}
-										}
-										?>
 									</div>
 								</form>
 							</div>
@@ -116,33 +123,42 @@ require('../../db/check_session.php');
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
-							<form class="formimg" action="ajouterimage.php" method="post" enctype="multipart/form-data">
+							<form class="formimg" id="file-form" action="javascript:updateProfilePicture();" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="form-group col-xs-9" align="left">
 										<span class="btn btn-default btn-file">
-											Parcourir les fichiers... <input type="file" name="fileToUpload" id="fileToUpload">
+											Select a new profile picture...<input type="file" id="file-select" name="photo" />
 										</span>
 									</div>
 									<div class="form-group col-xs-3" align="right">
-										<input type="submit" class="btn btn-default" name="submit" value="Valider">
-									</div>
-									<?php
-										if (isset($_GET['add'])) {
-											if ($_GET['add'] == "success") {
-												echo '	<script>
-															$(document).ready(function() {
-																$.toast({heading: "Succès",text: "'. $_SESSION['fct_message'] .'", icon: "success"});}
-															);
-														</script>';
-											} else {
-												echo '	<script>
-															$(document).ready(function() {
-																$.toast({heading: "Erreur",text: "'. $_SESSION['fct_message'] .'", icon: "error"});}
-															);
-														</script>';
+										<input type="submit" id="upload-button" class="btn btn-default" name="submit" value="Upload">
+										<script>
+											function updateProfilePicture() {
+												var form = document.getElementById('file-form');
+												var fileSelect = document.getElementById('file-select');
+												var files = fileSelect.files;
+												var file = files[0];
+												
+												if (file == undefined) {
+													$(document).ready(function() {
+														$.toast({heading: "Error",text: "Please select a file.", icon: "error"});
+													});
+													return;
+												}
+												
+												if (!file.type.match('image.*')) {
+													$(document).ready(function() {
+														$.toast({heading: "Error",text: "Only images are supported.", icon: "error"});
+													});
+													return;
+												}												
+												
+												$(document).ready(function() {
+													$.toast({heading: "Success",text: file.name + " uploaded.", icon: "success"});
+												});
 											}
-										}
-									?>
+										</script>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -159,7 +175,7 @@ require('../../db/check_session.php');
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">
 							<div class="row">
-								<form class="formimg" action="ajouternews.php" method="post" enctype="multipart/form-data">
+								<form class="formimg" action="javascript:addNews(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
 									<div class="form-group col-xs-9" align="left">
 										<textarea id="newstext" name="newstext" class="form-control" rows="3" maxlength="140" placeholder="Publier une nouvelle"></textarea>
 									</div>
@@ -189,7 +205,7 @@ require('../../db/check_session.php');
 																	} else {
 																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 1);"></td>';
 																	}
-																	content += '<td><a href="deletenews.php?id=' + news.id + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+																	content += '<td><a href="javascript:deleteNews(' + news.id_news + ');"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
 																	content += '</tr>';
 																}
 																content += '</table>';
@@ -203,12 +219,54 @@ require('../../db/check_session.php');
 												url:		"http://www.think-parc.com/webservice/v1/news/" + id + "/status/" + status,  
 												success:	function(data) {
 																$(document).ready(function() {
-																	$.toast({heading: "Success",text: "News successfully updated.", icon: "success"});}
-																);
+																	$.toast({heading: "Success",text: "News successfully updated.", icon: "success"});
+																});
 																getNews();
+															},
+												error:		function(xhr, status, error) {
+																$(document).ready(function() {
+																	$.toast({heading: "Error",text: "Error", icon: "error"});
+																});
 															}
 											});
-										}
+										};
+										function deleteNews(id) {
+											$.ajax({
+												type: 		"GET",
+												url:		"http://www.think-parc.com/webservice/v1/news/" + id + "/delete",  
+												success:	function(data) {
+																$(document).ready(function() {
+																	$.toast({heading: "Success",text: "News successfully removed.", icon: "success"});
+																});
+																getNews();
+															},
+												error:		function(xhr, status, error) {
+																$(document).ready(function() {
+																	$.toast({heading: "Error",text: "Error", icon: "error"});
+																});
+															}
+											});
+										};
+										function addNews(id) {
+											var newstext = document.getElementById("newstext").value;
+											console.log("http://www.think-parc.com/webservice/v1/news/add/" + id + "/" + newstext);
+											$.ajax({
+												type: 		"GET",
+												url:		"http://www.think-parc.com/webservice/v1/news/add/" + id + "/" + newstext,  
+												success:	function(data) {
+																$(document).ready(function() {
+																	$.toast({heading: "Success",text: "News successfully added.", icon: "success"});
+																});
+																getNews();
+															},
+												error:		function(xhr, status, error) {
+																$(document).ready(function() {
+																	$.toast({heading: "Error",text: "Error", icon: "error"});
+																});
+															}
+											});
+											sessionStorage.removeItem("newstext");
+										};
 									</script>
 								</div>
 							</div>
