@@ -4,7 +4,7 @@ class Stocks {
     /**
      * Return all vehicles for a specific company.
      *
-     * @url GET /companies/stocks/family
+     * @url GET /stocks/family
      */
     public function getFamily() {
 		try {
