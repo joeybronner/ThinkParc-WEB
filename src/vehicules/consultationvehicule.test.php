@@ -55,13 +55,34 @@
 				url:		"http://think-parc.com/webservice/v1/companies/vehicles/all",  
 				success:	function(data) {
 								var response = JSON.parse(data);
-								//var content = '<table id="example"><thead><tr><th>Marque</th><th>Modele</th><th>Mise en circulation</th><th>Kilometrage</th><th>Energie</th><th>Genre</th><th>Categorie</th><th>Num serie</th><th>Date achat</th><th>Date</th><th>Equipement</th><th>Commentaire</th><th>Etat</th><th>Matriculation</th><th>Affectation</th></tr></thead>';
+								content = '<table id="example">';
+								content += '<thead>';
+								content +='<tr>';
+								content +='<th>Marque</th>';
+								content +='<th>Modele</th>';
+								content +='<th>Mise en circulation</th>';
+								content +='<th>Kilometrage</th>';
+								content +='<th>Energie</th>';
+								content +='<th>Genre</th>';
+								content +='<th>Categorie</th>';
+								content +='<th>Num serie</th>';
+								content +='<th>Date achat</th>';
+								content +='<th>Date</th>';
+								content +='<th>Equipement</th>';
+								content +='<th>Commentaire</th>';
+								content +='<th>Etat</th>';
+								content +='<th>Matriculation</th>';
+								content +='<th>Affectation</th>';
+								content +='</tr>';
+								content +='</thead>';
+								content +='<tr>';
 								for (var i = 0; i<response.length; i++) 
 								{
-								content =  '<td><b>'+ response[i].nr_plate +'</b></td>' + '<td><b>'+ response[i].nr_serial +'</b></td>'
+								content +=  '<td><b>'+ response[i].nr_plate +'</b></td>' + '<td><b>'+ response[i].nr_serial +'</b></td>'
 								+ '<td><b>'+ response[i].mileage +'</b></td>' + '<td><b>'+ response[i].buyingprice +'</b></td>' 
 								+ '<td><b>'+ response[i].date_buy +'</b></td>' + '<td><b>'+ response[i].date_add +'</b></td>';
 								}
+								content += '</tr></table>';
 								document.getElementById("VehiclesContent").innerHTML = content;
 							}
 			});
@@ -95,34 +116,11 @@
          </div>
       </center>
       <div class="table-responsive">
-         <table id="example">
-            <thead>
-               <!-- En-tÃªte du tableau -->
-               <tr>
-                  <th>Marque</th>
-                  <th>Modele</th>
-                  <th>Mise en circulation</th>
-                  <th>Kilometrage</th>
-                  <th>Energie</th>
-                  <th>Genre</th>
-                  <th>Categorie</th>
-                  <th>Num serie</th>
-                  <th>Date achat</th>
-                  <th>Date</th>
-                  <th>Equipement</th>
-                  <th>Commentaire</th>
-                  <th>Etat</th>
-                  <th>Matriculation</th>
-                  <th>Affectation</th>
-               </tr>
-            </thead>
-       
-            
+			<div id="VehiclesContent"></div>
                
-            </tr>
-      
+        
+		 
             </form>
-         </table>
       </div>
    </body>
 </html>
