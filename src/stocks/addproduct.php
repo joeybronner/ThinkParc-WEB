@@ -26,36 +26,50 @@ $dbh = new db_functions();
 		$(function getFamily(){
 		   	$.ajax({
 				method: 	"GET",
-				url:		"http://think-parc.com/webservice/v1/companies/stocks/product",  
+				url:		"http://think-parc.com/webservice/v1/companies/stocks/family",  
 				success:	function(data) {
 								var response = JSON.parse(data);
 								
 								for (var i = 0; i<response.length; i++) 
 								{
-								var content = content + '<option value="'+response[i].id_part+'">'+ response[i].reference +'</option>';
+								var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
 								}
-								document.getElementById("productContent").innerHTML = content;
+								document.getElementById("familyContent").innerHTML = content;
 							}
 			});
 		});
-	
-		$(function getSites(){
+				$(function getUnderFamily(){
 		   	$.ajax({
 				method: 	"GET",
-				url:		"http://think-parc.com/webservice/v1/companies/stocks/sites",  
+				url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily",  
 				success:	function(data) {
 								var response = JSON.parse(data);
-							
+								
 								for (var i = 0; i<response.length; i++) 
 								{
-								var content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
+								var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
 								
 								}
-								document.getElementById("SitesContent").innerHTML = content;
+								document.getElementById("underfamilyContent").innerHTML = content;
 							}
 			});
 		});
-			
+		$(function getUnderFamily2(){
+		   	$.ajax({
+				method: 	"GET",
+				url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily2",  
+				success:	function(data) {
+								var response = JSON.parse(data);
+						
+								for (var i = 0; i<response.length; i++) 
+								{
+								var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
+								
+								}
+								document.getElementById("underfamilyContent2").innerHTML = content;
+							}
+			});
+		});
 		$(function getKinds(){
 		   	$.ajax({
 				method: 	"GET",
@@ -72,42 +86,53 @@ $dbh = new db_functions();
 							}
 			});
 		});
-		
-				$(function getMeasurement(){
+		$(function getSites(){
 		   	$.ajax({
 				method: 	"GET",
-				url:		"http://think-parc.com/webservice/v1/companies/stocks/measurements",  
+				url:		"http://think-parc.com/webservice/v1/companies/stocks/sites",  
 				success:	function(data) {
 								var response = JSON.parse(data);
 							
 								for (var i = 0; i<response.length; i++) 
 								{
-								var content = content + '<option value="'+response[i].id_measurement+'">'+ response[i].measurement +'</option>';
+								var content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
 								
 								}
-								document.getElementById("measurementContent").innerHTML = content;
+								document.getElementById("SitesContent").innerHTML = content;
 							}
 			});
 		});
-			
-											function addinstock() {
+		$(function getCurrencies(){
+		   	$.ajax({
+				method: 	"GET",
+				url:		"http://think-parc.com/webservice/v1/companies/stocks/currencies",  
+				success:	function(data) {
+								var response = JSON.parse(data);
+							
+								for (var i = 0; i<response.length; i++) 
+								{
+								var content = content + '<option value="'+response[i].id_currency+'">'+ response[i].symbol +'</option>';
+								
+								}
+								document.getElementById("CurrenciesContent").innerHTML = content;
+							}
+			});
+		});
+					
+											function addProduct() {
 											
-											
-											var quanty = document.getElementById("quanty").value;
-											var driveway = document.getElementById("driveway").value;
-											var bay = document.getElementById("bay").value;
-											var position = document.getElementById("position").value;
-											var rack = document.getElementById("rack").value;
-											var locker = document.getElementById("locker").value;
-											var id_typestock = document.getElementById("KindsContent").value;
-											var id_part = document.getElementById("productContent").value;
-											var id_site = document.getElementById("SitesContent").value;
-											var id_measurement = document.getElementById("id_measurement").value;
+											var reference = document.getElementById("reference").value;
+											var designation = document.getElementById("designation").value;
+											var buyingprice = document.getElementById("buyingprice").value;
+											var id_company = document.getElementById("SitesContent").value;
+											var id_currency = document.getElementById("CurrenciesContent").value;
+											var id_family = document.getElementById("familyContent").value;
+									
 											
 											$.ajax({
 											
 												type: 		"GET",
-												url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addinstock/quanty/"+quanty+"/id_measurement/"+id_measurement+"/driveway/"+driveway+"/bay/"+bay+"/position/"+position+"/locker/"+locker+"/rack/"+rack+"/id_site/"+id_site+"/id_typestock/"+id_typestock+"/id_part/"+id_part,  
+												url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addProduct/reference/"+reference+"/designation/"+designation+"/buyingprice/"+buyingprice+"/id_currency/"+id_currency+"/id_company/"+id_company+"/id_family/"+id_family,  
 												success:	function(data) {
 																$(document).ready(function() {
 																	$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
@@ -122,6 +147,7 @@ $dbh = new db_functions();
 													});
 													
 												};
+										
 										
 		</script>
 </head>
@@ -142,81 +168,75 @@ $dbh = new db_functions();
 					
 					<div class=" col-md-9 col-lg-11 "> 
 					 
-							<form class="formimg" action="javascript:addinstock();" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:addProduct();" method="post" enctype="multipart/form-data">
 								
 								
 								
 					  <table class="table table-user-information">
 						<tbody>
 						  <tr>
-							<td><b>Produits</b></td>
+							<td><b>Familles</b></td>
 							<td class="infos">
 							
 							
-							 	<select id="productContent" class="medium">
+							 	<select id="familyContent" class="medium">
 							
-								<!-- Here are loaded product content -->
+								<!-- Here are loaded Family content -->
 								</select>
+								
+								
+								<select id="underfamilyContent" class="medium">
+							
+								<!-- Here are loaded Under Family content -->
+								</select>
+								
+								<select id="underfamilyContent2" class="medium">
+								
+							    </select>
 								
 							
 								</td>
 						  </tr>
-					
 						  <tr>
-							<td><b>Quantit&eacute;e</b></td>
-							<td>
-							<input type="text" id="quanty" class="small" placeholder="quantité">
-							
-							 	<select id="measurementContent" class="medium">
-							
-								<!-- Here are loaded measurementContent  -->
-								</select>
-							<a href="stockmultisite.php" target="_blank"><i>voir le stock multi site</i></a>
-						
-							</td>
-							</tr>
-						
+							<td><b>R&eacute;f&eacute;rence constructeur</b></td>
+							<td><input type="text" id="reference"></td>
+						  </tr>
 						  <tr>
-							<td><b>Emplacements</b></td>
+							<td><b>D&eacute;signation de la pi&egrave;ce</b></td>
+							<td><input type="text" id="designation"></td>
+						  </tr>
+						  <tr>
+							<td><b>Type de pi&egrave;ce</b></td>
 							<td>
-								<input type="text" id="id_measurement" class="large" placeholder="Magasin No">&nbsp;
-									<input type="text" id="driveway" class="large" placeholder="Allee">&nbsp;
-										<input type="text" id="bay" class="large" placeholder="Travee">&nbsp;
-											<input type="text" id="rack" class="large" placeholder="Etage">&nbsp;
-												<input type="text" id="locker" class="large" placeholder="Casier">&nbsp;
-													<input type="text" id="position" class="large" placeholder="Position">
-							
+								<select id="KindsContent" class="medium" >
+						    	</select>
 							</td>
 						  </tr>
 						  <tr>
-							<td><b>Equivalence</b></td>
+							<td><b>Prix d'achat</b></td>
 							<td>
-								<input type="text" id="equivalence" class="large" placeholder="facultatif">
-							</td>
-							</tr>
-							
-							 <tr>
-							<td><b>Type stock</b></td>
-							<td>
-							<select id="KindsContent" class="medium" >
+							<input type="text" id="buyingprice" class="small">
+							<select id="CurrenciesContent">
 							</select>
+							
 							</td>
-							</tr>
-								  <tr>
+						  </tr>
+						  
+						    <tr>
 							<td><b>Affectation</b></td>
 							<td>
-							<select id="SitesContent" class="medium" >
-							</select>
-							</td>
-							</tr>
 							
-						  
+							<select id="SitesContent">
+							</select>
+							
+							</td>
 						  </tr>
-						
+					
+						  </tr>
 						  
 						  </tr>
 						  <tr>
-							<td></td>
+						
 							<td>
 					
 							<input type="submit" value="Valider" class="btn btn-success">&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning">

@@ -154,8 +154,8 @@ require('../db/check_session.php');
                                         <p>Cette espace vous permet de gérer les <a href="Reparation.html">stocks</a> de produits. Il vous permet aussi les consulter</p>
                                     </div>
                                     
-                                 	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
-										<a href="#">
+                                 	<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+										<a href="stocks/consultationproduct.php">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-eye"></i>
 												<h2>Consultation</h2>
@@ -163,10 +163,20 @@ require('../db/check_session.php');
 											<br/>
 										</a>
 									</div>
+									
+									  	<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+										<a href="stocks/addinstock.php">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-plus"></i>
+												<h2>Ajout stock</h2>
+											</div>
+											<br/>
+										</a>
+									</div>
 
 							
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
-										<a href="stocks/addinstock.php">
+									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+										<a href="stocks/addproduct.php">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-in"></i>
 												<h2>Ajout produit</h2>
@@ -174,7 +184,7 @@ require('../db/check_session.php');
 										</a>
 									</div>
                                
-							<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+							<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-sign-out"></i>

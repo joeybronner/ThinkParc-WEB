@@ -21,14 +21,5 @@ class Users {
 			return array("error" => "".$e->getMessage());
 		}
     }
-	
-	/**
-     * Description.
-     *
-     * @url PUT /companies/users/$id
-     */
-    public function testPUT($id = null, $data) {
-		return array("success" => "OK");
-    }
 }
 ?>

@@ -243,7 +243,6 @@ require('../../db/check_session.php');
 										};
 										function addNews(id) {
 											var newstext = document.getElementById("newstext").value;
-											console.log("http://www.think-parc.com/webservice/v1/news/add/" + id + "/" + newstext);
 											$.ajax({
 												type: 		"GET",
 												url:		"http://www.think-parc.com/webservice/v1/news/add/" + id + "/" + newstext,  
