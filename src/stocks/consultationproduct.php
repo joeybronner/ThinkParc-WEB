@@ -1,5 +1,4 @@
 <?php
-   include('../../db/db_functions.php');
    session_start();
    ?>
 <html>
@@ -79,7 +78,7 @@
 								+ '<td><b>'+ response[i].driveway +'</b></td>' + '<td><b>'+ response[i].bay +'</b></td>'
 								+ '<td><b>'+ response[i].position +'</b></td>' + '<td><b>'+ response[i].rack +'</b></td>'
 								+ '<td><b>'+ response[i].site +'</b></td>' + '<td><b>'+ response[i].typestock +'</b></td>'
-								+ '<td><b>'+ response[i].locker +'</b></td>';
+								+ '<td><b>'+ response[i].locker +'</b></td> </table>';
 								}
 								document.getElementById("AllproductContent").innerHTML = content;
 							}
@@ -107,34 +106,9 @@
          </div>
       </center>
       <div class="table-responsive">
-	  
-        <!--  <table id="example">
-            <thead>
-               
-               <tr>
-                  <th>Reference</th>
-                  <th>Designation</th>
-                  <th>Price</th>
-                  <th>Company</th>
-                  <th>family</th>
-                  <th>Quanty</th>
-                  <th>Measurement</th>
-                  <th>Driveway</th>
-                  <th>Bay</th>
-                  <th>Position</th>
-                  <th>Rack</th>
-                  <th>Site</th>
-                  <th>locker</th>
-                  
-               </tr>
-            </thead>-->
-       
+
             	<div id="AllproductContent"></div>
-               
-            </tr>
-      
-            </form>
-         </table>
+        
       </div>
    </body>
 </html>
