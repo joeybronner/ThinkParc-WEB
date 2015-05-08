@@ -21,5 +21,40 @@ class Users {
 			return array("error" => "".$e->getMessage());
 		}
     }
+	
+    /**
+     * Description.
+     *
+     * @url GET /companies/users/$id_user
+     */
+    public function getUser($id_user = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT * ".
+					"FROM users ".
+					"WHERE id_user = ".$id_user.";";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	/**
+     * Description.
+     *
+	 * @url PUT /companies/users/$id
+     */
+    public function testPUT($id = null, $data) {
+		return array("success" => "PUT");
+    }
+	
+	/**
+     * Description.
+     *
+	 * @url OPTIONS /companies/users/$id
+     */
+    public function optionsUnusedMethods($id = null, $data) { return ""; }
+
 }
 ?>
