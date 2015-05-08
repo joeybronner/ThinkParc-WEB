@@ -269,11 +269,11 @@ require('../db/check_session.php');
 										
 										<?php
 									// Privilège destiné uniquement aux administrateurs
-									if ($_SESSION['fct_privilege']=='admin') 
+									if ($_SESSION['fct_id_role']==1) 
 									{
 									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="vehicules/ajoutvehicule.php">
+                                    <a href="vehicules/addvehicle.php">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>
                                             <h2>Ajout</h2>
@@ -284,7 +284,7 @@ require('../db/check_session.php');
 									
 								
 									// Privilège destiné uniquement aux administrateurs
-									if ($_SESSION['fct_privilege']=='admin') 
+									if ($_SESSION['fct_id_role']==1) 
 									{
 									?>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
@@ -296,7 +296,6 @@ require('../db/check_session.php');
                                     </a>
 									<?php
 									}
-									
 									?>
 									
                                 </div>
