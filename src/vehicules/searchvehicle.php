@@ -57,29 +57,188 @@
 					url:		"http://think-parc.com/webservice/v1/companies/vehicles/" + id,  
 					success:	function(data) {
 									var response = JSON.parse(data);
-									var vehicledetail = '<div class=" col-md-12 col-lg-12 "><table class="table table-user-information">';
+									var vehicledetail = '<div class="col-md-12 col-lg-12"><table class="table table-user-information">';
 									
-									vehicledetail += '<tr><td>ID</td><td>' + response[0].id_vehicle + '</td></tr>';
-									vehicledetail += '<tr><td>Immatriculation</td><td>' + response[0].nr_plate + '</td></tr>';
-									vehicledetail += '<tr><td>Numéro de série</td><td>' + response[0].nr_serial + '</td></tr>';
-									vehicledetail += '<tr><td>Date d\'achat</td><td>' + response[0].date_buy + '</td></tr>';
-									vehicledetail += '<tr><td>Date de mise en circulation</td><td>' + response[0].date_entryservice + '</td></tr>';
-									vehicledetail += '<tr><td>Marque</td><td>' + response[0].brand + '</td></tr>';
-									vehicledetail += '<tr><td>Modèle</td><td>' + response[0].model + '</td></tr>';
-									vehicledetail += '<tr><td>Energie</td><td>' + response[0].energy + '</td></tr>';
-									vehicledetail += '<tr><td>Etat</td><td>' + response[0].state + '</td></tr>';
-									vehicledetail += '<tr><td>Catégorie</td><td>' + response[0].category + '</td></tr>';
-									vehicledetail += '<tr><td>Type</td><td>' + response[0].kind + '</td></tr>';
-									vehicledetail += '<tr><td>Equipement</td><td>' + response[0].equipment + '</td></tr>';
-									vehicledetail += '<tr><td>Site</td><td>' + response[0].name + '</td></tr>';
+									vehicledetail += '<tr><td>Plaque d\'immatriculation</td><td><input class="form-control" type="text" id="nr_plate" name="nr_plate" required value="'+ response[0].nr_plate +'" disabled/>' + '</td></tr>';
+									vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="'+ response[0].nr_serial +'" />' + '</td></tr>';
+									vehicledetail += '<tr><td>Date d\'achat</td><td><input data-format="yyyy-mm-dd" type="date" id="date_buy" name="date_buy" required="required" value='+ response[0].date_buy +'></td></tr>';
+									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input data-format="yyyy-mm-dd" type="date" id="date_entryservice" name="date_entryservice" required="required" value='+ response[0].date_entryservice +'></td></tr>';
+									vehicledetail += '<tr><td>Marque</td><td><select id="brand" name="brand" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Modèle</td><td><select id="model" name="model" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Kilométrage</td><td><input class="form-control" type="text" id="mileage" name="mileage" required value="' + response[0].mileage + '" />' + '</td></tr>';
+									vehicledetail += '<tr><td>Energie</td><td><select id="energies" name="energies" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Etat</td><td><select id="states" name="states" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Catégorie</td><td><select id="categories" name="categories" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Prix d\'achat</td><td><input class="form-control" type="text" id="buyingprice" name="buyingprice" required value="' + response[0].buyingprice + '" /><select id="currencies" name="currencies" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Type</td><td><select id="kinds" name="kinds" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Equipement</td><td><select id="equipments" name="equipments" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Site</td><td><select id="sites" name="sites" required="required" class="form-control"></select></td></tr>';
+									vehicledetail += '<tr><td>Commentaire</td><td>' + '<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" >' + response[0].commentary + '</textarea></td></tr>';
 									
 									vehicledetail += '</table></div>';
 									
 									document.getElementById("vehicledetail").innerHTML = vehicledetail;
 									document.getElementById("vehicleblock").style.display = "block";
+									setBrands(response[0].id_brand);
+									setModels(response[0].id_model, response[0].id_brand);
+									setEnergies(response[0].id_energy);
+									setEquipments(response[0].id_equipment);
+									setStates(response[0].id_state);
+									setCategories(response[0].id_category);
+									setKinds(response[0].id_kind);
+									setSites(response[0].id_site);
+									setCurrencies(response[0].id_currency);
 								}
 				});
 			}
+			function setCurrencies(id_currency){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/stocks/currencies",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_currency + '">' + response[i].symbol + '</option>';
+									}
+									document.getElementById("currencies").innerHTML = content;
+									document.getElementById("currencies").value = id_currency;
+								}
+				});
+			};
+			function setSites(id_site){
+				getCompany(function(company){
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/sites",  
+						success:	function(data) {
+										var response = JSON.parse(data);
+										var content = '<option selected disabled>Sites</option>';
+										for (var i = 0; i<response.length; i++) {
+											content = content + '<option value="' + response[i].id_site + '">' + response[i].name + '</option>';
+										}
+										document.getElementById("sites").innerHTML = content;
+										document.getElementById("sites").value = id_site;
+									}
+					});
+				});
+			};
+			function getCompany(handleData){
+				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user,  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									handleData(response[0].id_company);
+								}
+				});
+			};
+			function setKinds(id_kind){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/kinds",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Genre</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_kind + '">' + response[i].kind + '</option>';
+									}
+									document.getElementById("kinds").innerHTML = content;
+									document.getElementById("kinds").value = id_kind;
+								}
+				});
+			};
+			function setCategories(id_category){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/categories",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Categories</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_category + '">' + response[i].category + '</option>';
+									}
+									document.getElementById("categories").innerHTML = content;
+									document.getElementById("categories").value = id_category;
+								}
+				});
+			};
+			function setStates(id_state){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/states",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Etats</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_state + '">' + response[i].state + '</option>';
+									}
+									document.getElementById("states").innerHTML = content;
+									document.getElementById("states").value = id_state;
+								}
+				});
+			};
+			function setBrands(id_brand) {
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/brands",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Marque du véhicule</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_brand + '">' + response[i].brand + '</option>';
+									}
+									document.getElementById("brand").innerHTML = content;
+									document.getElementById('brand').value = id_brand;
+								}
+				});
+			}
+			function setModels(id_model, id_brand) {
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/models/" + id_brand,  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_model + '">' + response[i].model + '</option>';
+									}
+									document.getElementById("model").innerHTML = content;
+									document.getElementById("model").value = id_model;
+								}
+				});
+			}
+			function setEnergies(id_energy){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/energies",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Energies</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_energy + '">' + response[i].energy + '</option>';
+									}
+									document.getElementById("energies").innerHTML = content;
+									document.getElementById("energies").value = id_energy;
+								}
+				});
+			}
+			function setEquipments(id_equipment){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/vehicles/equipments",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var content = '<option selected disabled>Equipements</option>';
+									for (var i = 0; i<response.length; i++) {
+										content = content + '<option value="' + response[i].id_equipment + '">' + response[i].equipment + '</option>';
+									}
+									document.getElementById("equipments").innerHTML = content;
+									document.getElementById("equipments").value = id_equipment;
+								}
+				});
+			};
 			function saveChangesVehicle() {
 				alert('Not available');
 			}
@@ -101,6 +260,41 @@
 										});
 									}
 					});
+			}
+			function saveChangesVehicle() {
+				var nr_plate = document.getElementById("nr_plate").value;
+				var nr_serial = document.getElementById("nr_serial").value;
+				var mileage = document.getElementById("mileage").value;
+				var buyingprice = document.getElementById("buyingprice").value;
+				var date_buy = document.getElementById("date_buy").value;
+				var date_entryservice = document.getElementById("date_entryservice").value;
+				var energy = document.getElementById("energies").value;
+				var model = document.getElementById("model").value;
+				var kind = document.getElementById("kinds").value;
+				var category = document.getElementById("categories").value;
+				var equipment = document.getElementById("equipments").value;
+				var state = document.getElementById("states").value;
+				var currency = document.getElementById("currencies").value;
+				var site = document.getElementById("sites").value;
+				var commentary = document.getElementById("commentary").value;
+				
+				$.ajax({
+				method: 	"PUT",
+				url:		"http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial + 
+										"/" + mileage + "/" + buyingprice + "/" + date_buy + "/" + date_entryservice + "/" + energy + 
+										"/" + model + "/" + kind + "/" + category + "/" + equipment + "/" + state + "/" + currency + 
+										"/" + commentary,
+				success:	function(data) {
+									$(document).ready(function() {
+										$.toast({heading: "Success",text: "Vehicle successfully updated.", icon: "success"});
+									});	
+								},
+				error:		function(xhr, status, error) {
+									$(document).ready(function() {
+										$.toast({heading: "Error",text: "", icon: "error"});
+									});
+								}
+				});
 			}
 		</script>
 		</head>
@@ -142,9 +336,9 @@
 									<table id="vehicledetail" class="table-no-border">
 										<!-- Retrieve vehicle detail with an AJAX [GET] query -->
 									</table>
-									<input type="button" onclick="javascript:deleteVehicle();" value="Supprimer ce véhicule" class="btn btn-danger"/>
-									<input type="button" onclick="javascript:saveChangesVehicle();" value="Enregistrer les modifications" class="btn btn-success"/>
 								</form>
+								<input type="button" onclick="javascript:deleteVehicle();" value="Supprimer ce véhicule" class="btn btn-danger"/>
+								<input type="button" onclick="javascript:saveChangesVehicle();" value="Enregistrer les modifications" class="btn btn-success"/>
 							</div>
 						</div>
 					</div>
