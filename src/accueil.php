@@ -246,57 +246,41 @@ require('../db/check_session.php');
                                         <h2 class="text-center">Parc automobile</h2>
                                         <p>Utiliser ce module pour gérer les véhicules de votre parc automobile.</p>
                 
+										<?php
+										// Privilège destiné uniquement aux administrateurs
+										if ($_SESSION['fct_id_role']==1) 
+										{
+										?>
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+										<a href="vehicules/addvehicle.php">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-edit"></i>
+												<h2>Ajout</h2>
+											</div>  <br/>
+										</a></div>
+										<?php
+										}
+										?>
                                   
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="vehicules/consultationvehicule.php">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-book"></i>
-                                            <h2>Consultation</h2>
-                                        </div>  
-										<br/>
-										</div>
-                                    </a>
+										<a href="vehicules/searchvehicle.php">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-book"></i>
+												<h2>Consultation Modification</h2>
+											</div>  
+											<br/>
+											</div>
+										</a>
 									
-											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="vehicules/administratif.php">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-book"></i>
-                                            <h2>Administratif</h2>
-                                        </div>  
-										<br/>
-										</div>
-                                    </a>
-										
-										<?php
-									// Privilège destiné uniquement aux administrateurs
-									if ($_SESSION['fct_id_role']==1) 
-									{
-									?>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="vehicules/addvehicle.php">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-edit"></i>
-                                            <h2>Ajout</h2>
-                                        </div>  <br/>
-                                    </a></div>
-									<?php
-									}
-									
-								
-									// Privilège destiné uniquement aux administrateurs
-									if ($_SESSION['fct_id_role']==1) 
-									{
-									?>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="vehicules/suppressionvehicule.php">
-                                        <div class="black-bg btn-menu">
-                                            <i class="fa fa-trash-o"></i>
-                                            <h2>Suppression</h2>
-                                        </div>  </div>
-                                    </a>
-									<?php
-									}
-									?>
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+										<a href="vehicules/administratif.php">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-book"></i>
+												<h2>Administratif</h2>
+											</div>  
+											<br/>
+											</div>
+										</a>
 									
                                 </div>
                                 </div>

@@ -183,6 +183,7 @@ session_start();
 								"/" + commentary,
        	success:	function(data) {
         					$(document).ready(function() {
+								document.getElementById("addvehicle").reset();
         						$.toast({heading: "Success",text: "Vehicle successfully added.", icon: "success"});
         					});	
         				},
@@ -209,7 +210,7 @@ session_start();
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form method="get" action="javascript:addVehicule();">
+							<form id="addvehicle" method="get" action="javascript:addVehicule();">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
@@ -332,7 +333,10 @@ session_start();
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" align="right"><input type="submit" class="btn btn-success" value="Enregistrer"/></td>
+											<td colspan="2" align="right">
+												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+											</td>
 										</tr>
 									</tbody>
 								</table>
