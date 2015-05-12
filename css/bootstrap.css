@@ -58,6 +58,11 @@ strong {
   font-weight: bold;
   color: black;
 }
+
+#b {
+  color: white;
+}
+
 dfn {
   font-style: italic;
 }

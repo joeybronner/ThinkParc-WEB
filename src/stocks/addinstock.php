@@ -35,12 +35,16 @@
          	});
          });
          
-         $(function getSites(){
+        $(function getSites(id_company){
+		 
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+		 
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/sites",  
+         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
          		success:	function(data) {
          						var response = JSON.parse(data);
+								
          					
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -86,38 +90,39 @@
          	});
          });
          	
-         									function addinstock() {
+         	
+			function addinstock() {
          									
          									
-         									var quanty = document.getElementById("quanty").value;
-         									var driveway = document.getElementById("driveway").value;
-         									var bay = document.getElementById("bay").value;
-         									var position = document.getElementById("position").value;
-         									var rack = document.getElementById("rack").value;
-         									var locker = document.getElementById("locker").value;
-         									var id_typestock = document.getElementById("KindsContent").value;
-         									var id_part = document.getElementById("productContent").value;
-         									var id_site = document.getElementById("SitesContent").value;
-         									var id_measurement = document.getElementById("id_measurement").value;
+         	var quanty = document.getElementById("quanty").value;
+			var driveway = document.getElementById("driveway").value;
+         	var bay = document.getElementById("bay").value;
+			var position = document.getElementById("position").value;
+         	var rack = document.getElementById("rack").value;
+         	var locker = document.getElementById("locker").value;
+         	var id_typestock = document.getElementById("KindsContent").value;
+         	var id_part = document.getElementById("productContent").value;
+         	var id_site = document.getElementById("SitesContent").value;
+         	var id_measurement = document.getElementById("measurementContent").value;
          									
-         									$.ajax({
+         		$.ajax({
          									
-         										type: 		"GET",
-         										url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addinstock/quanty/"+quanty+"/id_measurement/"+id_measurement+"/driveway/"+driveway+"/bay/"+bay+"/position/"+position+"/locker/"+locker+"/rack/"+rack+"/id_site/"+id_site+"/id_typestock/"+id_typestock+"/id_part/"+id_part,  
-         										success:	function(data) {
-         														$(document).ready(function() {
-         															$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
-         														});
+         			type: 		"POST",
+         			url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addinstock/quanty/"+quanty+"/id_measurement/"+id_measurement+"/driveway/"+driveway+"/bay/"+bay+"/position/"+position+"/locker/"+locker+"/rack/"+rack+"/id_site/"+id_site+"/id_typestock/"+id_typestock+"/id_part/"+id_part,  
+         			success:	function(data) {
+         					$(document).ready(function() {
+         						$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
+         						});
          														
-         													},
-         										error:		function(xhr, status, error) {
-         														$(document).ready(function() {
-         															$.toast({heading: "Error",text: "Error", icon: "error"});
-         														});
-         													}
-         											});
+         							},
+         					error:		function(xhr, status, error) {
+         						$(document).ready(function() {
+									$.toast({heading: "Error",text: "Error", icon: "error"});
+         													});
+																	}
+         				});
          											
-         										};
+         		};
          								
       </script>
    </head>

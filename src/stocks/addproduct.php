@@ -25,28 +25,31 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/family",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         						
+         						var content = '<option selected disabled>Famille</option>';
          						for (var i = 0; i<response.length; i++) 
          						{
-         						var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
+         						 content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
          						}
          						document.getElementById("familyContent").innerHTML = content;
          					}
          	});
          });
-         		$(function getUnderFamily(){
+         		$(function getUnderFamily(id_family){
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily",  
+         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         						
+         						var content = '<option selected disabled>Ss Famille</option>';
+
          						for (var i = 0; i<response.length; i++) 
          						{
-         						var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
+         						 content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
          						
          						}
          						document.getElementById("underfamilyContent").innerHTML = content;
+								document.getElementById("underfamilyContent").disabled = false;
+
          					}
          	});
          });
@@ -82,22 +85,7 @@
          					}
          	});
          });
-         $(function getSites(){
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/sites",  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-         					
-         						for (var i = 0; i<response.length; i++) 
-         						{
-         						var content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
-         						
-         						}
-         						document.getElementById("SitesContent").innerHTML = content;
-         					}
-         	});
-         });
+    
          $(function getCurrencies(){
             	$.ajax({
          		method: 	"GET",
@@ -115,34 +103,35 @@
          	});
          });
          			
-         									function addProduct() {
+        
+		function addProduct() {
          									
-         									var reference = document.getElementById("reference").value;
-         									var designation = document.getElementById("designation").value;
-         									var buyingprice = document.getElementById("buyingprice").value;
-         									var id_company = document.getElementById("SitesContent").value;
-         									var id_currency = document.getElementById("CurrenciesContent").value;
-         									var id_family = document.getElementById("familyContent").value;
+         var reference = document.getElementById("reference").value;
+         var designation = document.getElementById("designation").value;
+         var buyingprice = document.getElementById("buyingprice").value;
+         var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+         var id_currency = document.getElementById("CurrenciesContent").value;
+         var id_family = document.getElementById("familyContent").value;
          							
          									
-         									$.ajax({
+         $.ajax({
          									
-         										type: 		"GET",
-         										url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addProduct/reference/"+reference+"/designation/"+designation+"/buyingprice/"+buyingprice+"/id_currency/"+id_currency+"/id_company/"+id_company+"/id_family/"+id_family,  
-         										success:	function(data) {
-         														$(document).ready(function() {
-         															$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
-         														});
+         	type: 		"POST",
+         	url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addProduct/reference/"+reference+"/designation/"+designation+"/buyingprice/"+buyingprice+"/id_currency/"+id_currency+"/id_company/"+id_company+"/id_family/"+id_family,  
+         	success:	function(data) {
+         	$(document).ready(function() {
+         		$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
+         		});
          														
-         													},
-         										error:		function(xhr, status, error) {
-         														$(document).ready(function() {
-         															$.toast({heading: "Error",text: "Error", icon: "error"});
-         														});
-         													}
-         											});
+					},
+         			error:		function(xhr, status, error) {
+         			$(document).ready(function() {
+         				$.toast({heading: "Error",text: "Error", icon: "error"});
+         					});
+         						}
+         		});
          											
-         										};
+         	};
          								
          								
       </script>
@@ -166,13 +155,13 @@
                                     <tr>
                                        <td><b>Familles</b></td>
                                        <td class="infos">
-                                          <select id="familyContent" class="medium">
+                                          <select id="familyContent" name="familyContent" class="large" onchange="getUnderFamily(this.value);">
                                              <!-- Here are loaded Family content -->
                                           </select>
-                                          <select id="underfamilyContent" class="medium">
+                                          <select id="underfamilyContent" name="underfamilyContent" class="large" disabled>
                                              <!-- Here are loaded Under Family content -->
                                           </select>
-                                          <select id="underfamilyContent2" class="medium">
+                                          <select id="underfamilyContent2" name="underfamilyContent2" class="large">
                                           </select>
                                        </td>
                                     </tr>
@@ -184,13 +173,7 @@
                                        <td><b>D&eacute;signation de la pi&egrave;ce</b></td>
                                        <td><input type="text" id="designation"/></td>
                                     </tr>
-                                    <tr>
-                                       <td><b>Type de pi&egrave;ce</b></td>
-                                       <td>
-                                          <select id="KindsContent" class="medium"/>
-                                          </select>
-                                       </td>
-                                    </tr>
+                                 
                                     <tr>
                                        <td><b>Prix d'achat</b></td>
                                        <td>
@@ -199,13 +182,7 @@
                                           </select>
                                        </td>
                                     </tr>
-                                    <tr>
-                                       <td><b>Affectation</b></td>
-                                       <td>
-                                          <select id="SitesContent">
-                                          </select>
-                                       </td>
-                                    </tr>
+                                  
                                     </tr>
                                     </tr>
                                     <tr>
