@@ -273,10 +273,10 @@ require('../db/check_session.php');
 										</a>
 									
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="vehicules/administratif.php">
+										<a href="vehicules/docsadministratives.php">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-book"></i>
-												<h2>Administratif</h2>
+												<h2>Documents administratifs</h2>
 											</div>  
 											<br/>
 											</div>
