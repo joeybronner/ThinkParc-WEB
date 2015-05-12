@@ -239,9 +239,6 @@
 								}
 				});
 			};
-			function saveChangesVehicle() {
-				alert('Not available');
-			}
 			function deleteVehicle() {
 					var id = document.getElementById("listvehicles").value;
 					$.ajax({
