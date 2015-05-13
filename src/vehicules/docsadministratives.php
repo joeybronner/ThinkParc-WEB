@@ -73,7 +73,6 @@
 			function displayVehicle(id) {
 				document.getElementById("administrativeblock").style.display = "block";
 				getCompany(function(company){
-					console.log("http://think-parc.com/webservice/v1/companies/" + company + "/administratives/" + id);
 					$.ajax({
 						method: 	"GET",
 						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/" + id,
@@ -87,6 +86,7 @@
 											document.getElementById("date_endinsurance").value = response[i].date_endinsurance;
 											document.getElementById("insurances").value = response[i].id_insurance;
 										}
+										
 										if (response.length < 1) {
 											document.getElementById("nr_contract").value = '';
 											document.getElementById("date_lastcontrol").value = '';
@@ -105,20 +105,15 @@
 					});
 				});
 			}
+			function hideVehicles() {
+				document.getElementById("administrativeblock").style.display = "none";
+			}
 			function newinsurancefields() {
 				var list = true;
 				var newinsurance = false;
 				if (document.getElementById("insurances").disabled) {
-					document.getElementById("insur_choice").className = "fa fa-sort-up";
-					document.getElementById('ins_name').value = "";
-					document.getElementById('ins_add1').value = "";
-					document.getElementById('ins_add2').value = "";
-					document.getElementById('ins_add3').value = "";
-					document.getElementById('ins_zipcode').value = "";
-					document.getElementById('ins_phone').value = "";
-					document.getElementById('ins_email').value = "";
-					document.getElementById('ins_city').value = "";
-					document.getElementById('ins_country').value = "";
+					restartNewInsuranceValues();
+					getInsurances();
 					list = false;
 					newinsurance = true;
 				} else {
@@ -138,21 +133,77 @@
 				document.getElementById('ins_city').disabled = newinsurance;
 				document.getElementById('ins_country').disabled = newinsurance;
 			}
-			function saveAdministrative() {
+			function restartNewInsuranceValues() {
+				document.getElementById("insur_choice").className = "fa fa-sort-up";
+				document.getElementById('ins_name').value = "";
+				document.getElementById('ins_add1').value = "";
+				document.getElementById('ins_add2').value = "";
+				document.getElementById('ins_add3').value = "";
+				document.getElementById('ins_zipcode').value = "";
+				document.getElementById('ins_phone').value = "";
+				document.getElementById('ins_email').value = "";
+				document.getElementById('ins_city').value = "";
+				document.getElementById('ins_country').value = "";
+			}
+			function saveChangesAdministrative() {
 				// First add new insurance if necessary
+				var id_vehicle = document.getElementById("listvehicles").value;
 				if (document.getElementById('ins_name').value == '') {
-					var id_insurance = document.getElementById("insurances").value;
-					insertDocsAdministrative(id_insurance);
+					// Update administrative doc
+					updateDocsAdministrative(document.getElementById("insurances").value, id_vehicle);
 				} else {
+					// Insert insurance
 					insertInsurance(function(insurance){
-						insertDocsAdministrative(insurance);
+						// Update administrative doc
+						updateDocsAdministrative(insurance, id_vehicle);
+						newinsurancefields();
 					});
 				}
-				// Restart values
-				//getInsurances();
-				//document.getElementById("listvehicles").value = 0;
-				//var val = document.getElementById("listvehicles").value;
-				//document.getElementById("listvehicles").value = val;
+				hideVehicles();
+				getAllVehicles();
+			}
+			function saveAdministrative() {
+				// First add new insurance if necessary
+				var id_vehicle = document.getElementById("listvehicles").value;
+				if (document.getElementById('ins_name').value == '') {
+					// Insert administrative doc
+					insertDocsAdministrative(document.getElementById("insurances").value,id_vehicle);
+				} else {
+					// Insert insurance
+					insertInsurance(function(insurance){
+						// Insert administrative doc
+						insertDocsAdministrative(insurance, id_vehicle);
+					});
+				}
+				newinsurancefields();
+				hideVehicles();
+				getAllVehicles();
+			}
+			function updateDocsAdministrative(id_insurance, id_vehicle) {
+				// Add into docsadministrative
+				getCompany(function(company){
+					var nr_contract = document.getElementById("nr_contract").value;
+					var date_lastcontrol = document.getElementById("date_lastcontrol").value;
+					var date_nextcontrol = document.getElementById("date_nextcontrol").value;
+					var date_startinsurance = document.getElementById("date_startinsurance").value;
+					var date_endinsurance = document.getElementById("date_endinsurance").value;
+					$.ajax({
+						method: 	"PUT",
+						url:		"http://think-parc.com/webservice/v1/companies/"+company+"/administratives/docs/"+id_vehicle+"/"+nr_contract+"/"+date_lastcontrol+"/"+date_nextcontrol+"/"+date_startinsurance+"/"+date_endinsurance+"/"+id_insurance,
+						success:	function(data) {
+											$(document).ready(function() {
+												document.getElementById("addAdministrative").style.display = "none";
+												document.getElementById("updateAdministrative").style.display = "block";
+												$.toast({heading: "Success",text: "Administrative document successfully updated.", icon: "success"});
+											});	
+										},
+						error:		function(xhr, status, error) {
+											$(document).ready(function() {
+												$.toast({heading: "Error",text: "An error occured", icon: "error"});
+											});
+										}
+					});
+				});
 			}
 			function insertInsurance(handleData) {
 				// Add into insurances and retrieve new ID insurance
@@ -176,10 +227,9 @@
 					});
 				});
 			}
-			function insertDocsAdministrative(id_insurance) {
+			function insertDocsAdministrative(id_insurance, id_vehicle) {
 				// Add into docsadministrative
 				getCompany(function(company){
-					var id_vehicle = document.getElementById("listvehicles").value;
 					var nr_contract = document.getElementById("nr_contract").value;
 					var date_lastcontrol = document.getElementById("date_lastcontrol").value;
 					var date_nextcontrol = document.getElementById("date_nextcontrol").value;
