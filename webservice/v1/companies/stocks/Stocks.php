@@ -120,7 +120,17 @@ class Stocks {
     public function getsiteproduct($id_site = null) {
 		try {
 			global $con;
-			$sql = "SELECT * FROM stock WHERE id_site = ".$id_site.";";
+			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+			FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
+			WHERE st.id_measurement=me.id_measurement 
+			AND st.id_site=si.id_site 
+			AND st.id_typestock=ty.id_typestock 
+			AND st.id_part=pa.id_part 
+			AND pa.id_currency=cu.id_currency 
+			AND pa.id_company=co.id_company 
+			AND pa.id_family=fa.id_family 
+			AND st.id_site = ".$id_site.";";
+			
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;
