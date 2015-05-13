@@ -1,5 +1,4 @@
 <?php
-   include('../../db/db_functions.php');
    session_start();
    ?>
 <html>
@@ -19,13 +18,13 @@
 		<script src="../../js/bootstrap.js"></script>
 		<script src="../../js/jquery.toast.js"></script>
 		
-	   <link rel="stylesheet" href="DataTables/media/css/jquery.dataTables_themeroller.css">
-	   <link rel="stylesheet" href="DataTables/media/css/jquery.dataTables.min.css">
-	   <link rel="stylesheet" href="DataTables/media/css/jquery.dataTables.css">
+	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themeroller.css">
+	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.min.css">
+	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.css">
 
-      <script type="text/javascript" src="DataTables/media/js/jquery.js"></script>
-      <script type="text/javascript" src="DataTables/media/js/jquery.dataTables.js"></script>	  
-	  <script type="text/javascript" src="DataTables/media/js/jquery.dataTables.min.js"></script>	
+        <script type="text/javascript" src="../../js/jquery.js"></script>
+        <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
+	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
 
 		<script type="text/javascript">
 		
@@ -50,16 +49,16 @@
          		method: 	"GET",
          		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
          		success:	function(data) {
-         						var response = JSON.parse(data);
-								
+         						
+								var response = JSON.parse(data);
 								var content = '<option selected disabled>Liste des sites</option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
-         						content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
-         						
+									content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
          						}
-         						document.getElementById("listproducts").innerHTML = content;
+         						
+								document.getElementById("listproducts").innerHTML = content;
          					}
          	});
          };
@@ -81,7 +80,8 @@
 							{
 								dataSet[i] = new Array(	response[i].reference, 
 														response[i].designation, 
-														response[i].buyingprice + response[i].currency, 
+														response[i].buyingprice, 
+														response[i].currency, 
 														response[i].company,
 														response[i].family,
 														response[i].quanty,
@@ -172,12 +172,10 @@
 		</div>
 		
 		<div id="productblock">
-					<h2>Stock</h2>
-					
-										<!-- Retrieve vehicle detail with an AJAX [GET] query -->
-										<div id="stock">
-										</div>
-							
-				</div>
+			
+			<!-- Retrieve products details with an AJAX [GET] query -->
+				<div id="stock">
+				</div>				
+		</div>
    </body>
 </html>
