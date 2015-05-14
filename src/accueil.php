@@ -194,7 +194,7 @@ require('../db/check_session.php');
                                 </div>
 								</a>
 								
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+										<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-shopping-cart"></i>
@@ -204,7 +204,7 @@ require('../db/check_session.php');
                                 </div>
 								</a>
 								
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+										<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-random"></i>
@@ -213,8 +213,18 @@ require('../db/check_session.php');
                                   <br/>
                                 </div>
 								</a>
-                              
-                              	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-4 ">
+								
+								<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+                                    <a href="stocks/transfert.php">
+                                        <div class="black-bg btn-menu">
+                                            <i class="fa fa-random"></i>
+                                            <h2>Transfert inter sites</h2>
+                                        </div>
+                                  <br/>
+                                </div>
+								
+								</a>
+                              		<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
                                     <a href="#">
                                         <div class="black-bg btn-menu">
                                             <i class="fa fa-edit"></i>
@@ -238,63 +248,78 @@ require('../db/check_session.php');
                                     </a>
                                 </div>
                             </div>
-                        </section><!-- /.contact-section -->    
+                        </section><!-- /.contact-section --> 
                         <section id="services-section" class="inactive">
                             <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="col-sm-12 col-md-12 col-lg-12 black-bg">
                                         <h2 class="text-center">Parc automobile</h2>
-                                        <p>Utiliser ce module pour gérer les véhicules de votre parc automobile.</p>
+                                        <p>Gestion du parc de véhicules</p>
                 
 										<?php
 										// Privilège destiné uniquement aux administrateurs
 										if ($_SESSION['fct_id_role']==1) 
 										{
 										?>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="vehicules/addvehicle.php">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-edit"></i>
-												<h2>Ajout</h2>
-											</div>  <br/>
-										</a></div>
+											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+												<a href="vehicules/addvehicle.php">
+													<div class="black-bg btn-menu">
+														<i class="fa fa-car"></i>
+														<h2>Ajouter<br>un véhicule</h2>
+													</div>
+												</a>
+											</div>
 										<?php
 										}
 										?>
                                   
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="vehicules/searchvehicle.php">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-book"></i>
-												<h2>Consultation Modification</h2>
-											</div>  
-											<br/>
-											</div>
-										</a>
+											<a href="vehicules/searchvehicle.php">
+												<div class="black-bg btn-menu">
+													<i class="fa fa-edit"></i>
+													<h2>Modifier<br>un véhicule</h2>
+												</div>
+											</a>
+										</div>
 									
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="vehicules/docsadministratives.php">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-book"></i>
-												<h2>Documents administratifs</h2>
-											</div>  
-											<br/>
-											</div>
-										</a>
-									
+											<a href="vehicules/docsadministratives.php">
+												<div class="black-bg btn-menu">
+													<i class="fa fa-file"></i>
+													<h2>Gérer les docs<br>administratifs</h2>
+												</div>
+											</a>
+										</div>
+										
+										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
+											<a href="vehicules/vehiclesanddrivers.php">
+												<div class="black-bg btn-menu">
+													<i class="fa fa-user"></i>
+													<h2>Conducteurs<br>des véhicules</h2>
+												</div>
+											</a>
+										</div>
+										
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+											<a href="#">
+												<div class="black-bg btn-menu">
+													<i class="fa fa-search"></i>
+													<h2>Voir tous les véhicules</h2>
+												</div>
+											</a>
+										</div>
+									</div>
                                 </div>
-                                </div>
-								<br/>
                             </div>
-                         <div class="row margin-top-20">
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
-                                    <a href="#menu" class="change-section">
-                                        <div class="black-bg btn-menu">
-                                            <h2>Retour au menu</h2>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+							<div class="row margin-top-20">
+								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
+									<a href="#menu" class="change-section">
+										<div class="black-bg btn-menu">
+											<h2>Retour au menu</h2>
+										</div>
+									</a>
+								</div>
+							</div>
                         </section><!-- /.services-section -->    
                         <section id="about-section" class="inactive">
                             <div class="row">
