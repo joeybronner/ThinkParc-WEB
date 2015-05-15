@@ -12,9 +12,7 @@
 		<link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themeroller.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.min.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.css">
+		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
@@ -26,8 +24,26 @@
 		<script type="text/javascript">
 			$(function onLoad() {
 				document.getElementById("vehiclesanddriversdetail").style.display = "none";
+				document.getElementById("addentry").style.display = "none";
 				getAllVehicles();
+				getAllDrivers();
 			});
+			function getAllDrivers() {
+				getCompany(function(company){
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/drivers",  
+						success:	function(data) {
+										var response = JSON.parse(data);
+										var content = '<option selected disabled>Liste des conducteurs</option>';
+										for (var i = 0; i<response.length; i++) {
+											content = content + '<option value="' + response[i].id_driver + '">' + response[i].firstname + ' ' + response[i].lastname + '(' + response[i].nr_drivinglicence + ')</option>';
+										}
+										document.getElementById("listdrivers").innerHTML = content;
+									}
+					});
+				});
+			};
 			function getAllVehicles(){
 				getCompany(function(company){
 					$.ajax({
@@ -57,32 +73,133 @@
 			};
 			function displayVehicle(id) {
 				getCompany(function(company){
-					var dataSet = [
-						['Joey Bronner', '45673638848484', '2015-01-01', '2015-02-15']
-					];
-					
-					$('#drivers').html( '<table class="display" id="example"></table>' );
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/" + id + "/drivers",
+						success:	function(data) {
+										var response = JSON.parse(data);
+										var dataSet = new Array(response.length);
+										for (var i = 0; i<response.length; i++) {
+											dataSet[i] = new Array(	response[i].firstname + " " + response[i].lastname, 
+																	response[i].nr_drivinglicence, 
+																	response[i].date_start, 
+																	response[i].date_end,
+																	'<a href="javascript:removeEntry(' + response[i].id_driveduration + ');"><i id="icon_remove" class="fa fa-times"></i></a>');
+										}
+										
+										$('#drivers').html( '<table class="display" id="example"></table>' );
 							
-					$('#example').dataTable( {
-						"data": dataSet,
-						   "bPaginate": true,
-						   "bLengthChange": true,
-						   "bStateSave": true,
-						   "bFilter": true,
-						   "bSort": true,
-						   "bInfo": true,
-						   "bAutoWidth": true,
-						"columns": [
-							{ "title": "driver" , "class": "center" },
-							{ "title": "driving licence" , "class": "center"},
-							{ "title": "start" , "class": "center" },
-							{ "title": "end", "class": "center" }
-						]
-					} );
+										$('#example').dataTable( {
+											"data": dataSet,
+											"bPaginate": true,
+											"bLengthChange": true,
+											"bStateSave": true,
+											"bFilter": true,
+											"bSort": true,
+											"bInfo": true,
+											"bAutoWidth": true,
+											"columns": [
+												{ "title": "Conducteur" , "class": "center fctbw" },
+												{ "title": "N° de permis de conduire" , "class": "center fctbw"},
+												{ "title": "Date de début" , "class": "center fctbw" },
+												{ "title": "Date de fin", "class": "center fctbw" },
+												{ "title": "", "class": "center fctbw" }
+											]
+										} );
+									}
+					});
 
 					document.getElementById("vehiclesanddriversdetail").style.display = "block";					
 				
 				});
+			}
+			function showAddDriverFields() {
+				document.getElementById("addentry").style.display = "block";
+				document.getElementById("btshowfields").style.display = "none";
+			}
+			function removeEntry(id_driveduration) {
+				getCompany(function(company){
+					console.log("http://think-parc.com/webservice/v1/companies/" + company + "/administratives/driveduration/" + id_driveduration);
+					$.ajax({
+						method: 	"DELETE",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/driveduration/" + id_driveduration,
+						success:	function(data) {
+										$(document).ready(function() {
+											json = JSON.parse(data);
+											displayVehicle(document.getElementById("listvehicles").value);
+										});	
+									}
+					});
+				});
+			}
+			function addEntry() {			
+				if (document.getElementById("listdrivers").disabled) {
+					insertDriver(function(id_driver){
+						insertDriveDuration(id_driver);
+					});
+				} else {
+					insertDriveDuration(document.getElementById("listdrivers").value);
+				}
+				
+			}
+			function insertDriveDuration(id_driver) {
+				// Retrieve values
+				var id_vehicle = document.getElementById("listvehicles").value;
+				var date_start = document.getElementById("date_start").value;
+				var date_end = document.getElementById("date_end").value;
+				getCompany(function(company){
+					$.ajax({
+						method: 	"POST",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/" + id_vehicle + "/driver/existant/" + id_driver + "/" + date_start + "/" + date_end,
+						success:	function(data) {
+										json = JSON.parse(data);	
+										document.getElementById("firstname").value = '';
+										document.getElementById("lastname").value = '';
+										document.getElementById("nr_drivinglicence").value = '';
+										document.getElementById("date_start").value = '';
+										document.getElementById("date_end").value = '';
+										displayVehicle(document.getElementById("listvehicles").value);
+									}
+					});
+				});
+			}
+			function insertDriver(handleData) {
+				var firstname = document.getElementById("firstname").value;
+				var lastname = document.getElementById("lastname").value;
+				var nr_drivinglicence = document.getElementById("nr_drivinglicence").value;
+				getCompany(function(company){
+					$.ajax({
+						method: 	"POST",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/drivers/" + firstname + "/" + lastname + "/" + nr_drivinglicence,
+						success:	function(data) {
+										json = JSON.parse(data);
+										handleData(json["Success"]);
+									}
+					});
+				});
+			}
+			function newDriverFields() {
+				var list = false;
+				var newdriver = true;
+				getAllDrivers();
+				if (document.getElementById("listdrivers").disabled) {
+					document.getElementById("driver_choice").className = "fa fa-sort-down";
+					list = false;
+					newdriver = true;
+				} else {
+					document.getElementById("driver_choice").className = "fa fa-sort-up";
+					document.getElementById("listdrivers").value = 0;
+					list = true;
+					newdriver = false;
+				}
+				document.getElementById("listdrivers").disabled = list;
+				document.getElementById('firstname').disabled = newdriver;
+				document.getElementById('lastname').disabled = newdriver;
+				document.getElementById('nr_drivinglicence').disabled = newdriver;
+			}
+			function showAddDriverFields() {
+				document.getElementById("btshowfields").style.display = "none";
+				document.getElementById("addentry").style.display = "block";
 			}
 		</script>
 		</head>
@@ -116,12 +233,12 @@
 					</div>
 				</div>
 				<div id="vehiclesanddriversdetail" class="black-bg btn-menu margin-bottom-20">
-					<h2>Documents administratifs concernant ce véhicule</h2>
+					<h2>Historique</h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
 								<form>
-									<div class="col-md-12 col-lg-12"><table class="table table-user-information">
+									<div class="col-md-12 col-lg-12">
 										<table id="vehicledetail" class="table-no-border">
 											<tbody>
 												<tr>
@@ -132,11 +249,59 @@
 														
 													</td>
 												</tr>
+												<tr id="btshowfields">
+													<td>
+														<a href="javascript:showAddDriverFields();"><i id="add" class="fa fa-plus-circle"></i>
+														Ajouter un conducteur</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<table id="addentry" class="table-no-border">
+											<tbody>
+												<tr>
+													<td>Conducteurs</td>
+													<td>
+														<select id="listdrivers" name="listdrivers" required class="form-control"></select>
+													</td>
+													<td align="right">
+														<a href="javascript:newDriverFields();"><i id="driver_choice" class="fa fa-sort-down"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<td>Prénom</td>
+													<td>
+														<input class="form-control" type="text" id="firstname" name="firstname" disabled>
+													</td>
+												</tr>
+												<tr>
+													<td>Nom</td>
+													<td>
+														<input class="form-control" type="text" id="lastname" name="lastname" disabled>
+													</td>
+												</tr>
+												<tr>
+													<td>N° de permis</td>
+													<td>
+														<input class="form-control" type="text" id="nr_drivinglicence" name="nr_drivinglicence" disabled>
+													</td>
+												</tr>
+												<tr>
+													<td>Date de début</td>
+													<td>
+														<input data-format="yyyy-mm-dd" type="date" id="date_start" name="date_start" required="required" placeholder="Date d’achat">
+													</td>
+												</tr>
+												<tr>
+													<td>Date de fin</td>
+													<td>
+														<input data-format="yyyy-mm-dd" type="date" id="date_end" name="date_end" required="required" placeholder="Date d’achat">
+													</td>
+												</tr>
 												<tr>
 													<td>
-														<a href="javascript:alert('show fields');"><i id="insur_choice" class="fa fa fa-plus-circle"></i></a>
-														Ajouter un conducteur
-													</td>
+														<input type="button" onclick="javascript:addEntry();" value="Ajouter" class="btn btn-success"/>
+													</td>	
 												</tr>
 											</tbody>
 										</table>
