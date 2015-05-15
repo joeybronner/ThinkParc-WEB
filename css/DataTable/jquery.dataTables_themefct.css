@@ -371,6 +371,12 @@ td#drivers {
   padding-top:50px;
   font-family: Open Sans;
 }
+td#vehicles {
+  font-size: 12px;
+  padding-bottom:50px;
+  padding-top:50px;
+  font-family: Open Sans;
+}
 th.fctbw {
   color: white;
   font-size:14px;

@@ -301,7 +301,7 @@ require('../db/check_session.php');
 										</div>
 										
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
-											<a href="#">
+											<a href="vehicules/vehicles.php">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-search"></i>
 													<h2>Voir tous les véhicules</h2>

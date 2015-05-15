@@ -147,8 +147,17 @@ class Vehicle {
 		try {
 			global $con;
 			$sql = 	"SELECT * ".
-					"FROM vehicles ".
-					"WHERE id_site IN (SELECT id_site FROM sites WHERE id_company = ".$id_company.");";
+					"FROM vehicles v, kinds k, brands b, states s, categories c, equipments e, energies en, models m, sites si, currencies cu ".
+					"WHERE v.id_energy = en.id_energy ".
+						"AND v.id_model = m.id_model ".
+						"AND v.id_kind = k.id_kind ".
+						"AND v.id_category = c.id_category ".
+						"AND v.id_equipment = e.id_equipment ".
+						"AND v.id_state = s.id_state ".
+						"AND v.id_currency = cu.id_currency ".
+						"AND v.id_site = si.id_site ".
+						"AND si.id_company = ".$id_company." ".
+						"AND m.id_brand = b.id_brand;";
 			$stmt = $con->query($sql);
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		} catch(PDOException $e) {
