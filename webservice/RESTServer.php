@@ -370,6 +370,7 @@ class RESTServer
 		header("Expires: 0");
 		// header for development (allows all access)
 		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
 		header('Content-Type: ' . $this->format);
 		
 		if ($this->format == RESTFormat::XML) {
@@ -456,7 +457,7 @@ class RESTServer
 		for($c = 0; $c < $len; $c++) {
 			$char = $json[$c];
 			switch($char) {
-				case '{':
+				case '{': 
 				case '[':
 					if(!$in_string) {
 						$new_json .= $char . "\n" . str_repeat($tab, $indent_level+1);
