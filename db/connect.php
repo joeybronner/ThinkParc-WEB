@@ -58,12 +58,14 @@ else
 			$_SESSION['fct_session'];
 			$_SESSION['fct_id_user'] 	= $user['id_user'];
 			$_SESSION['fct_id_role'] 	= $user['id_role'];
+			$_SESSION['fct_id_company'] = $user['id_company'];
 			$_SESSION['fct_firstname'] 	= $user['firstname'];
 			$_SESSION['fct_lastname'] 	= $user['lastname'];
 			$_SESSION['fct_login'] 		= $user['login'];
 			$_SESSION['fct_pass'] 		= $user['pass'];
 			$_SESSION['fct_email'] 		= $user['email'];
 			$_SESSION['fct_image'] 		= $user['image'];
+			$_SESSION['fct_lang'] 		= 'FR';
 			// Private session cache & expires in a delay of 15 minutes
 			session_cache_limiter('private');
 			session_cache_expire(15);
