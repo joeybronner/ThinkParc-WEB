@@ -1,5 +1,9 @@
 <?php 
-require('../db/check_session.php');
+	require('../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../lang/accueil.fr.php');
+	else
+		include('../lang/accueil.en.php');
  ?>
 
 <html> 
@@ -277,7 +281,7 @@ require('../db/check_session.php');
 											<a href="vehicules/searchvehicle.php">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-edit"></i>
-													<h2>Modifier<br>un véhicule</h2>
+													<h2>Consulter<br>un véhicule</h2>
 												</div>
 											</a>
 										</div>

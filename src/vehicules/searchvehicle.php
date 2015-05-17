@@ -1,6 +1,9 @@
 <?php
-   include('../../db/db_functions.php');
-   session_start();
+	session_start();
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/vehicles/vehicles.fr.php');
+	else
+		include('../../lang/vehicles/vehicles.en.php');
    ?>
 <html>
 	<head>
@@ -52,6 +55,7 @@
 				});
 			};
 			function displayVehicle(id) {
+				   // Vehicle informations
 				   $.ajax({
 					method: 	"GET",
 					url:		"http://think-parc.com/webservice/v1/companies/vehicles/" + id,  
@@ -60,7 +64,7 @@
 									var vehicledetail = '<div class="col-md-12 col-lg-12"><table class="table table-user-information">';
 									
 									vehicledetail += '<tr><td>Plaque d\'immatriculation</td><td><input class="form-control" type="text" id="nr_plate" name="nr_plate" required value="'+ response[0].nr_plate +'" disabled/>' + '</td></tr>';
-									vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="'+ response[0].nr_serial +'" />' + '</td></tr>';
+									vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="'+ response[0].nr_serial +'" disabled/>' + '</td></tr>';
 									vehicledetail += '<tr><td>Date d\'achat</td><td><input data-format="yyyy-mm-dd" type="date" id="date_buy" name="date_buy" required="required" value='+ response[0].date_buy +'></td></tr>';
 									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input data-format="yyyy-mm-dd" type="date" id="date_entryservice" name="date_entryservice" required="required" value='+ response[0].date_entryservice +'></td></tr>';
 									vehicledetail += '<tr><td>Marque</td><td><select id="brand" name="brand" required="required" class="form-control"></select></td></tr>';
@@ -90,6 +94,36 @@
 									setCurrencies(response[0].id_currency);
 								}
 				});
+				// Vehicles files
+				var dataSet = new Array(response.length);
+				for (var i = 0; i < 5; i++) {
+					dataSet[i] = new Array(	"File " + i,
+											'<a href="javascript:removeFile(' + 0 + ');"><i class="fa fa-times"></i></a>',
+											'<a href="javascript:downloadFile(' + 0 + ');"><i class="fa fa-times"></i></a>');
+				}
+				
+				$('#fileslist').dataTable( {
+					"data": dataSet,
+					"bPaginate": true,
+					"bLengthChange": true,
+					"bStateSave": true,
+					"bFilter": true,
+					"bSort": true,
+					"bInfo": true,
+					"bAutoWidth": true,
+					"columns": [
+						{ "title": "File" , "class": "center fctbw" },
+						{ "title": "Delete" , "class": "center fctbw" },
+						{ "title": "Download" , "class": "center fctbw" }
+					]
+				} );
+				
+			}
+			function downloadFile(id_file) {
+				alert("download file id : " + id_file);
+			}
+			function removeFile(id_file) {
+				alert("remove file id : " + id_file);
 			}
 			function setCurrencies(id_currency){
 				$.ajax({
@@ -293,6 +327,45 @@
 								}
 				});
 			}
+		function uploadFile() {
+			var file = document.getElementById('file-select').files[0];
+			var formData = new FormData();
+
+			// Check the file type.
+			if (!file.type.match('.pdf') && 
+				!file.type.match('.doc') &&
+				!file.type.match('.docx') &&
+				!file.type.match('.png') &&
+				!file.type.match('.jpg') &&
+				!file.type.match('.txt') &&
+				!file.type.match('.jpeg')) {
+					$(document).ready(function() {
+						$.toast({heading: "Error",text: "Only documents and pictures are supported (.png, .jpg, .pdf, .doc, .docx)", icon: "error"});
+					});
+			} else {
+				// Add file to data form
+				formData.append('myfiles', file, file.name);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '../../files/uploadfile.php?target=files_vehicles', true);
+				xhr.onload = function () {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							$(document).ready(function() {
+								$('#file-form').each(function(){
+									this.reset();
+								});
+								$.toast({heading: "Success",text: "File successfully uploaded.", icon: "success"});
+							});		
+						} else {
+							$(document).ready(function() {
+								$.toast({heading: "Error",text: "", icon: "error"});
+							});
+						}	
+					} 
+				};
+				xhr.send(formData);
+			}
+		}
 		</script>
 		</head>
 		<body>
@@ -302,7 +375,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Consultation / Modification des véhicules</h2>
+					<h2><?php echo $lang['CONSULT_EDIT_VEHICLE_TITLE']; ?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -339,6 +412,26 @@
 							</div>
 						</div>
 					</div>
+					<h2>Liste des fichiers</h2>
+					<form id="file-form" action="javascript:uploadFile();" method="POST">
+							<table>
+								<tr>
+									<td id="files">
+										<table class="display" id="fileslist">
+											<!-- Here, DataTable of files of selected vehicle -->
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
+									</td>
+									<td align="right">
+										<button type="submit" id="upload-button" class="btn btn-success">Ajouter ce fichier</button>
+									</td>
+								</tr>
+							</table>
+					</form>
 				</div>
 			</div>
 		</div>
