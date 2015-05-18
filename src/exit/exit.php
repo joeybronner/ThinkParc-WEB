@@ -1,14 +1,18 @@
 <?php
 
 session_start();
-unset($_SESSION['fct_authentification']);
-unset($_SESSION['fct_privilege']);
-unset($_SESSION['fct_nom']);
-unset($_SESSION['fct_prenom']);
-unset($_SESSION['fct_id']);
+unset($_SESSION['fct_session']);
+unset($_SESSION['fct_id_user']);
+unset($_SESSION['fct_id_role']);
+unset($_SESSION['fct_id_company']);
+unset($_SESSION['fct_firstname']);
+unset($_SESSION['fct_lastname']);
 unset($_SESSION['fct_login']);
-unset($_SESSION['fct_password']);
+unset($_SESSION['fct_pass']);
+unset($_SESSION['fct_email']);
+unset($_SESSION['fct_image']);
+unset($_SESSION['fct_lang']);
 session_destroy();
-header('Location: ../../index.html');
+header('Location: ../../index.php');
 
 ?>
