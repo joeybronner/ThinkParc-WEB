@@ -18,6 +18,26 @@ class Vehicle {
     }
 	
     /**
+     * Description.
+     *
+     * @url GET /companies/$id_company/vehicles/$id_vehicle/files
+     */
+    public function getVehicleFiles($id_company = null, $id_vehicle = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT * ".
+					"FROM files, filestypes ".
+					"WHERE id_element = ".$id_vehicle." ".
+					"AND files.id_filestype = filestypes.id_filestype ".
+					"AND files.id_filestype = 1;";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+    /**
      * Description
      *
      * @url GET /companies/vehicles/models/$id_brand

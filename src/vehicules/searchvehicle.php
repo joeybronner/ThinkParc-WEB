@@ -16,11 +16,15 @@
 		<link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
 		<script src="../../js/bootstrap.js"></script>
 		<script src="../../js/jquery.toast.js"></script>
+		<script src="../../js/jquery.js"></script>
+        <script src="../../js/jquery.dataTables.js"></script>	  
+	    <script src="../../js/jquery.dataTables.min.js"></script>	
 		<script type="text/javascript">
 			$(function onLoad() {
 				document.getElementById("vehicleblock").style.display = "none";
@@ -95,35 +99,137 @@
 								}
 				});
 				// Vehicles files
-				var dataSet = new Array(response.length);
-				for (var i = 0; i < 5; i++) {
-					dataSet[i] = new Array(	"File " + i,
-											'<a href="javascript:removeFile(' + 0 + ');"><i class="fa fa-times"></i></a>',
-											'<a href="javascript:downloadFile(' + 0 + ');"><i class="fa fa-times"></i></a>');
-				}
-				
-				$('#fileslist').dataTable( {
-					"data": dataSet,
-					"bPaginate": true,
-					"bLengthChange": true,
-					"bStateSave": true,
-					"bFilter": true,
-					"bSort": true,
-					"bInfo": true,
-					"bAutoWidth": true,
-					"columns": [
-						{ "title": "File" , "class": "center fctbw" },
-						{ "title": "Delete" , "class": "center fctbw" },
-						{ "title": "Download" , "class": "center fctbw" }
-					]
-				} );
-				
+				getCompany(function(company){
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/vehicles/" + id + "/files",  
+						success:	function(data) {
+										var response = JSON.parse(data);
+										var dataSet = new Array(response.length);
+										for (var i = 0; i<response.length; i++) {
+											dataSet[i] = new Array(response[i].date_upload,
+															response[i].path,
+															'<a href="javascript:removeFile(' + response[i].id_file + ', ' + id + ');"><i class="fa fa-times"></i></a>',
+															'<a href="javascript:downloadFile(' + response[i].id_file + ');"><i class="fa fa-download"></i></a>');
+										}
+										$('#fileslist').dataTable( {
+											"data": dataSet,
+											"destroy":true,
+											"bPaginate": true,
+											"bLengthChange": true,
+											"bStateSave": true,
+											"bFilter": true,
+											"bSort": true,
+											"bInfo": true,
+											"bAutoWidth": true,
+											"columns": [
+												{ "title": "Date" , "class": "center fctbw" },
+												{ "title": "File" , "class": "center fctbw" },
+												{ "title": "Delete" , "class": "center fctbw" },
+												{ "title": "Download" , "class": "center fctbw" }
+											]
+										} );
+									}
+					});
+				});
 			}
 			function downloadFile(id_file) {
-				alert("download file id : " + id_file);
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/files/" + id_file + "/path",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+										window.open('../../files/files_vehicles/' + response[0].path);	
+								}
+				});
 			}
-			function removeFile(id_file) {
-				alert("remove file id : " + id_file);
+			function removeFile(id_file, id) {
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/files/" + id_file + "/path",  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									var path = response[0].path;
+									var formData = new FormData();
+									formData.append('path', path);
+									var xhr = new XMLHttpRequest();
+									xhr.open('POST', '../../files/removefile.php?target=files_vehicles', true);
+									xhr.onload = function () {
+										if (xhr.readyState == 4) {
+											if (xhr.status == 200) {
+												$.ajax({
+													method: 	"DELETE",
+													url:		"http://think-parc.com/webservice/v1/files/" + id_file,  
+													success:	function(data) {
+																	var response = JSON.parse(data);
+																	displayVehicle(id);
+																	$.toast({heading: "Success",text: "File successfully removed.", icon: "success"});
+																}
+												});
+												
+											} else {
+												$.toast({heading: "Error",text: "", icon: "error"});
+											}	
+										} 
+									};
+									xhr.send(formData);
+								}
+				});
+			}
+			function uploadFile() {
+				var file = document.getElementById('file-select').files[0];
+				var formData = new FormData();
+
+				// Check the file type.
+				if (!file.type.match('.pdf') && 
+					!file.type.match('.doc') &&
+					!file.type.match('.docx') &&
+					!file.type.match('.png') &&
+					!file.type.match('.jpg') &&
+					!file.type.match('.txt') &&
+					!file.type.match('.jpeg')) {
+						$(document).ready(function() {
+							$.toast({heading: "Error",text: "Only documents and pictures are supported (.png, .jpg, .pdf, .doc, .docx)", icon: "error"});
+						});
+				} else {
+					// Add file to data form
+					var d = new Date();
+					var generatedfilename = d.getTime() + "_" + file.name;
+					formData.append('myfiles', file, generatedfilename);
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST', '../../files/uploadfile.php?target=files_vehicles', true);
+					xhr.onload = function () {
+						if (xhr.readyState == 4) {
+							if (xhr.status == 200) {
+								$(document).ready(function() {
+									$.ajax({
+										method: 	"POST",
+										url:		"http://think-parc.com/webservice/v1/files/new/1/" + generatedfilename + "/" + document.getElementById("listvehicles").value,
+										success:	function(data) {
+															$(document).ready(function() {
+																$('#file-form').each(function(){
+																	this.reset();
+																});
+																displayVehicle(document.getElementById("listvehicles").value);
+																$.toast({heading: "Success",text: "File successfully uploaded.", icon: "success"});
+															});	
+														},
+										error:		function(xhr, status, error) {
+															$(document).ready(function() {
+																$.toast({heading: "Error",text: "", icon: "error"});
+															});
+														}
+									});
+								});		
+							} else {
+								$(document).ready(function() {
+									$.toast({heading: "Error",text: "", icon: "error"});
+								});
+							}	
+						} 
+					};
+					xhr.send(formData);
+				}
 			}
 			function setCurrencies(id_currency){
 				$.ajax({
@@ -327,45 +433,6 @@
 								}
 				});
 			}
-		function uploadFile() {
-			var file = document.getElementById('file-select').files[0];
-			var formData = new FormData();
-
-			// Check the file type.
-			if (!file.type.match('.pdf') && 
-				!file.type.match('.doc') &&
-				!file.type.match('.docx') &&
-				!file.type.match('.png') &&
-				!file.type.match('.jpg') &&
-				!file.type.match('.txt') &&
-				!file.type.match('.jpeg')) {
-					$(document).ready(function() {
-						$.toast({heading: "Error",text: "Only documents and pictures are supported (.png, .jpg, .pdf, .doc, .docx)", icon: "error"});
-					});
-			} else {
-				// Add file to data form
-				formData.append('myfiles', file, file.name);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', '../../files/uploadfile.php?target=files_vehicles', true);
-				xhr.onload = function () {
-					if (xhr.readyState == 4) {
-						if (xhr.status == 200) {
-							$(document).ready(function() {
-								$('#file-form').each(function(){
-									this.reset();
-								});
-								$.toast({heading: "Success",text: "File successfully uploaded.", icon: "success"});
-							});		
-						} else {
-							$(document).ready(function() {
-								$.toast({heading: "Error",text: "", icon: "error"});
-							});
-						}	
-					} 
-				};
-				xhr.send(formData);
-			}
-		}
 		</script>
 		</head>
 		<body>
@@ -416,7 +483,7 @@
 					<form id="file-form" action="javascript:uploadFile();" method="POST">
 							<table>
 								<tr>
-									<td id="files">
+									<td id="files" colspan="2">
 										<table class="display" id="fileslist">
 											<!-- Here, DataTable of files of selected vehicle -->
 										</table>
@@ -435,5 +502,6 @@
 				</div>
 			</div>
 		</div>
+		<?php include('../footer/footer.php'); ?>
    </body>
 </html>

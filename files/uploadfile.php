@@ -1,7 +1,7 @@
 <?php
 	// Lien du dossier ou sera enregistrée l'image
-	$now = date('ymdHis');
-	$target_dir = $_GET['target']."/".$now;
+	//$now = date('ymdHis');
+	$target_dir = $_GET['target']."/"/*.$now*/;
 	$target_file = $target_dir . basename($_FILES["myfiles"]["name"]);
 	$uploadOk = 1;
 	//$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
