@@ -200,6 +200,7 @@ img.slide {
 
 
 .footer {
+	position: fixed;
 	width:100%;
     overflow:hidden; 
     bottom: 0px;
