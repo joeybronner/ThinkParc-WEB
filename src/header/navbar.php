@@ -6,6 +6,7 @@ if(!isset($_SESSION)) {
 if ($_SERVER['REMOTE_ADDR'] === '127.0.0.1') {
 	set_include_path( get_include_path() . PATH_SEPARATOR . $_SERVER['DOCUMENT_ROOT'] );
 	$path = '/projects/ThinkParc-WEB/';
+	$include = '/projects/ThinkParc-WEB/';
 } else {
 	$path = "/";
 	$include = $_SERVER['DOCUMENT_ROOT']."/";
