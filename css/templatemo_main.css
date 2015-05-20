@@ -204,13 +204,13 @@ img.slide {
 	width:100%;
     overflow:hidden; 
     bottom: 0px;
-	background-color:#474747;
+	background-color:#f8f8f8;
 	height:50px;
 }
 
 .footer-text {
-    font-family: 'Raleway', sans-serif; 
-    color:#fff; 
+    font-family: Open Sans; 
+    color:#474747; 
     margin-left: 2em;
     font-size: 1.2em;
 }

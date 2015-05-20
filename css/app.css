@@ -83,6 +83,10 @@ td {
 color : black;
 }
 
+td.info_title {
+  font-weight: bold;
+}
+
 th
 {
 color : red;
@@ -150,4 +154,8 @@ input.form-control , input[type="submit"] , .btn {
 
 .credits a {
 	color: inherit;
+}
+
+i.fa.fa-users.white {
+  color: white;
 }

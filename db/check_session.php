@@ -1,5 +1,4 @@
 <?php
-session_start();
 try {
 	if (($_SESSION['fct_id_user']) == "") {
 		throw new Exception("error");
