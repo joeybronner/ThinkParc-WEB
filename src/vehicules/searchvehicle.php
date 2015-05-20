@@ -4,7 +4,7 @@
 		include('../../lang/vehicles/vehicles.fr.php');
 	else
 		include('../../lang/vehicles/vehicles.en.php');
-   ?>
+?>
 <html>
 	<head>
 		<title>FCT Partners</title>
@@ -449,7 +449,7 @@
 								<form>
 									<table class="table-no-border">
 										<tr>
-											<td><h5>Veuillez sélectionner un véhicule dans la liste</h5></td>
+											<td><h5><?php echo $lang['SELECT_VEHICLE_LIST']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -465,7 +465,7 @@
 					</div>
 				</div>
 				<div id="vehicleblock" class="black-bg btn-menu margin-bottom-20">
-					<h2>Informations détaillées</h2>
+					<h2><?php echo $lang['INFOS_DETAIL']; ?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -479,7 +479,7 @@
 							</div>
 						</div>
 					</div>
-					<h2>Liste des fichiers</h2>
+					<h2><?php echo $lang['FILES_LIST']; ?></h2>
 					<form id="file-form" action="javascript:uploadFile();" method="POST">
 							<table>
 								<tr>
@@ -494,7 +494,7 @@
 										<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
 									</td>
 									<td align="right">
-										<button type="submit" id="upload-button" class="btn btn-success">Ajouter ce fichier</button>
+										<button type="submit" id="upload-button" class="btn btn-success"><?php echo $lang['ADD_FILE']; ?></button>
 									</td>
 								</tr>
 							</table>

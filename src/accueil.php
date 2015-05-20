@@ -1,5 +1,8 @@
-<?php 
-	require('../db/check_session.php');
+<?php
+	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../db/check_session.php');
 	if($_SESSION['fct_lang'] == 'FR')
 		include('../lang/accueil.fr.php');
 	else
@@ -45,13 +48,13 @@
 	<div id="main-wrapper">
             <div class="image-section">
                 <div class="image-container">
-                    <img src="../images/zoom-bg-6.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-                    <img src="../images/zoom-bg-2.jpg" id="products-img" class="inactive" alt="Product stocks">
-                    <img src="../images/zoom-bg-3.jpg" id="services-img"  class="inactive" alt="Services">
-                    <img src="../images/zoom-bg-4.jpg" id="about-img" class="inactive" alt="Véhicules">
-                    <img src="../images/zoom-bg-5.jpg" id="contact-img" class="inactive" alt="Contact">
-                    <img src="../images/zoom-bg-6.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
-                    <img src="../images/zoom-bg-7.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
+                    <img src="../images/background/sky.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+                    <img src="../images/background/sky.jpg" id="products-img" class="inactive" alt="Product stocks">
+                    <img src="../images/background/sky.jpg" id="services-img"  class="inactive" alt="Services">
+                    <img src="../images/background/sky.jpg" id="about-img" class="inactive" alt="Véhicules">
+                    <img src="../images/background/sky.jpg" id="contact-img" class="inactive" alt="Contact">
+                    <img src="../images/background/sky.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
+                    <img src="../images/background/sky.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
                 </div>
             </div>
 

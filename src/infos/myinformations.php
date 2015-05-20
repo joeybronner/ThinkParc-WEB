@@ -1,10 +1,6 @@
-<?php
-require('../../db/check_session.php');
-?>
-
 <html>
 <head>
-	<title>FCT</title>
+	<title>Think-Parc | Mes informations</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../../css/bootstrap.css">
 	<link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -23,7 +19,7 @@ require('../../db/check_session.php');
 <body>
 	<?php include('../header/navbar.php'); ?>
 	
-	<img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<img src="../../images/background/infos.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
@@ -37,31 +33,31 @@ require('../../db/check_session.php');
 					  <table class="table table-user-information">
 						<tbody>
 						  <tr>
-							<td><b>ID</b></td>
+							<td class="info_title">ID</td>
 							<td class="infos"><?php echo $_SESSION['fct_id_user']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Firstname</b></td>
+							<td class="info_title">Firstname</td>
 							<td><?php echo $_SESSION['fct_firstname']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Lastname</b></td>
+							<td class="info_title">Lastname</td>
 							<td><?php echo $_SESSION['fct_lastname']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Login</b></td>
+							<td class="info_title">Login</td>
 							<td><?php echo $_SESSION['fct_login']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Email</b></td>
+							<td class="info_title">Email</td>
 							<td><?php echo $_SESSION['fct_email']; ?></td>
 						  </tr>
 						  <tr>
-							<td><b>Mot de passe</b></td>
+							<td class="info_title">Mot de passe</td>
 							<td>********</td>
 						  </tr>
 						  <tr>
-							<td><b>Image</b></td>
+							<td class="info_title">Image</td>
 							<td><?php echo $_SESSION['fct_image']; ?></td>
 						  </tr>
 						</tbody>
@@ -272,5 +268,6 @@ require('../../db/check_session.php');
 			?>
 		</div>
 	</div>
+<?php include('../footer/footer.php'); ?>
 </body>
 </html>
