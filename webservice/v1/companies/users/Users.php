@@ -9,8 +9,6 @@ class Users {
     public function updatePassword($id_user = null, $newpass = null) {
 		try {
 			global $con;
-			// Check if older password match with database's password
-			
 			// Update password
 			$sql = 	"UPDATE users ".
 					"SET pass = \"".$newpass."\" ".
@@ -43,16 +41,26 @@ class Users {
 	/**
      * Description.
      *
-	 * @url PUT /companies/users/$id
+	 * @url PUT /companies/users/$id_user/profilepicture/$image
      */
-    public function testPUT($id = null, $data) {
-		return array("success" => "PUT");
+    public function updateProfilePicture($id_user = null, $image = null, $data) {
+		try {
+			global $con;
+			// Update password
+			$sql = 	"UPDATE users ".
+					"SET image = \"".$image."\" ".
+					"WHERE id_user = ".$id_user.";";
+			$stmt = $con->exec($sql);
+			return array("success" => "OK");
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
     }
 	
 	/**
      * Description.
      *
-	 * @url OPTIONS /companies/users/$id
+	 * @url OPTIONS /companies/users/$id_user/profilepicture/$image
      */
     public function optionsUnusedMethods($id = null, $data) { return ""; }
 

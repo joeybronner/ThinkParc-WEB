@@ -15,6 +15,28 @@
 	<script src="../../js/bootstrap.js"></script>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
+	<script>
+	$(function onLoad(){
+		getUserInfos();
+		getNews();
+	});
+	function getUserInfos() {
+		var id_user = document.getElementById("id_user").innerText;
+		$.ajax({
+			type: 		"GET",
+			url:		"http://www.think-parc.com/webservice/v1/companies/users/" + id_user,  
+			success:	function(data) {
+							var response = JSON.parse(data);
+							document.getElementById("firstname").innerText = response[0].firstname;
+							document.getElementById("lastname").innerText = response[0].lastname;
+							document.getElementById("login").innerText = response[0].login;
+							document.getElementById("email").innerText = response[0].email;
+							document.getElementById("image").innerText = response[0].image;
+							document.getElementById("userpic").src = "../../files/img_users/" + response[0].image;
+						}
+		});
+	};
+	</script>
 </head>
 <body>
 	<?php include('../header/navbar.php'); ?>
@@ -27,30 +49,30 @@
 				<div class="panel-body">
 				  <div class="row">
 					<div class="col-md-3 col-lg-3 " align="center">
-						<img alt="userpic" src="<?php echo "users_images/".$_SESSION['fct_image']; ?>" style="margin:10px;" class="img-circle imguser">
+						<img alt="userpic" id="userpic" style="margin:10px;" class="img-circle imguser">
 					</div>
 					<div class=" col-md-9 col-lg-9 "> 
 					  <table class="table table-user-information">
 						<tbody>
 						  <tr>
 							<td class="info_title">ID</td>
-							<td class="infos"><?php echo $_SESSION['fct_id_user']; ?></td>
+							<td id="id_user"><?php echo $_SESSION['fct_id_user']; ?></td>
 						  </tr>
 						  <tr>
 							<td class="info_title">Firstname</td>
-							<td><?php echo $_SESSION['fct_firstname']; ?></td>
+							<td id="firstname"></td>
 						  </tr>
 						  <tr>
 							<td class="info_title">Lastname</td>
-							<td><?php echo $_SESSION['fct_lastname']; ?></td>
+							<td id="lastname"></td>
 						  </tr>
 						  <tr>
 							<td class="info_title">Login</td>
-							<td><?php echo $_SESSION['fct_login']; ?></td>
+							<td id="login"></td>
 						  </tr>
 						  <tr>
 							<td class="info_title">Email</td>
-							<td><?php echo $_SESSION['fct_email']; ?></td>
+							<td id="email"></td>
 						  </tr>
 						  <tr>
 							<td class="info_title">Mot de passe</td>
@@ -58,7 +80,7 @@
 						  </tr>
 						  <tr>
 							<td class="info_title">Image</td>
-							<td><?php echo $_SESSION['fct_image']; ?></td>
+							<td id="image"></td>
 						  </tr>
 						</tbody>
 					  </table>
@@ -72,7 +94,7 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
 							<div class="input-group input-group-sm">
-								<form class="formimg" action="javascript:updatePassword(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
+								<form id="formpassword" class="formimg" action="javascript:updatePassword(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="form-group col-xs-9" align="left">
 											<input type="password" class="form-control" style="margin-bottom:3px;" id="oldpass" name="oldpass" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
@@ -80,24 +102,53 @@
 											<input type="password" class="form-control" id="confpass" name="confpass" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
 										</div>
 										<div class="form-group col-xs-3" align="right">
-											<input type="submit" class="btn btn-default" name="submit" value="Valider">
+											<input type="submit" class="btn btn-success" name="submit" value="Valider">
 											<script>
 												function updatePassword(id) {
+													// Check if all fields are completed
+													var oldpass = document.getElementById("oldpass").value;
 													var newpass = document.getElementById("newpass").value;
-													$.ajax({
-														type: 		"GET",
-														url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update/" + id + "/" + newpass,  
-														success:	function(data) {
-																		$(document).ready(function() {
-																			$.toast({heading: "Success",text: "Password successfully updated.", icon: "success"});
-																		});
-																	},
-														error:		function(xhr, status, error) {
-																		$(document).ready(function() {
-																			$.toast({heading: "Error",text: "Error", icon: "error"});
-																		});
-																	}
-													});
+													var confpass = document.getElementById("confpass").value;
+													if (oldpass==="" || newpass==="" || confpass==="") {
+														$(document).ready(function() {
+															$.toast({heading: "Error",text: "All fields are required to change your password.", icon: "error"});
+														});
+													} else if (newpass != confpass) {
+														$(document).ready(function() {
+															$.toast({heading: "Error",text: "New password and confirmation are not identical.", icon: "error"});
+														});
+													} else {
+														// Check old password
+														$.ajax({
+															type: 		"GET",
+															url:		"http://www.think-parc.com/webservice/v1/companies/users/" + id,  
+															success:	function(data) {
+																			var response = JSON.parse(data);
+																			if (response[0].pass === oldpass) {
+																				// Update new password
+																				$.ajax({
+																					type: 		"GET",
+																					url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update/" + id + "/" + newpass,  
+																					success:	function(data) {
+																									$(document).ready(function() {
+																										document.getElementById("formpassword").reset();
+																										$.toast({heading: "Success",text: "Password successfully updated.", icon: "success"});
+																									});
+																								},
+																					error:		function(xhr, status, error) {
+																									$(document).ready(function() {
+																										$.toast({heading: "Error",text: "Error", icon: "error"});
+																									});
+																								}
+																				});
+																			} else {
+																				$(document).ready(function() {
+																					$.toast({heading: "Error",text: "Your old password is not correct.", icon: "error"});
+																				});
+																			}
+																		}
+														});
+													}
 												}
 											</script>
 										</div>
@@ -113,43 +164,70 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
-							<form class="formimg" id="file-form" action="javascript:updateProfilePicture();" method="POST" enctype="multipart/form-data">
-								<div class="row">
-									<div class="form-group col-xs-9" align="left">
-										<span class="btn btn-default btn-file">
-											Select a new profile picture...<input type="file" id="file-select" name="photo" />
-										</span>
-									</div>
-									<div class="form-group col-xs-3" align="right">
-										<input type="submit" id="upload-button" class="btn btn-default" name="submit" value="Upload">
-										<script>
-											function updateProfilePicture() {
-												var form = document.getElementById('file-form');
-												var fileSelect = document.getElementById('file-select');
-												var files = fileSelect.files;
-												var file = files[0];
-												
-												if (file == undefined) {
-													$(document).ready(function() {
-														$.toast({heading: "Error",text: "Please select a file.", icon: "error"});
-													});
-													return;
+							<form id="file-form" action="javascript:uploadFile(<?php echo $_SESSION['fct_id_user']; ?>);" method="POST">
+									<table>
+										<tr>
+											<td>
+												<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
+											</td>
+											<td align="right">
+												<button type="submit" id="upload-button" class="btn btn-success">Upload</button>
+												<script>
+												function uploadFile(id_user) {
+													var file = document.getElementById('file-select').files[0];
+													var formData = new FormData();
+
+													// Check the file type.
+													var fakepath = document.getElementById("file-select").value;
+													var ext = "." + fakepath.substr(fakepath.lastIndexOf('.') + 1);
+													if (!file.type.match('image.*')) {
+															$(document).ready(function() {
+																$.toast({heading: "Error",text: "Only pictures are supported.", icon: "error"});
+															});
+													} else {
+														// Add file to data form
+														var d = new Date();
+														var generatedfilename = d.getTime() + "_" + file.name;
+														formData.append('myfiles', file, generatedfilename);
+														var xhr = new XMLHttpRequest();
+														xhr.open('POST', '../../files/uploadfile.php?target=img_users', true);
+														xhr.onload = function () {
+															if (xhr.readyState == 4) {
+																if (xhr.status == 200) {
+																	$(document).ready(function() {
+																		$.ajax({
+																			method: 	"PUT",
+																			url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user + "/profilepicture/" + generatedfilename + ext,
+																			success:	function(data) {
+																								$(document).ready(function() {
+																									$('#file-form').each(function(){
+																										this.reset();
+																									});
+																									getUserInfos();
+																									$.toast({heading: "Success",text: "Picture successfully uploaded.", icon: "success"});
+																								});	
+																							},
+																			error:		function(xhr, status, error) {
+																								$(document).ready(function() {
+																									$.toast({heading: "Error",text: "", icon: "error"});
+																								});
+																							}
+																		});
+																	});		
+																} else {
+																	$(document).ready(function() {
+																		$.toast({heading: "Error",text: "", icon: "error"});
+																	});
+																}	
+															} 
+														};
+														xhr.send(formData);
+													}
 												}
-												
-												if (!file.type.match('image.*')) {
-													$(document).ready(function() {
-														$.toast({heading: "Error",text: "Only images are supported.", icon: "error"});
-													});
-													return;
-												}												
-												
-												$(document).ready(function() {
-													$.toast({heading: "Success",text: file.name + " uploaded.", icon: "success"});
-												});
-											}
-										</script>
-									</div>
-								</div>
+												</script>
+											</td>
+										</tr>
+									</table>
 							</form>
 						</div>
 					</div>
@@ -170,14 +248,11 @@
 										<textarea id="newstext" name="newstext" class="form-control" rows="3" maxlength="140" placeholder="Publier une nouvelle"></textarea>
 									</div>
 									<div class="form-group col-xs-3" align="right">
-										<input type="submit" class="btn btn-default" name="submit" value="Publier">
+										<input type="submit" class="btn btn-success" name="submit" value="Publier">
 									</div>
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
 									<script>
-										$(function onLoad(){
-											getNews();
-										});
 										function getNews(){
 											$.ajax({
 												method: 	"GET",
