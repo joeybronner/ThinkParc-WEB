@@ -320,6 +320,32 @@ img.slide {
     font-size: 2em;
 }
 
+.directlink-section {
+    color: #fff;
+    text-decoration: none;
+}
+
+.directlink-section .black-bg {
+    transition: all 0.4s ease;
+}
+
+.directlink-section .black-bg > h2 {
+    transition: all 0.4s ease;
+}
+
+.directlink-section:hover {
+    text-decoration: none;
+    color: #242424;
+}
+
+.directlink-section:hover .black-bg {
+    background-color: rgba(255,255,255,0.4);
+}
+
+.directlink-section:hover .black-bg > h2 {
+    color: #242424;
+}
+
 .change-section {
     color: #fff;
     text-decoration: none;
