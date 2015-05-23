@@ -1,6 +1,16 @@
+<?php
+	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/infos/infos.fr.php');
+	else
+		include('../../lang/infos/infos.en.php');
+?>
 <html>
 <head>
-	<title>Think-Parc | Mes informations</title>
+	<title><?php echo $infos['TITLE_MYINFORMATIONS'];?></title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../../css/bootstrap.css">
 	<link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -45,7 +55,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Mes informations</h2>
+				<h2><?php echo $infos['MYINFORMATIONS'];?></h2>
 				<div class="panel-body">
 				  <div class="row">
 					<div class="col-md-3 col-lg-3 " align="center">
@@ -59,27 +69,27 @@
 							<td id="id_user"><?php echo $_SESSION['fct_id_user']; ?></td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Firstname</td>
+							<td class="info_title"><?php echo $infos['FIRSTNAME'];?></td>
 							<td id="firstname"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Lastname</td>
+							<td class="info_title"><?php echo $infos['LASTNAME'];?></td>
 							<td id="lastname"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Login</td>
+							<td class="info_title"><?php echo $infos['LOGIN'];?></td>
 							<td id="login"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Email</td>
+							<td class="info_title"><?php echo $infos['EMAIL'];?></td>
 							<td id="email"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Mot de passe</td>
+							<td class="info_title"><?php echo $infos['PASSWORD'];?></td>
 							<td>********</td>
 						  </tr>
 						  <tr>
-							<td class="info_title">Image</td>
+							<td class="info_title"><?php echo $infos['PROFILEPICTURE'];?></td>
 							<td id="image"></td>
 						  </tr>
 						</tbody>
@@ -89,7 +99,7 @@
 				</div>
 			</div>
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Modifier mon mot de passe</h2>
+				<h2><?php echo $infos['CHANGE_PASSWORD'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
@@ -97,12 +107,12 @@
 								<form id="formpassword" class="formimg" action="javascript:updatePassword(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="form-group col-xs-9" align="left">
-											<input type="password" class="form-control" style="margin-bottom:3px;" id="oldpass" name="oldpass" placeholder="Mot de passe actuel" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" style="margin-bottom:3px;" id="newpass" name="newpass" placeholder="Nouveau mot de passe" aria-describedby="sizing-addon3">
-											<input type="password" class="form-control" id="confpass" name="confpass" placeholder="Confirmez votre nouveau mot de passe" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="oldpass" name="oldpass" placeholder="<?php echo $infos['OLD_PASSWORD'];?>" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" style="margin-bottom:3px;" id="newpass" name="newpass" placeholder="<?php echo $infos['NEW_PASSWORD'];?>" aria-describedby="sizing-addon3">
+											<input type="password" class="form-control" id="confpass" name="confpass" placeholder="<?php echo $infos['CONFIRM_PASSWORD'];?>" aria-describedby="sizing-addon3">
 										</div>
 										<div class="form-group col-xs-3" align="right">
-											<input type="submit" class="btn btn-success" name="submit" value="Valider">
+											<input type="submit" class="btn btn-success" name="submit" value="<?php echo $infos['SUBMIT'];?>">
 											<script>
 												function updatePassword(id) {
 													// Check if all fields are completed
@@ -160,7 +170,7 @@
 				</div>
 			</div>		
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Modifier mon image</h2>
+				<h2><?php echo $infos['CHANGE_PROFILEPICTURE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">		
@@ -171,7 +181,7 @@
 												<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
 											</td>
 											<td align="right">
-												<button type="submit" id="upload-button" class="btn btn-success">Upload</button>
+												<button type="submit" id="upload-button" class="btn btn-success"><?php echo $infos['UPLOAD'];?></button>
 												<script>
 												function uploadFile(id_user) {
 													var file = document.getElementById('file-select').files[0];
@@ -238,14 +248,14 @@
 			if ($_SESSION['fct_id_role'] == 1) {
 			?>
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Gestion des news</h2>
+				<h2><?php echo $infos['NEWS_MANAGEMENT'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12" align="center">
 							<div class="row">
 								<form class="formimg" action="javascript:addNews(<?php echo $_SESSION['fct_id_user']; ?>);" method="post" enctype="multipart/form-data">
 									<div class="form-group col-xs-9" align="left">
-										<textarea id="newstext" name="newstext" class="form-control" rows="3" maxlength="140" placeholder="Publier une nouvelle"></textarea>
+										<textarea id="newstext" name="newstext" class="form-control" rows="3" maxlength="140" placeholder="<?php echo $infos['PUBLISH_NEWS'];?>"></textarea>
 									</div>
 									<div class="form-group col-xs-3" align="right">
 										<input type="submit" class="btn btn-success" name="submit" value="Publier">
