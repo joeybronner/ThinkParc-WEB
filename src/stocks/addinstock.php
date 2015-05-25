@@ -19,10 +19,13 @@
       <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
       <script type="text/javascript" src="../../js/jquery.toast.js"></script>
       <script>
-         $(function getFamily(){
+         $(function getproductbycompany(id_company){
+				
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+				
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/product",  
+         		url:		"http://think-parc.com/webservice/v1/companies/stocks/displayproductbycompany/"+id_company,  
          		success:	function(data) {
          						var response = JSON.parse(data);
          						

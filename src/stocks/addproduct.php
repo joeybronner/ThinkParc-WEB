@@ -34,17 +34,17 @@
          					}
          	});
          });
-         		$(function getUnderFamily(id_family){
+         		function getUnderFamily(id_family){
             	$.ajax({
          		method: 	"GET",
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         						var content = '<option selected disabled>Ss Famille</option>';
+         						var content = '<option selected disabled>sous-famille</option>';
 
          						for (var i = 0; i<response.length; i++) 
          						{
-         						 content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
+         						  content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
          						
          						}
          						document.getElementById("underfamilyContent").innerHTML = content;
@@ -52,39 +52,26 @@
 
          					}
          	});
-         });
-         $(function getUnderFamily2(){
+         };
+         
+		 function getUnderFamily2(id_family){
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily2",  
+         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         				
+								var content = '<option selected disabled>sous-famille 2</option>';
          						for (var i = 0; i<response.length; i++) 
          						{
-         						var content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
+         						  content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
          						
          						}
          						document.getElementById("underfamilyContent2").innerHTML = content;
+								document.getElementById("underfamilyContent").disabled = false;
          					}
          	});
-         });
-         $(function getKinds(){
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/kinds",  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-         					
-         						for (var i = 0; i<response.length; i++) 
-         						{
-         						var content = content + '<option value="'+response[i].id_kind+'">'+ response[i].kind +'</option>';
-         						
-         						}
-         						document.getElementById("KindsContent").innerHTML = content;
-         					}
-         	});
-         });
+         };
+    
     
          $(function getCurrencies(){
             	$.ajax({
@@ -158,7 +145,7 @@
                                           <select id="familyContent" name="familyContent" class="large" onchange="getUnderFamily(this.value);">
                                              <!-- Here are loaded Family content -->
                                           </select>
-                                          <select id="underfamilyContent" name="underfamilyContent" class="large" disabled>
+                                          <select id="underfamilyContent" name="underfamilyContent" class="large" onchange="getUnderFamily2(this.value);">
                                              <!-- Here are loaded Under Family content -->
                                           </select>
                                           <select id="underfamilyContent2" name="underfamilyContent2" class="large">

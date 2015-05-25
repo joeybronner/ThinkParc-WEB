@@ -9,7 +9,7 @@ class Stocks {
     public function getFamily() {
 		try {
 			global $con;
-			$sql = "SELECT id_family, family FROM family";
+			$sql = "SELECT id_family, family FROM family WHERE id_parentfamily='0'";
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;
@@ -21,22 +21,19 @@ class Stocks {
 	
 	
 	  /**
-     * This is a test.
+     * .
      *
-     * @url GET /companies/stocks/montest
+     * @url GET /companies/stocks/nbproduct/$id_stock
      */
-    public function getmontest() {
+    public function getnbproduct($id_stock = null) {
 		try {
 			global $con;
-			$sql = "SELECT reference, designation, buyingprice
-			FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
-			WHERE st.id_measurement=me.id_measurement 
-			AND st.id_site=si.id_site 
-			AND st.id_typestock=ty.id_typestock 
-			AND st.id_part=pa.id_part 
-			AND pa.id_currency=cu.id_currency 
-			AND pa.id_company=co.id_company 
-			AND pa.id_family=fa.id_family";
+			$sql = 	"Select distinct quanty as quanty
+					 FROM parts pa, stock st, sites si, companies co 
+					 WHERE st.id_part=pa.id_part 
+					 AND si.id_company=co.id_company
+					 AND pa.id_company=co.id_company
+					 AND st.id_stock=".$id_stock.";";
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;
@@ -94,6 +91,27 @@ class Stocks {
 		}
     }
 	
+		    /**
+     * Return all product by family.
+     *
+     * @url GET /companies/stocks/displayproductbycompany/$id_company
+     */
+    public function getproductbycompany($id_company = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT * ".
+					"FROM parts ".
+					"WHERE id_company = ".$id_company.";";
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	
 	    /**
      * Return all family.
      *
@@ -111,6 +129,40 @@ class Stocks {
 			return array("test" => "".$e->getMessage());
 		}
     }
+	
+		 /**
+     * Return site productbyref.
+     *
+     * @url GET /companies/stocks/siteproductbyref/$ref/site/$id_site/company/$id_company
+     */
+    public function getsiteproductbyref($ref = null, $id_site = null, $id_company=null) {
+	
+			
+			
+		try {
+			global $con;
+			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+			FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
+			WHERE st.id_measurement=me.id_measurement 
+			AND st.id_site=si.id_site 
+			AND st.id_typestock=ty.id_typestock 
+			AND st.id_part=pa.id_part 
+			AND pa.id_currency=cu.id_currency 
+			AND pa.id_company=co.id_company 
+			AND pa.id_family=fa.id_family 
+			AND st.id_site = ".$id_site."
+			AND pa.id_company = ".$id_company."
+			AND reference LIKE '".$ref."';";
+			
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
 	
 		 /**
      * Return site product.
@@ -212,7 +264,48 @@ class Stocks {
 		}
     }
 	
-
+	
+	
+	
+	/**
+     * Description
+     *
+     * @url GET /companies/$id_site/ref/$id_company/company
+     */
+    public function getprodref($id_site= null, $id_company=null) {
+		try {
+			global $con;
+			$sql = 	"Select distinct st.id_part, st.id_stock, reference FROM parts pa, stock st, sites si, companies co 
+					 WHERE st.id_part=pa.id_part 
+					 AND si.id_company=co.id_company
+					 AND pa.id_company=".$id_company."
+					 AND st.id_site=".$id_site.";";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
+		/**
+     * Description
+     *
+     * @url GET /companies/$id_company/site/$id_site/sites2
+     */
+    public function getSites2($id_company = null, $id_site = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT * 
+					FROM sites 
+					WHERE id_company = ".$id_company."
+					AND id_site <> ".$id_site.";";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
 	
 	
 		/**

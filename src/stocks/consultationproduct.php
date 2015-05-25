@@ -80,8 +80,7 @@
 							{
 								dataSet[i] = new Array(	response[i].reference, 
 														response[i].designation, 
-														response[i].buyingprice, 
-														response[i].currency, 
+														response[i].buyingprice + response[i].currency, 
 														response[i].company,
 														response[i].family,
 														response[i].quanty,
