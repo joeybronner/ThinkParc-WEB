@@ -25,8 +25,14 @@
 		<script src="../js/templatemo_script.js"></script>
 		<script src="../js/bootstrap.js"></script>
 		<script>
-			$(function getNews(){
-			   	$.ajax({
+			$(function onLoad(){
+			   	// If any parameters exists to redirect to a specific section
+				var section = getParameterByName('section');
+				if (section != "") {
+					changeSection("#" + section);
+				}
+				
+				$.ajax({
 					method: 	"GET",
 					url:		"http://think-parc.com/webservice/v1/news/random",  
 					success:	function(data) {
@@ -37,6 +43,13 @@
 								}
 				});
 			});
+			
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+					results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
 		</script>
 	</head>
 	<body>
@@ -46,7 +59,7 @@
 				<div class="image-container">
 					<img src="../images/background/sky.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 					<img src="../images/background/sky.jpg" id="products-img" class="inactive" alt="Product stocks">
-					<img src="../images/background/sky.jpg" id="services-img"  class="inactive" alt="Services">
+					<img src="../images/background/sky.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
 					<img src="../images/background/sky.jpg" id="about-img" class="inactive" alt="Véhicules">
 					<img src="../images/background/sky.jpg" id="contact-img" class="inactive" alt="Contact">
 					<img src="../images/background/sky.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
@@ -76,7 +89,7 @@
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
-									<a href="#services" class="change-section">
+									<a href="#vehicles" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-car"></i>
 											<h2>Véhicules</h2>
@@ -217,8 +230,7 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.contact-section --> 
-						<section id="services-section" class="inactive">
+						<section id="vehicles-section" class="inactive">
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<div class="col-sm-12 col-md-12 col-lg-12 black-bg">
@@ -284,8 +296,7 @@
 									</a>
 								</div>
 							</div>
-						</section>
-						<!-- /.services-section -->    
+						</section> 
 						<section id="about-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
