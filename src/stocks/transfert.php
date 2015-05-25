@@ -12,6 +12,8 @@
 		<link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
+
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
@@ -39,11 +41,6 @@
 				//getprodref(id_company);
 			});
 			
-			
-			
-		
-		
-
 			
 			function getSites(id_company){
 		 
@@ -170,6 +167,32 @@
          	});
          };
 		 
+		 function TransfertProduct(reference, productnumber) {
+		 
+				var id_site1 = document.getElementById('listproducts').value;
+				var id_site2 = document.getElementById('listproducts2').value;
+				
+				
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/stocks/ref/"+reference+"/quanty/"+productnumber+"/firstsite/"+$id_site1+"/secondsite/"+$id_site2,   
+					success:	function(data) {
+									var response = JSON.parse(data);
+								
+								if( response.length != 0 )
+								{
+								 
+								 $.toast({heading: "Success",text: "Update successfully uploaded.", icon: "success"});
+
+								} else {
+								
+								$.toast({heading: "error",text: " Error update", icon: "error"});
+								
+								}
+				
+			}
+		 });
+		 }
 		 	 
 		 function getsiteproductbyref(ref, id_site, id_company) {
 		 
@@ -185,10 +208,12 @@
 			success:	function(data) {
 							var response = JSON.parse(data);
 							var dataSet = new Array(response.length);
-							var transfert = '<input type="text" name="quantytransfert"  class="small"></input> <input type="checkbox" name="selection"></input>';
+							
 							
 							for (var i = 0; i<response.length; i++) 
 							{
+							//var transfert = '<input type="text" name="productnumber'+i+'" class="small"></input> <a href=""><i class="fa fa-times"></i></a>';
+							
 								dataSet[i] = new Array(	response[i].reference, 
 														response[i].designation, 
 														response[i].buyingprice + response[i].currency, 
@@ -200,9 +225,10 @@
 														response[i].rack,
 														response[i].site,
 														response[i].locker,
-														transfert);
+														'<input type="text" name="productnumber'+i+'" class="small"></input> <a href="javascript:TransfertProduct(' + response[i].reference + ', productnumber'+i+');"><i class="fa fa-sign-in"></i></a>');
 							}
 							//console.log(dataSet);
+							
 							
 							
 							document.getElementById("productblock").style.display = "block";

@@ -30,14 +30,23 @@ else
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-left">
+				 
 					<li>
 						<a href="<?php echo $path; ?>src/accueil.php" class="btn btn-sm btn-link">
 							<span class="glyphicon glyphicon-home"></span>
 							<?php echo $navbar['HOME']; ?>
 						</a>
 					</li>
+					<li class="hidden-xs">
+						<img style="height:40px; width:auto;" src="<?php echo $path; ?>images/logoentreprise.jpg" class="btn btn-xs">
+					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+				    
+					<li class="hidden-xs">
+						<img style="height:40px; width:auto;" src="<?php echo $path; ?>images/logofct.png" class="btn btn-sm">
+					</li>
+
 					<li>
 						<a href="<?php echo $path; ?>src/infos/myinformations.php" class="btn btn-sm btn-link">
 							<span class="glyphicon glyphicon-user"></span>

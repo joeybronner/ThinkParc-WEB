@@ -146,7 +146,7 @@
 									<div class="col-sm-12 col-md-12">
 										<p>Cette espace vous permet de gérer les <a href="Reparation.html">stocks</a> de produits. Il vous permet aussi les consulter</p>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="stocks/consultationproduct.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-eye"></i>
@@ -155,7 +155,7 @@
 											<br/>
 										</a>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="stocks/addinstock.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-plus"></i>
@@ -164,7 +164,7 @@
 											<br/>
 										</a>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="stocks/addproduct.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-in"></i>
@@ -173,7 +173,7 @@
 											<br/>
 										</a>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-out"></i>
@@ -182,34 +182,20 @@
 											<br/>
 										</a>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
-										<a href="#" class="directlink-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-shopping-cart"></i>
-												<h2>Commandes</h2>
-											</div>
-											<br/>
-									</div>
+								
 									</a>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
-										<a href="#" class="directlink-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-random"></i>
-												<h2>Stock multi sites</h2>
-											</div>
-											<br/>
-									</div>
+								
 									</a>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="stocks/transfert.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-random"></i>
-												<h2>Transfert inter sites</h2>
+												<h2>Transferts</h2>
 											</div>
 											<br/>
 									</div>
 									</a>
-									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 ">
+									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-edit"></i>

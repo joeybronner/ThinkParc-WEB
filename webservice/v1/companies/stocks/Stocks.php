@@ -20,6 +20,29 @@ class Stocks {
     }
 	
 	
+	 /**
+     * Update transfert.
+     *
+     * @url GET /companies/stocks/ref/$reference/quanty/$productnumber/firstsite/$id_site1/secondsite/$id_site2
+     */
+    public function TransfertProduct($reference = null, $productnumber=null) {
+		try {
+			global $con;
+			$sql = "Update stock st, parts pa SET st.quanty = (quanty - ".$productnumber.") WHERE pa.id_reference like ".$reference."
+			AND st.id_part = pa.id_part AND st.id_stock = ".$id_site1."";
+			
+			$sql = "Update stock st, parts pa SET st.quanty = (quanty + ".$productnumber.") WHERE pa.id_reference like ".$reference."
+			AND st.id_part = pa.id_part  AND st.id_stock = ".$id_site2."";
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	
 	  /**
      * .
      *
