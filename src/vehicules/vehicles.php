@@ -65,13 +65,14 @@
 							
 										$('#example').dataTable( {
 											"data": dataSet,
-											"bPaginate": true,
-											"bLengthChange": true,
-											"bStateSave": true,
-											"bFilter": true,
-											"bSort": true,
-											"bInfo": true,
-											"bAutoWidth": true,
+										   "scrollX": true,
+										   "bPaginate": true,
+										   "bLengthChange": true,
+										   "bStateSave": true,
+										   "bFilter": true,
+										   "bSort": true,
+										   "bInfo": true,
+										   "bAutoWidth": true,
 											"columns": [
 												{ "title": "Immatriculation" , "class": "center fctbw" },
 												{ "title": "N° de série" , "class": "center fctbw"},
@@ -119,13 +120,8 @@
 							<div class="col-md-12 col-lg-12"> 
 								<form>
 									<div class="col-md-12 col-lg-12">
-										<table id="vehicledetail" class="table-no-border">
-											<tbody>
-												<tr>
-													<td id="vehicles"></td>
-												</tr>
-											</tbody>
-										</table>
+										<div id="vehicles">
+										</div>
 									</div>
 								</form>
 							</div>

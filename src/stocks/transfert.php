@@ -237,6 +237,7 @@
 							
 							$('#example').dataTable( {
 								"data": dataSet,
+								   "scrollX": true,
 								   "bPaginate": true,
 								   "bLengthChange": true,
 								   "bStateSave": true,
@@ -323,19 +324,12 @@
 							</div>
 						</div>
 					</div>
-					
 				</div>
-			
 			</div>
 		</div>
-			
-			
-				<div id="productblock">
 				
-			
-			
-			
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
+	<div id="productblock">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
 					<h2>Transfert</h2>
@@ -354,8 +348,7 @@
 				</div>
 			</div>
 		</div>
-			
-		</div>
+	</div>
 		
 	
 			

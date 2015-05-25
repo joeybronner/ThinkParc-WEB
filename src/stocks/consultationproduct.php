@@ -7,11 +7,13 @@
 		<meta name="viewport" content="width=device-width, user-scalable=yes" />
 		<meta name="description" content="">
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="../../css/bootstrap.css">
+   	    <link rel="stylesheet" href="../../css/bootstrap.css">
 		<link rel="stylesheet" href="../../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
+
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
@@ -21,10 +23,11 @@
 	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themeroller.css">
 	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.min.css">
 	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.css">
+		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
 
         <script type="text/javascript" src="../../js/jquery.js"></script>
         <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
+	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 
 		<script type="text/javascript">
 		
@@ -98,10 +101,11 @@
 							
 							document.getElementById("productblock").style.display = "block";
 							
-							$('#stock').html( '<table class="display" id="example"></table>' );
+							$('#stock').html( '<table class="display" cellspacing="0" width="100%" id="example"></table>' );
 							
 							$('#example').dataTable( {
 								"data": dataSet,
+								   "scrollX": true,
 								   "bPaginate": true,
 								   "bLengthChange": true,
 								   "bStateSave": true,
@@ -110,20 +114,20 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "reference" , "class": "center" },
-									{ "title": "designation" , "class": "center"},
-									{ "title": "buyingprice" , "class": "center" },
-									{ "title": "company", "class": "center" },
-									{ "title": "family", "class": "center" },
-									{ "title": "quanty", "class": "center" },
-									{ "title": "measurement", "class": "center" },
-									{ "title": "driveway", "class": "center" },
-									{ "title": "bay", "class": "center" },
-									{ "title": "position", "class": "center" },
-									{ "title": "rack", "class": "center" },
-									{ "title": "site", "class": "center" },
-									{ "title": "typestock", "class": "center" },
-									{ "title": "locker", "class": "center" }
+									{ "title": "reference" , "class": "center fctbw"},
+									{ "title": "designation" , "class": "center fctbw"},
+									{ "title": "buyingprice" , "class": "center fctbw" },
+									{ "title": "company", "class": "center fctbw" },
+									{ "title": "family", "class": "center fctbw" },
+									{ "title": "quanty", "class": "center fctbw" },
+									{ "title": "measurement", "class": "center fctbw" },
+									{ "title": "driveway", "class": "center fctbw" },
+									{ "title": "bay", "class": "center fctbw" },
+									{ "title": "position", "class": "center fctbw" },
+									{ "title": "rack", "class": "center fctbw" },
+									{ "title": "site", "class": "center fctbw" },
+									{ "title": "typestock", "class": "center fctbw" },
+									{ "title": "locker", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -165,16 +169,30 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			
+				</div>	
 			</div>
 		</div>
 		
-		<div id="productblock">
-			
-			<!-- Retrieve products details with an AJAX [GET] query -->
-				<div id="stock">
-				</div>				
-		</div>
+	<div id="productblock">	
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
+		   <div class="templatemo-content">
+				<div class="black-bg btn-menu margin-bottom-20">
+					<h2>Transfert</h2>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12 col-lg-12"> 
+								<form>
+									<div class="col-md-12 col-lg-12">
+										<div id="stock">
+									    </div>	
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</div>
    </body>
 </html>
