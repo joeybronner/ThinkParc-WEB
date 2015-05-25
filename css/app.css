@@ -119,6 +119,11 @@ font-size:8px;
   *width: 23%;
 }
 
+.notverysmall{
+  width: 35%;
+  *width: 33%;
+}
+
 .main {
 	background: white url(machine_a_ecrire.jpg) right top no-repeat;
 	background-size: contain;
