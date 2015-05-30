@@ -122,7 +122,7 @@
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 text-center">
 									<a href="documents/documents.php" class="directlink-section">
 										<div class="black-bg btn-menu">
-											<h2>Mes documents</h2>
+											<h2>Documents</h2>
 										</div>
 									</a>
 								</div>
