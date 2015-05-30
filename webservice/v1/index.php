@@ -11,6 +11,7 @@ require 'companies/stocks/Stocks.php';
 require 'companies/users/Users.php';
 require 'companies/administratives/Administratives.php';
 require 'files/Files.php';
+require 'companies/Company.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
@@ -20,4 +21,5 @@ $server->addClass('Stocks');
 $server->addClass('Users');
 $server->addClass('Administratives');
 $server->addClass('Files');
+$server->addClass('Company');
 $server->handle();
