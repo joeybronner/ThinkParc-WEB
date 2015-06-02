@@ -248,3 +248,14 @@ input.form-control , input[type="submit"] , .btn {
 i.fa.fa-users.white {
   color: white;
 }
+
+#spinner {
+	display: none;
+    top: 50%;
+    left: 50%;
+    width:18em;
+    height:18em;
+    margin-top: -9em;
+    margin-left: -9em;
+    position:fixed;
+}

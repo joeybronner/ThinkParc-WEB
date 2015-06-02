@@ -26,6 +26,7 @@
 	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
     <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>  
 	<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="../../js/spin.js"></script>
 	<script>
 	$(function onLoad() {
 		// Hide some divs
@@ -145,6 +146,7 @@
 		});
 	};
 	function uploadFile() {
+		startSpinner();
 		var file = document.getElementById('file-select').files[0];
 		var formData = new FormData();
 
@@ -185,11 +187,13 @@
 																this.reset();
 															});
 															getFiles();
+															stopSpinner();
 															$.toast({heading: "Success",text: "File successfully uploaded.", icon: "success"});
 														});	
 													},
 									error:		function(xhr, status, error) {
 														$(document).ready(function() {
+															stopSpinner();
 															$.toast({heading: "Error",text: "", icon: "error"});
 														});
 													}
@@ -200,8 +204,8 @@
 						$(document).ready(function() {
 							$.toast({heading: "Error",text: "", icon: "error"});
 						});
-					}	
-				} 
+					}
+				}
 			};
 			xhr.send(formData);
 		}
@@ -215,6 +219,15 @@
 		document.getElementById("file-form").style.display = "none";
 		document.getElementById("manageFile").href = "javascript:showNewFileFields()";
 		document.getElementById("iconManageFile").className = "fa fa-plus-circle"; 
+	}
+	var spinner = new Spinner(opts);
+	function startSpinner() {
+		document.getElementById('spinner').style.display = "block";
+		spinner.spin(document.getElementById('spinner'));
+	}
+	function stopSpinner() {
+		document.getElementById('spinner').style.display = "none";
+		spinner.stop();
 	}
 	</script>
 </head>
