@@ -12,6 +12,7 @@ require 'companies/users/Users.php';
 require 'companies/administratives/Administratives.php';
 require 'files/Files.php';
 require 'companies/Company.php';
+require 'companies/maintenance/Maintenance.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
@@ -22,4 +23,5 @@ $server->addClass('Users');
 $server->addClass('Administratives');
 $server->addClass('Files');
 $server->addClass('Company');
+$server->addClass('Maintenance');
 $server->handle();
