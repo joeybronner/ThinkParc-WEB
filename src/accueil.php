@@ -61,7 +61,7 @@
 					<img src="../images/background/sky.jpg" id="products-img" class="inactive" alt="Product stocks">
 					<img src="../images/background/sky.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
 					<img src="../images/background/sky.jpg" id="about-img" class="inactive" alt="Véhicules">
-					<img src="../images/background/sky.jpg" id="contact-img" class="inactive" alt="Contact">
+					<img src="../images/background/sky.jpg" id="maintenance-img" class="inactive" alt="maintenance">
 					<img src="../images/background/sky.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
 					<img src="../images/background/sky.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
 				</div>
@@ -97,18 +97,18 @@
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
-									<a href="#about" class="change-section">
+									<a href="#maintenance" class="change-section">
 										<div class="black-bg btn-menu">
-											<i class="fa fa-signal"></i>
-											<h2>Reporting</h2>
+											<i class="fa fa-wrench"></i>
+											<h2>Maintenance</h2>
 										</div>
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
-									<a href="#contact" class="change-section">
+									<a href="#about" class="change-section">
 										<div class="black-bg btn-menu">
-											<i class="fa fa-wrench"></i>
-											<h2>Reparation</h2>
+											<i class="fa fa-signal"></i>
+											<h2>Reporting</h2>
 										</div>
 									</a>
 								</div>
@@ -317,50 +317,34 @@
 							</div>
 						</section>
 						<!-- /.about-section -->    
-						<section id="contact-section" class="inactive">
+						<section id="maintenance-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Reparations</h2>
-									<div class="col-sm-12 col-md-12">
-										<p>Cette espace vous permet de gérer les <a href="Reparation.html">réparations</a> des véhicules. Il vous permet aussi de consulter les informations des différents <a href="Garages.html">garages</a>, ainsi que les <a href="PieceRechange.html">pièces de rechanges</a> disponibles. Enfin, vous pouvez accéder aux <a href="Entretiens.html">carnet d'entretiens</a> de ceux-ci</p>
-									</div>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="Reparation.html" class="change-section">
+									<h2 class="text-center">Maintenance</h2>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-wrench"></i>
-												<h2>Reparations</h2>
+												<h2>Nouvelle<br>maintenance</h2>
 											</div>
-											<br/>
+										</a>
 									</div>
-									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="Garages.html" class="change-section">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-flag-checkered"></i>
-												<h2>Garages</h2>
+												<i class="fa fa-repeat"></i>
+												<h2>Mise à jour<br>maintenance</h2>
 											</div>
-											<br/>
+										</a>
 									</div>
-									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="PieceRechange.html" class="change-section">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
+										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-recycle"></i>
-												<h2>Rechanges</h2>
+												<i class="fa fa-history"></i>
+												<h2>Historique<br>maintenance</h2>
 											</div>
-											<br/>
+										</a>
 									</div>
-									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="Entretiens.html" class="change-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-list-alt"></i>
-												<h2>Entretiens</h2>
-											</div>
-											<br/>
-									</div>
-									</a>
-									<div class="clearfix"></div>
 								</div>
 							</div>
 							<div class="row margin-top-20">
@@ -373,7 +357,7 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.contact-section -->    
+						<!-- /.maintenance-section -->    
 						<section id="company-intro-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
