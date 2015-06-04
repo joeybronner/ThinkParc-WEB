@@ -21,18 +21,24 @@ class Stocks {
 	
 	
 	 /**
-     * Update transfert.
+     * Insert on transfert.
      *
-     * @url GET /companies/stocks/ref/$reference/quanty/$productnumber/firstsite/$id_site1/secondsite/$id_site2
+     * @url POST /companies/stocks/ref/$ref/quanty/$productnumber/secondsite/$id_site2/idstock/$idstock
      */
-    public function TransfertProduct($reference = null, $productnumber=null) {
+    public function TransfertProduct($ref = null, $productnumber=null, $id_site2 = null, $idstock = null) {
 		try {
-			global $con;
-			$sql = "Update stock st, parts pa SET st.quanty = (quanty - ".$productnumber.") WHERE pa.id_reference like ".$reference."
-			AND st.id_part = pa.id_part AND st.id_stock = ".$id_site1."";
 			
-			$sql = "Update stock st, parts pa SET st.quanty = (quanty + ".$productnumber.") WHERE pa.id_reference like ".$reference."
-			AND st.id_part = pa.id_part  AND st.id_stock = ".$id_site2."";
+			global $con;
+			
+				
+		$sql = 	"INSERT INTO transfert (receiver, id_part, quantity, validation) 
+				VALUES ('".$id_site2."' , '".$ref."','".$productnumber."','0');
+				
+				Update stock st, parts pa 
+				SET st.quanty = (quanty - '".$productnumber."') 
+				WHERE st.id_stock = '".$idstock."';";
+				
+			echo $sql;
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;
@@ -40,6 +46,8 @@ class Stocks {
 		} catch(PDOException $e) {
 			return array("test" => "".$e->getMessage());
 		}
+		
+		
     }
 	
 	
@@ -117,14 +125,15 @@ class Stocks {
 		    /**
      * Return all product by family.
      *
-     * @url GET /companies/stocks/displayproductbycompany/$id_company
+     * @url GET /companies/stocks/displayproductbycompany/$id_company/ref/$ref
      */
-    public function getproductbycompany($id_company = null) {
+    public function getproductbycompany($id_company = null, $ref = null) {
 		try {
 			global $con;
-			$sql = 	"SELECT * ".
-					"FROM parts ".
-					"WHERE id_company = ".$id_company.";";
+			$sql = 	"SELECT * 
+					FROM parts 
+					WHERE id_company = ".$id_company."
+					AND reference = ".$ref.";";
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
 			return $wines;
@@ -153,15 +162,62 @@ class Stocks {
 		}
     }
 	
+		    /**
+     * Return ref.
+     *
+     * @url GET /companies/stocks/checkref/$ref
+     */
+    public function checkref($ref = null) {
+		try {
+			global $con;
+			$sql = "SELECT distinct (reference), pa.id_part FROM parts pa, stock st WHERE st.id_part=pa.id_part AND pa.reference='".$ref."'";
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
 		 /**
      * Return site productbyref.
      *
-     * @url GET /companies/stocks/siteproductbyref/$ref/site/$id_site/company/$id_company
+     * @url GET /companies/stocks/companyproduct/company/$id_company
      */
-    public function getsiteproductbyref($ref = null, $id_site = null, $id_company=null) {
+    public function getcompanyproduct($id_company=null) {
 	
 			
 			
+		try {
+			global $con;
+			$sql = "SELECT reference, st.id_stock, st.id_part, st.id_measurement, st.id_typestock, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+			FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
+			WHERE st.id_measurement=me.id_measurement 
+			AND st.id_site=si.id_site 
+			AND st.id_typestock=ty.id_typestock 
+			AND st.id_part=pa.id_part 
+			AND pa.id_currency=cu.id_currency 
+			AND pa.id_company=co.id_company 
+			AND pa.id_family=fa.id_family 
+			AND pa.id_company = ".$id_company."
+			ORDER BY company;";
+			
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	 /**
+     * Return site product by company.
+     *
+     * @url GET /companies/stocks/siteproductbycompany/$id_company
+     */
+    public function getsiteproductbycompany($id_company = null) {
 		try {
 			global $con;
 			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
@@ -173,9 +229,7 @@ class Stocks {
 			AND pa.id_currency=cu.id_currency 
 			AND pa.id_company=co.id_company 
 			AND pa.id_family=fa.id_family 
-			AND st.id_site = ".$id_site."
-			AND pa.id_company = ".$id_company."
-			AND reference LIKE '".$ref."';";
+			AND pa.id_company = ".$id_company.";";
 			
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -302,7 +356,9 @@ class Stocks {
 					 WHERE st.id_part=pa.id_part 
 					 AND si.id_company=co.id_company
 					 AND pa.id_company=".$id_company."
-					 AND st.id_site=".$id_site.";";
+					 AND st.id_site=".$id_site."
+					 GROUP BY reference
+					 HAVING count(reference);";
 			$stmt = $con->query($sql);
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		} catch(PDOException $e) {
