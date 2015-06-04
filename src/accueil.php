@@ -322,7 +322,7 @@
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center">Maintenance</h2>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
-										<a href="#" class="directlink-section">
+										<a href="maintenance/addmaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-wrench"></i>
 												<h2>Nouvelle<br>maintenance</h2>

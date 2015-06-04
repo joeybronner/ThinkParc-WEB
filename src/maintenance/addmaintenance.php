@@ -87,10 +87,11 @@
 					success:	function(data) {
 									var response = JSON.parse(data);
 									var content = '<center><table>' + 
-													'<tbody style="display:block; height:200px; overflow-y:auto;">' + 
+													'<tbody style="display:block; height:250px; overflow-y:auto;">' + 
 														'<tr>' +
 															'<td></td>' + 
 															'<td class="littletable"><h6>Site</h6></td>' +
+															'<td class="littletable"><h6>Qty</h6></td>' +
 															'<td class="littletable"><h6>Driveway</h6></td>' +
 															'<td class="littletable"><h6>Bay</h6></td>' + 
 															'<td class="littletable"><h6>Position</h6></td>' + 
@@ -101,6 +102,7 @@
 										content = content + '<tr>' + 
 																'<td class="littletable"><input type="radio" name="stockselected" value="' + response[i].id_stock + '" />' + '</td>' + 
 																'<td class="littletable"><h6>' + response[i].name + '</h6></td>' + 
+																'<td class="littletable"><h6>' + response[i].quanty + '</h6></td>' + 
 																'<td class="littletable"><h6>' + response[i].driveway + '</h6></td>' + 
 																'<td class="littletable"><h6>' + response[i].bay + '</h6></td>' + 
 																'<td class="littletable"><h6>' + response[i].position + '</h6></td>' + 
@@ -108,12 +110,19 @@
 																'<td class="littletable"><h6>' + response[i].locker + '</h6></td>' + 
 															'</tr>';
 									}
-									content = content +'</tbody></table></center>';
-									console.log(content);
-									document.getElementById("stockstatus").innerHTML = content;
+									document.getElementById("stockcontent").innerHTML = content;
 								}
 				});
 			});
+		}
+		function cancelAddPart() {
+			// Reset values
+			document.getElementById("stockcontent").innerHTML = "";
+			document.getElementById("reference").value = "";
+			document.getElementById("quantity").value = "";
+			
+			// Close popup
+			popup('custompopup');
 		}
 	</script>
 </head>
@@ -198,7 +207,6 @@
 	<!-- PopUp section -->
 	<div id="blanket" style="display:none"></div>
 	<div id="custompopup" style="display:none">
-			<a href="#" onclick="popup('custompopup')">X</a>
 			<div class="panel-body">
 				<div class="row"> 
 						<form id="addmaintenance" action="javascript:addParts();">
@@ -223,11 +231,18 @@
 									</tr>
 									<tr>
 										<td id="stockstatus" colspan="3">
-											
+											<center>
+												<table> 
+													<tbody id="stockcontent" style="display:block; height:250px; overflow-y:auto;">
+														<!-- Stock content -->
+													</tbody>
+												</table>
+											</center>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" align="right">
+										<td colspan="3" align="right">
+											<input type="button" class="btn btn-danger" onclick="javascript:cancelAddPart();" value="Cancel"/>
 											<input type="submit" class="btn btn-success" value="Add"/>
 										</td>
 									</tr>
