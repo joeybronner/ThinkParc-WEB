@@ -172,6 +172,23 @@ td {
 color : black;
 }
 
+table.partstable {
+  font-size: 14px;
+  width:100%;
+}
+
+table.partstable td.part_title {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  line-height:1.42857143;
+  padding:8px;
+}
+
+table.partstable td {
+  text-align:center;
+}
+
 td.info_title {
   font-weight: bold;
 }
@@ -227,9 +244,9 @@ height:auto;
 
 }
 
-input.form-control , input[type="submit"] , .btn {
+/*input.form-control , input[type="submit"] , .btn {
 	border-radius: 0px;
-}
+}*/
 
 .btn {
 	transition: all ease-in-out 0.2s;
@@ -276,7 +293,6 @@ i.fa.fa-users.white {
 	background:gray;
 	width:400px;
 	height:400px;
-	padding:20px;
 	z-index: 9002;
 }
 
