@@ -1,17 +1,30 @@
 <?php
+/* ------------------------------------------------------------------------ *
+ *																			*
+ * @description:	This page allows some users to put a vehicle in 		*
+ * 					maintenance and pick some iitems from stock.			*
+ *																			*
+ * @author(s): 		Joey BRONNER											*
+ * @contact(s):		joeybronner@gmail.com									*
+ * @lastupdate: 	05/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ * ------------------------------------------------------------------------ */
 	if(!isset($_SESSION)) {
 		session_start();
 	}
 	include('../../db/check_session.php');
 	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/documents/documents.fr.php');
+		include('../../lang/maintenance/maintenance.fr.php');
 	else
-		include('../../lang/documents/documents.en.php');
+		include('../../lang/maintenance/maintenance.en.php');
 ?>
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Think-Parc | Maintenance</title>
+	<title><?php echo $maintenance['PAGE_TITLE'];?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../../css/bootstrap.css">
 	<link rel="stylesheet" href="../../css/font-awesome.min.css">
@@ -271,13 +284,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=maintenance">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $maintenance['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div id="maintenancefieldsblock" class="black-bg btn-menu margin-bottom-20">
-				<h2>Put a vehicle in maintenance</h2>
+				<h2><?php echo $maintenance['PUT_VEHICLE_TITLE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -285,7 +298,7 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Vehicle</h5></td>
+											<td><h5><?php echo $maintenance['VEHICLE'];?></h5></td>
 											<td colspan="2">
 												<select id="listvehicles" name="listvehicles" class="form-control">
 													<!-- Retrieve all vehicles with an AJAX [GET] query -->
@@ -293,7 +306,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Type of maintenance</h5></td>
+											<td><h5><?php echo $maintenance['TYPE_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
 												<select id="typemaintenance" name="typemaintenance" class="form-control" required>
 													<!-- Retrieve types of maintenance with an AJAX [GET] query -->
@@ -301,13 +314,13 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Date of starting maintenance</h5></td>
+											<td><h5><?php echo $maintenance['START_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
 												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Date of ending maintenance</h5></td>
+											<td><h5><?php echo $maintenance['END_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
 												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_endmaintenance" />
 											</td>
@@ -316,7 +329,7 @@
 											<td colspan="3" align="right">
 												<h5>
 													<a href="javascript:popup('custompopup');">
-														<input type="button" value="Add new part" class="btn btn-normal" />
+														<input type="button" value="<?php echo $maintenance['ADD_PART'];?>" class="btn btn-normal" />
 													</a>
 												</h5>
 											</td>
@@ -325,24 +338,24 @@
 											<td colspan="3">
 												<table id="partstable" class="partstable">
 													<tr>
-														<td class="part_title">Reference</td>
-														<td class="part_title">Description</td>
-														<td class="part_title">Quantity</td>
-														<td class="part_title">StockID</td>
-														<td class="part_title">Unit price</td>
+														<td class="part_title"><?php echo $maintenance['TABLE_REFERENCE'];?></td>
+														<td class="part_title"><?php echo $maintenance['TABLE_DESCRIPTION'];?></td>
+														<td class="part_title"><?php echo $maintenance['TABLE_QUANTITY'];?></td>
+														<td class="part_title"><?php echo $maintenance['TABLE_STOCKID'];?></td>
+														<td class="part_title"><?php echo $maintenance['TABLE_UNITPRICE'];?></td>
 														<td class="part_title"><i class="fa fa-eraser"></i></td>
 													</tr>
 												</table>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Labour hours</h5></td>
+											<td><h5><?php echo $maintenance['LABOUR_HOURS'];?></h5></td>
 											<td style="padding-top:25px;" colspan="2">
 												<input type="number" min="0" class="form-control" id="labour_hours" value="0" step="any"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Labour hourly rate</h5></td>
+											<td><h5><?php echo $maintenance['LABOUR_HOURLYRATE'];?></h5></td>
 											<td>
 												<input type="number" min="0" class="form-control" id="labour_hourlyrate" value="0" step="any"/>
 											</td>
@@ -353,14 +366,14 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Commentary</h5></td>
+											<td><h5><?php echo $maintenance['COMMENTARY'];?></h5></td>
 											<td colspan="2">
 												<textarea id="commentary" class="form-control" rows="3" maxlength="255"></textarea>
 											</td>
 										</tr>
 										<tr>
 											<td colspan="3" align="right" style="padding-top:25px;">
-												<input type="submit" value="Put in maintenance" class="btn btn-success"/>
+												<input type="submit" value="<?php echo $maintenance['BT_VALIDATE'];?>" class="btn btn-success"/>
 											</td>
 										</tr>
 									</tbody>
@@ -382,13 +395,13 @@
 							<table style="width:100%;">
 								<tbody>
 									<tr>
-										<td><h5>Part reference</h5></td>
+										<td><h5><?php echo $maintenance['PART_REFERENCE'];?></h5></td>
 										<td>
 											<input class="form-control" type="text" id="reference" name="reference" placeholder="Reference" onkeyup="valuesChanges()" />
 										</td>
 									</tr>
 									<tr>
-										<td><h5>Quantity</h5></td>
+										<td><h5><?php echo $maintenance['QUANTITY'];?></h5></td>
 										<td>
 											<input class="form-control" type="number" min="0" value="1" id="quantity" name="quantity" onkeyup="valuesChanges()" />
 										</td>
@@ -406,8 +419,8 @@
 									</tr>
 									<tr>
 										<td colspan="2" align="right">
-											<input type="button" class="btn btn-danger" onclick="javascript:cancelAddPart();" value="Cancel"/>
-											<input type="submit" class="btn btn-success" value="Add"/>
+											<input type="button" class="btn btn-danger" onclick="javascript:cancelAddPart();" value="<?php echo $maintenance['BT_CANCEL'];?>"/>
+											<input type="submit" class="btn btn-success" value="<?php echo $maintenance['BT_ADD'];?>"/>
 										</td>
 									</tr>
 								</tbody>
