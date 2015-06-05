@@ -104,7 +104,7 @@
 			}
 		}
 		function addPartToTable(reference, quantity, stocktopickin) {
-			
+			totalitems++;
 			var newpart = 	'<tr id="part-' + totalitems + '">' +
 								'<td id="ref-' + totalitems + '">' + reference + '</td>' +
 								'<td id="des-' + totalitems + '">' + designation + '</td>' + 
@@ -113,7 +113,6 @@
 								'<td id="prx-' + totalitems + '">' + buyingprice + ' ' + symbol + '</td>' +
 								'<td><a href="javascript:removePartFromTable(' + totalitems + ')"><i class="fa fa-times"></i></a></td>' +
 							'</tr>';
-			totalitems++;
 			document.getElementById("partstable").innerHTML = document.getElementById("partstable").innerHTML + newpart;
 		}
 		function removePartFromTable(id) {
@@ -199,8 +198,65 @@
 				$.toast({heading: "Error",text: "Please select a type of maintenance", icon: "error"});
 				return false;
 			}
-			// Ok! Now we can add a new maintenance line in the database
+			// Ok! Now we can retrieve values
+			var id_vehicle = document.getElementById("listvehicles").value;
+			var date_startmaintenance = document.getElementById("date_startmaintenance").value;
+			var date_endmaintenance = document.getElementById("date_endmaintenance").value;
+			var id_typemaintenance = document.getElementById("typemaintenance").value;
+			var labour_hours = document.getElementById("labour_hours").value;
+			var labour_hourlyrate = document.getElementById("labour_hourlyrate").value;
+			var id_currency = document.getElementById("currencies").value;
+			var commentary = document.getElementById("commentary").value;
 			
+			// Tranform potential NULL values (commentary & date of end of maintenance)
+			date_endmaintenance = ((date_endmaintenance == "") ? "NULL" : date_endmaintenance);
+			commentary = ((commentary == "") ? "NULL" : commentary);
+			
+			// Call [POST] to add new maintenance in database
+			getCompany(function(company){
+				$.ajax({
+					url : 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
+																	'/maintenance' + 
+																	'/vehicle/' + id_vehicle + 
+																	'/start/' + date_startmaintenance + 
+																	'/end/' + date_endmaintenance + 
+																	'/type/' + id_typemaintenance + 
+																	'/hours/' + labour_hours + 
+																	'/rate/' + labour_hourlyrate + 
+																	'/curr/' + id_currency + 
+																	'/commentary/' + commentary,
+					type : 	'POST',
+					success: function(data) {
+								var response = JSON.parse(data);
+								var id_maintenance = response.id;
+								
+								for (var i=1; i<=totalitems; i++) {
+									var id_stock = document.getElementById("stk-" + i).innerHTML;
+									var quantity = document.getElementById("qty-" + i).innerHTML;
+									// Update stock available stock 
+									$.ajax({
+										url: 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
+																						'/stock/' + id_stock + 
+																						'/quantity/' + quantity,
+										type: 	'PUT',
+										success:function(data) {
+													// Add all used parts for this maintenance 
+													$.ajax({
+														url: 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
+																										'/maintenance/' + id_maintenance + 
+																										'/stock/' + id_stock + 
+																										'/quantity/' + quantity,
+														type: 	'POST'
+													});	
+												}
+									});
+
+								}
+								// Display confirmation toast
+								$.toast({heading: "Success",text: "Vehicle successfuly added in maintenance.", icon: "success"});
+							}
+				});
+			});
 		}
 	</script>
 </head>
@@ -231,15 +287,15 @@
 										<tr>
 											<td><h5>* Vehicle</h5></td>
 											<td colspan="2">
-												<select id="listvehicles" name="listvehicles" class="form-control" onchange="showNewMaintenanceFields();">
-												<!-- Retrieve all vehicles with an AJAX [GET] query -->
-											</select>
+												<select id="listvehicles" name="listvehicles" class="form-control">
+													<!-- Retrieve all vehicles with an AJAX [GET] query -->
+												</select>
 											</td>
 										</tr>
 										<tr>
 											<td><h5>* Type of maintenance</h5></td>
 											<td colspan="2">
-												<select id="typemaintenance" name="typemaintenance" required="required" class="form-control">
+												<select id="typemaintenance" name="typemaintenance" class="form-control" required>
 													<!-- Retrieve types of maintenance with an AJAX [GET] query -->
 												</select>
 											</td>
@@ -247,13 +303,13 @@
 										<tr>
 											<td><h5>* Date of starting maintenance</h5></td>
 											<td colspan="2">
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" name="date_startmaintenance" required="required"/>
+												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" required/>
 											</td>
 										</tr>
 										<tr>
 											<td><h5>Date of ending maintenance</h5></td>
 											<td colspan="2">
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" name="date_endmaintenance" required="required"/>
+												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_endmaintenance" />
 											</td>
 										</tr>
 										<tr>
@@ -304,7 +360,7 @@
 										</tr>
 										<tr>
 											<td colspan="3" align="right" style="padding-top:25px;">
-												<input type="submit" value="Save" class="btn btn-success"/>
+												<input type="submit" value="Put in maintenance" class="btn btn-success"/>
 											</td>
 										</tr>
 									</tbody>
