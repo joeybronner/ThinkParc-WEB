@@ -25,7 +25,10 @@
 		<script type="text/javascript">
 			
 			var idstock = [];
+			var quanty = [];
 			var myref = [];
+			var type = [];
+			var measure = [];
 			var size;
 			var total = 0;
 			var test;
@@ -76,61 +79,64 @@
 			{
 			
 				var thesize = window.size;
+				var exec = false;
+				var productnumber;
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 				total = 0;
 				
-				var productnumber;
-				//var ref = window.myref[i];
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-				
-				for (var i = 0; i < thesize; i++ )
+				for (var i = 0; i <= thesize; i++ )
 				{
 						var ref = window.myref[i];
-						idstock = idstock[i];
-						// Checkbox checked test
-						if (document.getElementById('numcheckbox'+i).checked == true)
+						var ids = idstock[i];
+						var quantity = window.myquanty[i];
+						var type = window.type[i];
+						var measure = window.measure[i];
+						productnumber = document.getElementById('productnumber'+i).value;
+						
+						if (document.getElementById('numcheckbox'+i).checked == true && productnumber > 0)
 						{
 							total++;
-							productnumber = document.getElementById('productnumber'+i).value;
-							TransfertProduct(ref, i, productnumber, idstock);
+							TransfertProduct(ref, i, productnumber, ids, quantity, type, measure);
+							exec = true;
 						}
 							
 				}
 				
-				
-					//alert('Nombre de checkbox cochées : '+total);
 					total = 0;
-					getcompanyproduct(id_company);
+					
+					if (exec)
+					{
+						getcompanyproduct(id_company);
+					} else
+					{
+						$.toast({heading: "Error",text: "Error", icon: "error"});
+					}
 			
 			}
 		 
 		 
-		 function TransfertProduct(ref, i, quanty, idstock) 
+		 function TransfertProduct(ref, i, productnumber, idstock, quantity, type, measure) 
 		 {
 		 
-			
+				//var quantity = document.getElementById('quantity'+i).value;
 				var productnumber = document.getElementById('productnumber'+i).value;
-				//var id_site1 = document.getElementById('listproducts').value;
 				var id_site2 = document.getElementById('listproducts2').value;
-				//var ref = window.myref;
-				//var id_site = document.getElementById('listproducts').value;
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 		
 
-				if (quanty < parseInt(productnumber))
+				if (quantity < parseInt(productnumber))
 				{
-					alert('Nombre supérieur au nombre en stock ! quanty:' +quanty+ '- productnumber : '+productnumber);
+					alert('Nombre supérieur au nombre en stock ! Qte stock : ' +quantity+ '- Qte à transferer : '+productnumber);
 					getcompanyproduct(id_company);
 					return false;
-				}	
-				
+				}
 				
 				$.ajax({
 					method: 	"POST",
-					url:		"http://think-parc.com/webservice/v1/companies/stocks/ref/"+ref+"/quanty/"+productnumber+"/secondsite/"+id_site2+"/idstock/"+idstock,   
+					url:		"http://think-parc.com/webservice/v1/companies/stocks/ref/"+ref+"/quanty/"+productnumber+"/secondsite/"+id_site2+"/idstock/"+idstock+"/type/"+type+"/measure/"+measure,   
 					success:	function() 
 								{
 									$.toast({heading: "Success",text: "Product(s) successfully transfered.", icon: "success"});
-									//getsiteproductbyref(ref +','+ id_site +','+ id_company);
 									getcompanyproduct(id_company);
 								},
 					error:		function() 
@@ -151,10 +157,13 @@
 			method: 	"GET",
 			url:		"http://think-parc.com/webservice/v1/companies/stocks/companyproduct/company/"+id_company, 
 			success:	function(data) {
+							
 							var response = JSON.parse(data);
 							var dataSet = new Array(response.length);
 							myref = new Array(response.length);
-							//idstock = new Array(response.length);
+							myquanty = new Array(response.length);
+							type = new Array(response.length);
+							measure = new Array(response.length);
 							
 							for (var i = 0; i<response.length; i++) 
 							{
@@ -169,7 +178,6 @@
 									}
 									
 									
-									
 									dataSet[i] = new Array(	response[i].reference,   
 														quanty,
 														response[i].driveway,
@@ -182,7 +190,10 @@
 														
 										size = i;
 										myref[i] = response[i].id_part;
-										test = '<input type="hidden" id="montest'+i+'" value="'+response[i].id_part+'">';
+										myquanty[i] = response[i].quanty;
+										type[i] = response[i].id_typestock;
+										measure[i] = response[i].id_measurement;
+										
 										
 							
 							}
@@ -271,9 +282,7 @@
 									<div class="col-md-12 col-lg-12">
 										<div id="stock">
 									    </div>	
-										<a href="javascript:check();">check</a>
-									<input type="submit" value="Valider le transfert" onclick="check();" class="btn btn-success">&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-
+										<a href="javascript:check();" class="btn btn-success">Valider</a>&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
 									</div>
 								</form>
 							</div>
