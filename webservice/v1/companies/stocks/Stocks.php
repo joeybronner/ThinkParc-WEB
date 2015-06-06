@@ -19,20 +19,71 @@ class Stocks {
 		}
     }
 	
+	/**
+     * Insert on transfert on stock.
+     *
+     * @url POST /companies/stocks/idtransfert/$idtrans/quanty/$myquanty/idpart/$idpart/driveway/$driveway/bay/$bay/position/$position/rack/$rack/locker/$locker/idsite/$idsite/type/$type/measure/$measure
+     */
+    public function TransfertProductInStock($idtrans = null, $idpart = null, $driveway = null, $bay = null, $position = null, $rack = null, $locker=null, $myquanty=null, $idsite =null, $type =null, $measure =null) {
+		try {
+			
+			global $con;
+			
+			$sql="INSERT INTO stock (quanty, driveway, bay, position, rack, id_site, id_part, locker, id_typestock, id_measurement) 
+				  VALUES ('".$myquanty."' , '".$driveway."','".$bay."','".$position."','".$rack."','".$idsite."','".$idpart."','".$locker."','".$type."','".$measure."');
+				  
+				  Update transfert 
+				  SET validationdate = NOW(), validation=1;";
+			
+			
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+		
+		
+    }
+	
+	
+	 /**
+     * Return all family.
+     *
+     * @url GET /companies/stocks/sitecompany/$id_company
+     */
+    public function getsitecompany($id_company = null)  {
+		try {
+			global $con;
+			$sql = "SELECT si.name, id_site
+			FROM companies co, sites si
+			WHERE si.id_company=co.id_company
+			AND si.id_company = ".$id_company."";
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	
 	
 	 /**
      * Insert on transfert.
      *
-     * @url POST /companies/stocks/ref/$ref/quanty/$productnumber/secondsite/$id_site2/idstock/$idstock
+     * @url POST /companies/stocks/ref/$ref/quanty/$productnumber/secondsite/$id_site2/idstock/$idstock/type/$type/measure/$measure
      */
-    public function TransfertProduct($ref = null, $productnumber=null, $id_site2 = null, $idstock = null) {
+    public function TransfertProduct($ref = null, $productnumber=null, $id_site2 = null, $idstock = null, $type=null, $measure=null) {
 		try {
 			
 			global $con;
 			
 				
-		$sql = 	"INSERT INTO transfert (receiver, id_part, quantity, validation) 
-				VALUES ('".$id_site2."' , '".$ref."','".$productnumber."','0');
+		$sql = 	"INSERT INTO transfert (receiver, id_part, quantity, validation, transferdate, type, measure) 
+				VALUES ('".$id_site2."' , '".$ref."','".$productnumber."','0', NOW(), '".$type."','".$measure."');
 				
 				Update stock st, parts pa 
 				SET st.quanty = (quanty - '".$productnumber."') 
@@ -202,6 +253,59 @@ class Stocks {
 			AND pa.id_family=fa.id_family 
 			AND pa.id_company = ".$id_company."
 			ORDER BY company;";
+			
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	 /**
+     * Return site productbyref.
+     *
+     * @url GET /companies/stocks/getalltransferts/company/$id_company
+     */
+    public function getalltransferts($id_company=null) {
+	
+			
+			
+		try {
+			global $con;
+			$sql = "SELECT id_transfert, transferdate, receiver, quantity, reference, tr.id_part, tr.type as typestock, tr.measure as measurement
+			FROM transfert tr, parts pa, typestock ty, measurement me
+			WHERE receiver = ".$id_company."
+			AND pa.id_part = tr.id_part
+			AND tr.type = ty.id_typestock
+			AND tr.measure = me.id_measurement
+			AND tr.validation = 0";
+			
+			$stmt = $con->query($sql);
+			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $wines;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+		 /**
+     * Return site transfer list.
+     *
+     * @url GET /companies/stocks/gettransferlist/company/$id_company
+     */
+    public function gettransferlist($id_company=null) {
+	
+			
+		try {
+			global $con;
+			$sql = "SELECT transferdate, id_transfert
+					FROM transfert
+					WHERE receiver = ".$id_company."
+					AND validation = 0
+					ORDER BY transferdate;";
 			
 			$stmt = $con->query($sql);
 			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
