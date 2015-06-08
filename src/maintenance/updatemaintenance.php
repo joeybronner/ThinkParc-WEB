@@ -1,8 +1,7 @@
 <?php
 /* ------------------------------------------------------------------------ *
  *																			*
- * @description:	This page allows some users to put a vehicle in 		*
- * 					maintenance and pick some iitems from stock.			*
+ * @description:	Description.											*
  *																			*
  * @author(s): 		Joey BRONNER											*
  * @contact(s):		joeybronner@gmail.com									*
@@ -38,20 +37,40 @@
 	<script src="../../js/jquery.toast.js"></script>
 	<script src="../../js/popup.js"></script>
 	<script>
+		var totalitems = 0;
+		var id_maintenance = "";
+		buyingprice = "";
+		symbol = "";
+		designation = "";
+		var partsToDelete = {
+			partToDelete: []
+		};
+		var partsToAdd = {
+			partToAdd: []
+		};
 		$(function onLoad(){
 			getAllVehicles();
 			getCurrencies();
 			getTypeMaintenance();
-			setNowIntoDateStart()
 		});
-		function setNowIntoDateStart() {
-			document.getElementById('date_startmaintenance').value = new Date().toDateInputValue();
+		function showMaintenanceDetails(id_vehicle) {
+			// Clear removed parts table
+			partsToDelete = { partToDelete: [] };
+			// Clear removed parts table
+			partsToAdd = { partToAdd: [] };
+			// Clear parts table
+			for (var i=1 ; i<=totalitems ; i++) {
+				try {
+					document.getElementById("part-" + i).remove();
+				} catch (e) { /* nothing */ }
+			}
+			// Clear totalitems variable
+			totalitems = 0;
+			// Load values
+			getVehicleMaintenanceDetail(id_vehicle);
+			// Display maintenance detail fields
+			document.getElementById('maintenancedetails').style.display = 'block';
 		}
-		Date.prototype.toDateInputValue = (function() {
-			var local = new Date(this);
-			local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-			return local.toJSON().slice(0,10);
-		});
 		function getCurrencies(){
 			$.ajax({
 				method: 	"GET",
@@ -81,7 +100,7 @@
 			getCompany(function(company){
 				$.ajax({
 					method: 	"GET",
-					url:		"http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/freevehicles", 
+					url:		"http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/vehiclesundermaintenance", 
 					success:	function(data) {
 									var response = JSON.parse(data);
 									var content = '<option selected disabled>Liste des véhicules</option>';
@@ -108,25 +127,51 @@
 							}
 			});
 		};
-		var totalitems = 0;
-		var buyingprice = "";
-		var symbol = "";
-		var designation = "";
-		function addParts() {
-			var radios = document.getElementsByName('stockselected');
-			for (var i = 0; i < radios.length; i++) {
-				if (radios[i].checked) {
-					var reference = document.getElementById("reference").value;
-					var quantity = document.getElementById("quantity").value;
-					var stocktopickin = radios[i].value;
-					addPartToTable(reference, quantity, stocktopickin);
-					// Close popup
-					cancelAddPart();
-				}
-			}
+		function getVehicleMaintenanceDetail(id_vehicle) {
+			getCompany(function(company){
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/vehicle/" + id_vehicle, 
+					success:	function(data) {
+									var response = JSON.parse(data);
+									document.getElementById('typemaintenance').value = response[0].id_typemaintenance;
+									document.getElementById('date_startmaintenance').value = response[0].date_startmaintenance;
+									document.getElementById('date_endmaintenance').value = response[0].date_endmaintenance;
+									document.getElementById('labour_hours').value = response[0].labour_hours;
+									document.getElementById('labour_hourlyrate').value = response[0].labour_hourlyrate;
+									document.getElementById('currencies').value = response[0].id_currency;
+									document.getElementById('commentary').value = response[0].commentary;
+									id_maintenance = response[0].id_maintenance;
+									// Get used parts
+									$.ajax({
+										method: 	"GET",
+										url:		"http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/parts/" + response[0].id_maintenance, 
+										success:	function(data) {
+														var response = JSON.parse(data);
+														for (var i = 0; i<response.length; i++) {
+															addPartToTable(response[i].reference, 
+																			response[i].quantity, 
+																			response[i].id_stock, 
+																			response[i].designation, 
+																			response[i].buyingprice,
+																			response[i].symbol, 
+																			false);
+														}
+													}
+									});
+								}
+				});
+			});
 		}
-		function addPartToTable(reference, quantity, stocktopickin) {
+		function addPartToTable(reference, quantity, stocktopickin, designation, buyingprice, symbol, newpart) {
 			totalitems++;
+			if (newpart) {
+				partsToAdd.partToAdd.push({ 
+					"id_maintenance": id_maintenance,
+					"stockid" 		: stocktopickin,
+					"quantity"  	: quantity
+				});
+			}
 			var newpart = 	'<tr id="part-' + totalitems + '">' +
 								'<td id="ref-' + totalitems + '">' + reference + '</td>' +
 								'<td id="des-' + totalitems + '">' + designation + '</td>' + 
@@ -138,17 +183,82 @@
 			document.getElementById("partstable").innerHTML = document.getElementById("partstable").innerHTML + newpart;
 		}
 		function removePartFromTable(id) {
+			partsToDelete.partToDelete.push({ 
+				"id_maintenance": id_maintenance,
+				"stockid" 		: document.getElementById('stk-' + id).innerHTML,
+				"quantity"  	: document.getElementById('qty-' + id).innerHTML
+			});
 			document.getElementById("part-" + id).remove();
 		}
-		Element.prototype.remove = function() {
-			this.parentElement.removeChild(this);
-		}
-		NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-			for(var i = 0, len = this.length; i < len; i++) {
-				if(this[i] && this[i].parentElement) {
-					this[i].parentElement.removeChild(this[i]);
-				}
+		function updateMaintenance() {
+			// Add new parts
+			for (var i = 0 ; i < Object.size(partsToAdd.partToAdd) ; i++) {
+				var add_id_maintenance = partsToAdd.partToAdd[i].id_maintenance;
+				var add_stockid = partsToAdd.partToAdd[i].stockid;
+				var add_quantity = partsToAdd.partToAdd[i].quantity;
+				$.ajax({
+					url: 	'http://www.think-parc.com/webservice/v1/companies/' + 0 + 
+																	'/maintenance/' + add_id_maintenance + 
+																	'/stock/' + add_stockid + 
+																	'/quantity/' + add_quantity,
+					type: 	'POST',
+					async:	false
+				});	
 			}
+			// Delete removed parts in database
+			for (var i = 0 ; i < Object.size(partsToDelete.partToDelete) ; i++) {
+				var delete_id_maintenance = partsToDelete.partToDelete[i].id_maintenance;
+				var delete_stockid = partsToDelete.partToDelete[i].stockid;
+				var delete_quantity = partsToDelete.partToDelete[i].quantity;
+				$.ajax({
+					url: 	'http://www.think-parc.com/webservice/v1/companies/' + 0 + 
+																	'/maintenance/' + delete_id_maintenance +
+																	'/stock/' + delete_stockid + 
+																	'/quantity/' + delete_quantity,
+					type: 	'DELETE',
+					async:	false
+				});
+			}
+			// Update global values
+			var date_endmaintenance = document.getElementById("date_endmaintenance").value;
+			var labour_hours = document.getElementById("labour_hours").value;
+			var labour_hourlyrate = document.getElementById("labour_hourlyrate").value;
+			var id_currency = document.getElementById("currencies").value;
+			var commentary = document.getElementById("commentary").value;
+			
+			// Tranform potential NULL values (commentary & date of end of maintenance)
+			date_endmaintenance = ((date_endmaintenance == "") ? "NULL" : date_endmaintenance);
+			commentary = ((commentary == "") ? "NULL" : commentary);
+			$.ajax({
+				url: 	'http://www.think-parc.com/webservice/v1/companies/' + 0 + 
+																'/maintenance/' + id_maintenance + 
+																'/end/' + date_endmaintenance +
+																'/hours/' + labour_hours +
+																'/rate/' + labour_hourlyrate + 
+																'/curr/' + id_currency + 
+																'/commentary/' + commentary,
+				type: 	'PUT',
+				async:	false,
+				success:	function(data) {
+								$.toast({heading: "Success",text: "Vehicle maintenance successfuly updated.", icon: "success"});
+							}
+			});
+		}
+		Object.size = function(obj) {
+			var size = 0, key;
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) size++;
+			}
+			return size;
+		}
+		function cancelAddPart() {
+			// Reset values
+			document.getElementById("stockcontent").innerHTML = "";
+			document.getElementById("reference").value = "";
+			document.getElementById("quantity").value = "";
+			
+			// Close popup
+			popup('custompopup');
 		}
 		function showPartsStock() {
 			var reference = document.getElementById("reference").value;
@@ -191,15 +301,6 @@
 				});
 			});
 		}
-		function cancelAddPart() {
-			// Reset values
-			document.getElementById("stockcontent").innerHTML = "";
-			document.getElementById("reference").value = "";
-			document.getElementById("quantity").value = "";
-			
-			// Close popup
-			popup('custompopup');
-		}
 		function valuesChanges() {
 			var reference = document.getElementById("reference").value;
 			var quantity = document.getElementById("quantity").value;
@@ -210,93 +311,42 @@
 				document.getElementById("stockcontent").innerHTML = "<h6>Not available is your stock.</h6>";
 			}
 		}
-		function addNewMaintenance() {
-			// Check values
-			if (document.getElementById("listvehicles").selectedIndex==0) {
-				$.toast({heading: "Error",text: "Please select a vehicle", icon: "error"});
-				return false;
+		function addParts() {
+			var radios = document.getElementsByName('stockselected');
+			for (var i = 0; i < radios.length; i++) {
+				if (radios[i].checked) {
+					var reference = document.getElementById("reference").value;
+					var quantity = document.getElementById("quantity").value;
+					var stocktopickin = radios[i].value;
+					addPartToTable(reference, quantity, stocktopickin, designation, buyingprice, symbol, true);
+					// Close popup
+					cancelAddPart();
+				}
 			}
-			if (document.getElementById("typemaintenance").selectedIndex==0) {
-				$.toast({heading: "Error",text: "Please select a type of maintenance", icon: "error"});
-				return false;
-			}
-			// Ok! Now we can retrieve values
-			var id_vehicle = document.getElementById("listvehicles").value;
-			var date_startmaintenance = document.getElementById("date_startmaintenance").value;
-			var date_endmaintenance = document.getElementById("date_endmaintenance").value;
-			var id_typemaintenance = document.getElementById("typemaintenance").value;
-			var labour_hours = document.getElementById("labour_hours").value;
-			var labour_hourlyrate = document.getElementById("labour_hourlyrate").value;
-			var id_currency = document.getElementById("currencies").value;
-			var commentary = document.getElementById("commentary").value;
-			
-			// Tranform potential NULL values (commentary & date of end of maintenance)
-			date_endmaintenance = ((date_endmaintenance == "") ? "NULL" : date_endmaintenance);
-			commentary = ((commentary == "") ? "NULL" : commentary);
-			
-			// Call [POST] to add new maintenance in database
+		}
+		function deleteMaintenance() {
 			getCompany(function(company){
 				$.ajax({
-					url : 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
-																	'/maintenance' + 
-																	'/vehicle/' + id_vehicle + 
-																	'/start/' + date_startmaintenance + 
-																	'/end/' + date_endmaintenance + 
-																	'/type/' + id_typemaintenance + 
-																	'/hours/' + labour_hours + 
-																	'/rate/' + labour_hourlyrate + 
-																	'/curr/' + id_currency + 
-																	'/commentary/' + commentary,
-					type : 	'POST',
-					success: function(data) {
-								var response = JSON.parse(data);
-								var id_maintenance = response.id;
-								
-								for (var i=1; i<=totalitems; i++) {
-									var id_stock = document.getElementById("stk-" + i).innerHTML;
-									var quantity = document.getElementById("qty-" + i).innerHTML;
-									// Update stock available stock 
-									$.ajax({
-										url: 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
-																						'/stock/' + id_stock + 
-																						'/quantity/' + quantity,
-										type: 	'PUT',
-										async: 	false,
-										success:function(data) {
-													// Add all used parts for this maintenance 
-													$.ajax({
-														url: 	'http://www.think-parc.com/webservice/v1/companies/' + company + 
-																										'/maintenance/' + id_maintenance + 
-																										'/stock/' + id_stock + 
-																										'/quantity/' + quantity,
-														type: 	'POST'
-													});	
-												}
-									});
+					url: 	'http://www.think-parc.com/webservice/v1/companies/' + company + '/maintenance/' + id_maintenance,
+					type: 	'DELETE',
+					async:	false,
+					success:	function(data) {
+									$.toast({heading: "Success",text: "Vehicle maintenance successfuly removed.", icon: "success"});
+									document.getElementById('maintenancedetails').style.display = 'none';
+									getAllVehicles();
 								}
-								// Reset values 
-								getAllVehicles();
-								getCurrencies();
-								getTypeMaintenance();
-								document.getElementById('date_startmaintenance').value = new Date().toDateInputValue();
-								document.getElementById("date_endmaintenance").value = '00-00-0000';
-								document.getElementById("labour_hours").value = 0;
-								document.getElementById("labour_hourlyrate").value = 0;
-								document.getElementById("commentary").value = "";
-								// Clear parts table
-								for (var i=1 ; i<=totalitems ; i++) {
-									try {
-										document.getElementById("part-" + i).remove();
-									} catch (e) { /* nothing */ }
-								}
-								totalitems=0;
-								
-								// Display confirmation toast
-								$.toast({heading: "Success",text: "Vehicle successfuly added in maintenance.", icon: "success"});
-								
-							}
 				});
 			});
+		}
+		Element.prototype.remove = function() {
+			this.parentElement.removeChild(this);
+		}
+		NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+			for(var i = 0, len = this.length; i < len; i++) {
+				if(this[i] && this[i].parentElement) {
+					this[i].parentElement.removeChild(this[i]);
+				}
+			}
 		}
 	</script>
 </head>
@@ -316,26 +366,41 @@
 			</div>
 		</div>
 	   <div class="templatemo-content">
-			<div id="maintenancefieldsblock" class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $maintenance['PUT_VEHICLE_TITLE'];?></h2>
+			<div class="black-bg btn-menu margin-bottom-20">
+				<h2><?php echo $maintenance['UPDATE_VEHICLE_TITLE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form id="addmaintenance" action="javascript:addNewMaintenance();">
+							<form>
 								<table class="table-no-border">
 									<tbody>
 										<tr>
 											<td><h5><?php echo $maintenance['VEHICLE'];?></h5></td>
-											<td colspan="2">
-												<select id="listvehicles" name="listvehicles" class="form-control">
+											<td>
+												<select id="listvehicles" name="listvehicles" class="form-control" onchange="javascript:showMaintenanceDetails(this.value);">
 													<!-- Retrieve all vehicles with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="maintenancedetails" class="black-bg btn-menu margin-bottom-20" style="display:none;">
+				<h2><?php echo $maintenance['MAINTENANCE_DETAILS'];?></h2>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 col-lg-12"> 
+							<form>
+								<table class="table-no-border">
+									<tbody>
 										<tr>
 											<td><h5><?php echo $maintenance['TYPE_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
-												<select id="typemaintenance" name="typemaintenance" class="form-control" required>
+												<select id="typemaintenance" name="typemaintenance" class="form-control" disabled>
 													<!-- Retrieve types of maintenance with an AJAX [GET] query -->
 												</select>
 											</td>
@@ -343,7 +408,7 @@
 										<tr>
 											<td><h5><?php echo $maintenance['START_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" required/>
+												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" disabled />
 											</td>
 										</tr>
 										<tr>
@@ -399,8 +464,9 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3" align="right" style="padding-top:25px;">
-												<input type="submit" value="<?php echo $maintenance['BT_VALIDATE'];?>" class="btn btn-success"/>
+											<td colspan="3" align="right" style="padding-top:25px;text-align:center;">
+												<input type="button" value="<?php echo $maintenance['DELETE_MAINTENANCE'];?>" class="btn btn-danger" onclick="javascript:deleteMaintenance()"/>
+												<input type="button" value="<?php echo $maintenance['UPDATE_MAINTENANCE'];?>" class="btn btn-success" onclick="javascript:updateMaintenance()"/>
 											</td>
 										</tr>
 									</tbody>

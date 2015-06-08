@@ -29,4 +29,10 @@ $maintenance['BT_CANCEL'] = 'Cancel';
 $maintenance['PART_REFERENCE'] = 'Part reference';
 $maintenance['QUANTITY'] = 'Quantity';
 
+$maintenance['UPDATE_VEHICLE_TITLE'] = 'Update a maintenance vehicle';
+$maintenance['MAINTENANCE_DETAILS'] = 'Maintenance details';
+$maintenance['DELETE_MAINTENANCE'] = 'Delete this maintenance';
+$maintenance['UPDATE_MAINTENANCE'] = 'Update this maintenance';
+
+
 ?>

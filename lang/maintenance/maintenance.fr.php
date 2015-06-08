@@ -29,4 +29,9 @@ $maintenance['BT_CANCEL'] = 'Annuler';
 $maintenance['PART_REFERENCE'] = 'Référence pièce';
 $maintenance['QUANTITY'] = 'Quantité';
 
+$maintenance['UPDATE_VEHICLE_TITLE'] = 'Mise à jour de la maintenance d\'un véhicle';
+$maintenance['MAINTENANCE_DETAILS'] = 'Détail de la maintenance';
+$maintenance['DELETE_MAINTENANCE'] = 'Supprimer cette maintenance';
+$maintenance['UPDATE_MAINTENANCE'] = 'Mettre à jour cette maintenance';
+
 ?>
