@@ -209,10 +209,10 @@
 									</div>
 									</a>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-										<a href="#" class="directlink-section">
+										<a href="stocks/reception.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-edit"></i>
-												<h2>Inventaires</h2>
+												<h2>Récéptions</h2>
 											</div>
 											<br/>
 									</div>
@@ -330,7 +330,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-										<a href="#" class="directlink-section">
+										<a href="maintenance/updatemaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-repeat"></i>
 												<h2>Mise à jour<br>maintenance</h2>
@@ -338,7 +338,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
-										<a href="#" class="directlink-section">
+										<a href="maintenance/historymaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-history"></i>
 												<h2>Historique<br>maintenance</h2>
