@@ -51,9 +51,75 @@ class Maintenance {
 						"AND si.id_company = ".$id_company." ".
 						"AND m.id_brand = b.id_brand ".
 						"AND v.id_vehicle = ma.id_vehicle ".
+						"AND v.id_vehicle = ".$id_vehicle.";";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+    /**
+     * Description.
+     *
+     * @url GET /companies/$id_company/maintenance/vehicle/$id_vehicle/daysmaintenance
+     */
+    public function getVehicleDaysInMaintenance($id_company = null, $id_vehicle = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT SUM(date_endmaintenance - date_startmaintenance) AS maintenancedays ".
+					"FROM maintenance m ".
+					"WHERE m.id_vehicle = ".$id_vehicle." ".
+						"AND m.date_endmaintenance <> '0000-00-00';";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+    /**
+     * Description.
+     *
+     * @url GET /companies/$id_company/maintenance/vehicle/$id_vehicle/partsused
+     */
+    public function getVehiclePartsUsed($id_company = null, $id_vehicle = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT SUM(quantity) AS quantity ".
+					"FROM maintenance m , partsmaintenance p ".
+					"WHERE m.id_vehicle = ".$id_vehicle." ".
+						"AND m.id_maintenance = p.id_maintenance;";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+    /**
+     * Description.
+     *
+     * @url GET /companies/$id_company/maintenance/vehicle/$id_vehicle/allmaintenances
+     */
+    public function getAllMaintenanceForSpecificVehicle($id_company = null, $id_vehicle = null) {
+		try {
+			global $con;
+			$sql = 	"SELECT * ".
+					"FROM vehicles v, kinds k, brands b, states s, categories c, equipments e, energies en, models m, sites si, currencies cu, maintenance ma, typemaintenance tm ".
+					"WHERE v.id_energy = en.id_energy ".
+						"AND v.id_model = m.id_model ".
+						"AND v.id_kind = k.id_kind ".
+						"AND v.id_category = c.id_category ".
+						"AND v.id_equipment = e.id_equipment ".
+						"AND v.id_state = s.id_state ".
+						"AND v.id_currency = cu.id_currency ".
+						"AND v.id_site = si.id_site ".
+						"AND si.id_company = ".$id_company." ".
+						"AND m.id_brand = b.id_brand ".
+						"AND v.id_vehicle = ma.id_vehicle ".
+						"AND ma.id_typemaintenance = tm.id_typemaintenance ".
 						"AND v.id_vehicle = ".$id_vehicle." ";
-						"AND v.id_vehicle NOT IN (SELECT id_vehicle FROM maintenance WHERE date_endmaintenance > NOW()) ".
-						"AND v.id_vehicle NOT IN (SELECT id_vehicle FROM maintenance WHERE date_endmaintenance = '0000-00-00');";
 			$stmt = $con->query($sql);
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		} catch(PDOException $e) {
