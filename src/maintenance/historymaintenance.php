@@ -40,12 +40,18 @@
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
 	<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
+	<script type="text/javascript" src="../../js/googlecharts.js"></script>
 	<script>
 		var totalitems = 0;
+		var days_maintenance = 0;
+		var days_available = 0;
 		var id_maintenance = "";
 		buyingprice = "";
 		symbol = "";
 		designation = "";
+		// Load charts
+		google.load("visualization", "1", {packages:["corechart"]});
+	
 		var partsToDelete = {
 			partToDelete: []
 		};
@@ -69,10 +75,27 @@
 			getVehicleHistory(id_vehicle);
 			// Load total days in maintenance
 			getDaysInMaintenance(id_vehicle);
-			// Load total parts used
-			getPartsUsed(id_vehicle);
 			// Display block
 			document.getElementById('maintenancedetails').style.display = 'block';
+		}
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+				['Status', 			'Days'],
+				['Available',     	days_available],
+				['Maintenance',		days_maintenance]
+			]);
+
+			var options = {
+				backgroundColor: { fill:'transparent' },
+				title: 'Vehicle status',
+				pieHole: 0.4,
+				titleTextStyle: { color: '#FFF' },
+				legendTextStyle: { color: '#FFF' },
+				colors: ['#009933', "#990000"]
+			};
+
+			var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+			chart.draw(data, options);
 		}
 		function getDaysInMaintenance(id_vehicle) {
 			getCompany(function(company){
@@ -94,24 +117,15 @@
 														var responsevehicle = JSON.parse(data);
 														var date_buy = new Date(responsevehicle[0].date_buy);
 														var date_now = new Date(new Date().yyyymmdd());
-														document.getElementById("daysinmaintenance").innerHTML = maintenancedays + "/" + ((date_now - date_buy)/ 86400000);
+														// Draw chart
+														days_maintenance = parseInt(maintenancedays);
+														days_available = parseInt(((date_now - date_buy)/ 86400000) - days_maintenance);
+														drawChart();
 													},
 										async:		false
 									});
 								},
 					async:		false
-				});
-			});
-		}
-		function getPartsUsed(id_vehicle) {
-			getCompany(function(company){
-				$.ajax({
-					method: 	"GET",
-					url:		"http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/vehicle/" + id_vehicle + "/partsused", 
-					success:	function(data) {
-									var response = JSON.parse(data);
-									document.getElementById("partsused").innerHTML = response[0].quantity;
-								}
 				});
 			});
 		}
@@ -273,9 +287,9 @@
 	<?php
 		include('../header/navbar.php');
 	?>
-
+	
 	<img src="../../images/background/maintenance.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad">	
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=maintenance">
@@ -312,20 +326,13 @@
 				<h2>Maintenance overview for this vehicle</h2>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-12 col-lg-12"> 
+						<div class="col-md-12 col-lg-12">
 							<form>
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>Total days maintenance</h5></td>
-											<td id="daysinmaintenance" colspan="2">
-												<!-- Ajax request to count the number of days in maintenance -->
-											</td>
-										</tr>
-										<tr>
-											<td><h5>Total of parts used</h5></td>
-											<td id="partsused" colspan="2">
-												
+											<td id="donutchart" style="height:150px;">
+												<!-- Google Donut chart to vizualize the number of days in maintenance / available -->
 											</td>
 										</tr>
 										<tr>
