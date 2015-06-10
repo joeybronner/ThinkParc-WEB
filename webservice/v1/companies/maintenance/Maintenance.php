@@ -290,8 +290,8 @@ class Maintenance {
 		try {			
 			// Request
 			global $con;
-			$sql = 	"INSERT INTO partsmaintenance (id_maintenance, id_stock, quantity)".
-					"VALUES (".$id_maintenance.", ".$id_stock.", ".$quantity.");";
+			$sql = 	"INSERT INTO partsmaintenance (id_maintenance, id_stock, quantity, date_usepart)".
+					"VALUES (".$id_maintenance.", ".$id_stock.", ".$quantity.", NOW());";
 			// Execute request
 			$stmt = $con->exec($sql);
 			$id = $con->lastInsertId('id_partsmaintenance');
