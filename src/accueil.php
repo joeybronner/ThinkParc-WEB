@@ -300,9 +300,14 @@
 						<section id="about-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center"><span class="green"><a href="">Reporting</a></span></h2>
-									<div class="col-sm-6 col-md-6">
-										<p>Présentation des rapports et bilans analytiques sur les activités et résultats.</p>
+									<h2 class="text-center">Reporting</h2>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
+										<a href="reporting/partsconsumption.php" class="directlink-section">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-refresh"></i>
+												<h2>Consommation<br>des pièces</h2>
+											</div>
+										</a>
 									</div>
 								</div>
 							</div>
