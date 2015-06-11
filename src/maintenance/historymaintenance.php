@@ -87,7 +87,7 @@
 
 			var options = {
 				backgroundColor: { fill:'transparent' },
-				title: 'Vehicle status',
+				/*title: 'Vehicle status',*/
 				pieHole: 0.4,
 				titleTextStyle: { color: '#FFF' },
 				legendTextStyle: { color: '#FFF' },
@@ -331,13 +331,13 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td id="donutchart" style="height:150px;">
-												<!-- Google Donut chart to vizualize the number of days in maintenance / available -->
+											<td colspan="3">
+												<center><h2>Days status</h2></center>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3">
-												<center><h2>List of maintenance(s)</h2></center>
+											<td id="donutchart" style="height:200px;">
+												<!-- Google Donut chart to vizualize the number of days in maintenance / available -->
 											</td>
 										</tr>
 										<tr>
