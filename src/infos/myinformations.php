@@ -263,6 +263,10 @@
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
 									<script>
+										function reformatDate(dateStr) {
+										  dArr = dateStr.split("-");
+										  return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
+										}
 										function getNews(){
 											$.ajax({
 												method: 	"GET",
@@ -273,7 +277,7 @@
 																for(var i = 0; i < response.length; i++) {
 																	var news = response[i];
 																	content += '<tr>';
-																	content += '<td>' + news.date_news + '<td>';
+																	content += '<td>' + reformatDate(news.date_news) + '<td>';
 																	content += '<td>' + news.msg + '<td>';
 																	if (news.active==1) {
 																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 0);" checked></td>';

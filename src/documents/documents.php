@@ -122,6 +122,10 @@
 									"bSort": true,
 									"bInfo": true,
 									"bAutoWidth": true,
+									"fnInitComplete": function(oSettings, json) {
+										$(".dataTables_length select").addClass("datatables-select");
+										$(".dataTables_filter input").addClass("datatables-input");
+									},
 									"columns": [
 										{ "title": "Date" , "class": "center fctbw"},
 										{ "title": "Type" , "class": "center fctbw"},
@@ -229,6 +233,21 @@
 		document.getElementById('spinner').style.display = "none";
 		spinner.stop();
 	}
+	function displayGlobal() {
+		$('#tab-global').addClass('active');
+		$('#tab-vehicles').removeClass('active');
+		$('#tab-technical').removeClass('active');
+	}
+	function displayTechnical() {
+		$('#tab-global').removeClass('active');
+		$('#tab-vehicles').removeClass('active');
+		$('#tab-technical').addClass('active');
+	}
+	function displayVehicles() {
+		$('#tab-global').removeClass('active');
+		$('#tab-vehicles').addClass('active');
+		$('#tab-technical').removeClass('active');
+	}
 	</script>
 </head>
 <body>
@@ -254,8 +273,18 @@
 		</div>
 		<div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $documents['COMPANYS_DOCS'];?></h2>
 				<div class="panel-body">
+					<ul class="nav nav-tabs" style="margin-bottom:20px;">
+						<li id="tab-vehicles" class="active">
+							<a href="javascript:displayVehicles();">Documents véhicules</a>
+						</li>
+						<li id="tab-global">
+							<a href="javascript:displayGlobal();">Documents globaux</a>
+						</li>
+						<li id="tab-technical">
+							<a href="javascript:displayTechnical();">Documents techniques</a>
+						</li>
+					</ul>
 					<form id="file-form" action="javascript:uploadFile();" method="POST">
 						<table>
 							<tr>
@@ -285,4 +314,4 @@
 	</div>
 	<?php include('../footer/footer.php'); ?>
 </body>
-</html>
+</htm
