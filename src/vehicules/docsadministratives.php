@@ -301,33 +301,33 @@
 										<table id="vehicledetail" class="table-no-border">
 											<tbody>
 												<tr>
-													<td>N° du contrat d'assurance</td>
+													<td style="width:50%;">N° du contrat d'assurance</td>
 													<td>
 														<input class="form-control" type="text" id="nr_contract" name="nr_contract" required>
 													</td>
 												</tr>
 												<tr>
-													<td>Date du dernier contrôle technique</td>
+													<td>Dernier contrôle technique</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_lastcontrol" name="date_lastcontrol" required>
+														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_lastcontrol" name="date_lastcontrol" required>
 													</td>
 												</tr>
 												<tr>
-													<td>Date du prochain contrôle technique</td>
+													<td>Prochain contrôle technique</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_nextcontrol" name="date_nextcontrol" required>
+														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_nextcontrol" name="date_nextcontrol" required>
 													</td>
 												</tr>
 												<tr>
-													<td>Date de début du contrat d'assurance</td>
+													<td>Début du contrat d'assurance</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_startinsurance" name="date_startinsurance" required>
+														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_startinsurance" name="date_startinsurance" required>
 													</td>
 												</tr>
 												<tr>
-													<td>Date de fin du contrat d'assurance</td>
+													<td>Fin du contrat d'assurance</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_endinsurance" name="date_endinsurance" required>
+														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_endinsurance" name="date_endinsurance" required>
 													</td>
 												</tr>
 												<tr>

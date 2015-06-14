@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
 		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
+		<link rel="stylesheet" href="../../css/datepicker/datepicker.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
@@ -24,7 +25,8 @@
 		<script src="../../js/jquery.toast.js"></script>
 		<script src="../../js/jquery.js"></script>
         <script src="../../js/jquery.dataTables.js"></script>	  
-	    <script src="../../js/jquery.dataTables.min.js"></script>	
+	    <script src="../../js/jquery.dataTables.min.js"></script>
+		<script src="../../js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript">
 			$(function onLoad() {
 				document.getElementById("vehicleblock").style.display = "none";
@@ -69,8 +71,8 @@
 									
 									vehicledetail += '<tr><td>Plaque d\'immatriculation</td><td><input class="form-control" type="text" id="nr_plate" name="nr_plate" required value="'+ response[0].nr_plate +'" disabled/>' + '</td></tr>';
 									vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="'+ response[0].nr_serial +'" disabled/>' + '</td></tr>';
-									vehicledetail += '<tr><td>Date d\'achat</td><td><input data-format="yyyy-mm-dd" type="date" id="date_buy" name="date_buy" required="required" value='+ response[0].date_buy +'></td></tr>';
-									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input data-format="yyyy-mm-dd" type="date" id="date_entryservice" name="date_entryservice" required="required" value='+ response[0].date_entryservice +'></td></tr>';
+									vehicledetail += '<tr><td>Date d\'achat</td><td><input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_buy" name="date_buy" required="required" value='+ response[0].date_buy +'></td></tr>';
+									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_entryservice" name="date_entryservice" required="required" value='+ response[0].date_entryservice +'></td></tr>';
 									vehicledetail += '<tr><td>Marque</td><td><select id="brand" name="brand" required="required" class="form-control"></select></td></tr>';
 									vehicledetail += '<tr><td>Modèle</td><td><select id="model" name="model" required="required" class="form-control"></select></td></tr>';
 									vehicledetail += '<tr><td>Kilométrage</td><td><input class="form-control" type="text" id="mileage" name="mileage" required value="' + response[0].mileage + '" />' + '</td></tr>';

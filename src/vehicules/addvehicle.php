@@ -12,12 +12,19 @@ session_start();
 	<link rel="stylesheet" href="../../css/templatemo_main.css">
 	<link rel="stylesheet" href="../../css/app.css">
 	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+    <link rel="stylesheet" href="../../css/datepicker/datepicker.css">
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../js/jquery.backstretch.min.js"></script>
 	<script src="../../js/templatemo_script.js"></script>
 	<script src="../../js/bootstrap.js"></script>
 	<script src="../../js/jquery.toast.js"></script>
+	<script src="../../js/bootstrap-datepicker.js"></script>
 	<script>
+	$(function(){
+		// Init date fields
+		$('#date_buy').datepicker();
+		$('#date_entryservice').datepicker();
+	});
 	$(function getBrands(){
 	   	$.ajax({
 			method: 	"GET",
@@ -163,8 +170,8 @@ session_start();
 		var nr_serial = document.getElementById("nr_serial").value;
 		var mileage = document.getElementById("mileage").value;
 		var buyingprice = document.getElementById("buyingprice").value;
-		var date_buy = document.getElementById("date_buy").value;
-		var date_entryservice = document.getElementById("date_entryservice").value;
+		var date_buy = document.getElementById("date_buy").value.split("/").reverse().join("-");
+		var date_entryservice = document.getElementById("date_entryservice").value.split("/").reverse().join("-");
 		var energy = document.getElementById("energies").value;
 		var model = document.getElementById("model").value;
 		var kind = document.getElementById("kinds").value;
@@ -266,12 +273,6 @@ session_start();
 												</select>
 											</td>
 										</tr>
-										<!--<tr>
-											<td><h5>* Date d'enregistrement</h5></td>
-											<td>
-												<input data-format="yyyy-mm-dd" type="date" name="date" required="required" placeholder=" Date"/>
-											</td>
-										</tr>-->
 										<tr>
 											<td><h5>Prix d'achat</h5></td>
 										</tr>
@@ -299,13 +300,13 @@ session_start();
 										<tr>
 											<td><h5>* Date d'achat</h5></td>
 											<td>
-												<input data-format="yyyy-mm-dd" type="date" id="date_buy" name="date_buy" required="required" placeholder="Date d’achat">
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_buy" name="date_buy" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
 											<td><h5>* Date de mise en circulation</h5></td>
 											<td>
-												<input data-format="yyyy-mm-dd" type="date" id="date_entryservice" name="date_entryservice" required="required" placeholder="Date de mise en circulation">
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_entryservice" name="date_entryservice" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
