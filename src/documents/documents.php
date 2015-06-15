@@ -27,11 +27,10 @@
     <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>  
 	<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="../../js/spin.js"></script>
+	<script type="text/javascript" src="../../js/popup.js"></script>
 	<script>
-	$(function onLoad() {
-		// Hide some divs
-		document.getElementById("file-form").style.display = "none";
-		
+	var typeFile = 4;
+	$(function onLoad() {		
 		// Load files
 		getFiles();
 	});
@@ -79,10 +78,22 @@
 		});
 	}
 	function getFiles() {
+		var sTypeFile = "";
+		switch(typeFile) {
+			case 1:
+				sTypeFile = "vehicles";
+				break;
+			case 2:
+				sTypeFile = "technical";
+				break;
+			case 4:
+				sTypeFile = "global";
+				break;
+		}
 		getCompany(function(company){
 			$.ajax({
 				method: 	"GET",
-				url:		"http://think-parc.com/webservice/v1/companies/" + company + "/files",
+				url:		"http://think-parc.com/webservice/v1/companies/" + company + "/files/" + sTypeFile ,
 				success:	function(data) {
 								var response = JSON.parse(data);
 								var dataSet = new Array(response.length);
@@ -99,7 +110,7 @@
 										logo = "fa fa-file-word-o";
 									}
 									
-									dataSet[i] = new Array(	response[i].date_upload,
+									dataSet[i] = new Array(	reformatDate(response[i].date_upload),
 															'<i class="' + logo + '"></i>', 
 															response[i].path, 
 															'<a href="javascript:removeFile(' + response[i].id_file + ');"><i class="fa fa-times"></i></a>',
@@ -176,7 +187,7 @@
 			var generatedfilename = d.getTime() + "_" + file.name;
 			formData.append('myfiles', file, generatedfilename);
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '../../files/uploadfile.php?target=global_company', true);
+			xhr.open('POST', "../../files/uploadfile.php?target=global_company", true);
 			xhr.onload = function () {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
@@ -192,12 +203,16 @@
 															});
 															getFiles();
 															stopSpinner();
+															// Reset fields
+															document.getElementById("file-select").value = "";
+															cancelAddFile();
 															$.toast({heading: "Success",text: "File successfully uploaded.", icon: "success"});
 														});	
 													},
 									error:		function(xhr, status, error) {
 														$(document).ready(function() {
 															stopSpinner();
+															cancelAddFile();
 															$.toast({heading: "Error",text: "", icon: "error"});
 														});
 													}
@@ -237,16 +252,30 @@
 		$('#tab-global').addClass('active');
 		$('#tab-vehicles').removeClass('active');
 		$('#tab-technical').removeClass('active');
+		typeFile = 4;
+		getFiles();
 	}
 	function displayTechnical() {
 		$('#tab-global').removeClass('active');
 		$('#tab-vehicles').removeClass('active');
 		$('#tab-technical').addClass('active');
+		typeFile = 2;
+		getFiles();
 	}
 	function displayVehicles() {
 		$('#tab-global').removeClass('active');
 		$('#tab-vehicles').addClass('active');
 		$('#tab-technical').removeClass('active');
+		typeFile = 1;
+		getFiles();
+	}
+	function reformatDate(dateStr) {
+		dArr = dateStr.split("-");
+		return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
+	}
+	function cancelAddFile() {
+		// Close popup
+		popup('custompopup');
 	}
 	</script>
 </head>
@@ -263,7 +292,7 @@
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right margin-bottom-20">
 				<div align="right">
 					<h5>
-						<a id="manageFile" href="javascript:showNewFileFields();">
+						<a href="javascript:popup('custompopup');">
 							<i id="iconManageFile" class="fa fa-plus-circle"></i>
 							 <?php echo $documents['ADD_FILE'];?>
 						</a>
@@ -275,36 +304,16 @@
 			<div class="black-bg btn-menu margin-bottom-20">
 				<div class="panel-body">
 					<ul class="nav nav-tabs" style="margin-bottom:20px;">
-						<li id="tab-vehicles" class="active">
-							<a href="javascript:displayVehicles();">Documents véhicules</a>
-						</li>
-						<li id="tab-global">
+						<li id="tab-global" class="active">
 							<a href="javascript:displayGlobal();">Documents globaux</a>
+						</li>
+						<li id="tab-vehicles">
+							<a href="javascript:displayVehicles();">Documents véhicules</a>
 						</li>
 						<li id="tab-technical">
 							<a href="javascript:displayTechnical();">Documents techniques</a>
 						</li>
 					</ul>
-					<form id="file-form" action="javascript:uploadFile();" method="POST">
-						<table>
-							<tr>
-								<td id="files" colspan="2">
-									<table class="display" id="fileslist">
-										
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
-								</td>
-								<td align="right">
-									<button type="submit" id="upload-button" class="btn btn-success"><?php echo $documents['UPLOAD'];?></button>
-								</td>
-							</tr>
-						</table>
-						<hr>
-					</form>
 					<div id="documents">
 						<!-- Here, DataTable of list of files -->
 					</div>
@@ -312,6 +321,42 @@
 			</div>
 		</div>
 	</div>
+	<!-- PopUp section -->
+	<div id="blanket" style="display:none"></div>
+	<div id="custompopup" style="display:none">
+			<div class="panel-body">
+				<div class="row"> 
+					<form id="addfile" action="javascript:uploadFile();" method="POST">
+						<table style="width:100%;">
+							<tbody>
+								<tr>
+									<td colspan="2" id="files">
+										<table class="display" id="fileslist">
+											
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Fichier</h5>
+									</td>
+									<td>
+										<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<input type="button" class="btn btn-danger" onclick="javascript:cancelAddFile();" value="Cancel"/>
+										<button type="submit" id="upload-button" class="btn btn-success"><?php echo $documents['UPLOAD'];?></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+	</div>
+	<!-- End PopUp section -->
 	<?php include('../footer/footer.php'); ?>
 </body>
 </htm
