@@ -13,16 +13,23 @@
 		<link rel="stylesheet" href="../../css/templatemo_main.css">
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
+		<link rel="stylesheet" href="../../css/datepicker/datepicker.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
 		<script src="../../js/bootstrap.js"></script>
 		<script src="../../js/jquery.toast.js"></script>
+		<script src="../../js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript">
 			$(function onLoad() {
 				document.getElementById("administrativeblock").style.display = "none";
 				getAllVehicles();
 				getInsurances();
+				// Init date fields
+				$('#date_lastcontrol').datepicker();
+				$('#date_nextcontrol').datepicker();
+				$('#date_startinsurance').datepicker();
+				$('#date_endinsurance').datepicker();
 			});
 			function getInsurances() {
 				getCompany(function(company){
@@ -80,10 +87,10 @@
 										var response = JSON.parse(data);
 										for (var i = 0; i<response.length; i++) {
 											document.getElementById("nr_contract").value = response[i].nr_contract;
-											document.getElementById("date_lastcontrol").value = response[i].date_lastcontrol;
-											document.getElementById("date_nextcontrol").value = response[i].date_nextcontrol;
-											document.getElementById("date_startinsurance").value = response[i].date_startinsurance;
-											document.getElementById("date_endinsurance").value = response[i].date_endinsurance;
+											document.getElementById("date_lastcontrol").value = reformatDate(response[i].date_lastcontrol);
+											document.getElementById("date_nextcontrol").value = reformatDate(response[i].date_nextcontrol);
+											document.getElementById("date_startinsurance").value = reformatDate(response[i].date_startinsurance);
+											document.getElementById("date_endinsurance").value = reformatDate(response[i].date_endinsurance);
 											document.getElementById("insurances").value = response[i].id_insurance;
 										}
 										
@@ -183,10 +190,10 @@
 				// Add into docsadministrative
 				getCompany(function(company){
 					var nr_contract = document.getElementById("nr_contract").value;
-					var date_lastcontrol = document.getElementById("date_lastcontrol").value;
-					var date_nextcontrol = document.getElementById("date_nextcontrol").value;
-					var date_startinsurance = document.getElementById("date_startinsurance").value;
-					var date_endinsurance = document.getElementById("date_endinsurance").value;
+					var date_lastcontrol = document.getElementById("date_lastcontrol").value.split("/").reverse().join("-");
+					var date_nextcontrol = document.getElementById("date_nextcontrol").value.split("/").reverse().join("-");
+					var date_startinsurance = document.getElementById("date_startinsurance").value.split("/").reverse().join("-");
+					var date_endinsurance = document.getElementById("date_endinsurance").value.split("/").reverse().join("-");
 					$.ajax({
 						method: 	"PUT",
 						url:		"http://think-parc.com/webservice/v1/companies/"+company+"/administratives/docs/"+id_vehicle+"/"+nr_contract+"/"+date_lastcontrol+"/"+date_nextcontrol+"/"+date_startinsurance+"/"+date_endinsurance+"/"+id_insurance,
@@ -231,10 +238,10 @@
 				// Add into docsadministrative
 				getCompany(function(company){
 					var nr_contract = document.getElementById("nr_contract").value;
-					var date_lastcontrol = document.getElementById("date_lastcontrol").value;
-					var date_nextcontrol = document.getElementById("date_nextcontrol").value;
-					var date_startinsurance = document.getElementById("date_startinsurance").value;
-					var date_endinsurance = document.getElementById("date_endinsurance").value;
+					var date_lastcontrol = document.getElementById("date_lastcontrol").value.split("/").reverse().join("-");
+					var date_nextcontrol = document.getElementById("date_nextcontrol").value.split("/").reverse().join("-");
+					var date_startinsurance = document.getElementById("date_startinsurance").value.split("/").reverse().join("-");
+					var date_endinsurance = document.getElementById("date_endinsurance").value.split("/").reverse().join("-");
 					$.ajax({
 						method: 	"POST",
 						url:		"http://think-parc.com/webservice/v1/companies/"+company+"/administratives/docs/"+id_vehicle+"/"+nr_contract+"/"+date_lastcontrol+"/"+date_nextcontrol+"/"+date_startinsurance+"/"+date_endinsurance+"/"+id_insurance,
@@ -252,6 +259,10 @@
 										}
 					});
 				});
+			}
+			function reformatDate(dateStr) {
+				dArr = dateStr.split("-");
+				return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
 			}
 		</script>
 		</head>
@@ -309,25 +320,25 @@
 												<tr>
 													<td>Dernier contrôle technique</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_lastcontrol" name="date_lastcontrol" required>
+														<input type="text" class="form-control" id="date_lastcontrol" name="date_lastcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>
 													<td>Prochain contrôle technique</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_nextcontrol" name="date_nextcontrol" required>
+														<input type="text" class="form-control" id="date_nextcontrol" name="date_nextcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>
 													<td>Début du contrat d'assurance</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_startinsurance" name="date_startinsurance" required>
+														<input type="text" class="form-control" id="date_startinsurance" name="date_startinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>
 													<td>Fin du contrat d'assurance</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" class="form-control" id="date_endinsurance" name="date_endinsurance" required>
+														<input type="text" class="form-control" id="date_endinsurance" name="date_endinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>

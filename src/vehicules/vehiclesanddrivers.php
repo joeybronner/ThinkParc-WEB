@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="../../css/app.css">
 		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
 		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
+		<link rel="stylesheet" href="../../css/datepicker/datepicker.css">
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/jquery.backstretch.min.js"></script>
 		<script src="../../js/templatemo_script.js"></script>
@@ -20,13 +21,17 @@
 		<script src="../../js/jquery.toast.js"></script>
         <script type="text/javascript" src="../../js/jquery.js"></script>
         <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
+	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
 		<script type="text/javascript">
 			$(function onLoad() {
 				document.getElementById("vehiclesanddriversdetail").style.display = "none";
 				document.getElementById("addentry").style.display = "none";
 				getAllVehicles();
 				getAllDrivers();
+				// Init date fields
+				$('#date_start').datepicker();
+				$('#date_end').datepicker();
 			});
 			function getAllDrivers() {
 				getCompany(function(company){
@@ -82,8 +87,8 @@
 										for (var i = 0; i<response.length; i++) {
 											dataSet[i] = new Array(	response[i].firstname + " " + response[i].lastname, 
 																	response[i].nr_drivinglicence, 
-																	response[i].date_start, 
-																	response[i].date_end,
+																	reformatDate(response[i].date_start), 
+																	reformatDate(response[i].date_end),
 																	'<a href="javascript:removeEntry(' + response[i].id_driveduration + ');"><i id="icon_remove" class="fa fa-times"></i></a>');
 										}
 										
@@ -145,8 +150,8 @@
 			function insertDriveDuration(id_driver) {
 				// Retrieve values
 				var id_vehicle = document.getElementById("listvehicles").value;
-				var date_start = document.getElementById("date_start").value;
-				var date_end = document.getElementById("date_end").value;
+				var date_start = document.getElementById("date_start").value.split("/").reverse().join("-");
+				var date_end = document.getElementById("date_end").value.split("/").reverse().join("-");
 				getCompany(function(company){
 					$.ajax({
 						method: 	"POST",
@@ -200,6 +205,10 @@
 			function showAddDriverFields() {
 				document.getElementById("btshowfields").style.display = "none";
 				document.getElementById("addentry").style.display = "block";
+			}
+			function reformatDate(dateStr) {
+				dArr = dateStr.split("-");
+				return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
 			}
 		</script>
 		</head>
@@ -296,13 +305,13 @@
 												<tr>
 													<td>Date de début</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_start" name="date_start" required="required" placeholder="Date d’achat">
+														<input type="text" class="form-control" id="date_start" name="date_start" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>
 													<td>Date de fin</td>
 													<td>
-														<input data-format="yyyy-mm-dd" type="date" id="date_end" name="date_end" required="required" placeholder="Date d’achat">
+														<input type="text" class="form-control" id="date_end" name="date_end" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 													</td>
 												</tr>
 												<tr>

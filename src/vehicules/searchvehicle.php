@@ -71,8 +71,8 @@
 									
 									vehicledetail += '<tr><td>Plaque d\'immatriculation</td><td><input class="form-control" type="text" id="nr_plate" name="nr_plate" required value="'+ response[0].nr_plate +'" disabled/>' + '</td></tr>';
 									vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="'+ response[0].nr_serial +'" disabled/>' + '</td></tr>';
-									vehicledetail += '<tr><td>Date d\'achat</td><td><input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_buy" name="date_buy" required="required" value='+ response[0].date_buy +'></td></tr>';
-									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_entryservice" name="date_entryservice" required="required" value='+ response[0].date_entryservice +'></td></tr>';
+									vehicledetail += '<tr><td>Date d\'achat</td><td><input class="form-control" type="text" id="date_buy" name="date_buy" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required value='+ reformatDate(response[0].date_buy) +'></td></tr>';
+									vehicledetail += '<tr><td>Date de mise en circulation</td><td><input class="form-control" type="text" id="date_entryservice" name="date_entryservice" required data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" value='+ reformatDate(response[0].date_entryservice) +'></td></tr>';
 									vehicledetail += '<tr><td>Marque</td><td><select id="brand" name="brand" required="required" class="form-control"></select></td></tr>';
 									vehicledetail += '<tr><td>Modèle</td><td><select id="model" name="model" required="required" class="form-control"></select></td></tr>';
 									vehicledetail += '<tr><td>Kilométrage</td><td><input class="form-control" type="text" id="mileage" name="mileage" required value="' + response[0].mileage + '" />' + '</td></tr>';
@@ -88,6 +88,11 @@
 									vehicledetail += '</table></div>';
 									
 									document.getElementById("vehicledetail").innerHTML = vehicledetail;
+									
+									// Init Datepicker
+									$('#date_buy').datepicker();
+									$('#date_entryservice').datepicker();
+									
 									document.getElementById("vehicleblock").style.display = "block";
 									setBrands(response[0].id_brand);
 									setModels(response[0].id_model, response[0].id_brand);
@@ -109,7 +114,7 @@
 										var response = JSON.parse(data);
 										var dataSet = new Array(response.length);
 										for (var i = 0; i<response.length; i++) {
-											dataSet[i] = new Array(response[i].date_upload,
+											dataSet[i] = new Array(reformatDate(response[i].date_upload),
 															response[i].path,
 															'<a href="javascript:removeFile(' + response[i].id_file + ', ' + id + ');"><i class="fa fa-times"></i></a>',
 															'<a href="javascript:downloadFile(' + response[i].id_file + ');"><i class="fa fa-download"></i></a>');
@@ -405,8 +410,8 @@
 				var nr_serial = document.getElementById("nr_serial").value;
 				var mileage = document.getElementById("mileage").value;
 				var buyingprice = document.getElementById("buyingprice").value;
-				var date_buy = document.getElementById("date_buy").value;
-				var date_entryservice = document.getElementById("date_entryservice").value;
+				var date_buy = document.getElementById("date_buy").value.split("/").reverse().join("-");
+				var date_entryservice = document.getElementById("date_entryservice").value.split("/").reverse().join("-");
 				var energy = document.getElementById("energies").value;
 				var model = document.getElementById("model").value;
 				var kind = document.getElementById("kinds").value;
@@ -434,6 +439,10 @@
 									});
 								}
 				});
+			}
+			function reformatDate(dateStr) {
+				dArr = dateStr.split("-");
+				return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
 			}
 		</script>
 		</head>
