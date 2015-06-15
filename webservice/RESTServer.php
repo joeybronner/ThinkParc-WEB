@@ -96,6 +96,9 @@ class RESTServer
 		throw new RestException(401, "You are not authorized to access this resource.");
 	}
 	
+	public function authorize() {
+		return true;
+	}
 	
 	public function handle() {
 		$this->url = $this->getPath();
