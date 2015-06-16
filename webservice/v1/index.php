@@ -14,6 +14,7 @@ require 'files/Files.php';
 require 'companies/Company.php';
 require 'companies/maintenance/Maintenance.php';
 require 'companies/reporting/Reporting.php';
+require 'companies/options/Options.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
@@ -26,4 +27,5 @@ $server->addClass('Files');
 $server->addClass('Company');
 $server->addClass('Maintenance');
 $server->addClass('Reporting');
+$server->addClass('Options');
 $server->handle();

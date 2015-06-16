@@ -62,7 +62,7 @@
 					<img src="../images/background/sky.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
 					<img src="../images/background/sky.jpg" id="about-img" class="inactive" alt="Véhicules">
 					<img src="../images/background/sky.jpg" id="maintenance-img" class="inactive" alt="maintenance">
-					<img src="../images/background/sky.jpg" id="company-intro-img" class="inactive" alt="Company Intro">
+					<img src="../images/background/sky.jpg" id="options-img" class="inactive" alt="options">
 					<img src="../images/background/sky.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
 				</div>
 			</div>
@@ -113,7 +113,7 @@
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 pull-right">
-									<a href="#company-intro" class="change-section">
+									<a href="#options" class="change-section">
 										<div class="black-bg btn-menu">
 											<h2>Options</h2>
 										</div>
@@ -363,7 +363,7 @@
 							</div>
 						</section>
 						<!-- /.maintenance-section -->    
-						<section id="company-intro-section" class="inactive">
+						<section id="options-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center">Options</h2>
@@ -371,7 +371,7 @@
 										<p> Vous trouverez dans cette rubrique, toutes les options disponibles</p>
 									</div>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="#" class="directlink-section">
+										<a href="options/addbrand.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark-o"></i>
 												<h2>Ajout Marque</h2>
@@ -380,7 +380,7 @@
 									</div>
 									</a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="#" class="directlink-section">
+										<a href="options/addModal.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark"></i>
 												<h2>Ajout Modèle</h2>
