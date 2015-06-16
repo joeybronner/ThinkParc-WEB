@@ -23,6 +23,17 @@
 		<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
 
 		<script type="text/javascript">
+		
+			
+			$(function onLoad() {
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+				document.getElementById("productblock").style.display = "none";
+				document.getElementById("stock").style.display = "none";
+				getSites(id_company);
+				getsiteproduct(id_company);
+			});
+			
+			
 			
 			var idstock = [];
 			var quanty = [];
@@ -46,7 +57,6 @@
 			function getsiteproduct(id_company) 
 			{
 				
-
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 		 
             	$.ajax({
@@ -71,6 +81,7 @@
 		 
 			function getblock() 
 			{		
+				document.getElementById("productblock").style.display = "block";
 				document.getElementById("stock").style.display = "block";
 			};
 			
@@ -81,8 +92,15 @@
 				var thesize = window.size;
 				var exec = false;
 				var productnumber;
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+				var idsite = document.getElementById('listproducts').value;
+				var title = document.getElementById('title').value;
 				total = 0;
+				
+				
+				if (title == "")
+				 {
+					title = "Sans titre";
+				 }
 				
 				for (var i = 0; i <= thesize; i++ )
 				{
@@ -93,10 +111,10 @@
 						var measure = window.measure[i];
 						productnumber = document.getElementById('productnumber'+i).value;
 						
-						if (document.getElementById('numcheckbox'+i).checked == true && productnumber > 0)
+						if (productnumber > 0)
 						{
 							total++;
-							TransfertProduct(ref, i, productnumber, ids, quantity, type, measure);
+							TransfertProduct(ref, i, productnumber, ids, quantity, type, measure, title);
 							exec = true;
 						}
 							
@@ -106,38 +124,36 @@
 					
 					if (exec)
 					{
-						getcompanyproduct(id_company);
+						getcompanyproduct(id_company, idsite);
 					} else
 					{
-						$.toast({heading: "Error",text: "Error", icon: "error"});
+						$.toast({heading: "Error",text: "Error in the Check Ref", icon: "error"});
 					}
 			
 			}
 		 
 		 
-		 function TransfertProduct(ref, i, productnumber, idstock, quantity, type, measure) 
+		 function TransfertProduct(ref, i, productnumber, idstock, quantity, type, measure, title) 
 		 {
-		 
-				//var quantity = document.getElementById('quantity'+i).value;
+	
 				var productnumber = document.getElementById('productnumber'+i).value;
 				var id_site2 = document.getElementById('listproducts2').value;
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+				var idsite = document.getElementById('listproducts').value;
 		
-
 				if (quantity < parseInt(productnumber))
 				{
 					alert('Nombre supérieur au nombre en stock ! Qte stock : ' +quantity+ '- Qte à transferer : '+productnumber);
-					getcompanyproduct(id_company);
+					getcompanyproduct(id_company,idsite);
 					return false;
 				}
 				
 				$.ajax({
 					method: 	"POST",
-					url:		"http://think-parc.com/webservice/v1/companies/stocks/ref/"+ref+"/quanty/"+productnumber+"/secondsite/"+id_site2+"/idstock/"+idstock+"/type/"+type+"/measure/"+measure,   
+					url:		"http://think-parc.com/webservice/v1/companies/stocks/ref/"+ref+"/quanty/"+productnumber+"/secondsite/"+id_site2+"/idstock/"+idstock+"/type/"+type+"/measure/"+measure+"/title/"+title,   
 					success:	function() 
 								{
 									$.toast({heading: "Success",text: "Product(s) successfully transfered.", icon: "success"});
-									getcompanyproduct(id_company);
+									getcompanyproduct(id_company,idsite);
 								},
 					error:		function() 
 								{
@@ -148,14 +164,16 @@
 		 }
 		 
 		   
-		 function getcompanyproduct(id_company) 
+		 function getcompanyproduct(id_company,idsite)
 		 {
-		 
 			getblock();
+			var idsite = document.getElementById('listproducts').value;
+			var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+			
 			
 		$.ajax({
 			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/companyproduct/company/"+id_company, 
+			url:		"http://think-parc.com/webservice/v1/companies/stocks/companyproduct/company/"+id_company+"/idsite/"+idsite, 
 			success:	function(data) {
 							
 							var response = JSON.parse(data);
@@ -186,7 +204,7 @@
 														response[i].rack,
 														response[i].locker,
 														response[i].site,
-														'<input type="text" id="productnumber'+i+'" class="small" placeholder="quantity"></input> <input type="checkbox" id="numcheckbox'+i+'"/>');
+														'<input type="text" id="productnumber'+i+'" class="small" placeholder="quantity"></input>');
 														
 										size = i;
 										myref[i] = response[i].id_part;
@@ -197,8 +215,6 @@
 										
 							
 							}
-							
-							
 							
 							document.getElementById("productblock").style.display = "block";
 							
@@ -223,55 +239,135 @@
 									{ "title": "rack", "class": "center fctbw" },
 									{ "title": "locker", "class": "center fctbw" },
 									{ "title": "site", "class": "center fctbw" },
-									{ "title": "Transfer amount", "class": "small"}
+									{ "title": "Transfer amount", "class": "center fctbw"}
 								]
 							} );   
 						},
 			error:		function(data) {
-							//alert('error');
+					
 						}
 		});
 	};	 
+		
+		
+			function getSites(id_company){
+		 
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+		 
+            	$.ajax({
+         		method: 	"GET",
+         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
+         		success:	function(data) {
+         						
+								var response = JSON.parse(data);
+								var content = '<option selected disabled>Liste des sites</option>';
+								
+         						for (var i = 0; i<response.length; i++) 
+         						{
+									content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
+         						}
+         						
+								document.getElementById("listproducts").innerHTML = content;
+								
+         					}
+         	});
+         };
+		 
+		 	
+			function getSites2(id_site){
+		 
+				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 				
+
+		 
+            	$.ajax({
+         		method: 	"GET",
+         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/site/"+id_site+"/sites2", 
+         		success:	function(data) {
+         						
+								var response = JSON.parse(data);
+								var content = '<option selected disabled>Liste des sites</option>';
+								
+         						for (var i = 0; i<response.length; i++) 
+         						{
+									content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
+         						}
+         						
+								document.getElementById("listproducts2").innerHTML = content;
+         					}
+         	});
+         };
+			
+			
 		</script>
 		</head>
 		<body>
 		<?php include('../header/navbar.php'); ?>
 		
-		<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+		<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners"/>
+		
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-		   <div class="templatemo-content">
+		  <div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
+				<a href="../accueil.php?section=products">
+					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+				</a>
+			</div>
+		  </div>
+			<div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
 					<h2>Choix du produit à transferer</h2>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12 col-lg-12"> 
-								<form>
-									<table class="table-no-border">
-										<tr>
-											<td><h5>Sélectionner le site destinataire</h5></td>
-										</tr>
-										<tr>
-											<td>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12 col-lg-12"> 
+									<form>
+										<table class="table-no-border">
+											<tr>
+												<td><h5>Sélectionner le site destinateur</h5></td>
+											</tr>
+											<tr>
+												<td>
+												
+													<select id="listproducts" name="listproducts" class="form-control" onchange="getSites2(this.value);">
+														<!-- Retrieve all products with an AJAX [GET] query -->
+													</select>
+												</td>
+												
+											</tr>
+											<tr>
+												<td><h5>Sélectionner le site destinataire</h5></td>
+											</tr>
+											<tr>
+												<td>
 												<script>
-													var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-												</script>
-												<select id="listproducts2" class="form-control" onchange="getcompanyproduct(id_company);">
-												<!-- Retrieve  with an AJAX [GET] query -->
-												</select>
-											</td>
-										</tr>
-									</table>
-								</form>
+														var idsite = document.getElementById('listproducts').value;
+														var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+													</script>
+												<select id="listproducts2" class="form-control" onchange="getcompanyproduct(id_company, idsite);">
+													<!-- Retrieve  with an AJAX [GET] query -->
+													</select>
+												</td>
+											</tr>
+											
+										</table>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
-				
+			
+			
 	<div id="productblock">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
+	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
+				<a href="../accueil.php?section=products">
+					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+				</a>
+			</div>
+		</div>
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
 					<h2>Transfert</h2>
@@ -280,9 +376,13 @@
 							<div class="col-md-12 col-lg-12"> 
 								<form>
 									<div class="col-md-12 col-lg-12">
-										<div id="stock">
-									    </div>	
-										<a href="javascript:check();" class="btn btn-success">Valider</a>&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
+											<div id="stock">
+											</div>	
+											<center><h4>Saisir un libellé</h4></center>
+											<input type="text" id="title" placeholder="Libellé du transfert" class="transfert-form"/>
+											<br />
+											<br />
+											<a href="javascript:check();" class="btn btn-success"/>Valider</a>&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
 									</div>
 								</form>
 							</div>
@@ -292,5 +392,8 @@
 			</div>
 		</div>
 	</div>
- </body>
+		
+	
+			
+   </body>
 </html>

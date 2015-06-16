@@ -30,43 +30,46 @@
 	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 
 		<script type="text/javascript">
-		
+			
 		
 			$(function onLoad() {
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 				document.getElementById("productblock").style.display = "none";
-				getSites(id_company);
+				getreleaseproduct(id_company);
 			});
 			
 			
-			function getSites(id_company){
+			function getreleaseproduct(id_company){
 		 
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 		 
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
+         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/release", 
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sites</option>';
-								content = content + '<option value="0">Tous les sites</option>';
+								var content = '<option selected disabled>Liste des sorties</option>';
+								content = content + '<option value="all">Toutes les sorties</option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
-									content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
+									content = content + '<option value="'+response[i].title+'"> date : '+ response[i].transferdate +' --- libellé : '+ response[i].title +' </option>';
          						}
          						
-								document.getElementById("listproducts").innerHTML = content;
+								document.getElementById("list").innerHTML = content;
          					}
          	});
          };
 			
 			
-			function getsiteproduct(id_site, id_company) {
-		$.ajax({
+			function gethistory(title, id_company) {
+			
+			var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+			
+			$.ajax({
 			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/siteproduct/"+id_site+"/company/"+id_company, 
+			url:		"http://think-parc.com/webservice/v1/companies/stocks/historylist/"+title+"/company/"+id_company, 
 			success:	function(data) {
 							var response = JSON.parse(data);
 							var dataSet = new Array(response.length);
@@ -74,27 +77,13 @@
 							for (var i = 0; i<response.length; i++) 
 							{
 							
-								if ( response[i].quanty == 0 )
-									{
-										var quanty = "Rupture de stock";
-									} else {
 									
-										var quanty = response[i].quanty + " " + response[i].measurement + "(s)";
-									}
-									
-								dataSet[i] = new Array(	response[i].reference, 
-														response[i].designation, 
-														response[i].buyingprice + response[i].currency, 
-														response[i].company,
-														response[i].family,
-														quanty,
-														response[i].driveway,
-														response[i].bay,
-														response[i].position,
-														response[i].rack,
-														response[i].site,
-														response[i].typestock,
-														response[i].locker);
+								dataSet[i] = new Array( response[i].title,  
+														response[i].reference,
+														response[i].companyname,
+														response[i].quantity,
+														response[i].transferdate,
+														response[i].validationdate);
 							}
 						
 							document.getElementById("productblock").style.display = "block";
@@ -112,19 +101,12 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "reference" , "class": "center fctbw"},
-									{ "title": "designation" , "class": "center fctbw"},
-									{ "title": "prix achat" , "class": "center fctbw" },
-									{ "title": "entreprise", "class": "center fctbw" },
-									{ "title": "famille", "class": "center fctbw" },
-									{ "title": "quantité", "class": "center fctbw" },
-									{ "title": "allée", "class": "center fctbw" },
-									{ "title": "travée", "class": "center fctbw" },
-									{ "title": "position", "class": "center fctbw" },
-									{ "title": "étagère", "class": "center fctbw" },
-									{ "title": "site", "class": "center fctbw" },
-									{ "title": "type stock", "class": "center fctbw" },
-									{ "title": "casier", "class": "center fctbw" }
+									{ "title": "Libelle" , "class": "center fctbw"},
+									{ "title": "Produit" , "class": "center fctbw" },
+									{ "title": "Destinataire", "class": "center fctbw" },
+									{ "title": "Quantité", "class": "center fctbw" },
+									{ "title": "Date de transfert", "class": "center fctbw" },
+									{ "title": "Date de validation", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -153,21 +135,21 @@
 		</div>
 		   <div class="templatemo-content">
 			    <div class="black-bg btn-menu margin-bottom-20">
-					<h2>Consultation des stocks</h2>
+					<h2>Consultation de l'historique des sorties</h2>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12 col-lg-12"> 
 									<form>
 										<table class="table-no-border">
 												<tr>
-													<td><h5>Veuillez sélectionner un site</h5></td>
+													<td><h5>Veuillez sélectionner une sortie</h5></td>
 												</tr>
 												<tr>
 													<td>
 													<script>
 														var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 													</script>
-														<select id="listproducts" name="listproducts" class="form-control" onchange="getsiteproduct(this.value, id_company);">
+														<select id="list" name="list" class="form-control" onchange="gethistory(this.value);">
 															<!-- Retrieve all products with an AJAX [GET] query -->
 														</select>
 													</td>
@@ -185,7 +167,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Produits</h2>
+					<h2>Historique</h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 

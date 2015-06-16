@@ -101,7 +101,7 @@
 				
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/checkref/"+ref,  
+         		url:		"http://think-parc.com/webservice/v1/companies/stocks/checkref/"+ref+"/company/"+id_company,  
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
@@ -109,23 +109,22 @@
 						        
          						for (var i = 0; i<response.length; i++) 
          						{
-									
-										if (ref.toUpperCase() == response[i].reference.toUpperCase())
-											{
-												verif=true;
-												idpart = response[i].id_part;
-											}
+									if (ref.toUpperCase() == response[i].reference.toUpperCase())
+										{
+											verif=true;
+											idpart = response[i].id_part;
+										}
          						}
    							
 								if (verif)
 								{
-									div.textContent = "Existant";
+									div.textContent = "  Existant";
+									div.className='green';
 								} else {
-							
-									div.textContent = "Inexistant";
+									div.className='red';
+									div.textContent = "  Inexistant";
 									idpart = "";
 								}
-								
 							
 							}
 			});
@@ -140,7 +139,8 @@
          		method: 	"GET",
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/displayproductbycompany/"+id_company+"/ref/"+ref,  
          		success:	function(data) {
-         						var response = JSON.parse(data);
+         						
+								var response = JSON.parse(data);
 								var content;
 								
          						for (var i = 0; i<response.length; i++) 
@@ -242,92 +242,125 @@
          								
       </script>
    </head>
-   <body>
-      <?php 
-	  include('../header/navbar.php');
-         ?>
-      <img src="../../images/zoom-bg-5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners"/>
-      <center>
-         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2 toppad" >
-		 
-            <div class="templatemo-content">
-               <div class="black-bg btn-menu margin-bottom-20">
-                  <h2>Ajout en stock</h2>
-                  <div class="panel-body">
-                     <div class="row">
-                        <div class=" col-md-9 col-lg-11 ">
-                           <form class="formimg" name="form1" action="javascript:addinstock();" method="post" enctype="multipart/form-data">
-                              <table class="table table-user-information">
-                                 <tbody>
-								 	<tr>
-									<td><b>Référence produit</b></td>
-									   <td class="infos">
-									     <script>
-										    var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-										</script>
-									   <input type="text" id="ref" placeholder="Saisir la référence" onkeyup="checkref(ref);" class="medium"/> 
-									   <i id="textDiv"/>
-									  </td>
-									</tr>
-                                	
-                                    <tr>
-                                       <td><b>Quantit&eacute;e</b></td>
-                                       <td>
-                                          <input type="text" id="quanty" class="small" placeholder="quantité"/>
-                                          <select id="measurementContent" class="medium">
+  <body>
+
+	<?php
+		include('../header/navbar.php');
+	?>
+
+	<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
+				<a href="../accueil.php?section=products">
+						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+				</a>
+			</div>
+		</div>
+	   <div class="templatemo-content">
+			<div class="black-bg btn-menu margin-bottom-20">
+				<h2>Ajouter un produit en stock</h2>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 col-lg-12"> 
+							<form class="formimg" name="form1" action="javascript:addinstock();" method="post" enctype="multipart/form-data">
+								<table class="table-no-border">
+									<tbody>
+										<tr>
+											<td><h5>* Reference</h5></td>
+										</tr>
+										<tr>
+											<td>
+												 <script>
+													var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
+												 </script>
+												 <input type="text" id="ref" placeholder="référence" onkeyup="checkref(ref, id_company);" class="form-control" required/> 
+											</td>
+											<td>
+												<div id="textDiv"  class="red"/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Quantit&eacute; et Mesure</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="quanty" class="form-control" placeholder="quantité" required/>
+											</td>
+											<td>
+												<select id="measurementContent" class="form-control">
                                              <!-- Here are loaded measurementContent  -->
-                                          </select>
-                                          <a href="stockmultisite.php" target="_blank"><i>voir le stock multi site</i></a>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td><b>Emplacements</b></td>
-                                       <td>
-                                          <input type="text" id="id_measurement" class="large" placeholder="Magasin No"/>&nbsp;
-                                          <input type="text" id="driveway" class="large" placeholder="Allee"/>&nbsp;
-                                          <input type="text" id="bay" class="large" placeholder="Travee"/>&nbsp;
-                                          <input type="text" id="rack" class="large" placeholder="Etage"/>&nbsp;
-                                          <input type="text" id="locker" class="large" placeholder="Casier"/>&nbsp;
-                                          <input type="text" id="position" class="large" placeholder="Position"/>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td><b>Equivalence</b></td>
-                                       <td>
-                                          <input type="text" id="equivalence" class="large" placeholder="facultatif"/>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td><b>Type stock</b></td>
-                                       <td>
-                                          <select id="KindsContent" class="medium"/>
-                                          </select>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td><b>Affectation</b></td>
-                                       <td>
-                                          <select id="SitesContent" class="medium"/>
-                                          </select>
-                                       </td>
-                                    </tr>
-                                    </tr>
-                                    </tr>
-                                    <tr>
-                                       <td></td>
-                                       <td>
-                                          <input type="submit" value="Valider" class="btn btn-success">&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </form>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </center>
-   </body>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Emplacements</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="id_measurement" class="form-control" placeholder="Magasin No" required/>
+											</td>
+											<td>
+												<input type="text" id="driveway" class="form-control" placeholder="Allee" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Emplacements</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="bay" class="form-control" placeholder="Travee" required/>
+											</td>
+											<td>
+												<input type="text" id="rack" class="form-control" placeholder="Etage" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Emplacements</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="locker" class="form-control" placeholder="Casier" required/>
+											</td>
+											<td>
+												<input type="text" id="position" class="form-control" placeholder="Position" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>Equivalence & * Type stock</h5></td>
+										</tr>
+										<tr>
+											<td>
+											    <input type="text" id="equivalence" class="form-control" placeholder="facultatif"/>
+											</td>
+											<td>
+												<select id="KindsContent" class="form-control" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Affectation</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<select id="SitesContent" class="form-control" required/>
+											</td>
+										
+										</tr>
+										
+										<tr>
+											<td colspan="2" align="right">
+												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

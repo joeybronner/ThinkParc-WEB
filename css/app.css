@@ -118,9 +118,13 @@ table .news {
 }
 .red {
     color: red;
+	text-align: center;
+	font-size: 15px;
 }
 .green {
     color: green;
+	text-align: center;
+	font-size: 15px;
 }
 .large {
     width: 40%;

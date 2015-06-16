@@ -187,10 +187,10 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="#" class="directlink-section">
+										<a href="stocks/history.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-out"></i>
-												<h2>Sorties</h2>
+												<h2>Historiques</h2>
 											</div>
 											<br/>
 										</a>

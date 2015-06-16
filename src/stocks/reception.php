@@ -30,7 +30,9 @@
 		var idtransfert = [];
 		var idpart = [];
 		var measure = [];
+		var title = [];
 		var type = [];
+		var thereceiver = [];
 		
 		$(function onLoad() 
 		{
@@ -42,7 +44,6 @@
 		function gettransferlist(id_company) 
 			{
 				
-
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 		 
             	$.ajax({
@@ -55,7 +56,7 @@
 								
          						for (var i = 0; i<response.length; i++) 
          						{
-									content = content + '<option value="'+response[i].id_transfert+'">Identifiant du transfert : '+response[i].id_transfert +' --- date : '+ response[i].transferdate +' </option>';
+									content = content + '<option value="'+response[i].title+'"> date : '+ response[i].transferdate +' --- libellé : '+ response[i].title +' </option>';
          						}
          						
 								document.getElementById("transfertlist").innerHTML = content;
@@ -69,6 +70,12 @@
 				document.getElementById("transferblock").style.display = "block";
 				getsitecompany(id_company);
 			};
+		
+		 function hideblock() 
+			{		
+				document.getElementById("transferblock").style.display = "none";
+				gettransferlist(id_company);
+			};
 			
 			
 		function receptioncheck()
@@ -76,11 +83,9 @@
 			
 				var thesize = window.size;
 				var exec;
-				//var productnumber;
-				var idsite = document.getElementById('idsite').value;
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 				total = 0;
-				// indice commencant par 0
+				
 				for (var i = 0; i <= thesize; i++ )
 				{
 						
@@ -93,32 +98,32 @@
 						var idpart = window.idpart[i];
 						var myquanty = window.myquanty[i];
 						var type = window.type[i];
+						var thereceiver = window.thereceiver[i];
 						var measure = window.measure[i];
+						var title = window.title[i];
 
 						
-						if (driveway != '' && locker!= '' && rack!= '' && position!= '' && bay!= '' && idsite!='' && idpart!='' && idtrans!='' && myquanty!='')
+						if (driveway != '' && locker!= '' && rack!= '' && position!= '' && bay!= '' && thereceiver!='' && idpart!='' && idtrans!='' && myquanty!='')
 						{
 							total++;
-							TransfertProductInStock(idtrans, idpart, driveway, bay, position, rack, locker, myquanty, idsite, type, measure);
+							TransfertProductInStock(idtrans, idpart, driveway, bay, position, rack, locker, myquanty, thereceiver, type, measure);
 							exec = true;
+							hideblock();
 						} else
 						{
-						  exec =false;
+						    exec =false;
 						}
 							
 				}
 				
 					total = 0;
 					
-					if (exec)
-					{
-						gettransferlist(id_company);
-					} else
+					if (!exec)
 					{
 						$.toast({heading: "Error",text: "Error", icon: "error"});
 					}
-					getalltransferts(id_company);
-			
+					
+					
 			}
 			
 		function isInt(value) 
@@ -127,30 +132,13 @@
 		}
 			
 			
-		function TransfertProductInStock(idtrans, idpart, driveway, bay, position, rack, locker, myquanty, idsite, type, measure)
+		function TransfertProductInStock(idtrans, idpart, driveway, bay, position, rack, locker, myquanty, thereceiver, type, measure)
 		 {
 		 
-				/*var driveway = document.getElementById('driveway'+i).value;
-				var locker = document.getElementById('locker'+i).value;
-				var rack = document.getElementById('rack'+i).value;
-				var position = document.getElementById('position'+i).value;
-				var bay = document.getElementById('bay'+i).value;
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-		
-
-				if (!isInt(quantity))
-				{
-					alert('Veuillez ne saisir que des entiers');
-					gettransferlist(id_company);
-					return false;
-				}*/
-				
-				var idsite = document.getElementById('idsite').value;
-				
 				
 				$.ajax({
 					method: 	"POST",
-					url:		"http://think-parc.com/webservice/v1/companies/stocks/idtransfert/"+idtrans+"/quanty/"+myquanty+"/idpart/"+idpart+"/driveway/"+driveway+"/bay/"+bay+"/position/"+position+"/rack/"+rack+"/locker/"+locker+"/idsite/"+idsite+"/type/"+type+"/measure/"+measure,   
+					url:		"http://think-parc.com/webservice/v1/companies/stocks/idtransfert/"+idtrans+"/quanty/"+myquanty+"/idpart/"+idpart+"/driveway/"+driveway+"/bay/"+bay+"/position/"+position+"/rack/"+rack+"/locker/"+locker+"/receiver/"+thereceiver+"/type/"+type+"/measure/"+measure,   
 					success:	function() 
 								{
 									$.toast({heading: "Success",text: "Product(s) successfully transfered in stock.", icon: "success"});
@@ -190,11 +178,8 @@
          	});
          };
 		 	
-		 
-		 
-			
 		
-		function getalltransferts(id_company)
+		function getalltransferts(id_company, title)
 		 {
 		 
 			getblock();
@@ -202,7 +187,7 @@
 			
 		$.ajax({
 			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/getalltransferts/company/"+id_company, 
+			url:		"http://think-parc.com/webservice/v1/companies/stocks/getalltransferts/company/"+id_company+"/title/"+title, 
 			success:	function(data) {
 							
 							var response = JSON.parse(data);
@@ -212,20 +197,22 @@
 							myquanty = new Array(response.length);
 							type = new Array(response.length);
 							measure = new Array(response.length);
+							title = new Array(response.length);
+							thereceiver = new Array(response.length);
 							
 								for (var i = 0; i<response.length; i++) 
 							{	
 									
-									dataSet[i] = new Array(	response[i].id_transfert,   
+									dataSet[i] = new Array(	response[i].title,   
 														response[i].quantity,
 														response[i].reference,
 														response[i].transferdate,
+														response[i].receivername,
 														'<input type="text" id="driveway'+i+'" class="small"></input>',
 														'<input type="text" id="bay'+i+'" class="small"></input>',
 														'<input type="text" id="position'+i+'" class="small"></input>',
 														'<input type="text" id="rack'+i+'" class="small"></input>',
-														'<input type="text" id="locker'+i+'" class="small"></input>',
-														'<select id="idsite"/>');
+														'<input type="text" id="locker'+i+'" class="small"></input>');
 														
 										
 							size = i;
@@ -234,6 +221,8 @@
 							myquanty[i] = response[i].quantity;
 							type[i] = response[i].typestock;
 							measure[i] = response[i].measurement;
+							title[i] = response[i].title;
+							thereceiver[i] = response[i].receiver;
 							}
 							
 							
@@ -250,16 +239,16 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "Id" , "class": "center fctbw" },
+									{ "title": "Libellé" , "class": "center fctbw" },
 									{ "title": "Qté", "class": "center fctbw" },
 									{ "title": "Ref", "class": "center fctbw" },
-									{ "title": "Date du transfert", "class": "center fctbw" },
+									{ "title": "Date", "class": "center fctbw" },
+									{ "title": "Destinataire", "class": "center fctbw" },
 									{ "title": "Travée", "class": "center fctbw" },
 									{ "title": "Position", "class": "center fctbw" },
 									{ "title": "Etagère", "class": "center fctbw" },
 									{ "title": "Casier", "class": "center fctbw" },
-									{ "title": "Allée", "class": "center fctbw" }, 
-									{ "title": "Site", "class": "center fctbw" }
+									{ "title": "Allée", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -277,8 +266,15 @@
 		<body>
 		<?php include('../header/navbar.php'); ?>
 		
-		<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+		<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners"/>
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
+				<a href="../accueil.php?section=products">
+					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+				</a>
+			</div>
+		 </div> 
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
 					<h2>Choix de la récéption</h2>
@@ -292,8 +288,7 @@
 										</tr>
 										<tr>
 											<td>
-												
-												<select id="transfertlist" class="form-control" onchange="getalltransferts(id_company);">
+												<select id="transfertlist" class="form-control" onchange="getalltransferts(id_company, this.value);">
 												<!-- Retrieve  with an AJAX [GET] query -->
 												</select>
 											</td>
