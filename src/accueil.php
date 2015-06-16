@@ -388,15 +388,7 @@
 											<br/>
 									</div>
 									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="#" class="directlink-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-download"></i>
-												<h2>Ajout document</h2>
-											</div>
-											<br/>
-									</div>
-									</a>
+									
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 										<a href="#" class="directlink-section">
 											<div class="black-bg btn-menu">
