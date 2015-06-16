@@ -51,9 +51,8 @@
 </head>
 <body>
 
-	<?php
-		include('../header/navbar.php');
-	?>
+	<!-- Include navbar with home, informations & logout shortcuts -->
+	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
 	
 	<!-- Hidden div(s) for JS values -->
 	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
