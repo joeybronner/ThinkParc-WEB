@@ -30,9 +30,14 @@ echo '<link  href="' .INCLUDE_PATH. '/css/datepicker/datepicker.css" rel="styles
 
 /* Datatable */
 echo '<link  href="' .INCLUDE_PATH. '/css/DataTable/jquery.dataTables_themefct.css" rel="stylesheet" type="text/css">';
-
+echo '<script src="' .INCLUDE_PATH. '/js/jquery.dataTables.js"></script>';	  
+echo '<script src="' .INCLUDE_PATH. '/js/jquery.dataTables.min.js"></script>';
+	
 /* Popup */
 echo '<script src="' .INCLUDE_PATH. '/js/popup.js"></script>';
+
+/* Google Chart */
+echo '<script src="' .INCLUDE_PATH. '/js/googlecharts.js"></script>';
 ?>
 
 

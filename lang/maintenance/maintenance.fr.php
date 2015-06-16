@@ -34,4 +34,14 @@ $maintenance['MAINTENANCE_DETAILS'] = 'Détail de la maintenance';
 $maintenance['DELETE_MAINTENANCE'] = 'Supprimer cette maintenance';
 $maintenance['UPDATE_MAINTENANCE'] = 'Mettre à jour cette maintenance';
 
+$maintenance['HISTORY'] = 'Historique pour';
+$maintenance['HISTORY_OVERVIEW'] = 'Aperçu de la maintenance pour ce véhicule';
+$maintenance['HISTORY_DAYS_STATUS'] = 'Jours de disponibilité';
+$maintenance['HISTORY_TABLE_START'] = 'Début';
+$maintenance['HISTORY_TABLE_END'] = 'Fin';
+$maintenance['HISTORY_TABLE_TYPE'] = 'Type de maintenance';
+$maintenance['HISTORY_TABLE_LABOUR_HOUR'] = 'Heures de M.O';
+$maintenance['HISTORY_TABLE_LABOUR_RATE'] = 'Taux horaire';
+$maintenance['HISTORY_PARTS_DETAIL'] = 'Détail des pièces';
+
 ?>
