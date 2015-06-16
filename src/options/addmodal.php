@@ -69,9 +69,9 @@
          						document.getElementById("brand").innerHTML = content;
 							
          					}
-         	});
-         };
-    
+					});
+				 };
+			
 			
 			
 			 function displayinput(){

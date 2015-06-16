@@ -23,7 +23,7 @@
 		
 	
 		
-		function addBrand() {
+		function addBrand(brand) {
          									
 			 var brand = document.getElementById("brand").value;
 					
@@ -71,7 +71,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form class="formimg" action="javascript:addBrand();" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:addBrand(brand);" method="post" enctype="multipart/form-data">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
