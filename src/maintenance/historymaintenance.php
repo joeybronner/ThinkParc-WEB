@@ -64,7 +64,7 @@
 	<!-- Page content -->
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad">	
 		<div class="row">
-			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=maintenance">
 						<h5><i class="fa fa-chevron-left"></i><?php echo $maintenance['BACK'];?></h5>
 				</a>
