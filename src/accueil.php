@@ -390,7 +390,7 @@
 									</a>
 									
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="#" class="directlink-section">
+										<a href="options/adduser.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-users"></i>
 												<h2>Ajout utilisateurs</h2>

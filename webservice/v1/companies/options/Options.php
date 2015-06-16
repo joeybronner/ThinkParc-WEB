@@ -8,7 +8,7 @@ class Options {
      *
      * @url POST /companies/options/addbrand/$brand
      */
-    public function addBrand() {
+    public function addBrand($brand=null) {
 		try {
 			global $con;
 		
