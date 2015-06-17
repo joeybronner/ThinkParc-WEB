@@ -55,6 +55,7 @@ class RESTServer
 	public $realm;
 	public $mode;
 	public $root;
+	public $token;
 	
 	protected $map = array();
 	protected $errorClasses = array();
@@ -69,9 +70,14 @@ class RESTServer
 		$this->mode = $mode;
 		$this->realm = $realm;
 		$dir = dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']));
-		if ($dir == '.') $this->root = '/';
-		elseif (substr($dir, -1) != '/') $this->root = $dir . '/';
-		else $this->root = $dir;
+		
+		if ($dir == '.') {
+			$this->root = '/';
+		} elseif (substr($dir, -1) != '/') {
+			$this->root = $dir . '/';
+		} else {
+			$this->root = $dir;
+		}
 	}
 	
 	public function  __destruct() {
@@ -97,7 +103,34 @@ class RESTServer
 	}
 	
 	public function authorize() {
-		return true;
+		// Check if token is always alive
+		try {
+			session_start();
+			$token = $_SESSION['fct_token'];
+			
+			$dbhost = 'thinkparqnroot.mysql.db';
+			$dbuser = 'thinkparqnroot';
+			$dbpass = 'Thinkparc1';
+			$dbname = 'thinkparqnroot';
+			
+			/* 
+			 *	Establish connection
+			 */
+			$link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);				
+			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$token."';")) {
+				$row_cnt = mysqli_num_rows($result);
+				if ($row_cnt > 0) {
+					mysqli_free_result($result);
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 	
 	public function handle() {
@@ -105,46 +138,50 @@ class RESTServer
 		$this->method = $this->getMethod();
 		$this->format = $this->getFormat();
 		
-		if ($this->method == 'PUT' || $this->method == 'POST') {
-			$this->data = $this->getData();
-		}
-		
-		list($obj, $method, $params, $this->params, $noAuth) = $this->findUrl();
-		
-		if ($obj) {
-			if (is_string($obj)) {
-				if (class_exists($obj)) {
-					$obj = new $obj();
-				} else {
-					throw new Exception("Class $obj does not exist");
-				}
+		if ($this->authorize()) {
+			if ($this->method == 'PUT' || $this->method == 'POST') {
+				$this->data = $this->getData();
 			}
 			
-			$obj->server = $this;
+			list($obj, $method, $params, $this->params, $noAuth) = $this->findUrl();
 			
-			try {
-				if (method_exists($obj, 'init')) {
-					$obj->init();
-				}
-				
-				if (!$noAuth && method_exists($obj, 'authorize')) {
-					if (!$obj->authorize()) {
-						$this->sendData($this->unauthorized(true));
-						exit;
+			if ($obj) {
+				if (is_string($obj)) {
+					if (class_exists($obj)) {
+						$obj = new $obj();
+					} else {
+						throw new Exception("Class $obj does not exist");
 					}
 				}
 				
-				$result = call_user_func_array(array($obj, $method), $params);
+				$obj->server = $this;
 				
-				if ($result !== null) {
-					$this->sendData($result);
-				}
-			} catch (RestException $e) {
-				$this->handleError($e->getCode(), $e->getMessage());
-			}			
-		
+				try {
+					if (method_exists($obj, 'init')) {
+						$obj->init();
+					}
+					
+					/*if (!$noAuth && method_exists($obj, 'authorize')) {
+						if (!$obj->authorize()) {
+							$this->sendData($this->unauthorized(true));
+							exit;
+						}
+					}*/
+					
+					$result = call_user_func_array(array($obj, $method), $params);
+					
+					if ($result !== null) {
+						$this->sendData($result);
+					}
+				} catch (RestException $e) {
+					$this->handleError($e->getCode(), $e->getMessage());
+				}			
+			
+			} else {
+				$this->handleError(404);
+			}
 		} else {
-			$this->handleError(404);
+			$this->handleError(401);
 		}
 	}
 
