@@ -138,50 +138,44 @@ class RESTServer
 		$this->method = $this->getMethod();
 		$this->format = $this->getFormat();
 		
-		if ($this->authorize()) {
-			if ($this->method == 'PUT' || $this->method == 'POST') {
-				$this->data = $this->getData();
+		if ($this->method == 'PUT' || $this->method == 'POST') {
+			$this->data = $this->getData();
+		}
+		
+		list($obj, $method, $params, $this->params, $noAuth) = $this->findUrl();
+		
+		if ($obj) {
+			if (is_string($obj)) {
+				if (class_exists($obj)) {
+					$obj = new $obj();
+				} else {
+					throw new Exception("Class $obj does not exist");
+				}
 			}
 			
-			list($obj, $method, $params, $this->params, $noAuth) = $this->findUrl();
+			$obj->server = $this;
 			
-			if ($obj) {
-				if (is_string($obj)) {
-					if (class_exists($obj)) {
-						$obj = new $obj();
-					} else {
-						throw new Exception("Class $obj does not exist");
-					}
+			try {
+				if (method_exists($obj, 'init')) {
+					$obj->init();
 				}
 				
-				$obj->server = $this;
+				if (!$noAuth && !$this->authorize()) {
+					$this->sendData($this->unauthorized(true));
+					exit;
+				}
 				
-				try {
-					if (method_exists($obj, 'init')) {
-						$obj->init();
-					}
-					
-					/*if (!$noAuth && method_exists($obj, 'authorize')) {
-						if (!$obj->authorize()) {
-							$this->sendData($this->unauthorized(true));
-							exit;
-						}
-					}*/
-					
-					$result = call_user_func_array(array($obj, $method), $params);
-					
-					if ($result !== null) {
-						$this->sendData($result);
-					}
-				} catch (RestException $e) {
-					$this->handleError($e->getCode(), $e->getMessage());
-				}			
-			
-			} else {
-				$this->handleError(404);
-			}
+				$result = call_user_func_array(array($obj, $method), $params);
+				
+				if ($result !== null) {
+					$this->sendData($result);
+				}
+			} catch (RestException $e) {
+				$this->handleError($e->getCode(), $e->getMessage());
+			}			
+		
 		} else {
-			$this->handleError(401);
+			$this->handleError(404);
 		}
 	}
 

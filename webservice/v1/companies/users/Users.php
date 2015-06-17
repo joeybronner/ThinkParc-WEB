@@ -23,6 +23,7 @@ class Users {
     /**
      * Description.
      *
+	 * @noAuth
      * @url GET /companies/users/$id_user
      */
     public function getUser($id_user = null) {
