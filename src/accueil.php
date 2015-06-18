@@ -57,13 +57,13 @@
 		<div id="main-wrapper">
 			<div class="image-section">
 				<div class="image-container">
-					<img src="../images/background/sky.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-					<img src="../images/background/sky.jpg" id="products-img" class="inactive" alt="Product stocks">
-					<img src="../images/background/sky.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
-					<img src="../images/background/sky.jpg" id="about-img" class="inactive" alt="Véhicules">
-					<img src="../images/background/sky.jpg" id="maintenance-img" class="inactive" alt="maintenance">
-					<img src="../images/background/sky.jpg" id="options-img" class="inactive" alt="options">
-					<img src="../images/background/sky.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
+					<img src="../images/background/home/think_parc_home_1.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+					<img src="../images/background/home/think_parc_home_2.jpg" id="products-img" class="inactive" alt="Product stocks">
+					<img src="../images/background/home/think_parc_home_3.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
+					<img src="../images/background/home/think_parc_home_1.jpg" id="about-img" class="inactive" alt="Véhicules">
+					<img src="../images/background/maintenance/think_parc_maintenance_3.jpg" id="maintenance-img" class="inactive" alt="maintenance">
+					<img src="../images/background/home/think_parc_home_3.jpg" id="options-img" class="inactive" alt="options">
+					<img src="../images/background/home/think_parc_home_1.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
 				</div>
 			</div>
 			<div class="container">
@@ -380,7 +380,7 @@
 									</div>
 									</a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/addModal.php" class="directlink-section">
+										<a href="options/addmodel.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark"></i>
 												<h2>Ajout Modèle</h2>

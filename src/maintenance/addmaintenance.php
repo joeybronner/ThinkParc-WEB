@@ -56,7 +56,7 @@
 	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
 
 	<!-- Background image for this page-->
-	<img id="menu-img" class="main-img inactive" src="../../images/background/maintenance.jpg">
+	<img id="menu-img" class="main-img inactive" src="../../images/background/maintenance/think_parc_maintenance_1.jpg">
 
 	<!-- Hidden div(s) for JS values -->
 	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
@@ -98,13 +98,13 @@
 										<tr>
 											<td><h5><?php echo $maintenance['START_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" required/>
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_startmaintenance" name="date_startmaintenance" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
 											<td><h5><?php echo $maintenance['END_MAINTENANCE'];?></h5></td>
 											<td colspan="2">
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_endmaintenance" />
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_endmaintenance" name="date_endmaintenance" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>

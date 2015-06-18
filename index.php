@@ -14,7 +14,7 @@
 	<script src="js/bootstrap.js"></script>
 </head>
 <body>
-	<img src="images/login.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<img src="images/background/home/think_parc_home_4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
     <div class="container" style="margin-top:30px;">
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-0 col-md-offset-4 col-lg-offset-4">
             <div class="templatemo-content">

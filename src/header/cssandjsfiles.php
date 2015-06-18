@@ -27,6 +27,7 @@ echo '<script src="' .INCLUDE_PATH. '/js/jquery.toast.js"></script>';
 
 /* Datepicker */
 echo '<link  href="' .INCLUDE_PATH. '/css/datepicker/datepicker.css" rel="stylesheet" type="text/css">';
+echo '<script src="' .INCLUDE_PATH. '/js/bootstrap-datepicker.js"></script>';
 
 /* Datatable */
 echo '<link  href="' .INCLUDE_PATH. '/css/DataTable/jquery.dataTables_themefct.css" rel="stylesheet" type="text/css">';

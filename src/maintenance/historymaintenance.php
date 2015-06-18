@@ -58,7 +58,7 @@
 	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
 	
 	<!-- Background image for this page-->
-	<img src="../../images/background/maintenance.jpg" id="menu-img" class="main-img inactive">
+	<img src="../../images/background/maintenance/think_parc_maintenance_7.jpg" id="menu-img" class="main-img inactive">
 	
 	<!-- Page content -->
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad">	

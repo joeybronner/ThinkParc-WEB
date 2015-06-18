@@ -57,7 +57,7 @@
 	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
 
 	<!-- Background image for this page-->
-	<img id="menu-img" class="main-img inactive" src="../../images/background/maintenance.jpg">
+	<img id="menu-img" class="main-img inactive" src="../../images/background/maintenance/think_parc_maintenance_4.jpg">
 
 	<!-- Hidden div(s) for JS values -->
 	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>

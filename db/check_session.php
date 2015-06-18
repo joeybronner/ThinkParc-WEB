@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 try {
 	if ($_SESSION['fct_token'] == "" || !isset($_SESSION['fct_token'])) {
 		throw new Exception("error");

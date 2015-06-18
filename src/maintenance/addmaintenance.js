@@ -17,12 +17,14 @@ $(function onLoad() {
   getAllVehicles();
   getCurrencies();
   getTypeMaintenance();
-  setNowIntoDateStart()
+  setNowIntoDateStart();
+  $('#date_startmaintenance').datepicker();
+  $('#date_endmaintenance').datepicker();
 });
 
 /** Sets the current date into the start field */
 function setNowIntoDateStart() {
-  document.getElementById('date_startmaintenance').value = new Date().toDateInputValue();
+  document.getElementById('date_startmaintenance').value = reformatDate(new Date().toDateInputValue());
 }
 
 /** Date prototype JJ/MM/AAAA */
@@ -229,8 +231,8 @@ function addNewMaintenance() {
   }
   /* Ok! Now we can retrieve values */
   var id_vehicle = document.getElementById("listvehicles").value;
-  var date_startmaintenance = document.getElementById("date_startmaintenance").value;
-  var date_endmaintenance = document.getElementById("date_endmaintenance").value;
+  var date_startmaintenance = document.getElementById("date_startmaintenance").value.split("/").reverse().join("-");
+  var date_endmaintenance = document.getElementById("date_endmaintenance").value.split("/").reverse().join("-");
   var id_typemaintenance = document.getElementById("typemaintenance").value;
   var labour_hours = document.getElementById("labour_hours").value;
   var labour_hourlyrate = document.getElementById("labour_hourlyrate").value;
@@ -285,8 +287,8 @@ function addNewMaintenance() {
         getAllVehicles();
         getCurrencies();
         getTypeMaintenance();
-        document.getElementById('date_startmaintenance').value = new Date().toDateInputValue();
-        document.getElementById("date_endmaintenance").value = '00-00-0000';
+        document.getElementById('date_startmaintenance').value = reformatDate(new Date().toDateInputValue());
+        document.getElementById("date_endmaintenance").value = '00/00/0000';
         document.getElementById("labour_hours").value = 0;
         document.getElementById("labour_hourlyrate").value = 0;
         document.getElementById("commentary").value = "";
@@ -308,4 +310,10 @@ function addNewMaintenance() {
       }
     });
   });
+}
+
+/** Reformats Date from YYYY-MM-DD to JJ/MM/AAAA */
+function reformatDate(dateStr) {
+	dArr = dateStr.split("-");
+	return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
 }
