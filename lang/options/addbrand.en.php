@@ -7,10 +7,9 @@ Language: English
  
 $options = array();
  
-$options['TITLE_Addbrand'] = 'Think-Parc | Add Brand';
-$options['Addbrand'] = 'Add a brand';
+$options['TITLE_ADDBRAND'] = 'Add Brand';
 $options['BRAND'] = 'Brand';
-$options['BACK'] = 'back';
+$options['BACK'] = ' Back';
 $options['SUBMIT'] = 'Submit';
 $options['RESET'] = 'Reset';
 
