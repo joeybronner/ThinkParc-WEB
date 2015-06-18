@@ -1,6 +1,5 @@
 <?php
    session_start();
-   header('Access-Control-Allow-Origin: *'); 
 ?>
 <html>
    <head>
@@ -23,7 +22,7 @@
 		
 	
 		
-		function addBrand(brand) {
+		function addbrand(brand) {
          									
 			 var brand = document.getElementById("brand").value;
 					
@@ -31,7 +30,7 @@
          $.ajax({
          									
          	type: 		"POST",
-         	url:		"http://www.think-parc.com/webservice/v1/companies/options/addBrand/"+brand,  
+         	url:		"http://www.think-parc.com/webservice/v1/companies/options/addbrand/"+brand,  
          	success:	function(data) {
          	$(document).ready(function() {
          		$.toast({heading: "Success",text: "Brand successfully added.", icon: "success"});
@@ -71,7 +70,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form class="formimg" action="javascript:addBrand(brand);" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:addbrand(brand);" method="post" enctype="multipart/form-data">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
