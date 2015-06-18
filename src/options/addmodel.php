@@ -1,5 +1,12 @@
 <?php
-   session_start();
+ 	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/addmodel.fr.php');
+	else
+		include('../../lang/options/addmodel.en.php');
 ?>
 <html>
    <head>
@@ -63,7 +70,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/options/allbrands",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content = '<option selected disabled>Marque</option>';
+								var content = '<option selected disabled><?php echo $options['BRAND'];?></option>';
          						for (var i = 0; i<response.length; i++) 
          						{
          						   content = content + '<option value="'+response[i].id_brand+'">'+ response[i].brand +'</option>';
@@ -141,5 +148,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
 </body>
 </html>

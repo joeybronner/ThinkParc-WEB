@@ -1,5 +1,12 @@
 <?php
-   session_start();
+   	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/addbrand.fr.php');
+	else
+		include('../../lang/options/addbrand.en.php');
 ?>
 <html>
    <head>

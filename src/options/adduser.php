@@ -116,7 +116,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/options/getcompany",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content = '<option selected disabled>Entreprise</option>';
+								var content = '<option selected disabled><?php echo $options['COMPANY'];?></option>';
          						for (var i = 0; i<response.length; i++) 
          						{
          						   content = content + '<option value="'+response[i].id_company+'">'+ response[i].name +'</option>';
@@ -230,9 +230,11 @@
 											<td><h5><?php echo $options['PICTURE'];?></h5></td>
 										</tr>
 										<tr>
+										
 											<td colspan="2">
 												<h5><input class="form-group" type="file" id="image" name="myfiles"/></h5>
 											</td>
+										
 										</tr>
 									
 										<tr>

@@ -398,6 +398,16 @@
 											<br/>
 									</div>
 									</a>
+									
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+										<a href="options/addsite.php" class="directlink-section">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-users"></i>
+												<h2>Ajout site</h2>
+											</div>
+											<br/>
+									</div>
+									</a>
 									<div class="clearfix"></div>
 								</div>
 							</div>
