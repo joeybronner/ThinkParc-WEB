@@ -29,21 +29,19 @@
 		 $(function onLoad() 
 			{
 				getcompany();
-				document.getElementById("name").style.display = "none";
-				/*
-				document.getElementById("adress1").style.display = "none";
-				document.getElementById("adress2").style.display = "none";
-				document.getElementById("adress3").style.display = "none";
-				document.getElementById("city").style.display = "none";
-				document.getElementById("country").style.display = "none";*/
 				
 			});	
 	
 		
 		function addsite(id_company, name, adress1, adress2, adress3, city, country) {
          									
-			 var id_brand = document.getElementById("id_company").value;
+			 var id_company = document.getElementById("id_company").value;
 			 var name = document.getElementById("name").value;
+			 var adress1 = document.getElementById("adress1").value;
+			 var adress2 = document.getElementById("adress2").value;
+			 var adress3 = document.getElementById("adress3").value;
+			 var city = document.getElementById("city").value;
+			 var country = document.getElementById("country").value;
 					
          									
          $.ajax({
@@ -52,7 +50,7 @@
          	url:		"http://www.think-parc.com/webservice/v1/companies/options/addsite/"+name+"/id_company/"+id_company+"/adress1/"+adress1+"/adress2/"+adress2+"/adress3/"+adress3+"/city/"+city+"/country/"+country,  
          	success:	function(data) {
          	$(document).ready(function() {
-         		$.toast({heading: "Success",text: "Brand successfully added.", icon: "success"});
+         		$.toast({heading: "Success",text: "Site successfully added.", icon: "success"});
          		});
          														
 					},
@@ -73,10 +71,10 @@
 				
             	$.ajax({
          		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/options/allcompany",  
+         		url:		"http://think-parc.com/webservice/v1/companies/options/getcompany",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content = '<option selected disabled><?php echo $options['NAME'];?></option>';
+								var content = '<option selected disabled><?php echo $options['COMPANY'];?></option>';
          						for (var i = 0; i<response.length; i++) 
          						{
          						   content = content + '<option value="'+response[i].id_company+'">'+ response[i].name +'</option>';
@@ -89,19 +87,7 @@
 			
 			
 			
-			 function displayinput(){
-				
-				document.getElementById("name").style.display = "block";
-				/*document.getElementById("adress1").style.display = "block";
-				document.getElementById("adress2").style.display = "block";
-				document.getElementById("adress3").style.display = "block";
-				document.getElementById("city").style.display = "block";
-				document.getElementById("country").style.display = "block";*/
-         
-			};
-    	
-	
-         								
+					
       </script>
    </head>
    <body>
@@ -121,26 +107,58 @@
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $options['Addsite'];?></h2>
+				<h2><?php echo $options['ADDSITE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form class="formimg" action="javascript:addsite(id_company, name);" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:addsite(id_company, name, adress1, adress2, adress3, city, country);" method="post" enctype="multipart/form-data">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* <?php echo $options['COMPANY'];?></h5></td>
+											<td><h5>* <?php echo $options['COMPANYANDNAME'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												 <select id="id_company" name="id_company" class="form-control" Onchange="displayinput();">
+												 <select id="id_company" name="id_company" class="form-control">
 													<!-- Here are loaded company content -->
 												 </select>
 											</td>
+											<td>
+												<input type="text" id="name" placeholder="<?php echo $options['NAME'];?>" class="form-control" required/>
+											</td>
+										</tr>
+										
+									
+										<tr>
+											<td><h5>* <?php echo $options['ADRESS1ANDADRESS2'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="name" placeholder="<?php echo $options['NAME'];?>" class="form-control" required/>
+												<input type="text" id="adress1" placeholder="<?php echo $options['ADRESS1'];?>" class="form-control" required/>
+											</td>
+											<td>
+												<input type="text" id="adress2" placeholder="<?php echo $options['ADRESS2'];?>" class="form-control" required/>
+											</td>
+										</tr>
+									
+										<tr>
+											<td><h5>* <?php echo $options['ADRESS3ANDCITY'];?></h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="adress3" placeholder="<?php echo $options['ADRESS3'];?>" class="form-control" required/>
+											</td>
+												<td>
+												<input type="text" id="city" placeholder="<?php echo $options['CITY'];?>" class="form-control" required/>
+											</td>
+										</tr>
+									
+										<tr>
+											<td><h5>* <?php echo $options['COUNTRY'];?></h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="text" id="country" placeholder="<?php echo $options['COUNTRY'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										
