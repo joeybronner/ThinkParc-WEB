@@ -23,6 +23,28 @@ class Options {
 		}
     }
 	
+	
+	 /**
+     * Add site in company.
+     *
+     * @url POST /companies/options/addsite/name/$name/id_company/$id_company/adress1/$adress1/adress2/$adress2/adress3/$adress3/city/$city/country/$country
+     */
+    public function addsite($name = null, $id_company = null, $adress1 = null, $adress2 = null, $adress3 = null, $city = null, $country = null) {
+		try {
+			global $con;
+		
+			$sql = 	"INSERT INTO sites (name, id_company, adress_ligne1, adress_ligne2, adress_ligne3, city, country) 
+					 VALUES ('".$name."', ".$id_company.",'".$adress1."','".$adress2."','".$adress3."','".$city."','".$country."');";
+			
+			echo $sql;
+			$stmt = $con->exec($sql);
+
+			return array("success" => "OK");
+		} catch(PDOException $e) {
+			return array("error" => "".$e->getMessage());
+		}
+    }
+	
 	   /**
      * Add model in company.
      *
@@ -62,6 +84,7 @@ class Options {
 			return array("error" => "".$e->getMessage());
 		}
     }
+	
 	
 	
 		   /**
