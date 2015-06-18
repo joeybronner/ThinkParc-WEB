@@ -1,3 +1,18 @@
+/**
+ * addmaintenance.js
+ *
+ * @see addmaintenance.php
+ * @author Joey Bronner
+ * @version 1.0
+ */
+ 
+/** Global public variables used and re-used in some methods */
+var totalitems = 0;
+var buyingprice = "";
+var symbol = "";
+var designation = "";
+
+/** Method called on page loading */
 $(function onLoad() {
   getAllVehicles();
   getCurrencies();
@@ -5,15 +20,19 @@ $(function onLoad() {
   setNowIntoDateStart()
 });
 
+/** Sets the current date into the start field */
 function setNowIntoDateStart() {
   document.getElementById('date_startmaintenance').value = new Date().toDateInputValue();
 }
+
+/** Date prototype JJ/MM/AAAA */
 Date.prototype.toDateInputValue = (function() {
   var local = new Date(this);
   local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
   return local.toJSON().slice(0, 10);
 });
 
+/** Retrieves all currencies */
 function getCurrencies() {
   $.ajax({
     method: "GET",
@@ -29,6 +48,7 @@ function getCurrencies() {
   });
 };
 
+/** Retrieves Company's ID */
 function getCompany(handleData) {
   var id_user = document.getElementById('fct_id_user').innerHTML;
   $.ajax({
@@ -41,6 +61,7 @@ function getCompany(handleData) {
   });
 };
 
+/** Retrieves all vehicles data */
 function getAllVehicles() {
   getCompany(function(company) {
     $.ajax({
@@ -59,6 +80,7 @@ function getAllVehicles() {
   });
 };
 
+/** Retrieves all type of maintenances */
 function getTypeMaintenance() {
   $.ajax({
     method: "GET",
@@ -73,11 +95,8 @@ function getTypeMaintenance() {
     }
   });
 };
-var totalitems = 0;
-var buyingprice = "";
-var symbol = "";
-var designation = "";
 
+/** Allows to add a new part for this maintenance */
 function addParts() {
   var radios = document.getElementsByName('stockselected');
   for (var i = 0; i < radios.length; i++) {
@@ -86,12 +105,13 @@ function addParts() {
       var quantity = document.getElementById("quantity").value;
       var stocktopickin = radios[i].value;
       addPartToTable(reference, quantity, stocktopickin);
-      // Close popup
+      /* Close popup */
       cancelAddPart();
     }
   }
 }
 
+/** Allows to add a new part to the table */
 function addPartToTable(reference, quantity, stocktopickin) {
   totalitems++;
   var newpart = '<tr id="part-' + totalitems + '">' +
@@ -105,12 +125,17 @@ function addPartToTable(reference, quantity, stocktopickin) {
   document.getElementById("partstable").innerHTML = document.getElementById("partstable").innerHTML + newpart;
 }
 
+/** Removes a specific part from the table */
 function removePartFromTable(id) {
   document.getElementById("part-" + id).remove();
 }
+
+/** Remove child prototype  */
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this);
 }
+
+/** Retrieves all type of maintenances */
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   for (var i = 0, len = this.length; i < len; i++) {
     if (this[i] && this[i].parentElement) {
@@ -119,6 +144,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   }
 }
 
+/** Retrieves available parts */
 function showPartsStock() {
   var reference = document.getElementById("reference").value;
   var quantity = document.getElementById("quantity").value;
@@ -161,20 +187,21 @@ function showPartsStock() {
   });
 }
 
+/** Cancels the adding part popup & resets values */
 function cancelAddPart() {
-  // Reset values
+  /* Reset values */
   document.getElementById("stockcontent").innerHTML = "";
   document.getElementById("reference").value = "";
   document.getElementById("quantity").value = "";
 
-  // Close popup
+  /* Close popup */
   popup('custompopup');
 }
 
+/** On value change */
 function valuesChanges() {
   var reference = document.getElementById("reference").value;
   var quantity = document.getElementById("quantity").value;
-  // Checkif reference isn't null and quantity is a numeric number
   if (reference != "" && isNaN(quantity) == false && quantity > 0) {
     showPartsStock();
   } else {
@@ -182,8 +209,8 @@ function valuesChanges() {
   }
 }
 
+/** Adds a new maintenance for the selected vehicle */
 function addNewMaintenance() {
-  // Check values
   if (document.getElementById("listvehicles").selectedIndex == 0) {
     $.toast({
       heading: "Error",
@@ -200,7 +227,7 @@ function addNewMaintenance() {
     });
     return false;
   }
-  // Ok! Now we can retrieve values
+  /* Ok! Now we can retrieve values */
   var id_vehicle = document.getElementById("listvehicles").value;
   var date_startmaintenance = document.getElementById("date_startmaintenance").value;
   var date_endmaintenance = document.getElementById("date_endmaintenance").value;

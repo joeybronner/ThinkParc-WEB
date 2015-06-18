@@ -1,3 +1,12 @@
+/**
+ * historymaintenance.js
+ *
+ * @see historymaintenance.php
+ * @author Joey Bronner
+ * @version 1.0
+ */
+
+/** Global public variables used and re-used in some methods */
 var totalitems = 0;
 var days_maintenance = 0;
 var days_available = 0;
@@ -5,39 +14,33 @@ var id_maintenance = "";
 buyingprice = "";
 symbol = "";
 designation = "";
-// Load charts
+var partsToDelete = { partToDelete: [] };
+var partsToAdd = { partToAdd: [] };
+
+/** Google chart initialization */
 google.load("visualization", "1", {
   packages: ["corechart"]
 });
 
-var partsToDelete = {
-  partToDelete: []
-};
-var partsToAdd = {
-  partToAdd: []
-};
+/** Method called on page loading */
 $(function onLoad() {
   getAllVehicles();
 });
 
+/** Retrieves values for a specific maintenance */
 function showMaintenanceHistoryForSpecificVehicle(id_vehicle) {
-  // Clear parts table
   for (var i = 1; i <= totalitems; i++) {
     try {
-      //document.getElementById("maintenance-" + i).remove();
       $("[id^='maintenance-']").remove();
     } catch (e) { /* nothing */ }
   }
-  // Clear totalitems variable
   totalitems = 0;
-  // Get Vehicle infos & maintenance history
   getVehicleHistory(id_vehicle);
-  // Load total days in maintenance
   getDaysInMaintenance(id_vehicle);
-  // Display block
   document.getElementById('maintenancedetails').style.display = 'block';
 }
 
+/** Draws the chart of available and maintenance parts */
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ['Status', 'Days'],
@@ -64,6 +67,7 @@ function drawChart() {
   chart.draw(data, options);
 }
 
+/** Gets the number of days in maintenance between date of buy and today */
 function getDaysInMaintenance(id_vehicle) {
   getCompany(function(company) {
     $.ajax({
@@ -96,6 +100,8 @@ function getDaysInMaintenance(id_vehicle) {
     });
   });
 }
+
+/** Date prototype JJ/MM/AAAA */
 Date.prototype.yyyymmdd = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth() + 1).toString();
@@ -103,6 +109,7 @@ Date.prototype.yyyymmdd = function() {
   return yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]);
 };
 
+/** Retrieves all currencies */
 function getCurrencies() {
   $.ajax({
     method: "GET",
@@ -118,6 +125,7 @@ function getCurrencies() {
   });
 };
 
+/** Retrieves Company's ID */
 function getCompany(handleData) {
   var id_user = document.getElementById('fct_id_user').innerHTML;
   $.ajax({
@@ -130,6 +138,7 @@ function getCompany(handleData) {
   });
 };
 
+/** Retrieves all vehicles */
 function getAllVehicles() {
   getCompany(function(company) {
     $.ajax({
@@ -148,6 +157,7 @@ function getAllVehicles() {
   });
 };
 
+/** Retrieves the history for a specific vehicle */
 function getVehicleHistory(id_vehicle) {
   document.getElementById('partsdetails').style.display = 'none';
   getCompany(function(company) {
@@ -170,6 +180,7 @@ function getVehicleHistory(id_vehicle) {
   });
 }
 
+/** Inserts a maintenance history into the table */
 function addMaintenanceToTable(id_maintenance, start, end, typemaintenance, hours, rate, symbol) {
   totalitems++;
   var id_vehicle = document.getElementById('listvehicles').value;
@@ -185,6 +196,7 @@ function addMaintenanceToTable(id_maintenance, start, end, typemaintenance, hour
   document.getElementById("maintenancestable").innerHTML = document.getElementById("maintenancestable").innerHTML + newmaintenance;
 }
 
+/** Retrieves the detailed parts for a specific maintenance */
 function showPartsForMaintenance(id_maintenance) {
   getCompany(function(company) {
     $.ajax({
@@ -230,12 +242,14 @@ function showPartsForMaintenance(id_maintenance) {
   });
 }
 
+/** Removes a maintenance for a specific vehicle (the linbe in the table) */
 function removeMaintenanceFromTable(id_maintenance, id_vehicle) {
   document.getElementById("maintenance-" + id_maintenance).remove();
   deleteMaintenance(id_maintenance);
   document.getElementById('partsdetails').style.display = 'none';
 }
 
+/** Remove a maintenance for a specific vehicle */
 function deleteMaintenance(id_maintenance) {
   getCompany(function(company) {
     $.ajax({
@@ -245,6 +259,8 @@ function deleteMaintenance(id_maintenance) {
     });
   });
 }
+
+/** Gets the size of an element */
 Object.size = function(obj) {
   var size = 0,
     key;
@@ -253,6 +269,8 @@ Object.size = function(obj) {
   }
   return size;
 }
+
+/** Removes prototype */
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this);
 }

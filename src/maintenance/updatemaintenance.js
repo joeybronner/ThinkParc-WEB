@@ -1,43 +1,46 @@
+/**
+ * updatemaintenance.js
+ *
+ * @see updatemaintenance.php
+ * @author Joey Bronner
+ * @version 1.0
+ */
+
+/** Global public variables used and re-used in some methods */
 var totalitems = 0;
 var id_maintenance = "";
 buyingprice = "";
 symbol = "";
 designation = "";
-var partsToDelete = {
-  partToDelete: []
-};
-var partsToAdd = {
-  partToAdd: []
-};
+var partsToDelete = { partToDelete: [] };
+var partsToAdd = { partToAdd: [] };
+
+/** Method called on page loading */
 $(function onLoad() {
   getAllVehicles();
   getCurrencies();
   getTypeMaintenance();
 });
 
+/** Retrieve detail for a specific maintenance (actually in status maintenance!) */
 function showMaintenanceDetails(id_vehicle) {
-  // Clear removed parts table
   partsToDelete = {
     partToDelete: []
   };
-  // Clear removed parts table
   partsToAdd = {
     partToAdd: []
   };
-  // Clear parts table
   for (var i = 1; i <= totalitems; i++) {
     try {
       document.getElementById("part-" + i).remove();
     } catch (e) { /* nothing */ }
   }
-  // Clear totalitems variable
   totalitems = 0;
-  // Load values
   getVehicleMaintenanceDetail(id_vehicle);
-  // Display maintenance detail fields
   document.getElementById('maintenancedetails').style.display = 'block';
 }
 
+/** Retrieves all currencies */
 function getCurrencies() {
   $.ajax({
     method: "GET",
@@ -53,6 +56,7 @@ function getCurrencies() {
   });
 };
 
+/** Retrieve Company's ID */
 function getCompany(handleData) {
   var id_user = document.getElementById('fct_id_user').innerHTML;
   $.ajax({
@@ -65,6 +69,7 @@ function getCompany(handleData) {
   });
 };
 
+/** Retrieves all vehicles (currenty in status maintenance!) */
 function getAllVehicles() {
   getCompany(function(company) {
     $.ajax({
@@ -83,6 +88,7 @@ function getAllVehicles() {
   });
 };
 
+/** Retrieves all type of maintenance */
 function getTypeMaintenance() {
   $.ajax({
     method: "GET",
@@ -98,6 +104,7 @@ function getTypeMaintenance() {
   });
 };
 
+/** Retrieves the maintenance detail for a specific vehicle (used parts, dates, ...) */
 function getVehicleMaintenanceDetail(id_vehicle) {
   getCompany(function(company) {
     $.ajax({
@@ -113,7 +120,6 @@ function getVehicleMaintenanceDetail(id_vehicle) {
         document.getElementById('currencies').value = response[0].id_currency;
         document.getElementById('commentary').value = response[0].commentary;
         id_maintenance = response[0].id_maintenance;
-        // Get used parts
         $.ajax({
           method: "GET",
           url: "http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/parts/" + response[0].id_maintenance,
@@ -135,6 +141,7 @@ function getVehicleMaintenanceDetail(id_vehicle) {
   });
 }
 
+/** Allows to add a new part to the table */
 function addPartToTable(reference, quantity, stocktopickin, designation, buyingprice, symbol, newpart) {
   totalitems++;
   if (newpart) {
@@ -155,6 +162,7 @@ function addPartToTable(reference, quantity, stocktopickin, designation, buyingp
   document.getElementById("partstable").innerHTML = document.getElementById("partstable").innerHTML + newpart;
 }
 
+/** Removes part (only in the table) */
 function removePartFromTable(id) {
   partsToDelete.partToDelete.push({
     "id_maintenance": id_maintenance,
@@ -164,8 +172,9 @@ function removePartFromTable(id) {
   document.getElementById("part-" + id).remove();
 }
 
+/** Update values for a specific maintenance */
 function updateMaintenance() {
-  // Add new parts
+  /* Add new parts */
   for (var i = 0; i < Object.size(partsToAdd.partToAdd); i++) {
     var add_id_maintenance = partsToAdd.partToAdd[i].id_maintenance;
     var add_stockid = partsToAdd.partToAdd[i].stockid;
@@ -179,7 +188,7 @@ function updateMaintenance() {
       async: false
     });
   }
-  // Delete removed parts in database
+  /* Delete removed parts in database */
   for (var i = 0; i < Object.size(partsToDelete.partToDelete); i++) {
     var delete_id_maintenance = partsToDelete.partToDelete[i].id_maintenance;
     var delete_stockid = partsToDelete.partToDelete[i].stockid;
@@ -193,14 +202,14 @@ function updateMaintenance() {
       async: false
     });
   }
-  // Update global values
+  /* Update global values */
   var date_endmaintenance = document.getElementById("date_endmaintenance").value;
   var labour_hours = document.getElementById("labour_hours").value;
   var labour_hourlyrate = document.getElementById("labour_hourlyrate").value;
   var id_currency = document.getElementById("currencies").value;
   var commentary = document.getElementById("commentary").value;
 
-  // Tranform potential NULL values (commentary & date of end of maintenance)
+  /* Tranform potential NULL values (commentary & date of end of maintenance) */
   date_endmaintenance = ((date_endmaintenance == "") ? "NULL" : date_endmaintenance);
   commentary = ((commentary == "") ? "NULL" : commentary);
   $.ajax({
@@ -222,6 +231,8 @@ function updateMaintenance() {
     }
   });
 }
+
+/** Object size prototype */
 Object.size = function(obj) {
   var size = 0,
     key;
@@ -231,16 +242,15 @@ Object.size = function(obj) {
   return size;
 }
 
+/** Cancels the add part popup */
 function cancelAddPart() {
-  // Reset values
   document.getElementById("stockcontent").innerHTML = "";
   document.getElementById("reference").value = "";
   document.getElementById("quantity").value = "";
-
-  // Close popup
   popup('custompopup');
 }
 
+/** Retrieve stock status */
 function showPartsStock() {
   var reference = document.getElementById("reference").value;
   var quantity = document.getElementById("quantity").value;
@@ -283,10 +293,10 @@ function showPartsStock() {
   });
 }
 
+/** Method called on page loading */
 function valuesChanges() {
   var reference = document.getElementById("reference").value;
   var quantity = document.getElementById("quantity").value;
-  // Checkif reference isn't null and quantity is a numeric number
   if (reference != "" && isNaN(quantity) == false && quantity > 0) {
     showPartsStock();
   } else {
@@ -294,6 +304,7 @@ function valuesChanges() {
   }
 }
 
+/** Retrieves the part with radio button selected */
 function addParts() {
   var radios = document.getElementsByName('stockselected');
   for (var i = 0; i < radios.length; i++) {
@@ -308,6 +319,7 @@ function addParts() {
   }
 }
 
+/** Remove a maintenance! */
 function deleteMaintenance() {
   getCompany(function(company) {
     $.ajax({
@@ -326,6 +338,8 @@ function deleteMaintenance() {
     });
   });
 }
+
+/** Removes prototype */
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this);
 }
