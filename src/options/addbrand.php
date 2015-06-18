@@ -60,7 +60,7 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=options">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $options['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
@@ -74,18 +74,18 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Marque</h5></td>
+											<td><h5>* <?php echo $options['BRAND'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="brand" placeholder="marque" class="form-control" required/>
+												<input type="text" id="brand" placeholder="<?php echo $options['BRAND'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										
 										<tr>
 											<td colspan="3" align="right">
-												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+												<input type="reset" value="<?php echo $options['RESET'];?>" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="<?php echo $options['SUBMIT'];?>"/>
 											</td>
 										</tr>
 									</tbody>
@@ -97,5 +97,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
