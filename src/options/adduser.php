@@ -1,6 +1,12 @@
 <?php
-   session_start();
-
+ 	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/adduser.fr.php');
+	else
+		include('../../lang/options/adduser.en.php');
 ?>
 <html>
    <head>
@@ -158,13 +164,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=options">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $options['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Ajouter un utilisateur</h2>
+				<h2><?php echo $options['TITLE_Adduser'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -172,41 +178,41 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Nom et Prénom</h5></td>
+											<td><h5>*<?php echo $options['FIRSTNAMEandLASTNAME'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
 												 
-												 <input type="text" id="lastname" placeholder="nom" class="form-control" required/>
+												 <input type="text" id="lastname" placeholder="<?php echo $options['LASTNAME'];?>" class="form-control" required/>
 											</td>
 											<td>
-												<input type="text" id="firstname" placeholder="prénom" class="form-control" required/>
+												<input type="text" id="firstname" placeholder="<?php echo $options['FIRSTNAME'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Identifiant et Email</h5></td>
+											<td><h5>*<?php echo $options['LOGINandEMAIL'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="login" placeholder="identifiant" class="form-control" required/>
+												<input type="text" id="login" placeholder="<?php echo $options['LOGIN'];?>" class="form-control" required/>
 											</td>
 											<td>
-												<input type="text" id="email" placeholder="email" class="form-control" required/>
+												<input type="text" id="email" placeholder="<?php echo $options['EMAIL'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Mot de passe et Confirmation </h5></td>
+											<td><h5>*<?php echo $options['PASSWORDTITLE'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="password" id="password" placeholder="mot de passe" class="form-control" required/>
+												<input type="password" id="password" placeholder="<?php echo $options['PASSWORD'];?>" class="form-control" required/>
 											</td>
 											<td>
-												<input type="password" id="passwordconfirmation" placeholder="mot de passe" class="form-control" required/>
+												<input type="password" id="passwordconfirmation" placeholder="<?php echo $options['CONFIRM_PASSWORD'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Entreprise et role</h5></td>
+											<td><h5>* <?php echo $options['COMPANYandROLE'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -221,7 +227,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Image</h5></td>
+											<td><h5><?php echo $options['PICTURE'];?></h5></td>
 										</tr>
 										<tr>
 											<td colspan="2">
@@ -231,8 +237,8 @@
 									
 										<tr>
 											<td colspan="2" align="right">
-												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+												<input type="reset" value="<?php echo $options['RESET'];?>" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="<?php echo $options['SUBMIT'];?>"/>
 											</td>
 										</tr>
 									</tbody>
@@ -244,5 +250,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
