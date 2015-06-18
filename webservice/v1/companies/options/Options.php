@@ -8,7 +8,7 @@ class Options {
      *
      * @url POST /companies/options/addbrand/$brand
      */
-    public function addBrand($brand=null) {
+    public function addbrand($brand=null) {
 		try {
 			global $con;
 		
@@ -24,16 +24,16 @@ class Options {
     }
 	
 	   /**
-     * Add brand in company.
+     * Add model in company.
      *
-     * @url POST /companies/options/addModal/$modal/idbrand/$id_brand
+     * @url POST /companies/options/addmodel/$model/idbrand/$id_brand
      */
-    public function addModal() {
+    public function addmodel($model = null, $id_brand = null) {
 		try {
 			global $con;
 		
 			$sql = 	"INSERT INTO models (model, id_brand) 
-					 VALUES ('".$modal."', ".$id_brand.");";
+					 VALUES ('".$model."', ".$id_brand.");";
 				 
 			$stmt = $con->exec($sql);
 
@@ -48,13 +48,76 @@ class Options {
      *
      * @url GET /companies/options/allbrands
      */
-    public function getBrand() {
+    public function getbrand() {
 		try {
 			global $con;
 		
 			$sql = 	"SELECT id_brand, brand
 					 FROM brands;";
 				 
+			$stmt = $con->query($sql);
+			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $res;
+		} catch(PDOException $e) {
+			return array("error" => "".$e->getMessage());
+		}
+    }
+	
+	
+		   /**
+     * GET company name.
+     *
+     * @url GET /companies/options/getcompany
+     */
+    public function getcompany() {
+		try {
+			global $con;
+		
+			$sql = 	"SELECT id_company, name
+					 FROM companies;";
+				 
+			$stmt = $con->query($sql);
+			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $res;
+		} catch(PDOException $e) {
+			return array("error" => "".$e->getMessage());
+		}
+    }
+	
+		
+		   /**
+     * GET roles name.
+     *
+     * @url GET /companies/options/getroles
+     */
+    public function getroles() {
+		try {
+			global $con;
+		
+			$sql = 	"SELECT id_role, role
+					 FROM roles;";
+				 
+			$stmt = $con->query($sql);
+			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $res;
+		} catch(PDOException $e) {
+			return array("error" => "".$e->getMessage());
+		}
+    }
+	
+	   /**
+     * Add user in company.
+     *
+     * @url POST /companies/options/adduser/$firstname/lastname/$lastname/login/$login/password/$password/email/$email/image/$image/id_role/$id_role/id_company/$id_company
+     */
+    public function adduser($firstname=null, $lastname=null, $login=null, $password=null, $email=null, $image=null, $id_role=null, $id_company=null) {
+		try {
+			global $con;
+		
+			$sql = 	"INSERT INTO users (firstname, lastname, login, pass, email, image, id_role, id_company) 
+					 VALUES ('".$firstname."', '".$lastname."', '".$login."', '".$password."', '".$email."', '".$image."', ".$id_role.", ".$id_company.");";
+				 
+		
 			$stmt = $con->exec($sql);
 
 			return array("success" => "OK");
