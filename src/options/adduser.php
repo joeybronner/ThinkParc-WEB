@@ -20,12 +20,131 @@
       <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
       <script type="text/javascript" src="../../js/jquery.toast.js"></script>
       <script>
-		 $(function onLoad() 
+	  
+	  	 $(function onLoad() 
 			{
+				getcompany();
+				getroles();
 				
-			});	
+			});
+		
+		function adduser(firstname, lastname, login, password, email, image, id_role, id_company) {
+         									
+			 var firstname  = document.getElementById("firstname").value;
+			 var lastname  = document.getElementById("lastname").value;
+			 var login  = document.getElementById("login").value;
+			 var password  = document.getElementById("password").value;
+			 var passconfirmation  = document.getElementById("passwordconfirmation").value;
+			 var email  = document.getElementById("email").value;
+			 var image  = document.getElementById("image").value;
+			 var id_company  = document.getElementById("id_company").value;
+			 var id_role  = document.getElementById("id_role").value;
+			 
+			 if (image == "")
+			{
+				image = "NULL";
+			} else {
+			
+			var file = document.getElementById('image').files[0];
+													var formData = new FormData();
 
-         								
+													// Check the file type.
+													var fakepath = document.getElementById("image").value;
+													var ext = "." + fakepath.substr(fakepath.lastIndexOf('.') + 1);
+													if (!file.type.match('image.*')) {
+															$(document).ready(function() {
+																$.toast({heading: "Error",text: "Only pictures are supported.", icon: "error"});
+															});
+													} else {
+														// Add file to data form
+														var d = new Date();
+														var generatedfilename = d.getTime() + "_" + file.name;
+														formData.append('myfiles', file, generatedfilename + ext);
+														var xhr = new XMLHttpRequest();
+														xhr.open('POST', '../../files/uploadfile.php?target=img_users', true);
+													
+														}
+													xhr.send(formData);
+					}
+					
+			if (password != passconfirmation) {
+										$(document).ready(function() {
+											$.toast({heading: "Error",text: "New password and confirmation are not identical.", icon: "error"});
+												});
+				
+				} else if (!validateEmail(email))
+					{
+						$(document).ready(function() {
+											$.toast({heading: "Error",text: "Please enter a valid email.", icon: "error"});
+												});
+				
+				
+				} else {
+         $.ajax({
+         									
+         	type: 		"POST",
+         	url:		"http://www.think-parc.com/webservice/v1/companies/options/adduser/"+firstname+"/lastname/"+lastname+"/login/"+login+"/password/"+password+"/email/"+email+"/image/"+ generatedfilename + ext +"/id_role/"+id_role+"/id_company/"+id_company,  
+         	success:	function(data) {
+         	$(document).ready(function() {
+         		$.toast({heading: "Success",text: "User successfully added.", icon: "success"});
+         		});
+         														
+					},
+         			error:		function(xhr, status, error) {
+         			$(document).ready(function() {
+         				$.toast({heading: "Error",text: "Error", icon: "error"});
+         					});
+         						}
+         		});
+				
+					}
+         											
+         	};
+			
+			
+			 function getcompany(){
+				
+				
+            	$.ajax({
+         		method: 	"GET",
+         		url:		"http://think-parc.com/webservice/v1/companies/options/getcompany",  
+         		success:	function(data) {
+         						var response = JSON.parse(data);
+								var content = '<option selected disabled>Entreprise</option>';
+         						for (var i = 0; i<response.length; i++) 
+         						{
+         						   content = content + '<option value="'+response[i].id_company+'">'+ response[i].name +'</option>';
+         						}
+         						document.getElementById("id_company").innerHTML = content;
+							
+         					}
+					});
+				 };
+				 
+				 function getroles(){
+				
+				
+            	$.ajax({
+         		method: 	"GET",
+         		url:		"http://think-parc.com/webservice/v1/companies/options/getroles",  
+         		success:	function(data) {
+         						var response = JSON.parse(data);
+								var content = '<option selected disabled>Roles</option>';
+         						for (var i = 0; i<response.length; i++) 
+         						{
+         						   content = content + '<option value="'+response[i].id_role+'">'+ response[i].role +'</option>';
+         						}
+         						document.getElementById("id_role").innerHTML = content;
+							
+         					}
+					});
+				 };
+				 
+			function validateEmail(email) {
+				var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+				return re.test(email);
+			}
+         											
       </script>
    </head>
    <body>
@@ -49,7 +168,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form class="formimg" action="javascript:adduser();" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:adduser(firstname, lastname, login, password, email, image, id_role, id_company);" method="post" enctype="multipart/form-data">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
@@ -65,33 +184,49 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Identifiant et Mot de passe</h5></td>
+											<td><h5>* Identifiant et Email</h5></td>
 										</tr>
 										<tr>
 											<td>
 												<input type="text" id="login" placeholder="identifiant" class="form-control" required/>
 											</td>
 											<td>
-												<input type="text" id="password" placeholder="mot de passe" class="form-control" required/>
-											</td>
-										</tr>
-										<tr>
-											<td><h5>* Email et Confirmation mot de passe</h5></td>
-										</tr>
-										<tr>
-											<td>
-												<input type="text" id="passwordconfirmation" placeholder="mot de passe" class="form-control" required/>
-											</td>
-											<td>
 												<input type="text" id="email" placeholder="email" class="form-control" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>* Mot de passe et Confirmation </h5></td>
+										</tr>
+										<tr>
+											<td>
+												<input type="password" id="password" placeholder="mot de passe" class="form-control" required/>
+											</td>
+											<td>
+												<input type="password" id="passwordconfirmation" placeholder="mot de passe" class="form-control" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5>Entreprise et role</h5></td>
+										</tr>
+										<tr>
+											<td>
+												<select id="id_company" name="id_company" class="form-control">
+													<!-- Here are loaded company content -->
+												 </select>
+											</td>
+											<td>
+												 <select id="id_role" name="id_role" class="form-control">
+													<!-- Here are loaded role content -->
+												 </select>
 											</td>
 										</tr>
 										<tr>
 											<td><h5>Image</h5></td>
 										</tr>
 										<tr>
+										
 											<td>
-												<input class="form-group" type="file" id="file-select" name="myfiles"/>
+												<input class="form-group" type="file" id="image" name="myfiles"/>
 											</td>
 										
 										</tr>
