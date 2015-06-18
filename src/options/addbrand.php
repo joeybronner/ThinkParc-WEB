@@ -73,7 +73,7 @@
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Ajouter une marque</h2>
+				<h2><?php echo $options['TITLE_ADDBRAND'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
