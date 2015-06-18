@@ -170,7 +170,7 @@
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $options['TITLE_Adduser'];?></h2>
+				<h2><?php echo $options['TITLE_ADDUSER'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -178,7 +178,7 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>*<?php echo $options['FIRSTNAMEandLASTNAME'];?></h5></td>
+											<td><h5>*<?php echo $options['FIRSTNAMEANDLASTNAME'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -190,7 +190,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>*<?php echo $options['LOGINandEMAIL'];?></h5></td>
+											<td><h5>*<?php echo $options['LOGINANDEMAIL'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
