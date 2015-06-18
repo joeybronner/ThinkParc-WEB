@@ -1,6 +1,5 @@
 <?php
    session_start();
-
 ?>
 <html>
    <head>
@@ -22,21 +21,22 @@
       <script>
 		 $(function onLoad() 
 			{
-				getBrand();
-				document.getElementById("modal").style.display = "none";
+				getbrand();
+				document.getElementById("model").style.display = "none";
 				
 			});	
 	
 		
-		function addModal() {
+		function addmodel(id_brand, model) {
          									
-			 var modal = document.getElementById("modal").value;
+			 var id_brand = document.getElementById("id_brand").value;
+			 var model = document.getElementById("model").value;
 					
          									
          $.ajax({
          									
          	type: 		"POST",
-         	url:		"http://www.think-parc.com/webservice/v1/companies/options/addModal/"+modal+"/idbrand/"+id_brand,  
+         	url:		"http://www.think-parc.com/webservice/v1/companies/options/addmodel/"+model+"/idbrand/"+id_brand,  
          	success:	function(data) {
          	$(document).ready(function() {
          		$.toast({heading: "Success",text: "Brand successfully added.", icon: "success"});
@@ -51,9 +51,11 @@
          		});
          											
          	};
+			
+			
          	
 
-				 function getBrand(){
+				 function getbrand(){
 				
 				
             	$.ajax({
@@ -66,7 +68,7 @@
          						{
          						   content = content + '<option value="'+response[i].id_brand+'">'+ response[i].brand +'</option>';
          						}
-         						document.getElementById("brand").innerHTML = content;
+         						document.getElementById("id_brand").innerHTML = content;
 							
          					}
 					});
@@ -76,7 +78,7 @@
 			
 			 function displayinput(){
 				
-				document.getElementById("modal").style.display = "block";
+				document.getElementById("model").style.display = "block";
          
 			};
     	
@@ -105,7 +107,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
-							<form class="formimg" action="javascript:addModal();" method="post" enctype="multipart/form-data">
+							<form class="formimg" action="javascript:addmodel(id_brand, model);" method="post" enctype="multipart/form-data">
 								<table class="table-no-border">
 									<tbody>
 										<tr>
@@ -113,14 +115,14 @@
 										</tr>
 										<tr>
 											<td>
-												 <select id="brand" name="brand" class="form-control" Onchange="displayinput();">
+												 <select id="id_brand" name="brand" class="form-control" Onchange="displayinput();">
 													<!-- Here are loaded Brand content -->
 												 </select>
 											</td>
 										</tr>
 												<tr>
 											<td>
-												<input type="text" id="modal" placeholder="modèle" class="form-control" required/>
+												<input type="text" id="model" placeholder="modèle" class="form-control" required/>
 											</td>
 										</tr>
 										
