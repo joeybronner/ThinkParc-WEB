@@ -52,7 +52,8 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 				'login'    	=> $user['login'],
 				'firstname' => $user['firstname'],
 				'lastname' 	=> $user['lastname'],
-				'email' 	=> $user['email']);
+				'email' 	=> $user['email'],
+				'time' 	=> time());
 
 			// Generate Token 
 			$token = new AuthenticationToken();
@@ -62,7 +63,7 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 			$querySession = "INSERT INTO users_auth_tokens (id_user,expire,token) VALUES (".$user['id_user'].",'".$stamp_expire."','".$authToken."')";
 			$session = $connection->query($querySession) or die (mysqli_error());
 			
-			if ($results) {	
+			if ($results) {
 				session_start();
 				$_SESSION['fct_session'];
 				$_SESSION['fct_id_user'] 	= $user['id_user'];
@@ -75,9 +76,6 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 				$_SESSION['fct_email'] 		= $user['email'];
 				$_SESSION['fct_image'] 		= $user['image'];
 				$_SESSION['fct_token'] 		= $authToken;
-				$cookie_name = "fct_token";
-				$cookie_value = $authToken;
-				setcookie($cookie_name, $cookie_value, time() + (60 * 15), "/"); // 86400 = 1 day
 				// Private session cache & expires in a delay of 15 minutes
 				session_cache_limiter('public');
 				session_cache_expire(30);

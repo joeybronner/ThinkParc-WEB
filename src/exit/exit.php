@@ -12,6 +12,7 @@ unset($_SESSION['fct_pass']);
 unset($_SESSION['fct_email']);
 unset($_SESSION['fct_image']);
 unset($_SESSION['fct_lang']);
+unset($_SESSION['fct_token']);
 session_destroy();
 header('Location: ../../index.php');
 

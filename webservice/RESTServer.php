@@ -97,7 +97,8 @@ class RESTServer
 	
 	public function unauthorized($ask = false) {
 		if ($ask) {
-			header("WWW-Authenticate: Basic realm=\"$this->realm\"");
+			session_start();
+			session_destroy();
 		}
 		throw new RestException(401, "You are not authorized to access this resource.");
 	}
@@ -117,10 +118,11 @@ class RESTServer
 			 *	Establish connection
 			 */
 			$link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);				
-			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$token."';")) {
+			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$token."' AND expire > NOW();")) {
 				$row_cnt = mysqli_num_rows($result);
 				if ($row_cnt > 0) {
 					mysqli_free_result($result);
+					mysqli_query($link, "UPDATE users_auth_tokens SET expire = ADDTIME(now(), 60 * 60) WHERE token = '".$token."';");
 					return true;
 				} else {
 					return false;

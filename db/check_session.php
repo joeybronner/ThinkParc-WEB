@@ -1,6 +1,6 @@
 <?php
 try {
-	if (($_SESSION['fct_id_user']) == "") {
+	if ($_SESSION['fct_token'] == "" || !isset($_SESSION['fct_token'])) {
 		throw new Exception("error");
 	}
 } catch (Exception $e) {
