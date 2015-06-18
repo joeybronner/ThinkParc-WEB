@@ -59,7 +59,7 @@
 														// Add file to data form
 														var d = new Date();
 														var generatedfilename = d.getTime() + "_" + file.name;
-														formData.append('myfiles', file, generatedfilename + ext);
+														formData.append('myfiles', file, generatedfilename);
 														var xhr = new XMLHttpRequest();
 														xhr.open('POST', '../../files/uploadfile.php?target=img_users', true);
 													
@@ -83,7 +83,7 @@
          $.ajax({
          									
          	type: 		"POST",
-         	url:		"http://www.think-parc.com/webservice/v1/companies/options/adduser/"+firstname+"/lastname/"+lastname+"/login/"+login+"/password/"+password+"/email/"+email+"/image/"+ generatedfilename + ext +"/id_role/"+id_role+"/id_company/"+id_company,  
+         	url:		"http://www.think-parc.com/webservice/v1/companies/options/adduser/"+firstname+"/lastname/"+lastname+"/login/"+login+"/password/"+password+"/email/"+email+"/image/"+ generatedfilename +"/id_role/"+id_role+"/id_company/"+id_company,  
          	success:	function(data) {
          	$(document).ready(function() {
          		$.toast({heading: "Success",text: "User successfully added.", icon: "success"});
@@ -224,11 +224,9 @@
 											<td><h5>Image</h5></td>
 										</tr>
 										<tr>
-										
-											<td>
-												<input class="form-group" type="file" id="image" name="myfiles"/>
+											<td colspan="2">
+												<h5><input class="form-group" type="file" id="image" name="myfiles"/></h5>
 											</td>
-										
 										</tr>
 									
 										<tr>

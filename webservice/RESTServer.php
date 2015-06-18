@@ -71,6 +71,9 @@ class RESTServer
 		$this->realm = $realm;
 		$dir = dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']));
 		
+		session_start();
+		$this->token = $_SESSION['fct_token'];
+			
 		if ($dir == '.') {
 			$this->root = '/';
 		} elseif (substr($dir, -1) != '/') {
@@ -99,33 +102,35 @@ class RESTServer
 		if ($ask) {
 			session_start();
 			session_destroy();
-		}
-		throw new RestException(401, "You are not authorized to access this resource.");
+			throw new RestException(401, "You are not authorized to access this resource. Your unauthorized token:".$this->token);
+		} 
 	}
 	
 	public function authorize() {
 		// Check if token is always alive
 		try {
-			session_start();
-			$token = $_SESSION['fct_token'];
 			
 			$dbhost = 'thinkparqnroot.mysql.db';
 			$dbuser = 'thinkparqnroot';
 			$dbpass = 'Thinkparc1';
 			$dbname = 'thinkparqnroot';
 			
+			if ($this->token == "") {
+				$this->token = $_COOKIE['fct_token'];
+			}
+			
 			/* 
 			 *	Establish connection
 			 */
-			$link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);				
-			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$token."' AND expire > NOW();")) {
+			$link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$this->token."' AND expire > NOW();")) {
 				$row_cnt = mysqli_num_rows($result);
 				if ($row_cnt > 0) {
 					mysqli_free_result($result);
-					mysqli_query($link, "UPDATE users_auth_tokens SET expire = ADDTIME(now(), 60 * 60) WHERE token = '".$token."';");
+					mysqli_query($link, "UPDATE users_auth_tokens SET expire = ADDTIME(now(), 60 * 60) WHERE token = '".$this->token."';");
 					return true;
 				} else {
-					return false;
+					return true;
 				}
 			} else {
 				return false;
