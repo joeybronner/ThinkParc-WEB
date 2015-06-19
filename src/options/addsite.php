@@ -115,53 +115,52 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* <?php echo $options['COMPANYANDNAME'];?></h5></td>
+											<td><h5>* <?php echo $options['COMPANY'];?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td colspan="2">
 												 <select id="id_company" name="id_company" class="form-control">
 													<!-- Here are loaded company content -->
 												 </select>
 											</td>
-											<td>
+										</tr>
+										<tr>
+											<td><h5>* <?php echo $options['SITENAME'];?></h5></td>
+										</tr>
+										<tr>
+											<td colspan="2">
 												<input type="text" id="name" placeholder="<?php echo $options['NAME'];?>" class="form-control" required/>
 											</td>
 										</tr>
-										
-									
 										<tr>
-											<td><h5>* <?php echo $options['ADRESS1ANDADRESS2'];?></h5></td>
+											<td><h5>* <?php echo $options['ADDRESS'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
 												<input type="text" id="adress1" placeholder="<?php echo $options['ADRESS1'];?>" class="form-control" required/>
 											</td>
+										</tr>
+										<tr>
 											<td>
 												<input type="text" id="adress2" placeholder="<?php echo $options['ADRESS2'];?>" class="form-control" required/>
 											</td>
-										</tr>
-									
-										<tr>
-											<td><h5>* <?php echo $options['ADRESS3ANDCITY'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
 												<input type="text" id="adress3" placeholder="<?php echo $options['ADRESS3'];?>" class="form-control" required/>
 											</td>
-												<td>
+										</tr>
+										<tr>
+											<td><h5>* <?php echo $options['CITYANDCOUNTRY'];?></h5></td>
+										</tr>
+										<tr>
+											<td>
 												<input type="text" id="city" placeholder="<?php echo $options['CITY'];?>" class="form-control" required/>
 											</td>
-										</tr>
-									
-										<tr>
-											<td><h5>* <?php echo $options['COUNTRY'];?></h5></td>
-										</tr>
-										<tr>
 											<td>
 												<input type="text" id="country" placeholder="<?php echo $options['COUNTRY'];?>" class="form-control" required/>
 											</td>
 										</tr>
-										
 										<tr>
 											<td colspan="3" align="right">
 												<input type="reset" value="<?php echo $options['RESET'];?>" class="btn btn-warning"/>
