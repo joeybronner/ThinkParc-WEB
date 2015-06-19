@@ -1,5 +1,12 @@
 <?php
-   session_start();
+     	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/addproduct.fr.php');
+	else
+		include('../../lang/stocks/addproduct.en.php');
 ?>
 <html>
    <head>
@@ -41,7 +48,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/family",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         						var content = '<option selected disabled>Famille</option>';
+         						var content = '<option selected disabled><?php echo $stocks['FAMILY'];?></option>';
          						for (var i = 0; i<response.length; i++) 
          						{
 									content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
@@ -59,7 +66,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
          		success:	function(data) {
          						var response = JSON.parse(data);
-         						var content = '<option selected disabled>sous-famille</option>';
+         						var content = '<option selected disabled><?php echo $stocks['UNDERFAMILY'];?></option>';
 
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -81,7 +88,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content = '<option selected disabled>sous-famille 2</option>';
+								var content = '<option selected disabled><?php echo $stocks['UNDERFAMILY2'];?></option>';
          						for (var i = 0; i<response.length; i++) 
          						{
          						   content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
@@ -154,13 +161,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Ajouter un produit</h2>
+				<h2><?php echo $stocks['TITLE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -168,7 +175,7 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Familles</h5></td>
+											<td><h5>* <?php echo $stocks['FAMILY'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -186,22 +193,22 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* R&eacute;f&eacute;rence constructeur & D&eacute;signation</h5></td>
+											<td><h5>* <?php echo $stocks['REFANDDESIGNATION'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="reference" placeholder="reference" class="form-control" required/>
+												<input type="text" id="reference" placeholder="<?php echo $stocks['REFERENCE'];?>" class="form-control" required/>
 											</td>
 											<td>
-												<input type="text" id="designation" placeholder="designation" class="form-control" required/>
+												<input type="text" id="designation" placeholder="<?php echo $stocks['DESIGNATION'];?>" class="form-control" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Prix d'achat</h5></td>
+											<td><h5>* <?php echo $stocks['PRICE'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												 <input type="text" id="buyingprice" placeholder="prix d'achat" class="form-control" required/>
+												 <input type="text" id="buyingprice" placeholder="<?php echo $stocks['PRICE'];?>" class="form-control" required/>
 											</td>
 											<td>
 												 <select id="CurrenciesContent" class="form-control" required/>
@@ -210,8 +217,8 @@
 										</tr>
 										<tr>
 											<td colspan="3" align="right">
-												<input type="reset" value="Reinitialiser" class="btn btn-warning" onclick="OnResetClick();"/>
-												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+												<input type="reset" value="<?php echo $stocks['RESET'];?>" class="btn btn-warning" onclick="OnResetClick();"/>
+												<input type="submit" class="btn btn-success" value="<?php echo $stocks['SUBMIT'];?>"/>
 											</td>
 										</tr>
 									</tbody>
@@ -223,5 +230,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
