@@ -1,5 +1,12 @@
 <?php
-   session_start();
+       	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/addinstock.fr.php');
+	else
+		include('../../lang/stocks/addinstock.en.php');
    ?>
 <html>
    <head>
@@ -21,71 +28,7 @@
 	  
       <script>
 		var idpart = "";
-	  
-	  	function getsiteproductbycompany(id_company) {
-		$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/siteproductbycompany/"+id_company, 
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var dataSet = new Array(response.length);
-							
-							for (var i = 0; i<response.length; i++) 
-							{
-								dataSet[i] = new Array(	response[i].reference, 
-														response[i].designation, 
-														response[i].buyingprice + response[i].currency, 
-														response[i].company,
-														response[i].family,
-														response[i].quanty,
-														response[i].measurement,
-														response[i].driveway,
-														response[i].bay,
-														response[i].position,
-														response[i].rack,
-														response[i].site,
-														response[i].typestock,
-														response[i].locker);
-							}
-							
-							document.getElementById("productblock").style.display = "block";
-							
-							$('#stock').html( '<table class="display" cellspacing="0" width="100%" id="example"></table>' );
-							
-							$('#example').dataTable( {
-								"data": dataSet,
-								   "scrollX": true,
-								   "bPaginate": true,
-								   "bLengthChange": true,
-								   "bStateSave": true,
-								   "bFilter": true,
-								   "bSort": true,
-								   "bInfo": true,
-								   "bAutoWidth": true,
-								"columns": [
-									{ "title": "reference" , "class": "center fctbw"},
-									{ "title": "designation" , "class": "center fctbw"},
-									{ "title": "buyingprice" , "class": "center fctbw" },
-									{ "title": "company", "class": "center fctbw" },
-									{ "title": "family", "class": "center fctbw" },
-									{ "title": "quanty", "class": "center fctbw" },
-									{ "title": "measurement", "class": "center fctbw" },
-									{ "title": "driveway", "class": "center fctbw" },
-									{ "title": "bay", "class": "center fctbw" },
-									{ "title": "position", "class": "center fctbw" },
-									{ "title": "rack", "class": "center fctbw" },
-									{ "title": "site", "class": "center fctbw" },
-									{ "title": "typestock", "class": "center fctbw" },
-									{ "title": "locker", "class": "center fctbw" }
-								]
-							} );   
-						},
-			error:		function(data) {
-							//alert('error');
-						}
-		});
-	};	 
-							
+				
 	  
 	   function checkref(ref){
 				
@@ -118,11 +61,11 @@
    							
 								if (verif)
 								{
-									div.textContent = "  Existant";
+									div.textContent = "  <?php echo $stocks['EXIST'];?>";
 									div.className='green';
 								} else {
 									div.className='red';
-									div.textContent = "  Inexistant";
+									div.textContent = "  <?php echo $stocks['NOTEXIST'];?>";
 									idpart = "";
 								}
 							
@@ -130,28 +73,7 @@
 			});
          };
 	  
-	  
-         function getproductbycompany(id_company, ref){
-				
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-				var ref = document.getElementById('ref').value;
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/displayproductbycompany/"+id_company+"/ref/"+ref,  
-         		success:	function(data) {
-         						
-								var response = JSON.parse(data);
-								var content;
-								
-         						for (var i = 0; i<response.length; i++) 
-         						{
-									 content = content + '<option value="'+response[i].id_part+'">'+ response[i].reference +'</option>';
-								}
-         						document.getElementById("productContent").innerHTML = content;
-         					}
-         	});
-         };
-         
+
         $(function getSites(id_company){
 		 
 				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
@@ -161,7 +83,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content;
+								var content = '<option selected disabled><?php echo $stocks['SITE'];?></option>';
          					
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -178,7 +100,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/kinds",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content;
+								var content = '<option selected disabled><?php echo $stocks['KINDS'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -195,7 +117,7 @@
          		url:		"http://think-parc.com/webservice/v1/companies/stocks/measurements",  
          		success:	function(data) {
          						var response = JSON.parse(data);
-								var content;
+								var content = '<option selected disabled><?php echo $stocks['MEASURE'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -253,13 +175,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Ajouter un produit en stock</h2>
+				<h2><?php echo $stocks['TITLE'];?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -267,25 +189,25 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Reference</h5></td>
+											<td><h5>* <?php echo $stocks['REFERENCE'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
 												 <script>
 													var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
 												 </script>
-												 <input type="text" id="ref" placeholder="référence" onkeyup="checkref(ref, id_company);" class="form-control" required/> 
+												 <input type="text" id="ref" placeholder="<?php echo $stocks['REFERENCE'];?>" onkeyup="checkref(ref, id_company);" class="form-control" required/> 
 											</td>
 											<td>
 												<div id="textDiv"  class="red"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Quantit&eacute; et Mesure</h5></td>
+											<td><h5>* <?php echo $stocks['QUANTITYANDMEASURE'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="quanty" class="form-control" placeholder="quantité" required/>
+												<input type="text" id="quanty" class="form-control" placeholder="<?php echo $stocks['QUANTITY'];?>" required/>
 											</td>
 											<td>
 												<select id="measurementContent" class="form-control">
@@ -294,51 +216,51 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Emplacements</h5></td>
+											<td><h5>* <?php echo $stocks['LOCATION'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="id_measurement" class="form-control" placeholder="Magasin No" required/>
+												<input type="text" id="id_measurement" class="form-control" placeholder="<?php echo $stocks['MAGASIN'];?>" required/>
 											</td>
 											<td>
-												<input type="text" id="driveway" class="form-control" placeholder="Allee" required/>
-											</td>
-										</tr>
-										<tr>
-											<td><h5>* Emplacements</h5></td>
-										</tr>
-										<tr>
-											<td>
-												<input type="text" id="bay" class="form-control" placeholder="Travee" required/>
-											</td>
-											<td>
-												<input type="text" id="rack" class="form-control" placeholder="Etage" required/>
+												<input type="text" id="driveway" class="form-control" placeholder="<?php echo $stocks['DRIVE'];?>" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Emplacements</h5></td>
+											<td><h5>* <?php echo $stocks['LOCATION'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input type="text" id="locker" class="form-control" placeholder="Casier" required/>
+												<input type="text" id="bay" class="form-control" placeholder="<?php echo $stocks['BAY'];?>" required/>
 											</td>
 											<td>
-												<input type="text" id="position" class="form-control" placeholder="Position" required/>
+												<input type="text" id="rack" class="form-control" placeholder="<?php echo $stocks['RACK'];?>" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Equivalence & * Type stock</h5></td>
+											<td><h5>* <?php echo $stocks['LOCATION'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
-											    <input type="text" id="equivalence" class="form-control" placeholder="facultatif"/>
+												<input type="text" id="locker" class="form-control" placeholder="<?php echo $stocks['LOCKER'];?>" required/>
+											</td>
+											<td>
+												<input type="text" id="position" class="form-control" placeholder="<?php echo $stocks['POSITION'];?>" required/>
+											</td>
+										</tr>
+										<tr>
+											<td><h5><?php echo $stocks['LOCATIONANDTYPE'];?></h5></td>
+										</tr>
+										<tr>
+											<td>
+											    <input type="text" id="equivalence" class="form-control" placeholder="<?php echo $stocks['OPTIONAL'];?>"/>
 											</td>
 											<td>
 												<select id="KindsContent" class="form-control" required/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Affectation</h5></td>
+											<td><h5>* <?php echo $stocks['ASSIGNMENT'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -349,8 +271,8 @@
 										
 										<tr>
 											<td colspan="2" align="right">
-												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+												<input type="reset" value="<?php echo $stocks['RESET'];?>" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="<?php echo $stocks['SUBMIT'];?>"/>
 											</td>
 										</tr>
 									</tbody>
@@ -362,5 +284,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
