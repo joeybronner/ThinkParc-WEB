@@ -1,5 +1,12 @@
 <?php
-   session_start();
+    	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/consultationproduct.fr.php');
+	else
+		include('../../lang/stocks/consultationproduct.en.php');
 ?>
 <html>
 	<head>
@@ -49,8 +56,8 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sites</option>';
-								content = content + '<option value="0">Tous les sites</option>';
+								var content = '<option selected disabled><?php echo $stocks['SITELIST'];?></option>';
+								content = content + '<option value="0"><?php echo $stocks['ALLSITES'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -112,19 +119,19 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "reference" , "class": "center fctbw"},
-									{ "title": "designation" , "class": "center fctbw"},
-									{ "title": "prix achat" , "class": "center fctbw" },
-									{ "title": "entreprise", "class": "center fctbw" },
-									{ "title": "famille", "class": "center fctbw" },
-									{ "title": "quantité", "class": "center fctbw" },
-									{ "title": "allée", "class": "center fctbw" },
-									{ "title": "travée", "class": "center fctbw" },
-									{ "title": "position", "class": "center fctbw" },
-									{ "title": "étagère", "class": "center fctbw" },
-									{ "title": "site", "class": "center fctbw" },
-									{ "title": "type stock", "class": "center fctbw" },
-									{ "title": "casier", "class": "center fctbw" }
+									{ "title": "<?php echo $stocks['REFERENCE'];?>" , "class": "center fctbw"},
+									{ "title": "<?php echo $stocks['DES'];?>" , "class": "center fctbw"},
+									{ "title": "<?php echo $stocks['PRICE'];?>" , "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['COMP'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['FAM'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['QUANTY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['BAY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['DRIVE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['POS'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['RACK'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['SITE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['TYPE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['LOCKER'];?>", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -147,20 +154,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+					<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 		   <div class="templatemo-content">
 			    <div class="black-bg btn-menu margin-bottom-20">
-					<h2>Consultation des stocks</h2>
+					<h2><?php echo $stocks['TITLE'];?></h2>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12 col-lg-12"> 
 									<form>
 										<table class="table-no-border">
 												<tr>
-													<td><h5>Veuillez sélectionner un site</h5></td>
+													<td><h5><?php echo $stocks['SELECT'];?></h5></td>
 												</tr>
 												<tr>
 													<td>
@@ -185,7 +192,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Produits</h2>
+					<h2><?php echo $stocks['PRODUCT'];?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -202,5 +209,6 @@
 			</div>
 		</div>				
 	</div>
+	<?php include('../footer/footer.php'); ?>
    </body>
 </html>
