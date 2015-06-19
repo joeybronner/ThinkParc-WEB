@@ -1,5 +1,12 @@
 <?php
-   session_start();
+      	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/reception.fr.php');
+	else
+		include('../../lang/stocks/reception.en.php');
 ?>
 <html>
 	<head>
@@ -52,7 +59,7 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Receptions en attentes</option>';
+								var content = '<option selected disabled><?php echo $stocks['LIST'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -165,7 +172,7 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Choisir un site</option>';
+								var content = '<option selected disabled><?php echo $stocks['SELECTSITE'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -239,16 +246,16 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "Libellé" , "class": "center fctbw" },
-									{ "title": "Qté", "class": "center fctbw" },
-									{ "title": "Ref", "class": "center fctbw" },
-									{ "title": "Date", "class": "center fctbw" },
-									{ "title": "Destinataire", "class": "center fctbw" },
-									{ "title": "Travée", "class": "center fctbw" },
-									{ "title": "Position", "class": "center fctbw" },
-									{ "title": "Etagère", "class": "center fctbw" },
-									{ "title": "Casier", "class": "center fctbw" },
-									{ "title": "Allée", "class": "center fctbw" }
+									{ "title": "<?php echo $stocks['LABEL'];?>" , "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['QUANTY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['REFERENCE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['DATE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['RECIPIENT'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['BAY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['POSITION'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['RACK'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['LOCKER'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['DRIVE'];?>", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -271,20 +278,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+					<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		 </div> 
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Choix de la récéption</h2>
+					<h2><?php echo $stocks['TITLE'];?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
 								<form>
 									<table class="table-no-border">
 										<tr>
-											<td><h5>Sélectionner le transfert</h5></td>
+											<td><h5><?php echo $stocks['SELECTTRANSFER'];?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -306,7 +313,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Reception en attentes</h2>
+					<h2><?php echo $stocks['TABLETITLE'];?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -314,7 +321,7 @@
 									<div class="col-md-12 col-lg-12">
 										<div id="transfert">
 									    </div>	
-										<a href="javascript:receptioncheck();" class="btn btn-success">Récéptionner</a>
+										<a href="javascript:receptioncheck();" class="btn btn-success"><?php echo $stocks['RECEIVE'];?></a>
 									</div>
 								</form>
 							</div>
@@ -324,5 +331,6 @@
 			</div>
 		</div>
 	</div>
+	<?php include('../footer/footer.php'); ?>
  </body>
 </html>

@@ -1,5 +1,12 @@
 <?php
-   session_start();
+   	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/history.fr.php');
+	else
+		include('../../lang/stocks/history.en.php');
 ?>
 <html>
 	<head>
@@ -49,12 +56,12 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sorties</option>';
-								content = content + '<option value="all">Toutes les sorties</option>';
+								var content = '<option selected disabled><?php echo $stocks['OUTPUTS'];?></option>';
+								content = content + '<option value="all"><?php echo $stocks['ALLOUTPUTS'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
-									content = content + '<option value="'+response[i].title+'"> date : '+ response[i].transferdate +' --- libellé : '+ response[i].title +' </option>';
+									content = content + '<option value="'+response[i].title+'"> date : '+ response[i].transferdate +' --- <?php echo $stocks['WORDING'];?> : '+ response[i].title +' </option>';
          						}
          						
 								document.getElementById("list").innerHTML = content;
@@ -101,12 +108,12 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "Libelle" , "class": "center fctbw"},
-									{ "title": "Produit" , "class": "center fctbw" },
-									{ "title": "Destinataire", "class": "center fctbw" },
-									{ "title": "Quantité", "class": "center fctbw" },
-									{ "title": "Date de transfert", "class": "center fctbw" },
-									{ "title": "Date de validation", "class": "center fctbw" }
+									{ "title": "<?php echo $stocks['WORDING'];?>" , "class": "center fctbw"},
+									{ "title": "<?php echo $stocks['PRODUCT'];?>" , "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['RECIPIENT'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['QUANTITY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['TRANSFERTDATE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['VALIDATIONDATE'];?>", "class": "center fctbw" }
 								]
 							} );   
 						},
@@ -129,20 +136,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+					<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 		   <div class="templatemo-content">
 			    <div class="black-bg btn-menu margin-bottom-20">
-					<h2>Consultation de l'historique des sorties</h2>
+					<h2><?php echo $stocks['TITLE'];?></h2>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12 col-lg-12"> 
 									<form>
 										<table class="table-no-border">
 												<tr>
-													<td><h5>Veuillez sélectionner une sortie</h5></td>
+													<td><h5><?php echo $stocks['SELECT'];?></h5></td>
 												</tr>
 												<tr>
 													<td>
@@ -167,7 +174,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Historique</h2>
+					<h2><?php echo $stocks['HISTORY'];?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -184,5 +191,6 @@
 			</div>
 		</div>				
 	</div>
-   </body>
+	<?php include('../footer/footer.php'); ?>
+  </body>
 </html>
