@@ -46,10 +46,26 @@
 				getCompany(function(company){
 					$.ajax({
 						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/vehicles/currentlyinmaintenance",  
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/vehicles/all",  
 						success:	function(data) {
-										var response = JSON.parse(data);
-										document.getElementById("qv_vehicles_maint").innerHTML = response.length;
+										var response1 = JSON.parse(data);
+										var totalvehicles = response1.length;
+										$.ajax({
+											method: 	"GET",
+											url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/vehicles/currentlyinmaintenance",  
+											success:	function(data) {
+															var response2 = JSON.parse(data);
+															var vehiclesmaintenance = response2.length;
+															document.getElementById("qv_vehicles_maint").innerHTML = vehiclesmaintenance + "/" + totalvehicles;
+															if ((vehiclesmaintenance/totalvehicles)*100 > 50) {
+																document.getElementById("qv_vehicles_maint").style.color='red';
+															} else if ((vehiclesmaintenance/totalvehicles)*100 > 10) {
+																document.getElementById("qv_vehicles_maint").style.color='orange';
+															} else {
+																document.getElementById("qv_vehicles_maint").style.color='green';
+															}
+														}
+										});
 									}
 					});
 					$.ajax({
@@ -58,7 +74,11 @@
 						success:	function(data) {				
 										var response = JSON.parse(data);										
 										document.getElementById("qv_transfert_wait").innerHTML = response.length;
-										
+										if (response.length > 0) {
+											document.getElementById("qv_transfert_wait").style.color='red';
+										} else {
+											document.getElementById("qv_transfert_wait").style.color='green';
+										}
 									}
 					});
 					$.ajax({
@@ -67,7 +87,11 @@
 						success:	function(data) {				
 										var response = JSON.parse(data);										
 										document.getElementById("qv_assurances_end").innerHTML = response.length;
-										
+										if (response.length > 0) {
+											document.getElementById("qv_assurances_end").style.color='red';
+										} else {
+											document.getElementById("qv_assurances_end").style.color='green';
+										}
 									}
 					});
 					$.ajax({
@@ -76,7 +100,11 @@
 						success:	function(data) {				
 										var response = JSON.parse(data);										
 										document.getElementById("qv_techcontrol_end").innerHTML = response.length;
-										
+										if (response.length > 0) {
+											document.getElementById("qv_techcontrol_end").style.color='red';
+										} else {
+											document.getElementById("qv_techcontrol_end").style.color='green';
+										}
 									}
 					});
 				});
@@ -180,19 +208,19 @@
 										<table>
 											<tr>
 												<td>Véhicule(s) en maintenance</td>
-												<td id="qv_vehicles_maint">0</td>
+												<td id="qv_vehicles_maint" align="center">-</td>
 											</tr>
 											<tr>
 												<td>Réception(s) en attente</td>
-												<td id="qv_transfert_wait">0</td>
+												<td id="qv_transfert_wait" align="center">-</td>
 											</tr>
 											<tr>
-												<td>Echéance(s) assurance</td>
-												<td id="qv_assurances_end">0</td>
+												<td>Echéance(s) assurances</td>
+												<td id="qv_assurances_end" align="center">-</td>
 											</tr>
 											<tr>
-												<td>Echéanc(e) controle technique</td>
-												<td id="qv_techcontrol_end">0</td>
+												<td>Echéance(s) contrôles techniques</td>
+												<td id="qv_techcontrol_end" align="center">-</td>
 											</tr>
 										</table>
 									</div>
