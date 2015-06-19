@@ -1,68 +1,65 @@
 <?php
-   	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/options/addbrand.fr.php');
-	else
-		include('../../lang/options/addbrand.en.php');
+/* ======================================================================== *
+ *																			*
+ * @filename:		addbrand.php											*
+ * @description:	This page allows some users to put a brand in dataBase.	*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @lastupdate: 	19/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 19/06/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
    <head>
-      <title>FCT</title>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="../../css/bootstrap.css">
-      <link rel="stylesheet" href="../../css/font-awesome.min.css">
-      <link rel="stylesheet" href="../../css/templatemo_main.css">
-      <link rel="stylesheet" href="../../css/app.css">
-      <link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-      <script src="../../js/jquery.min.js"></script>
-      <script src="../../js/jquery-ui.min.js"></script>
-      <script src="../../js/jquery.backstretch.min.js"></script>
-      <script src="../../js/templatemo_script.js"></script>
-      <script src="../../js/bootstrap.js"></script>
-      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
-      <script type="text/javascript" src="../../js/jquery.toast.js"></script>
-      <script>
-		
-	
-		
-		function addbrand(brand) {
-         									
-			 var brand = document.getElementById("brand").value;
-					
-         									
-         $.ajax({
-         									
-         	type: 		"POST",
-         	url:		"http://www.think-parc.com/webservice/v1/companies/options/addbrand/"+brand,  
-         	success:	function(data) {
-         	$(document).ready(function() {
-         		$.toast({heading: "Success",text: "Brand successfully added.", icon: "success"});
-         		});
-         														
-					},
-         			error:		function(xhr, status, error) {
-         			$(document).ready(function() {
-         				$.toast({heading: "Error",text: "Error", icon: "error"});
-         					});
-         						}
-         		});
-         											
-         	};
-         								
-         								
-      </script>
-   </head>
-   <body>
-
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<?php
-		include('../header/navbar.php');
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/addbrand.fr.php');
+		else
+		include('../../lang/options/addbrand.en.php');
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="addmaintenance.js"></script>';
 	?>
+	<title><?php echo $options['TITLE_ADDBRAND'];?></title>
+</head>
+   <body>
+	
+	<!-- Include navbar with home, informations & logout shortcuts -->
+	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
+	
+	<!-- Hidden div(s) for JS values -->
+	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
 
+	<!-- Background image for this page-->
 	<img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	
+	<!-- Page content -->
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
@@ -104,6 +101,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- End page content -->
+	<!-- Include footer bar with language switch & global website informations -->
 	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
