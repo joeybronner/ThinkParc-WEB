@@ -31,7 +31,7 @@
 				if (section != "") {
 					changeSection("#" + section);
 				}
-				
+				/* Load random news */
 				$.ajax({
 					method: 	"GET",
 					url:		"http://think-parc.com/webservice/v1/news/random",  
@@ -42,8 +42,56 @@
 									document.getElementById("newsContent").innerHTML = content;
 								}
 				});
-			});
-			
+				/* Load QuickView values */
+				getCompany(function(company){
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/vehicles/currentlyinmaintenance",  
+						success:	function(data) {
+										var response = JSON.parse(data);
+										document.getElementById("qv_vehicles_maint").innerHTML = response.length;
+									}
+					});
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/stocks/gettransferlist/company/" + company, 
+						success:	function(data) {				
+										var response = JSON.parse(data);										
+										document.getElementById("qv_transfert_wait").innerHTML = response.length;
+										
+									}
+					});
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/insurances/alert", 
+						success:	function(data) {				
+										var response = JSON.parse(data);										
+										document.getElementById("qv_assurances_end").innerHTML = response.length;
+										
+									}
+					});
+					$.ajax({
+						method: 	"GET",
+						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/technicalcontrol/alert", 
+						success:	function(data) {				
+										var response = JSON.parse(data);										
+										document.getElementById("qv_techcontrol_end").innerHTML = response.length;
+										
+									}
+					});
+				});
+			});	
+			function getCompany(handleData){
+				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
+				$.ajax({
+					method: 	"GET",
+					url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user,  
+					success:	function(data) {
+									var response = JSON.parse(data);
+									handleData(response[0].id_company);
+								}
+				});
+			};
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -60,7 +108,7 @@
 					<img src="../images/background/home/think_parc_home_1.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 					<img src="../images/background/home/think_parc_home_2.jpg" id="products-img" class="inactive" alt="Product stocks">
 					<img src="../images/background/home/think_parc_home_3.jpg" id="vehicles-img"  class="inactive" alt="Vehicles">
-					<img src="../images/background/home/think_parc_home_1.jpg" id="about-img" class="inactive" alt="Véhicules">
+					<img src="../images/background/home/think_parc_home_1.jpg" id="reporting-img" class="inactive" alt="Reporting">
 					<img src="../images/background/maintenance/think_parc_maintenance_3.jpg" id="maintenance-img" class="inactive" alt="maintenance">
 					<img src="../images/background/home/think_parc_home_3.jpg" id="options-img" class="inactive" alt="options">
 					<img src="../images/background/home/think_parc_home_1.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
@@ -105,7 +153,7 @@
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
-									<a href="#about" class="change-section">
+									<a href="#reporting" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-signal"></i>
 											<h2>Reporting</h2>
@@ -131,20 +179,20 @@
 										<h2>Vue rapide</h2>
 										<table>
 											<tr>
-												<td>Machines transférées</td>
-												<td>1</td>
+												<td>Véhicule(s) en maintenance</td>
+												<td id="qv_vehicles_maint">0</td>
 											</tr>
 											<tr>
-												<td>Machines en maintenance</td>
-												<td>3</td>
+												<td>Réception(s) en attente</td>
+												<td id="qv_transfert_wait">0</td>
 											</tr>
 											<tr>
-												<td>Echéance assurance</td>
-												<td>3</td>
+												<td>Echéance(s) assurance</td>
+												<td id="qv_assurances_end">0</td>
 											</tr>
 											<tr>
-												<td>Echéance controle technique</td>
-												<td>4</td>
+												<td>Echéanc(e) controle technique</td>
+												<td id="qv_techcontrol_end">0</td>
 											</tr>
 										</table>
 									</div>
@@ -297,7 +345,7 @@
 								</div>
 							</div>
 						</section> 
-						<section id="about-section" class="inactive">
+						<section id="reporting-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center">Reporting</h2>
@@ -321,7 +369,7 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.about-section -->    
+						<!-- /.reporting-section -->    
 						<section id="maintenance-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -402,7 +450,7 @@
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 										<a href="options/addsite.php" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-users"></i>
+												<i class="fa fa-building"></i>
 												<h2>Ajout site</h2>
 											</div>
 											<br/>

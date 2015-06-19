@@ -1,46 +1,50 @@
 <?php
-/* ------------------------------------------------------------------------ *
+/* ======================================================================== *
  *																			*
- * @description:	Description.											*
+ * @filename:		partsconsumption.php									*
+ * @description:	Reporting for a specific part between a range of date	*
  *																			*
  * @author(s): 		Joey BRONNER											*
  * @contact(s):		joeybronner@gmail.com									*
- * @lastupdate: 	05/06/2015												*
+ * @creation: 		05/06/2015												*
  * @remarks:		-														*
  * 																			*
  * @rights:			Think-Parc Software ©, 2015.							*
  *																			*
- * ------------------------------------------------------------------------ */
-	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/maintenance/maintenance.fr.php');
-	else
-		include('../../lang/maintenance/maintenance.en.php');
-?>
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 05/06/2015 | J.BRONNER      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
+ ?>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<title><?php echo $maintenance['PAGE_TITLE'];?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../../css/bootstrap.css">
-	<link rel="stylesheet" href="../../css/font-awesome.min.css">
-	<link rel="stylesheet" href="../../css/templatemo_main.css">
-	<link rel="stylesheet" href="../../css/app.css">
-	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-	<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-	<script src="../../js/jquery.min.js"></script>
-    <script src="../../js/jquery.backstretch.min.js"></script>
-	<script src="../../js/templatemo_script.js"></script>
-	<script src="../../js/bootstrap.js"></script>
-	<script src="../../js/jquery.toast.js"></script>
-	<script src="../../js/popup.js"></script>
-    <script type="text/javascript" src="../../js/jquery.js"></script>
-    <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	<script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
-	<script type="text/javascript" src="../../js/googlecharts.js"></script>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		/*if($_SESSION['fct_lang'] == 'FR') {
+			include('../../lang/maintenance/maintenance.fr.php');
+		} else {
+			include('../../lang/maintenance/maintenance.en.php');
+		}*/
+	?>
+	<title>Think-Parc | Parts reporting</title>
 	<script>
 		// Load charts
 		var data_charts1;
@@ -48,13 +52,15 @@
 		google.setOnLoadCallback(drawChart);
 		$(function onLoad(){
 			document.getElementById("title_chart1").style.display = "none";
+			$('#date_start').datepicker();
+			$('#date_end').datepicker();
 		});
 		function refreshReport() {
 			var sum_parts = 0;
 			document.getElementById("title_chart1").style.display = "block";
 			var reference = document.getElementById("reference").value;
-			var date_start = document.getElementById("date_start").value;
-			var date_end = document.getElementById("date_end").value;
+			var date_start = document.getElementById("date_start").value.split("/").reverse().join("-");
+			var date_end = document.getElementById("date_end").value.split("/").reverse().join("-");
 			var filter = document.getElementById("filter").value;
 			getCompany(function(company){
 				$.ajax({
@@ -70,16 +76,25 @@
 									data_charts1[0] = new Array( "Part", "Used", { role: "style" } );
 									for (var i = 1; i<=response.length; i++) {
 										sum_parts = sum_parts + parseInt(response[i-1].somme);
-										data_charts1[i] = new Array( 	response[i-1].f + "/" + response[i-1].y, 
+										var col_name;
+										if (filter == "DAY") {
+											col_name = reformatDate(response[i-1].f);
+										} else if (filter == "MONTH") {
+											col_name = response[i-1].f + "/" + response[i-1].y;
+										} else if (filter == "YEAR") {
+											col_name = response[i-1].y;
+										}
+										
+										data_charts1[i] = new Array( 	col_name, 
 																		parseInt(response[i-1].somme), 
 																		"#FFB74D" );
 									}
 									drawChart();
 									document.getElementById("sum_parts").innerHTML = sum_parts;
 									document.getElementById("text_usedparts").innerHTML = "parts used between " + 
-																								date_start + 
+																								reformatDate(date_start) + 
 																								" and " + 
-																								date_end;
+																								reformatDate(date_end);
 								}
 				});
 			});
@@ -129,6 +144,10 @@
 							}
 			});
 		};
+		function reformatDate(dateStr) {
+			dArr = dateStr.split("-");
+			return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
+		}
 	</script>
 </head>
 <body>
@@ -137,12 +156,12 @@
 		include('../header/navbar.php');
 	?>
 	
-	<img src="../../images/background/maintenance.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<img src="../../images/background/maintenance/think_parc_maintenance_5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad">	
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
-				<a href="../accueil.php?section=maintenance">
-						<h5><i class="fa fa-chevron-left"></i><?php echo $maintenance['BACK'];?></h5>
+				<a href="../accueil.php?section=reporting">
+						<h5><i class="fa fa-chevron-left"></i>Back</h5>
 				</a>
 			</div>
 		</div>
@@ -176,16 +195,16 @@
 												<!--</select>-->
 											</td>
 											<td>
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_start" required/>
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_start" name="date_start" placeholder="JJ/MM/AAAA" required>
 											</td>
 											<td>
-												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_end" required/>
+												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_end" name="date_end" placeholder="JJ/MM/AAAA" required>
 											</td>
 											<td>
 												<select id="filter" name="filter" class="form-control">
-													<option value="day">Day</option>
-													<option value="week">Week</option>
-													<option value="month">Month</option>
+													<option value="DAY">Day</option>
+													<option value="MONTH">Month</option>
+													<option value="YEAR">Year</option>
 												</select>
 											</td>
 											<td align="right">
