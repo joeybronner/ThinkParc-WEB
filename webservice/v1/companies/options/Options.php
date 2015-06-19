@@ -33,7 +33,7 @@ class Options {
 		try {
 			global $con;
 		
-			$sql = 	"INSERT INTO sites (name, id_company, adress_ligne1, adress_ligne2, adress_ligne3, city, country) 
+			$sql = 	"INSERT INTO sites (name, id_company, address_ligne1, address_ligne2, address_ligne3, city, country) 
 					 VALUES ('".$name."', ".$id_company.",'".$adress1."','".$adress2."','".$adress3."','".$city."','".$country."');";
 			
 			echo $sql;

@@ -1,5 +1,12 @@
 <?php
-   session_start();
+     	if(!isset($_SESSION)) {
+		session_start();
+	}
+	include('../../db/check_session.php');
+	if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/stocks/transfert.fr.php');
+	else
+		include('../../lang/stocks/transfert.en.php');
 ?>
 <html>
 	<head>
@@ -65,7 +72,7 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sites</option>';
+								var content = '<option selected disabled><?php echo $stocks['LIST'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -142,7 +149,7 @@
 		
 				if (quantity < parseInt(productnumber))
 				{
-					alert('Nombre supérieur au nombre en stock ! Qte stock : ' +quantity+ '- Qte à transferer : '+productnumber);
+					alert('<?php echo $stocks['ERROR'];?>');
 					getcompanyproduct(id_company,idsite);
 					return false;
 				}
@@ -189,7 +196,7 @@
 								
 								if ( response[i].quanty == 0 )
 									{
-										var quanty = "Rupture de stock";
+										var quanty = "<?php echo $stocks['BREAK'];?>";
 									} else {
 									
 										var quanty = response[i].quanty + " " + response[i].measurement + "(s)";
@@ -231,15 +238,15 @@
 								   "bInfo": true,
 								   "bAutoWidth": true,
 								"columns": [
-									{ "title": "reference" , "class": "center fctbw" },
-									{ "title": "quanty", "class": "center fctbw" },
-									{ "title": "driveway", "class": "center fctbw" },
-									{ "title": "bay", "class": "center fctbw" },
-									{ "title": "position", "class": "center fctbw" },
-									{ "title": "rack", "class": "center fctbw" },
-									{ "title": "locker", "class": "center fctbw" },
-									{ "title": "site", "class": "center fctbw" },
-									{ "title": "Transfer amount", "class": "center fctbw"}
+									{ "title": "<?php echo $stocks['REFERENCE'];?>" , "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['QUANTY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['DRIVE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['BAY'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['POSITION'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['RACK'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['LOCKER'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['SITE'];?>", "class": "center fctbw" },
+									{ "title": "<?php echo $stocks['AMOUNT'];?>", "class": "center fctbw"}
 								]
 							} );   
 						},
@@ -260,7 +267,7 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sites</option>';
+								var content = '<option selected disabled><?php echo $stocks['SITE'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -286,7 +293,7 @@
          		success:	function(data) {
          						
 								var response = JSON.parse(data);
-								var content = '<option selected disabled>Liste des sites</option>';
+								var content = '<option selected disabled><?php echo $stocks['SITE'];?></option>';
 								
          						for (var i = 0; i<response.length; i++) 
          						{
@@ -310,20 +317,20 @@
 		  <div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+					<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		  </div>
 			<div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Choix du produit à transferer</h2>
+					<h2><?php echo $stocks['TITLE'];?></h2>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12 col-lg-12"> 
 									<form>
 										<table class="table-no-border">
 											<tr>
-												<td><h5>Sélectionner le site destinateur</h5></td>
+												<td><h5><?php echo $stocks['SELECT1'];?></h5></td>
 											</tr>
 											<tr>
 												<td>
@@ -335,7 +342,7 @@
 												
 											</tr>
 											<tr>
-												<td><h5>Sélectionner le site destinataire</h5></td>
+												<td><h5><?php echo $stocks['SELECT2'];?></h5></td>
 											</tr>
 											<tr>
 												<td>
@@ -364,13 +371,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=products">
-					<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+					<h5><i class="fa fa-chevron-left"></i><?php echo $stocks['BACK'];?></h5>
 				</a>
 			</div>
 		</div>
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Transfert</h2>
+					<h2><?php echo $stocks['TRANSFER'];?></h2>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -378,11 +385,11 @@
 									<div class="col-md-12 col-lg-12">
 											<div id="stock">
 											</div>	
-											<center><h4>Saisir un libellé</h4></center>
-											<input type="text" id="title" placeholder="Libellé du transfert" class="transfert-form"/>
+											<center><h4><?php echo $stocks['INPUT'];?></h4></center>
+											<input type="text" id="title" placeholder="<?php echo $stocks['INPUTNAME'];?>" class="transfert-form"/>
 											<br />
 											<br />
-											<a href="javascript:check();" class="btn btn-success"/>Valider</a>&nbsp;<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
+											<a href="javascript:check();" class="btn btn-success"/><?php echo $stocks['SUBMIT'];?></a>&nbsp;<input type="reset" value="<?php echo $stocks['RESET'];?>" class="btn btn-warning"/>
 									</div>
 								</form>
 							</div>
@@ -392,8 +399,6 @@
 			</div>
 		</div>
 	</div>
-		
-	
-			
+	<?php include('../footer/footer.php'); ?>	
    </body>
 </html>
