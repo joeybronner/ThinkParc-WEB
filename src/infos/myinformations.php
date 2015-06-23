@@ -1,57 +1,68 @@
 <?php
-	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/infos/infos.fr.php');
-	else
-		include('../../lang/infos/infos.en.php');
+/* ======================================================================== *
+ *																			*
+ * @filename:		myinformations.php										*
+ * @description:	This page retrieves all user's informations.			*
+ *					Each user can update his profile picture and his		*
+ *					password.												*
+ *																			*
+ * @author(s): 		Joey BRONNER											*
+ * @contact(s):		joeybronner@gmail.com									*
+ * @lastupdate: 	23/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 16/06/2015 | J.BRONNER      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
 <head>
-	<title><?php echo $infos['TITLE_MYINFORMATIONS'];?></title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../../css/bootstrap.css">
-	<link rel="stylesheet" href="../../css/font-awesome.min.css">
-	<link rel="stylesheet" href="../../css/templatemo_main.css">
-	<link rel="stylesheet" href="../../css/app.css">
-	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="../../js/jquery.min.js"></script>
-    <script src="../../js/jquery-ui.min.js"></script>
-    <script src="../../js/jquery.backstretch.min.js"></script>
-    <script src="../../js/templatemo_script.js"></script>
-	<script src="../../js/bootstrap.js"></script>
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
-	<script type="text/javascript" src="../../js/jquery.toast.js"></script>
-	<script>
-	$(function onLoad(){
-		getUserInfos();
-		getNews();
-	});
-	function getUserInfos() {
-		var id_user = document.getElementById("id_user").innerText;
-		$.ajax({
-			type: 		"GET",
-			url:		"http://www.think-parc.com/webservice/v1/companies/users/" + id_user,  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							document.getElementById("firstname").innerText = response[0].firstname;
-							document.getElementById("lastname").innerText = response[0].lastname;
-							document.getElementById("login").innerText = response[0].login;
-							document.getElementById("email").innerText = response[0].email;
-							document.getElementById("image").innerText = response[0].image;
-							document.getElementById("userpic").src = "../../files/img_users/" + response[0].image;
-						}
-		});
-	};
-	</script>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR') {
+			include('../../lang/infos/infos.fr.php');
+		} else {
+			include('../../lang/infos/infos.en.php');
+		}
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="myinformations.js"></script>';
+	?>
+	<title><?php echo $maintenance['TITLE_MYINFORMATIONS'];?></title>
 </head>
 <body>
-	<?php include('../header/navbar.php'); ?>
+
+	<!-- Include navbar with home, informations & logout shortcuts -->
+	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
+
+	<!-- Background image for this page-->
+	<img id="menu-img" class="main-img inactive" src="../../images/background/home/think_parc_home_1.jpg">
+
+	<!-- Hidden div(s) for JS values -->
+	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
 	
-	<img src="../../images/background/home/think_parc_home_1.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<!-- Page content -->	
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
@@ -113,54 +124,6 @@
 										</div>
 										<div class="form-group col-xs-3" align="right">
 											<input type="submit" class="btn btn-success" name="submit" value="<?php echo $infos['SUBMIT'];?>">
-											<script>
-												function updatePassword(id) {
-													// Check if all fields are completed
-													var oldpass = document.getElementById("oldpass").value;
-													var newpass = document.getElementById("newpass").value;
-													var confpass = document.getElementById("confpass").value;
-													if (oldpass==="" || newpass==="" || confpass==="") {
-														$(document).ready(function() {
-															$.toast({heading: "Error",text: "All fields are required to change your password.", icon: "error"});
-														});
-													} else if (newpass != confpass) {
-														$(document).ready(function() {
-															$.toast({heading: "Error",text: "New password and confirmation are not identical.", icon: "error"});
-														});
-													} else {
-														// Check old password
-														$.ajax({
-															type: 		"GET",
-															url:		"http://www.think-parc.com/webservice/v1/companies/users/" + id,  
-															success:	function(data) {
-																			var response = JSON.parse(data);
-																			if (response[0].pass === oldpass) {
-																				// Update new password
-																				$.ajax({
-																					type: 		"GET",
-																					url:		"http://www.think-parc.com/webservice/v1/companies/users/password/update/" + id + "/" + newpass,  
-																					success:	function(data) {
-																									$(document).ready(function() {
-																										document.getElementById("formpassword").reset();
-																										$.toast({heading: "Success",text: "Password successfully updated.", icon: "success"});
-																									});
-																								},
-																					error:		function(xhr, status, error) {
-																									$(document).ready(function() {
-																										$.toast({heading: "Error",text: "Error", icon: "error"});
-																									});
-																								}
-																				});
-																			} else {
-																				$(document).ready(function() {
-																					$.toast({heading: "Error",text: "Your old password is not correct.", icon: "error"});
-																				});
-																			}
-																		}
-														});
-													}
-												}
-											</script>
 										</div>
 									</div>
 								</form>
@@ -182,59 +145,6 @@
 											</td>
 											<td align="right">
 												<button type="submit" id="upload-button" class="btn btn-success"><?php echo $infos['UPLOAD'];?></button>
-												<script>
-												function uploadFile(id_user) {
-													var file = document.getElementById('file-select').files[0];
-													var formData = new FormData();
-
-													// Check the file type.
-													var fakepath = document.getElementById("file-select").value;
-													var ext = "." + fakepath.substr(fakepath.lastIndexOf('.') + 1);
-													if (!file.type.match('image.*')) {
-															$(document).ready(function() {
-																$.toast({heading: "Error",text: "Only pictures are supported.", icon: "error"});
-															});
-													} else {
-														// Add file to data form
-														var d = new Date();
-														var generatedfilename = d.getTime() + "_" + file.name;
-														formData.append('myfiles', file, generatedfilename);
-														var xhr = new XMLHttpRequest();
-														xhr.open('POST', '../../files/uploadfile.php?target=img_users', true);
-														xhr.onload = function () {
-															if (xhr.readyState == 4) {
-																if (xhr.status == 200) {
-																	$(document).ready(function() {
-																		$.ajax({
-																			method: 	"PUT",
-																			url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user + "/profilepicture/" + generatedfilename + ext,
-																			success:	function(data) {
-																								$(document).ready(function() {
-																									$('#file-form').each(function(){
-																										this.reset();
-																									});
-																									getUserInfos();
-																									$.toast({heading: "Success",text: "Picture successfully uploaded.", icon: "success"});
-																								});	
-																							},
-																			error:		function(xhr, status, error) {
-																								$(document).ready(function() {
-																									$.toast({heading: "Error",text: "", icon: "error"});
-																								});
-																							}
-																		});
-																	});		
-																} else {
-																	$(document).ready(function() {
-																		$.toast({heading: "Error",text: "", icon: "error"});
-																	});
-																}	
-															} 
-														};
-														xhr.send(formData);
-													}
-												}
-												</script>
 											</td>
 										</tr>
 									</table>
@@ -262,90 +172,6 @@
 									</div>
 								</form>
 								<div id="post_actif_" class="form-group col-xs-12">
-									<script>
-										function reformatDate(dateStr) {
-										  dArr = dateStr.split("-");
-										  return dArr[2]+ "/" +dArr[1]+ "/" +dArr[0];
-										}
-										function getNews(){
-											$.ajax({
-												method: 	"GET",
-												url:		"http://think-parc.com/webservice/v1/news/all",  
-												success:	function(data) {
-																var response = JSON.parse(data);
-																var content = '<table class="table" style="width:100%;font-size:12px;">';
-																for(var i = 0; i < response.length; i++) {
-																	var news = response[i];
-																	content += '<tr>';
-																	content += '<td>' + reformatDate(news.date_news) + '<td>';
-																	content += '<td>' + news.msg + '<td>';
-																	if (news.active==1) {
-																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 0);" checked></td>';
-																	} else {
-																		content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 1);"></td>';
-																	}
-																	content += '<td><a href="javascript:deleteNews(' + news.id_news + ');"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
-																	content += '</tr>';
-																}
-																content += '</table>';
-																document.getElementById("post_actif_").innerHTML = content;
-															}
-											});
-										};
-										function updateNewsStatus(id, status) {
-											$.ajax({
-												type: 		"GET",
-												url:		"http://www.think-parc.com/webservice/v1/news/" + id + "/status/" + status,  
-												success:	function(data) {
-																$(document).ready(function() {
-																	$.toast({heading: "Success",text: "News successfully updated.", icon: "success"});
-																});
-																getNews();
-															},
-												error:		function(xhr, status, error) {
-																$(document).ready(function() {
-																	$.toast({heading: "Error",text: "Error", icon: "error"});
-																});
-															}
-											});
-										};
-										function deleteNews(id) {
-											$.ajax({
-												type: 		"GET",
-												url:		"http://www.think-parc.com/webservice/v1/news/" + id + "/delete",  
-												success:	function(data) {
-																$(document).ready(function() {
-																	$.toast({heading: "Success",text: "News successfully removed.", icon: "success"});
-																});
-																getNews();
-															},
-												error:		function(xhr, status, error) {
-																$(document).ready(function() {
-																	$.toast({heading: "Error",text: "Error", icon: "error"});
-																});
-															}
-											});
-										};
-										function addNews(id) {
-											var newstext = document.getElementById("newstext").value;
-											$.ajax({
-												type: 		"GET",
-												url:		"http://www.think-parc.com/webservice/v1/news/add/" + id + "/" + newstext,  
-												success:	function(data) {
-																$(document).ready(function() {
-																	$.toast({heading: "Success",text: "News successfully added.", icon: "success"});
-																});
-																getNews();
-															},
-												error:		function(xhr, status, error) {
-																$(document).ready(function() {
-																	$.toast({heading: "Error",text: "Error", icon: "error"});
-																});
-															}
-											});
-											sessionStorage.removeItem("newstext");
-										};
-									</script>
 								</div>
 							</div>
 						</div>
@@ -357,6 +183,9 @@
 			?>
 		</div>
 	</div>
-<?php include('../footer/footer.php'); ?>
+	<!-- End page content -->
+
+	<!-- Include footer bar with language switch & global website informations -->
+	<?php require(BASE_PATH . '/src/footer/footer.php'); ?>
 </body>
 </html>
