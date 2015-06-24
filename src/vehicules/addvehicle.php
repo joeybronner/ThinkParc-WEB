@@ -207,7 +207,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End PopUp section -->
+	<!-- End page content -->
 	
 	<!-- Include footer bar with language switch & global website informations -->
 	<?php require(BASE_PATH . '/src/footer/footer.php'); ?>

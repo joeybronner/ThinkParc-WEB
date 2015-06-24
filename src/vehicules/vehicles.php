@@ -1,141 +1,95 @@
 <?php
-   session_start();
+/* ======================================================================== *
+ *																			*
+ * @filename:		vehicles.php											*
+ * @description:	This page displays all vehicles informations.			*
+ *					Your can apply some filters								*
+ *																			*
+ * @author(s): 		Joey BRONNER											*
+ * @contact(s):		joeybronner@gmail.com									*
+ * @lastupdate: 	05/05/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 01/05/2015 | J.BRONNER      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
-	<head>
-		<title>Véhicules</title>
-		<meta name="viewport" content="width=device-width, user-scalable=yes" />
-		<meta name="description" content="">
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="../../css/bootstrap.css">
-		<link rel="stylesheet" href="../../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../../css/templatemo_main.css">
-		<link rel="stylesheet" href="../../css/app.css">
-		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-		<script src="../../js/jquery.min.js"></script>
-		<script src="../../js/jquery.backstretch.min.js"></script>
-		<script src="../../js/templatemo_script.js"></script>
-		<script src="../../js/bootstrap.js"></script>
-		<script src="../../js/jquery.toast.js"></script>
-        <script type="text/javascript" src="../../js/jquery.js"></script>
-        <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>	
-		<script type="text/javascript">
-			$(function onLoad() {
-				displayVehicles();
-			});
-			function getCompany(handleData){
-				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
-				$.ajax({
-					method: 	"GET",
-					url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user,  
-					success:	function(data) {
-									var response = JSON.parse(data);
-									handleData(response[0].id_company);
-								}
-				});
-			};
-			function displayVehicles() {
-				getCompany(function(company){
-					$.ajax({
-						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/vehicles/all", 
-						success:	function(data) {
-										var response = JSON.parse(data);
-										var dataSet = new Array(response.length);
-										for (var i = 0; i<response.length; i++) {
-											dataSet[i] = new Array(	response[i].nr_plate, 
-																	response[i].nr_serial, 
-																	response[i].mileage, 
-																	response[i].buyingprice,
-																	response[i].energy,
-																	response[i].brand,
-																	response[i].model,
-																	response[i].kind,
-																	response[i].category,
-																	response[i].equipment,
-																	response[i].state,
-																	response[i].name,
-																	response[i].commentary,
-																	'<a href="javascript:deleteVehicle(' + response[i].id_vehicle + ');"><i id="icon_remove" class="fa fa-times"></i></a>');
-										}
-										
-										$('#vehicles').html( '<table class="display" cellspacing="0" width="100%" id="example"></table>' );
-							
-										$('#example').dataTable( {
-											"data": dataSet,
-										   "scrollX": true,
-										   "bPaginate": true,
-										   "bLengthChange": true,
-										   "bStateSave": true,
-										   "bFilter": true,
-										   "bSort": true,
-										   "bInfo": true,
-										   "bAutoWidth": true,
-											"columns": [
-												{ "title": "Immatriculation" , "class": "center fctbw" },
-												{ "title": "N° de série" , "class": "center fctbw"},
-												{ "title": "Kilométrage" , "class": "center fctbw" },
-												{ "title": "Prix d'achat", "class": "center fctbw" },
-												{ "title": "Carburant", "class": "center fctbw" },
-												{ "title": "Marque", "class": "center fctbw" },
-												{ "title": "Modèle", "class": "center fctbw" },
-												{ "title": "Type", "class": "center fctbw" },
-												{ "title": "Catégorie", "class": "center fctbw" },
-												{ "title": "Equipement", "class": "center fctbw" },
-												{ "title": "Etat", "class": "center fctbw" },
-												{ "title": "Site", "class": "center fctbw" },
-												{ "title": "Commentaire", "class": "center fctbw" },
-												{ "title": "", "class": "center fctbw" }
-											]
-										} );
-									}
-					});				
-				});
-			}
-			function deleteVehicle(id_vehicle) {
-					$.ajax({
-					method: 	"DELETE",
-					url:		"http://think-parc.com/webservice/v1/companies/vehicles/" + id_vehicle,
-					success:	function(data) {
-										$(document).ready(function() {
-											displayVehicles()
-										});	
-									}
-					});
-			}
-		</script>
-		</head>
-		<body>
-		<?php include('../header/navbar.php'); ?>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 		
-		<img src="../../images/background/vehicles/think_parc_vehicles_5.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
-			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
-					<a href="../accueil.php?section=vehicles">
-							<h5><i class="fa fa-chevron-left"></i> Retour</h5>
-					</a>
-				</div>
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR') {
+			include('../../lang/vehicles/vehicles.fr.php');
+		} else {
+			include('../../lang/vehicles/vehicles.en.php');
+		}
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="vehicles.js"></script>';
+	?>
+	<title>Tous les véhicules</title>
+</head>
+<body>
+	<!-- Include navbar with home, informations & logout shortcuts -->
+	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
+
+	<!-- Background image for this page-->
+	<img id="menu-img" class="main-img inactive" src="../../images/background/vehicles/think_parc_vehicles_5.jpg">
+
+	<!-- Hidden div(s) for JS values -->
+	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
+	
+	<!-- Page content -->
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
+				<a href="../accueil.php?section=vehicles">
+						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+				</a>
 			</div>
-			<div class="templatemo-content">
-				<div class="black-bg btn-menu margin-bottom-20">
-					<h2>Recherche globale</h2>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12 col-lg-12"> 
-								<form>
-									<div class="col-md-12 col-lg-12">
-										<div id="vehicles">
-										</div>
+		</div>
+		<div class="templatemo-content">
+			<div class="black-bg btn-menu margin-bottom-20">
+				<h2>Recherche globale</h2>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 col-lg-12"> 
+							<form>
+								<div class="col-md-12 col-lg-12">
+									<div id="vehicles">
 									</div>
-								</form>
-							</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<!-- End page content -->
+	
+	<!-- Include footer bar with language switch & global website informations -->
+	<?php require(BASE_PATH . '/src/footer/footer.php'); ?>
    </body>
 </html>
