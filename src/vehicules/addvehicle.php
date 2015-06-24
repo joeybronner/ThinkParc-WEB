@@ -1,215 +1,67 @@
 <?php
-session_start();
+/* ======================================================================== *
+ *																			*
+ * @filename:		addvehicle.php											*
+ * @description:	This page allows a user to add a new vehicle for a		*
+ *					specific site in his company.							*
+ *																			*
+ * @author(s): 		Joey BRONNER											*
+ * @contact(s):		joeybronner@gmail.com									*
+ * @lastupdate: 	01/05/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 01/06/2015 | J.BRONNER      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
-
 <html>
 <head>
-	<meta charset="utf-8" />
-	<title>Ajouter un véhicule</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../../css/bootstrap.css">
-	<link rel="stylesheet" href="../../css/font-awesome.min.css">
-	<link rel="stylesheet" href="../../css/templatemo_main.css">
-	<link rel="stylesheet" href="../../css/app.css">
-	<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-    <link rel="stylesheet" href="../../css/datepicker/datepicker.css">
-	<script src="../../js/jquery.min.js"></script>
-    <script src="../../js/jquery.backstretch.min.js"></script>
-	<script src="../../js/templatemo_script.js"></script>
-	<script src="../../js/bootstrap.js"></script>
-	<script src="../../js/jquery.toast.js"></script>
-	<script src="../../js/bootstrap-datepicker.js"></script>
-	<script>
-	$(function(){
-		// Init date fields
-		$('#date_buy').datepicker();
-		$('#date_entryservice').datepicker();
-	});
-	$(function getBrands(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/brands",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Marque du véhicule</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_brand + '">' + response[i].brand + '</option>';
-							}
-							document.getElementById("brand").innerHTML = content;
-						}
-		});
-	});
-	function getModels(idbrand){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/models/" + idbrand,  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_model + '">' + response[i].model + '</option>';
-							}
-							document.getElementById("model").innerHTML = content;
-							document.getElementById("model").disabled = false;
-						}
-		});
-	};
-	$(function getKinds(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/kinds",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Genre</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_kind + '">' + response[i].kind + '</option>';
-							}
-							document.getElementById("kinds").innerHTML = content;
-						}
-		});
-	});
-	$(function getCategories(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/categories",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Categories</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_category + '">' + response[i].category + '</option>';
-							}
-							document.getElementById("categories").innerHTML = content;
-						}
-		});
-	});
-	$(function getEnergies(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/energies",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Energies</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_energy + '">' + response[i].energy + '</option>';
-							}
-							document.getElementById("energies").innerHTML = content;
-						}
-		});
-	});
-	$(function getEquipments(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/equipments",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Equipements</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_equipment + '">' + response[i].equipment + '</option>';
-							}
-							document.getElementById("equipments").innerHTML = content;
-						}
-		});
-	});
-	$(function getSites(){
-		getCompany(function(company){
-			$.ajax({
-				method: 	"GET",
-				url:		"http://think-parc.com/webservice/v1/companies/" + company + "/sites",  
-				success:	function(data) {
-								var response = JSON.parse(data);
-								var content = '<option selected disabled>Sites</option>';
-								for (var i = 0; i<response.length; i++) {
-									content = content + '<option value="' + response[i].id_site + '">' + response[i].name + '</option>';
-								}
-								document.getElementById("sites").innerHTML = content;
-							}
-			});
-		});
-	});
-	function getCompany(handleData){
-		var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user,  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							handleData(response[0].id_company);
-						}
-		});
-	};
-	$(function getStates(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/vehicles/states",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '<option selected disabled>Etats</option>';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_state + '">' + response[i].state + '</option>';
-							}
-							document.getElementById("states").innerHTML = content;
-						}
-		});
-	});
-	$(function getCurrencies(){
-	   	$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/currencies",  
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var content = '';
-							for (var i = 0; i<response.length; i++) {
-								content = content + '<option value="' + response[i].id_currency + '">' + response[i].symbol + '</option>';
-							}
-							document.getElementById("currencies").innerHTML = content;
-						}
-		});
-	});
-	function addVehicule() {
-		var nr_plate = document.getElementById("nr_plate").value;
-		var nr_serial = document.getElementById("nr_serial").value;
-		var mileage = document.getElementById("mileage").value;
-		var buyingprice = document.getElementById("buyingprice").value;
-		var date_buy = document.getElementById("date_buy").value.split("/").reverse().join("-");
-		var date_entryservice = document.getElementById("date_entryservice").value.split("/").reverse().join("-");
-		var energy = document.getElementById("energies").value;
-		var model = document.getElementById("model").value;
-		var kind = document.getElementById("kinds").value;
-		var category = document.getElementById("categories").value;
-		var equipment = document.getElementById("equipments").value;
-		var state = document.getElementById("states").value;
-		var currency = document.getElementById("currencies").value;
-		var site = document.getElementById("sites").value;
-		var commentary = document.getElementById("commentary").value;
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 		
-		$.ajax({
-		method: 	"POST",
-		url:		"http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial + 
-								"/" + mileage + "/" + buyingprice + "/" + date_buy + "/" + date_entryservice + "/" + energy + 
-								"/" + model + "/" + kind + "/" + category + "/" + equipment + "/" + state + "/" + currency + 
-								"/" + commentary,
-       	success:	function(data) {
-        					$(document).ready(function() {
-								document.getElementById("addvehicle").reset();
-        						$.toast({heading: "Success",text: "Vehicle successfully added.", icon: "success"});
-        					});	
-        				},
-        error:		function(xhr, status, error) {
-        					$(document).ready(function() {
-        						$.toast({heading: "Error",text: "An error occured, a value is required for all fields. Please check your entries and try again.", icon: "error"});
-        					});
-        				}
-        });
-	};
-	</script>
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR') {
+			include('../../lang/vehicles/addvehicle.fr.php');
+		} else {
+			include('../../lang/vehicles/addvehicle.en.php');
+		}
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="addvehicle.js"></script>';
+	?>
+	<title>Ajouter un véhicule</title>
 </head>
 <body>
 
-	<?php
-		include('../header/navbar.php');
-	?>
+	<!-- Include navbar with home, informations & logout shortcuts -->
+	<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
 
-	<img src="../../images/background/vehicles/think_parc_vehicles_3.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+	<!-- Background image for this page-->
+	<img id="menu-img" class="main-img inactive" src="../../images/background/vehicles/think_parc_vehicles_3.jpg">
+
+	<!-- Hidden div(s) for JS values -->
+	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
+	
+	<!-- Page content -->
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
@@ -355,5 +207,9 @@ session_start();
 			</div>
 		</div>
 	</div>
+	<!-- End PopUp section -->
+	
+	<!-- Include footer bar with language switch & global website informations -->
+	<?php require(BASE_PATH . '/src/footer/footer.php'); ?>
 </body>
 </html>
