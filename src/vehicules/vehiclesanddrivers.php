@@ -49,7 +49,7 @@
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="vehiclesanddrivers.js"></script>';
 	?>
-	<title>Véhicules et conducteurs</title>
+	<title><?php echo $vehanddri['PAGE_TITLE']; ?></title>
 </head>
 <body>
 
@@ -67,20 +67,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $vehanddri['BACK']; ?></h5>
 				</a>
 			</div>
 		</div>
 		<div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Détails administratifs de vos véhicules</h2>
+				<h2><?php echo $vehanddri['VEHICLESANDDRIVERS']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5>Veuillez sélectionner un véhicule dans la liste</h5></td>
+										<td><h5><?php echo $vehanddri['SELECT_VEHICLE']; ?></h5></td>
 									</tr>
 									<tr>
 										<td>
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 			<div id="vehiclesanddriversdetail" class="black-bg btn-menu margin-bottom-20">
-				<h2>Historique</h2>
+				<h2><?php echo $vehanddri['HISTORY']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -105,7 +105,7 @@
 									<table id="vehicledetail" class="table-no-border">
 										<tbody>
 											<tr>
-												<td>Historique des conducteurs de ce véhicule</td>
+												<td><?php echo $vehanddri['DRIVERS_HISTORY']; ?></td>
 											</tr>
 											<tr>
 												<td id="drivers">
@@ -115,7 +115,8 @@
 											<tr id="btshowfields">
 												<td>
 													<a href="javascript:showAddDriverFields();"><i id="add" class="fa fa-plus-circle"></i>
-													Ajouter un conducteur</a>
+														<?php echo $vehanddri['ADD_DRIVER']; ?>
+													</a>
 												</td>
 											</tr>
 										</tbody>
@@ -123,7 +124,7 @@
 									<table id="addentry" class="table-no-border">
 										<tbody>
 											<tr>
-												<td>Conducteurs</td>
+												<td><?php echo $vehanddri['DRIVERS']; ?></td>
 												<td>
 													<select id="listdrivers" name="listdrivers" required class="form-control"></select>
 												</td>
@@ -132,38 +133,38 @@
 												</td>
 											</tr>
 											<tr>
-												<td>Prénom</td>
+												<td><?php echo $vehanddri['FIRSTNAME']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="firstname" name="firstname" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Nom</td>
+												<td><?php echo $vehanddri['LASTNAME']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="lastname" name="lastname" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>N° de permis</td>
+												<td><?php echo $vehanddri['DRIVINGLICENCE']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="nr_drivinglicence" name="nr_drivinglicence" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Date de début</td>
+												<td><?php echo $vehanddri['DATE_START']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_start" name="date_start" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Date de fin</td>
+												<td><?php echo $vehanddri['DATE_END']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_end" name="date_end" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<input type="button" onclick="javascript:addEntry();" value="Ajouter" class="btn btn-success"/>
+													<input type="button" onclick="javascript:addEntry();" value="<?php echo $vehanddri['BT_ADD']; ?>" class="btn btn-success"/>
 												</td>	
 											</tr>
 										</tbody>

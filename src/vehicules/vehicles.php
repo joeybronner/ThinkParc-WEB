@@ -48,7 +48,7 @@
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="vehicles.js"></script>';
 	?>
-	<title>Tous les véhicules</title>
+	<title><?php echo $lang['ALLV_TITLE_PAGE']; ?></title>
 </head>
 <body>
 	<!-- Include navbar with home, informations & logout shortcuts -->
@@ -65,13 +65,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $lang['ALLV_BACK']; ?></h5>
 				</a>
 			</div>
 		</div>
 		<div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Recherche globale</h2>
+				<h2><?php echo $lang['ALLV_GLOBSEARCH']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 

@@ -48,7 +48,7 @@
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="addvehicle.js"></script>';
 	?>
-	<title>Ajouter un véhicule</title>
+	<title><?php echo $addvehicle['ADDVEHICLE_TITLE']; ?></title>
 </head>
 <body>
 
@@ -66,13 +66,13 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $addvehicle['BACK']; ?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Ajouter un véhicule</h2>
+				<h2><?php echo $addvehicle['ADDVEHICLE_TITLE']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -80,7 +80,7 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5>* Marque & Modèle</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_BRANDMODEL']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -90,13 +90,13 @@
 											</td>
 											<td>
 												<select id="model" name="model" required="required" class="form-control" disabled>
-													<option selected disabled>Modele du véhicule</option>
+													<option selected disabled><?php echo $addvehicle['ADDVEHICLE_MODEL']; ?></option>
 													<!-- Retrieve models with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Genre & Catégorie</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_KINDCAT']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -111,7 +111,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Energie & Equipements spéciaux</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_ENERGYEQUIPMENTS']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
@@ -126,11 +126,11 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Prix d'achat</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input class="form-control" type="text" id="buyingprice" name="buyingprice" placeholder="Prix d'achat" required/>
+												<input class="form-control" type="text" id="buyingprice" name="buyingprice" placeholder="<?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?>" required/>
 											</td>
 											<td>
 												<select id="currencies" name="currencies" required="required" class="form-control">
@@ -139,45 +139,45 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Matricule & Numéro de série</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_PLATESERIAL']; ?></h5></td>
 										</tr>
 										<tr>
 											<td>
-												<input class="form-control" type="text" id="nr_plate" name="nr_plate" placeholder="Matricule"/>
+												<input class="form-control" type="text" id="nr_plate" name="nr_plate" placeholder="<?php echo $addvehicle['ADDVEHICLE_PLATE']; ?>"/>
 											</td>
 											<td>
-												<input class="form-control" type="text" id="nr_serial" name="nr_serial" placeholder="Numéro de série"/>
+												<input class="form-control" type="text" id="nr_serial" name="nr_serial" placeholder="<?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?>"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Date d'achat</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></h5></td>
 											<td>
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_buy" name="date_buy" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Date de mise en circulation</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></h5></td>
 											<td>
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_entryservice" name="date_entryservice" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Kilométrage</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_MILEAGE']; ?></h5></td>
 											<td>
-												<input class="form-control" type="text" id="mileage" name="mileage" required="required" placeholder="100 000"/>
+												<input class="form-control" type="text" id="mileage" name="mileage" required="required" placeholder="100000"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5>Commentaires</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></h5></td>
 											<td>
-												<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" placeholder="Commentaires "></textarea>
+												<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" placeholder="<?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?> "></textarea>
 											</td>
 										</tr>
 										<tr>
 											
 										</tr>
 										<tr>
-											<td><h5>* Site</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_SITE']; ?></h5></td>
 											<td>
 												<select id="sites" name="sites" required="required" class="form-control">
 													<!-- Retrieve sites with an AJAX [GET] query -->
@@ -185,7 +185,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5>* Etat</h5></td>
+											<td><h5><?php echo $addvehicle['ADDVEHICLE_STATE']; ?></h5></td>
 											<td>
 												<select id="states" name="states" required="required" class="form-control">
 													<!-- Retrieve states with an AJAX [GET] query -->
@@ -194,8 +194,8 @@
 										</tr>
 										<tr>
 											<td colspan="2" align="right">
-												<input type="reset" value="Reinitialiser" class="btn btn-warning"/>
-												<input type="submit" class="btn btn-success" value="Enregistrer"/>
+												<input type="reset" value="<?php echo $addvehicle['ADDVEHICLE_RESET']; ?>" class="btn btn-warning"/>
+												<input type="submit" class="btn btn-success" value="<?php echo $addvehicle['ADDVEHICLE_ADD']; ?>"/>
 											</td>
 										</tr>
 									</tbody>

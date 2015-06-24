@@ -48,7 +48,7 @@
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="docsadministratives.js"></script>';
 	?>
-	<title>Documents administratifs</title>
+	<title><?php echo $docsadm['PAGE_TITLE']; ?></title>
 </head>
 <body>
 	<!-- Include navbar with home, informations & logout shortcuts -->
@@ -65,20 +65,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $docsadm['BACK']; ?></h5>
 				</a>
 			</div>
 		</div>
 	   <div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2>Détails administratifs de vos véhicules</h2>
+				<h2><?php echo $docsadm['DETAILS_DOCSADMIN']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5>Veuillez sélectionner un véhicule dans la liste</h5></td>
+										<td><h5><?php echo $docsadm['SELECT_VEHICLE']; ?></h5></td>
 									</tr>
 									<tr>
 										<td>
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 			<div id="administrativeblock" class="black-bg btn-menu margin-bottom-20">
-				<h2>Documents administratifs concernant ce véhicule</h2>
+				<h2><?php echo $docsadm['DETAILS_VEHICLE']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
@@ -103,37 +103,37 @@
 									<table id="vehicledetail" class="table-no-border">
 										<tbody>
 											<tr>
-												<td style="width:50%;">N° du contrat d'assurance</td>
+												<td style="width:50%;"><?php echo $docsadm['INSURANCE_NR']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="nr_contract" name="nr_contract" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Dernier contrôle technique</td>
+												<td><?php echo $docsadm['TECHNICALCTRL_LAST']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_lastcontrol" name="date_lastcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Prochain contrôle technique</td>
+												<td><?php echo $docsadm['TECHNICALCTRL_NEXT']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_nextcontrol" name="date_nextcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Début du contrat d'assurance</td>
+												<td><?php echo $docsadm['INSURANCE_START']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_startinsurance" name="date_startinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Fin du contrat d'assurance</td>
+												<td><?php echo $docsadm['INSURANCE_END']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_endinsurance" name="date_endinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>Assureurs</td>
+												<td><?php echo $docsadm['INSURANCES']; ?></td>
 												<td>
 													<select id="insurances" name="insurances" required class="form-control"></select>
 												</td>
@@ -142,63 +142,63 @@
 												</td>
 											</tr>
 											<tr>
-												<td>Nom de l'assureur</td>
+												<td><?php echo $docsadm['INSURANCE_NAME']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_name" name="ins_name" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Téléphone</td>
+												<td><?php echo $docsadm['INSURANCE_PHONE']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_phone" name="ins_phone" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Email</td>
+												<td><?php echo $docsadm['INSURANCE_EMAIL']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_email" name="ins_email" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Adresse (ligne 1)</td>
+												<td><?php echo $docsadm['INSURANCE_ADD1']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_add1" name="ins_add1" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Adresse (ligne 2)</td>
+												<td><?php echo $docsadm['INSURANCE_ADD2']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_add2" name="ins_add2" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Adresse (ligne 3)</td>
+												<td><?php echo $docsadm['INSURANCE_ADD3']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_add3" name="ins_add3" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Code postal</td>
+												<td><?php echo $docsadm['INSURANCE_ZIP']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_zipcode" name="ins_zipcode" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Ville</td>
+												<td><?php echo $docsadm['INSURANCE_CITY']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_city" name="ins_city" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>Pays</td>
+												<td><?php echo $docsadm['INSURANCE_COUNTRY']; ?></td>
 												<td>
 													<input class="form-control" type="text" id="ins_country" name="ins_country" disabled>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<input type="button" onclick="javascript:saveAdministrative();" id ="addAdministrative" value="Enregistrer" class="btn btn-success"/>
-													<input type="button" onclick="javascript:saveChangesAdministrative();" id ="updateAdministrative" value="Mettre à jour" class="btn btn-success"/>
+													<input type="button" onclick="javascript:saveAdministrative();" id ="addAdministrative" value="<?php echo $docsadm['SAVE']; ?>" class="btn btn-success"/>
+													<input type="button" onclick="javascript:saveChangesAdministrative();" id ="updateAdministrative" value="<?php echo $docsadm['UPDATE']; ?>" class="btn btn-success"/>
 												</td>
 											</tr>
 										</tbody>

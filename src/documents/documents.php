@@ -47,7 +47,7 @@
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="documents.js"></script>';
 	?>
-	<title><?php echo $maintenance['TITLE_DOCUMENTS'];?></title>
+	<title><?php echo $documents['TITLE_DOCUMENTS'];?></title>
 </head>
 <body>
 	
@@ -84,13 +84,13 @@
 				<div class="panel-body">
 					<ul class="nav nav-tabs" style="margin-bottom:20px;">
 						<li id="tab-global" class="active">
-							<a href="javascript:displayGlobal();">Documents globaux</a>
+							<a href="javascript:displayGlobal();"><?php echo $documents['DOCS_GLOBAL']; ?></a>
 						</li>
 						<li id="tab-vehicles">
-							<a href="javascript:displayVehicles();">Documents véhicules</a>
+							<a href="javascript:displayVehicles();"><?php echo $documents['DOCS_VEHICLES']; ?></a>
 						</li>
 						<li id="tab-technical">
-							<a href="javascript:displayTechnical();">Documents techniques</a>
+							<a href="javascript:displayTechnical();"><?php echo $documents['DOCS_TECHNICAL']; ?></a>
 						</li>
 					</ul>
 					<div id="documents">

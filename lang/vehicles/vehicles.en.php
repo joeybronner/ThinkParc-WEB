@@ -13,5 +13,8 @@ $lang['INFOS_DETAIL'] = 'Detailed information';
 $lang['FILES_LIST'] = 'List of files';
 $lang['ADD_FILE'] = 'Add this file';
 
-$lang['NAME'] = 'Text';
+$lang['ALLV_TITLE_PAGE'] = 'All vehicles';
+$lang['ALLV_GLOBSEARCH'] = 'Global search';
+$lang['ALLV_BACK'] = ' Back';
+
 ?>

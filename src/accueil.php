@@ -37,7 +37,7 @@
 					url:		"http://think-parc.com/webservice/v1/news/random",  
 					success:	function(data) {
 									var response = JSON.parse(data);
-									var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + response[0].date_news + '</h6>';
+									var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + reformatDate(response[0].date_news) + '</h6>';
 									content = content + '<h5>' + response[0].msg + '</h5>';
 									document.getElementById("newsContent").innerHTML = content;
 								}
@@ -108,7 +108,12 @@
 									}
 					});
 				});
-			});	
+			});
+			/** Good date format JJ/MM/AAAA */
+			function reformatDate(dateStr) {
+			  dArr = dateStr.split("-");
+			  return dArr[2] + "/" + dArr[1] + "/" + dArr[0];
+			}
 			function getCompany(handleData){
 				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
 				$.ajax({
