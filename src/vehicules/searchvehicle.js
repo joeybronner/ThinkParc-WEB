@@ -51,28 +51,13 @@ function displayVehicle(id) {
     url: "http://think-parc.com/webservice/v1/companies/vehicles/" + id,
     success: function(data) {
       var response = JSON.parse(data);
-      var vehicledetail = '<div class="col-md-12 col-lg-12"><table class="table table-user-information">';
 
-      vehicledetail += '<tr><td>Plaque d\'immatriculation</td><td><input class="form-control" type="text" id="nr_plate" name="nr_plate" required value="' + response[0].nr_plate + '" disabled/>' + '</td></tr>';
-      vehicledetail += '<tr><td>Numéro de série</td><td><input class="form-control" type="text" id="nr_serial" name="nr_serial" required value="' + response[0].nr_serial + '" disabled/>' + '</td></tr>';
-      vehicledetail += '<tr><td>Date d\'achat</td><td><input class="form-control" type="text" id="date_buy" name="date_buy" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required value=' + reformatDate(response[0].date_buy) + '></td></tr>';
-      vehicledetail += '<tr><td>Date de mise en circulation</td><td><input class="form-control" type="text" id="date_entryservice" name="date_entryservice" required data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" value=' + reformatDate(response[0].date_entryservice) + '></td></tr>';
-      vehicledetail += '<tr><td>Marque</td><td><select id="brand" name="brand" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Modèle</td><td><select id="model" name="model" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Kilométrage</td><td><input class="form-control" type="text" id="mileage" name="mileage" required value="' + response[0].mileage + '" />' + '</td></tr>';
-      vehicledetail += '<tr><td>Energie</td><td><select id="energies" name="energies" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Etat</td><td><select id="states" name="states" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Catégorie</td><td><select id="categories" name="categories" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Prix d\'achat</td><td><input class="form-control" type="text" id="buyingprice" name="buyingprice" required value="' + response[0].buyingprice + '" /><select id="currencies" name="currencies" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Type</td><td><select id="kinds" name="kinds" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Equipement</td><td><select id="equipments" name="equipments" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Site</td><td><select id="sites" name="sites" required="required" class="form-control"></select></td></tr>';
-      vehicledetail += '<tr><td>Commentaire</td><td>' + '<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" >' + response[0].commentary + '</textarea></td></tr>';
-
-      vehicledetail += '</table></div>';
-
-      document.getElementById("vehicledetail").innerHTML = vehicledetail;
-
+	  document.getElementById("nr_plate").value = response[0].nr_plate;
+	  document.getElementById("nr_serial").value = response[0].nr_serial;
+	  document.getElementById("mileage").value = response[0].mileage;
+	  document.getElementById("buyingprice").value = response[0].buyingprice;
+	  document.getElementById("commentary").value = response[0].commentary;
+	  
       // Init Datepicker
       $('#date_buy').datepicker();
       $('#date_entryservice').datepicker();

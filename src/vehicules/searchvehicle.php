@@ -41,14 +41,16 @@
 		/* 4. Import language values: French or English files */
 		if($_SESSION['fct_lang'] == 'FR') {
 			include('../../lang/vehicles/vehicles.fr.php');
+			include('../../lang/vehicles/addvehicle.fr.php');
 		} else {
 			include('../../lang/vehicles/vehicles.en.php');
+			include('../../lang/vehicles/addvehicle.en.php');
 		}
 		
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="searchvehicle.js"></script>';
 	?>
-	<title>Recherche de véhicule</title>
+	<title><?php echo $addvehicle['SEAVEHICLE_TITLE']; ?></title>
 </head>
 <body>
 	<!-- Include navbar with home, informations & logout shortcuts -->
@@ -65,20 +67,20 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
-						<h5><i class="fa fa-chevron-left"></i> Retour</h5>
+						<h5><i class="fa fa-chevron-left"></i><?php echo $addvehicle['BACK']; ?></h5>
 				</a>
 			</div>
 		</div>
 		<div class="templatemo-content">
 			<div class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $lang['CONSULT_EDIT_VEHICLE_TITLE']; ?></h2>
+				<h2><?php echo $addvehicle['SEAVEHICLE']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5><?php echo $lang['SELECT_VEHICLE_LIST']; ?></h5></td>
+										<td><h5><?php echo $addvehicle['SEAVEHICLE_SELECT']; ?></h5></td>
 									</tr>
 									<tr>
 										<td>
@@ -94,17 +96,109 @@
 				</div>
 			</div>
 			<div id="vehicleblock" class="black-bg btn-menu margin-bottom-20">
-				<h2><?php echo $lang['INFOS_DETAIL']; ?></h2>
+				<h2><?php echo $addvehicle['SEAVEHICLE_INFOSDETAIL']; ?></h2>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
 							<form>
-								<table id="vehicledetail" class="table-no-border">
-									<!-- Retrieve vehicle detail with an AJAX [GET] query -->
-								</table>
+								<div class="col-md-12 col-lg-12">
+									<table class="table-no-border">
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_PLATE']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="nr_plate" name="nr_plate" required disabled/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="nr_serial" name="nr_serial" required disabled/>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="date_buy" name="date_buy" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="date_entryservice" name="date_entryservice" required data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA">
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_BRAND']; ?></td>
+											<td>
+												<select id="brand" name="brand" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_MODEL']; ?></td>
+											<td>
+												<select id="model" name="model" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_MILEAGE']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="mileage" name="mileage" required>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_ENERGY']; ?></td>
+											<td>
+												<select id="energies" name="energies" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_STATE']; ?></td>
+											<td>
+												<select id="states" name="states" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_CATEGORY']; ?></td>
+											<td>
+												<select id="categories" name="categories" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></td>
+											<td>
+												<input class="form-control" type="text" id="buyingprice" name="buyingprice" required />
+												<select id="currencies" name="currencies" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_TYPE']; ?></td>
+											<td>
+												<select id="kinds" name="kinds" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?></td>
+											<td>
+												<select id="equipments" name="equipments" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['SEAVEHICLE_SITE']; ?></td>
+											<td>
+												<select id="sites" name="sites" required="required" class="form-control"></select>
+											</td>
+										</tr>
+										<tr>
+											<td><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></td>
+											<td>
+												<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" ></textarea>
+											</td>
+										</tr>
+									</table>
+								</div>
 							</form>
-							<input type="button" onclick="javascript:deleteVehicle();" value="Supprimer ce véhicule" class="btn btn-danger"/>
-							<input type="button" onclick="javascript:saveChangesVehicle();" value="Enregistrer les modifications" class="btn btn-success"/>
+							<input type="button" onclick="javascript:deleteVehicle();" value="<?php echo $addvehicle['SEAVEHICLE_DELETE']; ?>" class="btn btn-danger"/>
+							<input type="button" onclick="javascript:saveChangesVehicle();" value="<?php echo $addvehicle['SEAVEHICLE_SAVE']; ?>" class="btn btn-success"/>
 						</div>
 					</div>
 				</div>
