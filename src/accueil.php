@@ -1,30 +1,69 @@
 <?php
-	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../lang/accueil.fr.php');
-	else
-		include('../lang/accueil.en.php');
-	?>
+/* ======================================================================== *
+ *																			*
+ * @filename:		accueil.php												*
+ * @description:	Home page for Think-Parc website.						*
+ *					Here you'll find all links and modules implemented		*
+ *																			*
+ * @author(s): 		Joey BRONNER & Saïd KHALID								*
+ * @contact(s):		joeybronner@gmail.com ; khalidsaid.box@gmail.com		*
+ * @lastupdate: 	01/02/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 01/02/2015 | JBR ; SKH      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
+?>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, user-scalable=yes" />
-		<meta charset="utf-8">
-		<title>FCT Partners</title>
-		<meta name="description" content="">
-		<meta name="" content="width=device-width">
-		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/templatemo_main.css">
-		<link rel="stylesheet" href="../css/app.css">
-		<script src="../js/jquery.min.js"></script>
-		<script src="../js/jquery-ui.min.js"></script>
-		<script src="../js/jquery.backstretch.min.js"></script>
-		<script src="../js/templatemo_script.js"></script>
-		<script src="../js/bootstrap.js"></script>
-		<script>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+		
+		/* 1. Import contants values with DIR path used for future imports */
+		require('header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR') {
+			include('../lang/accueil.fr.php');
+		} else {
+			include('../lang/accueil.en.php');
+		}
+		
+		/* 5. Import specific JavaScript file for this page */
+		// echo '<script type="text/javascript" src="addvehicle.js"></script>';
+
+	?>
+		<title>Think-Parc | Home</title>
+		<script>			
+			/** AngularJS module for HTTP requests */
+			angular.module('HomeModule', []).controller('HomeController', function ($scope, $http) {
+				$scope.getRandomNews = function (data) {
+					$http.get('http://think-parc.com/webservice/v1/news/random').
+						success(function(data, status, headers, config) {
+							var response = angular.fromJson(data);
+							var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + reformatDate(response[0].date_news) + '</h6>';
+							content = content + '<h5>' + response[0].msg + '</h5>';
+							document.getElementById("newsContent").innerHTML = content;
+						});
+				};
+			});
+			
 			$(function onLoad(){
 			   	// If any parameters exists to redirect to a specific section
 				var section = getParameterByName('section');
@@ -32,16 +71,8 @@
 					changeSection("#" + section);
 				}
 				/* Load random news */
-				$.ajax({
-					method: 	"GET",
-					url:		"http://think-parc.com/webservice/v1/news/random",  
-					success:	function(data) {
-									var response = JSON.parse(data);
-									var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + reformatDate(response[0].date_news) + '</h6>';
-									content = content + '<h5>' + response[0].msg + '</h5>';
-									document.getElementById("newsContent").innerHTML = content;
-								}
-				});
+				angular.element($("#main-wrapper")).scope().getRandomNews();
+				
 				/* Load QuickView values */
 				getCompany(function(company){
 					$.ajax({
@@ -109,11 +140,14 @@
 					});
 				});
 			});
+			
 			/** Good date format JJ/MM/AAAA */
 			function reformatDate(dateStr) {
 			  dArr = dateStr.split("-");
 			  return dArr[2] + "/" + dArr[1] + "/" + dArr[0];
 			}
+			
+			/** Retrieves company's ID */
 			function getCompany(handleData){
 				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
 				$.ajax({
@@ -125,6 +159,8 @@
 								}
 				});
 			};
+			
+			/** Retrieves parameter on page loading (performed with back button) */
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -135,7 +171,7 @@
 	</head>
 	<body>
 		<?php include('header/navbar.php'); ?>
-		<div id="main-wrapper">
+		<div id="main-wrapper" ng-app='HomeModule' ng-controller="HomeController">
 			<div class="image-section">
 				<div class="image-container">
 					<img src="../images/background/home/think_parc_home_1.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
@@ -402,7 +438,6 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.reporting-section -->    
 						<section id="maintenance-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -443,7 +478,6 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.maintenance-section -->    
 						<section id="options-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -502,7 +536,6 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.company-intor-section -->    
 						<section id="testimonials-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -559,7 +592,6 @@
 							</div>
 						</section>
 					</div>
-					<!-- /.row --> 
 				</div>
 				<?php include('footer/footer.php'); ?>
 			</div>

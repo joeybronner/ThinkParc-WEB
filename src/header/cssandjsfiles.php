@@ -8,6 +8,7 @@
 /* Bootstrap & jQuery */
 echo '<script src="' .INCLUDE_PATH. '/js/jquery.min.js"></script>';
 echo '<script src="' .INCLUDE_PATH. '/js/jquery.backstretch.min.js"></script>';
+echo '<script src="' .INCLUDE_PATH. '/js/jquery-ui.min.js"></script>';
 echo '<link href="'  .INCLUDE_PATH. '/css/bootstrap.css" rel="stylesheet" type="text/css">';
 echo '<script src="' .INCLUDE_PATH. '/js/bootstrap.js"></script>';
 
@@ -39,6 +40,9 @@ echo '<script src="' .INCLUDE_PATH. '/js/popup.js"></script>';
 
 /* Google Chart */
 echo '<script src="' .INCLUDE_PATH. '/js/googlecharts.js"></script>';
+
+/* Angular JS */
+echo '<script src="' .INCLUDE_PATH. '/js/angular1.4.js"></script>';
 ?>
 
 
