@@ -130,7 +130,7 @@
 										</tr>
 										<tr>
 											<td>
-												<input class="form-control" type="text" id="buyingprice" name="buyingprice" placeholder="<?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?>" required/>
+												<input class="form-control" type="number" min="0" step="any" id="buyingprice" name="buyingprice" placeholder="<?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?>" required/>
 											</td>
 											<td>
 												<select id="currencies" name="currencies" required="required" class="form-control">
@@ -164,7 +164,7 @@
 										<tr>
 											<td><h5><?php echo $addvehicle['ADDVEHICLE_MILEAGE']; ?></h5></td>
 											<td>
-												<input class="form-control" type="text" id="mileage" name="mileage" required="required" placeholder="100000"/>
+												<input class="form-control" type="number" min="0" step="any" id="mileage" name="mileage" required="required" placeholder="100000"/>
 											</td>
 										</tr>
 										<tr>
