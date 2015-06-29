@@ -120,9 +120,7 @@
 												</select>
 											</td>
 											<td>
-												<select id="equipments" name="equipments" required="required" class="form-control">
-													<!-- Retrieve equipments with an AJAX [GET] query -->
-												</select>
+												<input class="form-control" type="text" id="equipments" name="equipments" placeholder="<?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?>"/>
 											</td>
 										</tr>
 										<tr>

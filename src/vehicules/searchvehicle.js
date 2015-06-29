@@ -55,6 +55,9 @@ function displayVehicle(id) {
 	  document.getElementById("nr_plate").value = response[0].nr_plate;
 	  document.getElementById("nr_serial").value = response[0].nr_serial;
 	  document.getElementById("mileage").value = response[0].mileage;
+	  document.getElementById("equipments").value = response[0].equipments;
+	  document.getElementById("date_buy").value = reformatDate(response[0].date_buy);
+	  document.getElementById("date_entryservice").value = reformatDate(response[0].date_entryservice);
 	  document.getElementById("buyingprice").value = response[0].buyingprice;
 	  document.getElementById("commentary").value = response[0].commentary;
 	  
@@ -66,7 +69,6 @@ function displayVehicle(id) {
       setBrands(response[0].id_brand);
       setModels(response[0].id_model, response[0].id_brand);
       setEnergies(response[0].id_energy);
-      setEquipments(response[0].id_equipment);
       setStates(response[0].id_state);
       setCategories(response[0].id_category);
       setKinds(response[0].id_kind);
@@ -383,23 +385,6 @@ function setEnergies(id_energy) {
   });
 }
 
-/** Updates equipment of specific vehicle */
-function setEquipments(id_equipment) {
-  $.ajax({
-    method: "GET",
-    url: "http://think-parc.com/webservice/v1/companies/vehicles/equipments",
-    success: function(data) {
-      var response = JSON.parse(data);
-      var content = '<option selected disabled>Equipements</option>';
-      for (var i = 0; i < response.length; i++) {
-        content = content + '<option value="' + response[i].id_equipment + '">' + response[i].equipment + '</option>';
-      }
-      document.getElementById("equipments").innerHTML = content;
-      document.getElementById("equipments").value = id_equipment;
-    }
-  });
-};
-
 /** Deletes a selected vehicle */
 function deleteVehicle() {
   var id = document.getElementById("listvehicles").value;
@@ -441,7 +426,7 @@ function saveChangesVehicle() {
   var model = document.getElementById("model").value;
   var kind = document.getElementById("kinds").value;
   var category = document.getElementById("categories").value;
-  var equipment = document.getElementById("equipments").value;
+  var equipments = document.getElementById("equipments").value;
   var state = document.getElementById("states").value;
   var currency = document.getElementById("currencies").value;
   var site = document.getElementById("sites").value;
@@ -451,7 +436,7 @@ function saveChangesVehicle() {
     method: "PUT",
     url: "http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial +
       "/" + mileage + "/" + buyingprice + "/" + date_buy + "/" + date_entryservice + "/" + energy +
-      "/" + model + "/" + kind + "/" + category + "/" + equipment + "/" + state + "/" + currency +
+      "/" + model + "/" + kind + "/" + category + "/" + equipments + "/" + state + "/" + currency +
       "/" + commentary,
     success: function(data) {
       $(document).ready(function() {

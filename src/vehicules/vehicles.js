@@ -43,7 +43,7 @@ function displayVehicles() {
             response[i].model,
             response[i].kind,
             response[i].category,
-            response[i].equipment,
+            response[i].equipments,
             response[i].state,
             response[i].name,
             response[i].commentary,
@@ -90,7 +90,7 @@ function displayVehicles() {
             "title": "Catégorie",
             "class": "center fctbw"
           }, {
-            "title": "Equipement",
+            "title": "Equipement(s)",
             "class": "center fctbw"
           }, {
             "title": "Etat",

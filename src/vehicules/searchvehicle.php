@@ -179,7 +179,7 @@
 										<tr>
 											<td><?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?></td>
 											<td>
-												<select id="equipments" name="equipments" required="required" class="form-control"></select>
+												<input class="form-control" type="text" id="equipments" name="equipments"/>
 											</td>
 										</tr>
 										<tr>

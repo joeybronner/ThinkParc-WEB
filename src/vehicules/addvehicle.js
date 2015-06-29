@@ -93,22 +93,6 @@ $(function getEnergies() {
   });
 });
 
-/** Retrieves all equipments */
-$(function getEquipments() {
-  $.ajax({
-    method: "GET",
-    url: "http://think-parc.com/webservice/v1/companies/vehicles/equipments",
-    success: function(data) {
-      var response = JSON.parse(data);
-      var content = '<option selected disabled>Equipements</option>';
-      for (var i = 0; i < response.length; i++) {
-        content = content + '<option value="' + response[i].id_equipment + '">' + response[i].equipment + '</option>';
-      }
-      document.getElementById("equipments").innerHTML = content;
-    }
-  });
-});
-
 /** Retrieves all sites */
 $(function getSites() {
   getCompany(function(company) {
@@ -184,7 +168,7 @@ function addVehicule() {
   var model = document.getElementById("model").value;
   var kind = document.getElementById("kinds").value;
   var category = document.getElementById("categories").value;
-  var equipment = document.getElementById("equipments").value;
+  var equipments = document.getElementById("equipments").value;
   var state = document.getElementById("states").value;
   var currency = document.getElementById("currencies").value;
   var site = document.getElementById("sites").value;
@@ -194,7 +178,7 @@ function addVehicule() {
     method: "POST",
     url: "http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial +
       "/" + mileage + "/" + buyingprice + "/" + date_buy + "/" + date_entryservice + "/" + energy +
-      "/" + model + "/" + kind + "/" + category + "/" + equipment + "/" + state + "/" + currency +
+      "/" + model + "/" + kind + "/" + category + "/" + equipments + "/" + state + "/" + currency +
       "/" + commentary,
     success: function(data) {
       $(document).ready(function() {
