@@ -21,5 +21,7 @@ $vehanddri['DATE_START'] = 'Date of start';
 $vehanddri['DATE_END'] = 'Date of end';
 $vehanddri['BT_ADD'] = 'Add';
 $vehanddri['BACK'] = ' Back';
+$vehanddri['DL_DELIVERY'] = 'Driving licence acquisition';
+$vehanddri['DL_EXPIRE'] = 'Driving licence expiration';
 
 ?>

@@ -14,6 +14,8 @@ $(function onLoad() {
   getAllDrivers();
   $('#date_start').datepicker();
   $('#date_end').datepicker();
+  $('#acquisition_drivinglicence').datepicker();
+  $('#expire_drivinglicence').datepicker();
 });
 
 /** Retrieves all drivers */
@@ -77,6 +79,8 @@ function displayVehicle(id) {
         for (var i = 0; i < response.length; i++) {
           dataSet[i] = new Array(response[i].firstname + " " + response[i].lastname,
             response[i].nr_drivinglicence,
+			reformatDate(response[i].acquisition_drivinglicence),
+            reformatDate(response[i].expire_drivinglicence),
             reformatDate(response[i].date_start),
             reformatDate(response[i].date_end),
             '<a href="javascript:removeEntry(' + response[i].id_driveduration + ');"><i id="icon_remove" class="fa fa-times"></i></a>');
@@ -100,10 +104,16 @@ function displayVehicle(id) {
             "title": "N° de permis de conduire",
             "class": "center fctbw"
           }, {
-            "title": "Date de début",
+            "title": "Obtention",
             "class": "center fctbw"
           }, {
-            "title": "Date de fin",
+            "title": "Expiration",
+            "class": "center fctbw"
+          }, {
+            "title": "Début conduite",
+            "class": "center fctbw"
+          }, {
+            "title": "Fin conduite",
             "class": "center fctbw"
           }, {
             "title": "",
@@ -167,6 +177,8 @@ function insertDriveDuration(id_driver) {
         document.getElementById("firstname").value = '';
         document.getElementById("lastname").value = '';
         document.getElementById("nr_drivinglicence").value = '';
+        document.getElementById("acquisition_drivinglicence").value = '';
+        document.getElementById("expire_drivinglicence").value = '';
         document.getElementById("date_start").value = '';
         document.getElementById("date_end").value = '';
         displayVehicle(document.getElementById("listvehicles").value);
@@ -180,10 +192,12 @@ function insertDriver(handleData) {
   var firstname = document.getElementById("firstname").value;
   var lastname = document.getElementById("lastname").value;
   var nr_drivinglicence = document.getElementById("nr_drivinglicence").value;
+  var acquisition_drivinglicence = document.getElementById("acquisition_drivinglicence").value.split("/").reverse().join("-");
+  var expire_drivinglicence = document.getElementById("expire_drivinglicence").value.split("/").reverse().join("-");
   getCompany(function(company) {
     $.ajax({
       method: "POST",
-      url: "http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/drivers/" + firstname + "/" + lastname + "/" + nr_drivinglicence,
+      url: "http://think-parc.com/webservice/v1/companies/" + company + "/administratives/vehicles/drivers/" + firstname + "/" + lastname + "/" + nr_drivinglicence + "/" + acquisition_drivinglicence + "/" + expire_drivinglicence,
       success: function(data) {
         json = JSON.parse(data);
         handleData(json["Success"]);
@@ -207,10 +221,12 @@ function newDriverFields() {
     list = true;
     newdriver = false;
   }
-  document.getElementById("listdrivers").disabled = list;
+  document.getElementById("listdrivers").disabled = list; 
   document.getElementById('firstname').disabled = newdriver;
   document.getElementById('lastname').disabled = newdriver;
   document.getElementById('nr_drivinglicence').disabled = newdriver;
+  document.getElementById('acquisition_drivinglicence').disabled = newdriver;
+  document.getElementById('expire_drivinglicence').disabled = newdriver;
 }
 
 /** Shows drivers fields */

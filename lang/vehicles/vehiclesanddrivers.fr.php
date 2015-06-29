@@ -21,5 +21,7 @@ $vehanddri['DATE_START'] = 'Date de début';
 $vehanddri['DATE_END'] = 'Date de fin';
 $vehanddri['BT_ADD'] = 'Ajouter';
 $vehanddri['BACK'] = ' Retour';
+$vehanddri['DL_DELIVERY'] = 'Obtention du permis de conduire';
+$vehanddri['DL_EXPIRE'] = 'Expiration du permis de conduire';
 
 ?>

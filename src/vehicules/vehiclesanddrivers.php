@@ -151,6 +151,18 @@
 												</td>
 											</tr>
 											<tr>
+												<td><?php echo $vehanddri['DL_DELIVERY']; ?></td>
+												<td>
+													<input type="text" class="form-control" id="acquisition_drivinglicence" name="acquisition_drinvinglicence" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required disabled>
+												</td>
+											</tr>
+											<tr>
+												<td><?php echo $vehanddri['DL_EXPIRE']; ?></td>
+												<td>
+													<input type="text" class="form-control" id="expire_drivinglicence" name="expire_drinvinglicence" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required disabled>
+												</td>
+											</tr>
+											<tr>
 												<td><?php echo $vehanddri['DATE_START']; ?></td>
 												<td>
 													<input type="text" class="form-control" id="date_start" name="date_start" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>

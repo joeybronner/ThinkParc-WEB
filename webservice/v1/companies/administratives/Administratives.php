@@ -96,13 +96,14 @@ class Administratives {
     /**
      * Description.
      *
-     * @url POST /companies/$id_company/administratives/vehicles/drivers/$firstname/$lastname/$nr_drivinglicence
+     * @url POST /companies/$id_company/administratives/vehicles/drivers/$firstname/$lastname/$nr_drivinglicence/$acquisition_drivinglicence/$expire_drivinglicence
      */
-    public function addNewDriver($id_company = null, $firstname = null, $lastname = null, $nr_drivinglicence = null) {
+    public function addNewDriver($id_company = null, $firstname = null, $lastname = null, $nr_drivinglicence = null, 
+						$acquisition_drivinglicence = null, $expire_drivinglicence = null) {
 		try {
 			global $con;
-			$sql = 	"INSERT INTO drivers (firstname, lastname, nr_drivinglicence, id_company) ".
-					"VALUES ('".$firstname."', '".$lastname."', '".$nr_drivinglicence."', ".$id_company.");";
+			$sql = 	"INSERT INTO drivers (firstname, lastname, nr_drivinglicence, acquisition_drivinglicence, expire_drivinglicence, id_company) ".
+					"VALUES ('".$firstname."', '".$lastname."', '".$nr_drivinglicence."', '".$acquisition_drivinglicence."', '".$expire_drivinglicence."', ".$id_company.");";
 			$stmt = $con->exec($sql);
 			$id = $con->lastInsertId('id_driver');
 			return array("Success" => "".$id);
