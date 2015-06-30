@@ -418,18 +418,18 @@
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center">Reporting</h2>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
 										<a href="reporting/partsconsumption.php" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-thumbs-o-up"></i>
+												<i class="fa fa-cubes"></i>
 												<h2>Analyse<br>des pièces</h2>
 											</div>
 										</a>
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
 										<a href="reporting/vehiclesoverview.php" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-thumbs-o-up"></i>
+												<i class="fa fa-car"></i>
 												<h2>Analyse<br>des véhicules</h2>
 											</div>
 										</a>

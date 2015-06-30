@@ -252,6 +252,13 @@ img.slide {
 	float:left;
 }
 
+.black {
+    color:black;
+    font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	float:left;
+}
+
 .templatemo-content td {
     color:#fff;
     font-family: 'Open Sans', sans-serif;
@@ -373,12 +380,6 @@ img.slide {
 }
 
 @media (max-width: 991px) {
-    .footer {
-        overflow:hidden; 
-        position:static;
-        text-align: center;
-    }
-    
     .footer-text {
         margin-left: 0;  
     }
