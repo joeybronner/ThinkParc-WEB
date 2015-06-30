@@ -421,8 +421,16 @@
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
 										<a href="reporting/partsconsumption.php" class="directlink-section">
 											<div class="black-bg btn-menu">
-												<i class="fa fa-refresh"></i>
-												<h2>Consommation<br>des pièces</h2>
+												<i class="fa fa-thumbs-o-up"></i>
+												<h2>Analyse<br>des pièces</h2>
+											</div>
+										</a>
+									</div>
+									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
+										<a href="reporting/vehiclesoverview.php" class="directlink-section">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-thumbs-o-up"></i>
+												<h2>Analyse<br>des véhicules</h2>
 											</div>
 										</a>
 									</div>
