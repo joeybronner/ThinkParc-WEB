@@ -60,6 +60,7 @@
 			document.getElementById("title_chart5").style.display = "none";
 			document.getElementById("chart5").style.display = "none";
 			document.getElementById("title_chart6").style.display = "none";
+			document.getElementById("chart6").style.display = "none";
 			getAllReferences();
 			$('#date_start').datepicker();
 			$('#date_end').datepicker();
@@ -73,6 +74,7 @@
 			document.getElementById("title_chart5").style.display = "block";
 			document.getElementById("chart5").style.display = "block";
 			document.getElementById("title_chart6").style.display = "block";
+			document.getElementById("chart6").style.display = "block";
 			var reference = document.getElementById("reference").value;
 			var date_start = document.getElementById("date_start").value.split("/").reverse().join("-");
 			var date_end = document.getElementById("date_end").value.split("/").reverse().join("-");
@@ -416,11 +418,17 @@
 												-
 											</td>
 										</tr>
+									</tbody>
+								</table>
+								<table class="table-no-border">
+									<tbody>
 										<tr id="title_chart6">
-											<td align="center" colspan="3">
+											<td align="center" colspan="4">
 												<h2>Parts localisation</h2>
-											</td align="center">
-											<td id="partslocalisation_values" style="max-height:500px; margin: 0 auto;" colspan="4">
+											</td>
+										</tr>
+										<tr id="chart6">
+											<td id="partslocalisation_values" style="width: 900px; height: 500px;" colspan="2">
 													
 											</td>
 										</tr>
