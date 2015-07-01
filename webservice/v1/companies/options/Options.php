@@ -1,8 +1,22 @@
 <?php
+
+/* ======================================================================== *
+ * @filename:		Options.php												*
+ * @topic:			Options 													*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @remarks:		-														*
+ *																			*
+ * Date       | Developer      | Changes description						*
+ * ------------------------------------------------------------------------ *
+ * 02/06/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
+
 class Options {	
 
- 
-	
 	   /**
      * Add brand in company.
      *
@@ -11,15 +25,26 @@ class Options {
     public function addbrand($brand=null) {
 		try {
 			global $con;
-		
+		/* Statement declaration */
 			$sql = 	"INSERT INTO brands (brand) 
 					 VALUES ('".$brand."');";
 				 
-			$stmt = $con->exec($sql);
-
-			return array("success" => "OK");
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -32,16 +57,26 @@ class Options {
     public function addsite($name = null, $id_company = null, $adress1 = null, $adress2 = null, $adress3 = null, $city = null, $country = null) {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"INSERT INTO sites (name, id_company, address_ligne1, address_ligne2, address_ligne3, city, country) 
 					 VALUES ('".$name."', ".$id_company.",'".$adress1."','".$adress2."','".$adress3."','".$city."','".$country."');";
 			
-			echo $sql;
-			$stmt = $con->exec($sql);
-
-			return array("success" => "OK");
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -53,15 +88,26 @@ class Options {
     public function addmodel($model = null, $id_brand = null) {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"INSERT INTO models (model, id_brand) 
 					 VALUES ('".$model."', ".$id_brand.");";
 				 
-			$stmt = $con->exec($sql);
-
-			return array("success" => "OK");
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -73,18 +119,28 @@ class Options {
     public function getbrand() {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"SELECT id_brand, brand
 					 FROM brands;";
 				 
-			$stmt = $con->query($sql);
-			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $res;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
-	
 	
 	
 		   /**
@@ -95,15 +151,26 @@ class Options {
     public function getcompany() {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"SELECT id_company, name
 					 FROM companies;";
 				 
-			$stmt = $con->query($sql);
-			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $res;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -116,15 +183,26 @@ class Options {
     public function getroles() {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"SELECT id_role, role
 					 FROM roles;";
 				 
-			$stmt = $con->query($sql);
-			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $res;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -136,16 +214,26 @@ class Options {
     public function adduser($firstname=null, $lastname=null, $login=null, $password=null, $email=null, $image=null, $id_role=null, $id_company=null) {
 		try {
 			global $con;
-		
+			/* Statement declaration */
 			$sql = 	"INSERT INTO users (firstname, lastname, login, pass, email, image, id_role, id_company) 
 					 VALUES ('".$firstname."', '".$lastname."', '".$login."', '".$password."', '".$email."', '".$image."', ".$id_role.", ".$id_company.");";
 				 
-		
-			$stmt = $con->exec($sql);
-
-			return array("success" => "OK");
+		/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 
