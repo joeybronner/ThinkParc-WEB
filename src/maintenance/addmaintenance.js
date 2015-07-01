@@ -65,7 +65,9 @@ function getCompany(handleData) {
 
 /** Retrieves all vehicles data */
 function getAllVehicles() {
+	console.log("retrieve all vehicles");
   getCompany(function(company) {
+	console.log("http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/freevehicles");
     $.ajax({
       method: "GET",
       url: "http://think-parc.com/webservice/v1/companies/" + company + "/maintenance/freevehicles",

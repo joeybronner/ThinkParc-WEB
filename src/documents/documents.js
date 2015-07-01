@@ -8,6 +8,7 @@
  
 /** Global public variables used and re-used in some methods */
 var typeFile = 4;
+var folder = "global_company";
 
 /** Method called on page loading */
 $(function onLoad() {
@@ -64,7 +65,7 @@ function downloadFile(id_file) {
     url: "http://think-parc.com/webservice/v1/files/" + id_file + "/path",
     success: function(data) {
       var response = JSON.parse(data);
-      window.open('../../files/global_company/' + response[0].path);
+      window.open('../../files/' + folder + '/' + response[0].path);
     }
   });
 }
@@ -269,6 +270,7 @@ function displayGlobal() {
   $('#tab-vehicles').removeClass('active');
   $('#tab-technical').removeClass('active');
   typeFile = 4;
+  folder = "global_company";
   getFiles();
 }
 
@@ -278,6 +280,7 @@ function displayTechnical() {
   $('#tab-vehicles').removeClass('active');
   $('#tab-technical').addClass('active');
   typeFile = 2;
+  folder = "parts_technical";
   getFiles();
 }
 
@@ -287,6 +290,7 @@ function displayVehicles() {
   $('#tab-vehicles').addClass('active');
   $('#tab-technical').removeClass('active');
   typeFile = 1;
+  folder = "files_vehicles";
   getFiles();
 }
 
