@@ -1,154 +1,51 @@
 <?php
-     	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/stocks/addproduct.fr.php');
-	else
-		include('../../lang/stocks/addproduct.en.php');
+/* ======================================================================== *
+ *																			*
+ * @filename:		addproduct.php											*
+ * @description:	This page allows to put a product in dataBase.			*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @lastupdate: 	23/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 23/06/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
    <head>
-      <title>FCT</title>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="../../css/bootstrap.css">
-      <link rel="stylesheet" href="../../css/font-awesome.min.css">
-      <link rel="stylesheet" href="../../css/templatemo_main.css">
-      <link rel="stylesheet" href="../../css/app.css">
-      <link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
-      <script src="../../js/jquery.min.js"></script>
-      <script src="../../js/jquery-ui.min.js"></script>
-      <script src="../../js/jquery.backstretch.min.js"></script>
-      <script src="../../js/templatemo_script.js"></script>
-      <script src="../../js/bootstrap.js"></script>
-      <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
-      <script type="text/javascript" src="../../js/jquery.toast.js"></script>
-      <script>
-	  $(function onLoad() 
-			{
-				getFamily();
-				document.getElementById("underfamilyContent").style.display = "none";
-				document.getElementById("underfamilyContent2").style.display = "none";
-				
-			});
-			
-		 function OnResetClick()
-		 {
-				
-				document.getElementById("underfamilyContent").style.display = "none";
-				document.getElementById("underfamilyContent2").style.display = "none";
-				getFamily();
-		 }
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 		
-         function getFamily(){
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/family",  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-         						var content = '<option selected disabled><?php echo $stocks['FAMILY'];?></option>';
-         						for (var i = 0; i<response.length; i++) 
-         						{
-									content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
-         						}
-								 document.getElementById("familyContent").innerHTML = content;
-         					}
-         	});
-         };
-         		function getUnderFamily(id_family){
-				
-				document.getElementById("underfamilyContent").style.display = "block";
-				
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-         						var content = '<option selected disabled><?php echo $stocks['UNDERFAMILY'];?></option>';
-
-         						for (var i = 0; i<response.length; i++) 
-         						{
-         						  content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
-         						}
-         						document.getElementById("underfamilyContent").innerHTML = content;
-								document.getElementById("underfamilyContent").disabled = false;
-
-         					}
-         	});
-         };
-         
-		 function getUnderFamily2(id_family){
-				
-				document.getElementById("underfamilyContent2").style.display = "block";
-		 
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/underfamily/"+id_family,  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-								var content = '<option selected disabled><?php echo $stocks['UNDERFAMILY2'];?></option>';
-         						for (var i = 0; i<response.length; i++) 
-         						{
-         						   content = content + '<option value="'+response[i].id_family+'">'+ response[i].family +'</option>';
-         						}
-         						document.getElementById("underfamilyContent2").innerHTML = content;
-								document.getElementById("underfamilyContent").disabled = false;
-         					}
-         	});
-         };
-    
-    
-         $(function getCurrencies(){
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/stocks/currencies",  
-         		success:	function(data) {
-         						var response = JSON.parse(data);
-         					
-         						for (var i = 0; i<response.length; i++) 
-         						{
-									var content = content + '<option value="'+response[i].id_currency+'">'+ response[i].symbol +'</option>';
-         						
-         						}
-         						document.getElementById("CurrenciesContent").innerHTML = content;
-         					}
-         	});
-         });
-         			
-        
-		function addProduct() {
-         									
-			 var reference = document.getElementById("reference").value;
-			 var designation = document.getElementById("designation").value;
-			 var buyingprice = document.getElementById("buyingprice").value;
-			 var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-			 var id_currency = document.getElementById("CurrenciesContent").value;
-			 var id_family = document.getElementById("familyContent").value;
-         							
-         									
-         $.ajax({
-         									
-         	type: 		"POST",
-         	url:		"http://www.think-parc.com/webservice/v1/companies/stocks/addProduct/reference/"+reference+"/designation/"+designation+"/buyingprice/"+buyingprice+"/id_currency/"+id_currency+"/id_company/"+id_company+"/id_family/"+id_family,  
-         	success:	function(data) {
-         	$(document).ready(function() {
-         		$.toast({heading: "Success",text: "Product successfully added.", icon: "success"});
-         		});
-         														
-					},
-         			error:		function(xhr, status, error) {
-         			$(document).ready(function() {
-         				$.toast({heading: "Error",text: "Error", icon: "error"});
-         					});
-         						}
-         		});
-         											
-         	};
-         								
-         								
-      </script>
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
+		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/addproduct.fr.php');
+		else
+		include('../../lang/options/addproduct.en.php');
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="addproduct.js"></script>';
+		?>
    </head>
    <body>
 
@@ -178,15 +75,17 @@
 											<td><h5>* <?php echo $stocks['FAMILY'];?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td class="small">
 												 <select id="familyContent" name="familyContent" class="form-control"" onchange="getUnderFamily(this.value);">
 													<!-- Here are loaded Family content -->
 												 </select>
-											
+											</td >
+											<td class="small">
 												<select id="underfamilyContent" name="underfamilyContent" class="form-control" onchange="getUnderFamily2(this.value);">
 													 <!-- Here are loaded Under Family content -->
 												 </select>
-											
+											</td>
+											<td class="small">
 												 <select id="underfamilyContent2" name="underfamilyContent2" class="form-control">
 													<!-- Here are loaded Under N2 Family content -->
 												 </select>
@@ -212,7 +111,18 @@
 											</td>
 											<td>
 												 <select id="CurrenciesContent" class="form-control" required/>
-                                          </select>
+                                          
+											</td>
+										</tr>
+										<tr>
+											<td><h5><?php echo $stocks['BRANDANDCOM'];?></h5></td>
+										</tr>
+										<tr>
+											<td>
+												 <input type="text" id="brand" placeholder="<?php echo $stocks['BRAND'];?>" class="form-control"/>
+											</td>
+											<td>
+												 <input type="text" id="com" placeholder="<?php echo $stocks['COM'];?>" class="form-control"/>
 											</td>
 										</tr>
 										<tr>
@@ -230,6 +140,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- End page content -->
+	<!-- Include footer bar with language switch & global website informations -->
 	<?php include('../footer/footer.php'); ?>
 </body>
 </html>
