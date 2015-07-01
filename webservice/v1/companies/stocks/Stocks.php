@@ -1,4 +1,20 @@
 <?php
+
+/* ======================================================================== *
+ * @filename:		Stocks.php												*
+ * @topic:			Stocks 													*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @remarks:		-														*
+ *																			*
+ * Date       | Developer      | Changes description						*
+ * ------------------------------------------------------------------------ *
+ * 01/05/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
+ 
 class Stocks {	
 
     /**
@@ -9,15 +25,27 @@ class Stocks {
     public function getFamily() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT id_family, family 
 					FROM family 
 					WHERE id_parentfamily='0'";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -29,6 +57,7 @@ class Stocks {
     public function updatestock($id_stock = null, $quanty = null, $reference = null, $designation = null, $driveway= null, $bay= null, $position= null, $rack= null, $locker= null ) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = 	"UPDATE stock ".
 					"SET quanty='".$quanty."'".
 					"SET reference='".$reference."'".
@@ -42,12 +71,22 @@ class Stocks {
 					
 					
 					
-			$stmt = $con->query($sql);
-			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $res;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -95,7 +134,7 @@ class Stocks {
 		try {
 			
 			global $con;
-			
+			/* Statement declaration */
 			$sql="INSERT INTO stock (quanty, driveway, bay, position, rack, id_site, id_part, locker, id_typestock, id_measurement, storehouse) 
 				  VALUES ('".$myquanty."' , '".$driveway."','".$bay."','".$position."','".$rack."','".$thereceiver."','".$idpart."','".$locker."','".$type."','".$measure."','".$storehouse."');
 				  
@@ -104,15 +143,23 @@ class Stocks {
 				  WHERE id_transfert = '".$idtrans."';";
 			
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
-		
-		
     }
 	
 	
@@ -124,16 +171,28 @@ class Stocks {
     public function checkref($ref = null, $id_company = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT distinct (reference), pa.id_part 
 					FROM parts pa 
 					WHERE pa.reference like '".$ref."'
 					AND pa.id_company = ".$id_company."";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -145,16 +204,27 @@ class Stocks {
     public function getsitecompany($id_company = null)  {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT si.name, id_site
 					FROM companies co, sites si
 					WHERE si.id_company=co.id_company
 					AND si.id_company = ".$id_company."";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -169,7 +239,7 @@ class Stocks {
 		try {
 			
 			global $con;
-			
+			/* Statement declaration */
 				
 		$sql = 	"INSERT INTO transfert (receiver, id_part, quantity, validation, transferdate, type, measure, title) 
 				 VALUES ('".$id_site2."' , '".$ref."','".$productnumber."','0', NOW(), '".$type."','".$measure."','".$title."');
@@ -178,16 +248,23 @@ class Stocks {
 				 SET st.quanty = (quanty - '".$productnumber."') 
 				 WHERE st.id_stock = '".$idstock."';";
 				
-			echo $sql;
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
-		
-		
     }
 	
 	
@@ -201,11 +278,24 @@ class Stocks {
     public function getModels($id_family = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = 	"SELECT * ".
 					"FROM family ".
 					"WHERE id_parentfamily = ".$id_family.";";
-			$stmt = $con->query($sql);
-			return $stmt->fetchAll(PDO::FETCH_OBJ);
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
 			return array("error" => $e->getMessage());
 		}
@@ -222,6 +312,7 @@ class Stocks {
     public function getAllproducts() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
 					FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 					WHERE st.id_measurement=me.id_measurement 
@@ -231,12 +322,23 @@ class Stocks {
 					AND pa.id_currency=cu.id_currency 
 					AND pa.id_company=co.id_company 
 					AND pa.id_family=fa.id_family";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -248,10 +350,9 @@ class Stocks {
      */
     public function getcompanyproduct($id_company=null, $idsite=null) {
 	
-			
-			
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT reference, st.id_stock, st.id_part, st.id_measurement, st.id_typestock, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
 					FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 					WHERE st.id_measurement=me.id_measurement 
@@ -264,12 +365,22 @@ class Stocks {
 					AND pa.id_company = ".$id_company."
 					AND st.id_site = ".$idsite."";
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -281,9 +392,9 @@ class Stocks {
     public function getalltransferts($id_company=null, $title=null) {
 	
 			
-			
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT id_transfert, title, transferdate, si.name as receivername, tr.receiver as receiver, quantity, reference, tr.id_part, tr.type as typestock, tr.measure as measurement
 					FROM transfert tr, parts pa, typestock ty, measurement me, sites si
 					WHERE title like '".$title."'
@@ -293,12 +404,22 @@ class Stocks {
 					AND tr.measure = me.id_measurement
 					AND tr.validation = 0";
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -310,6 +431,7 @@ class Stocks {
     public function getsiteproductbycompany($id_company = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker, pa.brand, pa.comment
 					FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 					WHERE st.id_measurement=me.id_measurement 
@@ -321,12 +443,22 @@ class Stocks {
 					AND pa.id_family=fa.id_family 
 					AND pa.id_company = ".$id_company.";";
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -337,9 +469,9 @@ class Stocks {
      */
     public function gettransferlist($id_company=null) {
 	
-			
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT count(id_transfert) as total, transferdate, id_transfert, title
 					FROM transfert tr, sites si
 					WHERE si.id_company = ".$id_company."
@@ -349,12 +481,22 @@ class Stocks {
 					HAVING count(id_transfert);";
 					
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -366,7 +508,7 @@ class Stocks {
     public function gethistory($title = null, $id_company=null) {
 		try {
 			global $con;
-			
+			/* Statement declaration */
 				if($title == "all")
 				{
 				$sql = "SELECT transferdate, id_transfert, receiver, title, quantity, validationdate, si.name as companyname, reference
@@ -388,12 +530,22 @@ class Stocks {
 						AND tr.title like '".$title."';";
 				}
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -407,7 +559,7 @@ class Stocks {
     public function getsiteproduct($id_site = null, $id_company=null) {
 		try {
 			global $con;
-			
+			/* Statement declaration */
 			if($id_site==0)
 			{
 				$sql = "SELECT id_stock, reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker, pa.brand as brand, pa.comment as comment, st.storehouse as storehouse
@@ -435,12 +587,22 @@ class Stocks {
 						AND st.id_site = ".$id_site.";";
 			}
 			
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -452,15 +614,27 @@ class Stocks {
     public function getUnderFamily($id_family = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT * 
 					FROM family 
 					WHERE id_parentfamily in (select id_family from family);";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -472,16 +646,27 @@ class Stocks {
     public function getUnderFamily2() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT * 
 					FROM family 
 					WHERE id_parentfamily IN (SELECT id_family 
 											  FROM family);";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
 			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -493,14 +678,26 @@ class Stocks {
     public function getKinds() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT * 
 					FROM kinds;";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -512,14 +709,26 @@ class Stocks {
     public function getMeasurement() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT * 
 					FROM measurement;";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -531,12 +740,26 @@ class Stocks {
     public function getSites2($id_company = null, $id_site = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = 	"SELECT * 
 					FROM sites 
 					WHERE id_company = ".$id_company."
 					AND id_site <> ".$id_site.";";
-			$stmt = $con->query($sql);
-			return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
 			return array("error" => $e->getMessage());
 		}
@@ -551,13 +774,27 @@ class Stocks {
     public function getreleaseproduct($id_company = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = 	"SELECT * 
 					FROM transfert tr, sites si
 					WHERE si.id_company = ".$id_company."
 					AND tr.validation = 1
 					AND tr.receiver=si.id_site;";
-			$stmt = $con->query($sql);
-			return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
 			return array("error" => $e->getMessage());
 		}
@@ -572,11 +809,25 @@ class Stocks {
     public function getSites($id_company = null) {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = 	"SELECT * ".
 					"FROM sites ".
 					"WHERE id_company = ".$id_company.";";
-			$stmt = $con->query($sql);
-			return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
 			return array("error" => $e->getMessage());
 		}
@@ -590,14 +841,26 @@ class Stocks {
     public function getCurrencies() {
 		try {
 			global $con;
+			/* Statement declaration */
 			$sql = "SELECT * 
 					FROM currencies;";
-			$stmt = $con->query($sql);
-			$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
-			return $wines;
 			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("test" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -609,14 +872,26 @@ class Stocks {
     public function addProduct($reference = null, $designation = null, $buyingprice = null, $id_currency=null, $id_company=null, $id_family=null, $brand = null, $comment = null) {
 		try {
 				global $con;
+				/* Statement declaration */
 			$sql = 	"INSERT INTO parts (reference, designation, buyingprice, id_currency, id_company, id_family, brand, comment) 
 					 VALUES ('".$reference."', '".$designation."', ".$buyingprice.", ".$id_currency.", ".$id_company.", ".$id_family.", '".$brand."', '".$comment."');";
-			$stmt = $con->exec($sql);
-		
-			echo $stmt;
-			return array("success" => "OK");
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 	
@@ -628,14 +903,26 @@ class Stocks {
     public function addinstock($quanty=null, $id_measurement=null, $driveway=null, $bay=null, $position=null, $rack=null, $id_site=null, $id_typestock=null, $locker=null, $id_part=null, $storehouse = null) {
 		try {
 			global $con;
-		
+		/* Statement declaration */
 			$sql = 	"INSERT INTO stock (quanty, id_measurement, driveway, bay, position, rack, id_typestock, id_site, locker, id_part, storehouse) 
 					 VALUES (".$quanty.", ".$id_measurement.", '".$driveway."', '".$bay."', '".$position."', '".$rack."', ".$id_typestock.", ".$id_site.", '".$locker."', ".$id_part.", '".$storehouse."');";
-			$stmt = $con->exec($sql);
-
-			return array("success" => "OK");
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
 		} catch(PDOException $e) {
-			return array("error" => "".$e->getMessage());
+			return array("error" => $e->getMessage());
 		}
     }
 
