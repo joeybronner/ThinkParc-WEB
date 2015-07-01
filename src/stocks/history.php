@@ -1,131 +1,51 @@
 <?php
-   	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/stocks/history.fr.php');
-	else
-		include('../../lang/stocks/history.en.php');
+/* ======================================================================== *
+ *																			*
+ * @filename:		history.php												*
+ * @description:	This page allows some users to see history of transfert.*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @lastupdate: 	26/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 26/06/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
-	<head>
-		<title>FCT Partners</title>
-		<meta name="viewport" content="width=device-width, user-scalable=yes" />
-		<meta name="description" content="">
-		<meta charset="utf-8">
-   	    <link rel="stylesheet" href="../../css/bootstrap.css">
-		<link rel="stylesheet" href="../../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../../css/templatemo_main.css">
-		<link rel="stylesheet" href="../../css/app.css">
-		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-
-		<script src="../../js/jquery.min.js"></script>
-		<script src="../../js/jquery.backstretch.min.js"></script>
-		<script src="../../js/templatemo_script.js"></script>
-		<script src="../../js/bootstrap.js"></script>
-		<script src="../../js/jquery.toast.js"></script>
+   <head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 		
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themeroller.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.min.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-
-        <script type="text/javascript" src="../../js/jquery.js"></script>
-        <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
-
-		<script type="text/javascript">
-			
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
 		
-			$(function onLoad() {
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-				document.getElementById("productblock").style.display = "none";
-				getreleaseproduct(id_company);
-			});
-			
-			
-			function getreleaseproduct(id_company){
-		 
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-		 
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/release", 
-         		success:	function(data) {
-         						
-								var response = JSON.parse(data);
-								var content = '<option selected disabled><?php echo $stocks['OUTPUTS'];?></option>';
-								content = content + '<option value="all"><?php echo $stocks['ALLOUTPUTS'];?></option>';
-								
-         						for (var i = 0; i<response.length; i++) 
-         						{
-									content = content + '<option value="'+response[i].title+'"> date : '+ response[i].transferdate +' --- <?php echo $stocks['WORDING'];?> : '+ response[i].title +' </option>';
-         						}
-         						
-								document.getElementById("list").innerHTML = content;
-         					}
-         	});
-         };
-			
-			
-			function gethistory(title, id_company) {
-			
-			var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-			
-			$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/historylist/"+title+"/company/"+id_company, 
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var dataSet = new Array(response.length);
-							
-							for (var i = 0; i<response.length; i++) 
-							{
-							
-									
-								dataSet[i] = new Array( response[i].title,  
-														response[i].reference,
-														response[i].companyname,
-														response[i].quantity,
-														response[i].transferdate,
-														response[i].validationdate);
-							}
-						
-							document.getElementById("productblock").style.display = "block";
-							
-							$('#stock').html( '<table cellspacing="0" width="100%" id="example"></table>' );
-							
-							$('#example').dataTable( {
-								"data": dataSet,
-								   "scrollX": true,
-								   "bPaginate": true,
-								   "bLengthChange": true,
-								   "bStateSave": true,
-								   "bFilter": true,
-								   "bSort": true,
-								   "bInfo": true,
-								   "bAutoWidth": true,
-								"columns": [
-									{ "title": "<?php echo $stocks['WORDING'];?>" , "class": "center fctbw"},
-									{ "title": "<?php echo $stocks['PRODUCT'];?>" , "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['RECIPIENT'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['QUANTITY'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['TRANSFERTDATE'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['VALIDATIONDATE'];?>", "class": "center fctbw" }
-								]
-							} );   
-						},
-			error:		function(data) {
-							
-						}
-		});
-	};	 
-							
-         
- 
-		</script>
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
+		
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/history.fr.php');
+		else
+		include('../../lang/options/history.en.php');
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="history.js"></script>';
+		?>
 		</head>
 		<body>
 		<?php include('../header/navbar.php'); ?>
@@ -191,6 +111,8 @@
 			</div>
 		</div>				
 	</div>
+	<!-- End page content -->
+	<!-- Include footer bar with language switch & global website informations -->
 	<?php include('../footer/footer.php'); ?>
   </body>
 </html>
