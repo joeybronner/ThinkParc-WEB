@@ -22,17 +22,82 @@ class Stocks {
     }
 	
 	/**
+     * Description.
+     *
+     * @url PUT /companies/stocks/updatestock/$quanty/id_stock/$id_stock/$reference/$designation/$driveway/$bay/$position/$rack/$id_part/$locker
+     */
+    public function updatestock($id_stock = null, $quanty = null, $reference = null, $designation = null, $driveway= null, $bay= null, $position= null, $rack= null, $locker= null ) {
+		try {
+			global $con;
+			$sql = 	"UPDATE stock ".
+					"SET quanty='".$quanty."'".
+					"SET reference='".$reference."'".
+					"SET designation='".$designation."'".
+					"SET driveway='".$driveway."'".
+					"SET bay='".$bay."'".
+					"SET position='".$position."'".
+					"SET rack='".$rack."'".
+					"SET locker='".$locker."'".
+					"WHERE id_stock='".$id_stock."';";
+					
+					
+					
+			$stmt = $con->query($sql);
+			$res = $stmt->fetchAll(PDO::FETCH_OBJ);
+			return $res;
+			
+		} catch(PDOException $e) {
+			return array("test" => "".$e->getMessage());
+		}
+    }
+	
+	
+	
+	  /**
+     * Delete from stock.
+     *
+     * @url DELETE /companies/stocks/deletefromstock/id_stock/$id_stock
+     */
+    public function deletefromstock($id_stock = null) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = 	"DELETE FROM stock ".
+					 "WHERE id_stock= :id_stock ";
+			
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_stock', $id_stock);
+					
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else 
+			  return array("success" => "OK");
+			
+			/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
+	/**
      * Insert transfer product in stock.
      *
-     * @url POST /companies/stocks/idtransfert/$idtrans/quanty/$myquanty/idpart/$idpart/driveway/$driveway/bay/$bay/position/$position/rack/$rack/locker/$locker/receiver/$thereceiver/type/$type/measure/$measure
+     * @url POST /companies/stocks/idtransfert/$idtrans/quanty/$myquanty/idpart/$idpart/driveway/$driveway/bay/$bay/position/$position/rack/$rack/locker/$locker/receiver/$thereceiver/type/$type/measure/$measure/storehouse/$storehouse
      */
-    public function TransfertProductInStock($idtrans = null, $idpart = null, $driveway = null, $bay = null, $position = null, $rack = null, $locker=null, $myquanty=null, $thereceiver =null, $type =null, $measure =null) {
+    public function TransfertProductInStock($idtrans = null, $idpart = null, $driveway = null, $bay = null, $position = null, $rack = null, $locker=null, $myquanty=null, $thereceiver =null, $type =null, $measure =null, $storehouse=null) {
 		try {
 			
 			global $con;
 			
-			$sql="INSERT INTO stock (quanty, driveway, bay, position, rack, id_site, id_part, locker, id_typestock, id_measurement) 
-				  VALUES ('".$myquanty."' , '".$driveway."','".$bay."','".$position."','".$rack."','".$thereceiver."','".$idpart."','".$locker."','".$type."','".$measure."');
+			$sql="INSERT INTO stock (quanty, driveway, bay, position, rack, id_site, id_part, locker, id_typestock, id_measurement, storehouse) 
+				  VALUES ('".$myquanty."' , '".$driveway."','".$bay."','".$position."','".$rack."','".$thereceiver."','".$idpart."','".$locker."','".$type."','".$measure."','".$storehouse."');
 				  
 				  Update transfert 
 				  SET validationdate = NOW(), validation=1
@@ -245,7 +310,7 @@ class Stocks {
     public function getsiteproductbycompany($id_company = null) {
 		try {
 			global $con;
-			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+			$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker, pa.brand, pa.comment
 					FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 					WHERE st.id_measurement=me.id_measurement 
 					AND st.id_site=si.id_site 
@@ -345,7 +410,7 @@ class Stocks {
 			
 			if($id_site==0)
 			{
-				$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+				$sql = "SELECT id_stock, reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker, pa.brand as brand, pa.comment as comment, st.storehouse as storehouse
 						FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 						WHERE st.id_measurement=me.id_measurement 
 						AND st.id_site=si.id_site 
@@ -358,7 +423,7 @@ class Stocks {
 			}
 			else {
 			
-				$sql = "SELECT reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker
+				$sql = "SELECT id_stock, reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker,  pa.brand as brand, pa.comment as comment, st.storehouse as storehouse
 						FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
 						WHERE st.id_measurement=me.id_measurement 
 						AND st.id_site=si.id_site 
@@ -539,15 +604,16 @@ class Stocks {
 	    /**
      * Add product in parts table.
      *
-     * @url POST /companies/stocks/addProduct/reference/$reference/designation/$designation/buyingprice/$buyingprice/id_currency/$id_currency/id_company/$id_company/id_family/$id_family
+     * @url POST /companies/stocks/addProduct/reference/$reference/designation/$designation/buyingprice/$buyingprice/id_currency/$id_currency/id_company/$id_company/id_family/$id_family/brand/$brand/comment/$comment
      */
-    public function addProduct($reference = null, $designation = null, $buyingprice = null, $id_currency=null, $id_company=null, $id_family=null) {
+    public function addProduct($reference = null, $designation = null, $buyingprice = null, $id_currency=null, $id_company=null, $id_family=null, $brand = null, $comment = null) {
 		try {
 				global $con;
-			$sql = 	"INSERT INTO parts (reference, designation, buyingprice, id_currency, id_company, id_family) 
-					 VALUES ('".$reference."', '".$designation."', ".$buyingprice.", ".$id_currency.", ".$id_company.", ".$id_family.");";
+			$sql = 	"INSERT INTO parts (reference, designation, buyingprice, id_currency, id_company, id_family, brand, comment) 
+					 VALUES ('".$reference."', '".$designation."', ".$buyingprice.", ".$id_currency.", ".$id_company.", ".$id_family.", '".$brand."', '".$comment."');";
 			$stmt = $con->exec($sql);
 		
+			echo $stmt;
 			return array("success" => "OK");
 		} catch(PDOException $e) {
 			return array("error" => "".$e->getMessage());
@@ -557,14 +623,14 @@ class Stocks {
 	   /**
      * Add product in Stock.
      *
-     * @url POST /companies/stocks/addinstock/quanty/$quanty/id_measurement/$id_measurement/driveway/$driveway/bay/$bay/position/$position/locker/$locker/rack/$rack/id_site/$id_site/id_typestock/$id_typestock/id_part/$id_part
+     * @url POST /companies/stocks/addinstock/quanty/$quanty/id_measurement/$id_measurement/driveway/$driveway/bay/$bay/position/$position/locker/$locker/rack/$rack/id_site/$id_site/id_typestock/$id_typestock/id_part/$id_part/storehouse/$storehouse
      */
-    public function addinstock($quanty=null, $id_measurement=null, $driveway=null, $bay=null, $position=null, $rack=null, $id_site=null, $id_typestock=null, $locker=null, $id_part=null) {
+    public function addinstock($quanty=null, $id_measurement=null, $driveway=null, $bay=null, $position=null, $rack=null, $id_site=null, $id_typestock=null, $locker=null, $id_part=null, $storehouse = null) {
 		try {
 			global $con;
 		
-			$sql = 	"INSERT INTO stock (quanty, id_measurement, driveway, bay, position, rack, id_typestock, id_site, locker, id_part) 
-					 VALUES (".$quanty.", ".$id_measurement.", '".$driveway."', '".$bay."', '".$position."', '".$rack."', ".$id_typestock.", ".$id_site.", '".$locker."', ".$id_part.");";
+			$sql = 	"INSERT INTO stock (quanty, id_measurement, driveway, bay, position, rack, id_typestock, id_site, locker, id_part, storehouse) 
+					 VALUES (".$quanty.", ".$id_measurement.", '".$driveway."', '".$bay."', '".$position."', '".$rack."', ".$id_typestock.", ".$id_site.", '".$locker."', ".$id_part.", '".$storehouse."');";
 			$stmt = $con->exec($sql);
 
 			return array("success" => "OK");
