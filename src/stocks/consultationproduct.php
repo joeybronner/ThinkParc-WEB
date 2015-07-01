@@ -1,149 +1,51 @@
 <?php
-    	if(!isset($_SESSION)) {
-		session_start();
-	}
-	include('../../db/check_session.php');
-	if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/stocks/consultationproduct.fr.php');
-	else
-		include('../../lang/stocks/consultationproduct.en.php');
+/* ======================================================================== *
+ *																			*
+ * @filename:		consultationproduct.php									*
+ * @description:	This page allows to consult a product.  				*
+ *																			*
+ * @author(s): 		Said KHALID												*
+ * @contact(s):		khalidsaid.box@gmail.com								*
+ * @lastupdate: 	15/06/2015												*
+ * @remarks:		-														*
+ * 																			*
+ * @rights:			Think-Parc Software ©, 2015.							*
+ *																			*
+ *																			*
+ * Date       | Developer      | Changes description						* 
+ * ------------------------------------------------------------------------ *
+ * 15/06/2015 | S.KHALID      | Creation									*
+ * ------------------------------------------------------------------------ *
+ * JJ/MM/AAAA | ...			   | ...			 							*
+ * =========================================================================*/
 ?>
 <html>
-	<head>
-		<title>FCT Partners</title>
-		<meta name="viewport" content="width=device-width, user-scalable=yes" />
-		<meta name="description" content="">
-		<meta charset="utf-8">
-   	    <link rel="stylesheet" href="../../css/bootstrap.css">
-		<link rel="stylesheet" href="../../css/font-awesome.min.css">
-		<link rel="stylesheet" href="../../css/templatemo_main.css">
-		<link rel="stylesheet" href="../../css/app.css">
-		<link rel="stylesheet" href="../../css/toast/jquery.toast.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-
-		<script src="../../js/jquery.min.js"></script>
-		<script src="../../js/jquery.backstretch.min.js"></script>
-		<script src="../../js/templatemo_script.js"></script>
-		<script src="../../js/bootstrap.js"></script>
-		<script src="../../js/jquery.toast.js"></script>
+   <head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<?php
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 		
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themeroller.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.min.css">
-	    <link rel="stylesheet" href="../../css/DataTable/jquery.dataTables.css">
-		<link rel="stylesheet" href="../../css/DataTable/jquery.dataTables_themefct.css">
-
-        <script type="text/javascript" src="../../js/jquery.js"></script>
-        <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>	  
-	    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
-
-		<script type="text/javascript">
+		/* 1. Import contants values with DIR path used for future imports */
+		require('../header/constants.php');
 		
+		/* 2. Check session's state and authentication */
+		require(BASE_PATH . '/db/check_session.php');
 		
-			$(function onLoad() {
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-				document.getElementById("productblock").style.display = "none";
-				getSites(id_company);
-			});
-			
-			
-			function getSites(id_company){
-		 
-				var id_company = <?php echo $_SESSION['fct_id_company']; ?>;
-		 
-            	$.ajax({
-         		method: 	"GET",
-         		url:		"http://think-parc.com/webservice/v1/companies/"+id_company+"/sites", 
-         		success:	function(data) {
-         						
-								var response = JSON.parse(data);
-								var content = '<option selected disabled><?php echo $stocks['SITELIST'];?></option>';
-								content = content + '<option value="0"><?php echo $stocks['ALLSITES'];?></option>';
-								
-         						for (var i = 0; i<response.length; i++) 
-         						{
-									content = content + '<option value="'+response[i].id_site+'">'+ response[i].name +'</option>';
-         						}
-         						
-								document.getElementById("listproducts").innerHTML = content;
-         					}
-         	});
-         };
-			
-			
-			function getsiteproduct(id_site, id_company) {
-		$.ajax({
-			method: 	"GET",
-			url:		"http://think-parc.com/webservice/v1/companies/stocks/siteproduct/"+id_site+"/company/"+id_company, 
-			success:	function(data) {
-							var response = JSON.parse(data);
-							var dataSet = new Array(response.length);
-							
-							for (var i = 0; i<response.length; i++) 
-							{
-							
-								if ( response[i].quanty == 0 )
-									{
-										var quanty = "Rupture de stock";
-									} else {
-									
-										var quanty = response[i].quanty + " " + response[i].measurement + "(s)";
-									}
-									
-								dataSet[i] = new Array(	response[i].reference, 
-														response[i].designation, 
-														response[i].buyingprice + response[i].currency, 
-														response[i].company,
-														response[i].family,
-														quanty,
-														response[i].driveway,
-														response[i].bay,
-														response[i].position,
-														response[i].rack,
-														response[i].site,
-														response[i].typestock,
-														response[i].locker);
-							}
-						
-							document.getElementById("productblock").style.display = "block";
-							
-							$('#stock').html( '<table cellspacing="0" width="100%" id="example"></table>' );
-							
-							$('#example').dataTable( {
-								"data": dataSet,
-								   "scrollX": true,
-								   "bPaginate": true,
-								   "bLengthChange": true,
-								   "bStateSave": true,
-								   "bFilter": true,
-								   "bSort": true,
-								   "bInfo": true,
-								   "bAutoWidth": true,
-								"columns": [
-									{ "title": "<?php echo $stocks['REFERENCE'];?>" , "class": "center fctbw"},
-									{ "title": "<?php echo $stocks['DES'];?>" , "class": "center fctbw"},
-									{ "title": "<?php echo $stocks['PRICE'];?>" , "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['COMP'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['FAM'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['QUANTY'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['BAY'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['DRIVE'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['POS'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['RACK'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['SITE'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['TYPE'];?>", "class": "center fctbw" },
-									{ "title": "<?php echo $stocks['LOCKER'];?>", "class": "center fctbw" }
-								]
-							} );   
-						},
-			error:		function(data) {
-							
-						}
-		});
-	};	 
-							
-         
- 
-		</script>
+		/* 3. Include CSS (design) & JS (features) files */
+		require(BASE_PATH . '/src/header/cssandjsfiles.php');
+		
+		/* 4. Import language values: French or English files */
+		if($_SESSION['fct_lang'] == 'FR')
+		include('../../lang/options/consultationproduct.fr.php');
+		else
+		include('../../lang/options/consultationproduct.en.php');
+		
+		/* 5. Import specific JavaScript file for this page */
+		echo '<script type="text/javascript" src="consultationproduct.js"></script>';
+		?>
 		</head>
 		<body>
 		<?php include('../header/navbar.php'); ?>
@@ -192,7 +94,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 toppad">
 		   <div class="templatemo-content">
 				<div class="black-bg btn-menu margin-bottom-20">
-					<h2><?php echo $stocks['PRODUCT'];?></h2>
+					
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12"> 
@@ -209,6 +111,8 @@
 			</div>
 		</div>				
 	</div>
+		<!-- End page content -->
+	<!-- Include footer bar with language switch & global website informations -->
 	<?php include('../footer/footer.php'); ?>
    </body>
 </html>
