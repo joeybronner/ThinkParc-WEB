@@ -248,20 +248,20 @@
 										<h2>Vue rapide</h2>
 										<table>
 											<tr>
-												<td>Véhicule(s) en maintenance</td>
-												<td id="qv_vehicles_maint" align="center">-</td>
+												<td width="80%">Véhicule(s) en maintenance</td>
+												<td width="20%" id="qv_vehicles_maint" align="center">-</td>
 											</tr>
 											<tr>
-												<td>Réception(s) en attente</td>
-												<td id="qv_transfert_wait" align="center">-</td>
+												<td width="80%">Réception(s) en attente</td>
+												<td width="20%" id="qv_transfert_wait" align="center">-</td>
 											</tr>
 											<tr>
-												<td>Echéance(s) assurances</td>
-												<td id="qv_assurances_end" align="center">-</td>
+												<td width="80%">Echéance(s) assurances</td>
+												<td width="20%" id="qv_assurances_end" align="center">-</td>
 											</tr>
 											<tr>
-												<td>Echéance(s) contrôles techniques</td>
-												<td id="qv_techcontrol_end" align="center">-</td>
+												<td width="80%">Echéance(s) contrôles techniques</td>
+												<td width="20%" id="qv_techcontrol_end" align="center">-</td>
 											</tr>
 										</table>
 									</div>

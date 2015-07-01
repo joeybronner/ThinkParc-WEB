@@ -19,7 +19,7 @@ class Users {
     /**
      * Updates user's password.
      *
-     * @url GET /companies/users/password/update/$id_user/$newpass
+     * @url PUT /companies/users/password/update/$id_user/$newpass
      */
     public function updatePassword($id_user = null, $newpass = null) {
 		try {
@@ -122,6 +122,7 @@ class Users {
      * Used to PUT;DELETE requests.
      *
 	 * @url OPTIONS /companies/users/$id_user/profilepicture/$image
+	 * @url OPTIONS /companies/users/password/update/$id_user/$newpass
      */
     public function optionsUnusedMethods($id = null, $data) { return ""; }
 

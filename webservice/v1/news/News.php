@@ -76,7 +76,7 @@ class News {
     /**
      * Updates a news status (0/1).
      *
-     * @url GET /news/$id_news/status/$status
+     * @url PUT /news/$id_news/status/$status
      */
     public function updateNewsStatus($id_news = null, $status = null) {
 		try {
@@ -167,5 +167,12 @@ class News {
 			return array("error" => "".$e->getMessage());
 		}
     }
+	
+	/**
+     * Used to PUT;DELETE requests.
+     *
+	 * @url OPTIONS /news/$id_news/status/$status
+     */
+    public function optionsUnusedMethods($id = null, $data) { return ""; }
 }
 ?>

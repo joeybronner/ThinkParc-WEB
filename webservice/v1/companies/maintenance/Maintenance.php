@@ -81,6 +81,7 @@ class Maintenance {
 						"AND si.id_company = :id_company ".
 						"AND m.id_brand = b.id_brand ".
 						"AND v.id_vehicle = ma.id_vehicle ".
+						"AND (ma.date_endmaintenance = '0000-00-00' OR ma.date_endmaintenance > CURDATE()) ".
 						"AND v.id_vehicle = :id_vehicle";
 					
 			/* Statement values & execution */

@@ -75,33 +75,33 @@
 					<div class=" col-md-9 col-lg-9 "> 
 					  <table class="table table-user-information">
 						<tbody>
-						  <tr>
-							<td class="info_title">ID</td>
-							<td id="id_user"><?php echo $_SESSION['fct_id_user']; ?></td>
+						  <tr width="100%">
+							<td width="35%" class="info_title">ID</td>
+							<td width="65%" id="id_user"><?php echo $_SESSION['fct_id_user']; ?></td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['FIRSTNAME'];?></td>
-							<td id="firstname"></td>
+							<td width="35%" class="info_title"><?php echo $infos['FIRSTNAME'];?></td>
+							<td width="65%" id="firstname"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['LASTNAME'];?></td>
-							<td id="lastname"></td>
+							<td width="35%" class="info_title"><?php echo $infos['LASTNAME'];?></td>
+							<td width="65%" id="lastname"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['LOGIN'];?></td>
-							<td id="login"></td>
+							<td width="35%" class="info_title"><?php echo $infos['LOGIN'];?></td>
+							<td width="65%" id="login"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['EMAIL'];?></td>
-							<td id="email"></td>
+							<td width="35%" class="info_title"><?php echo $infos['EMAIL'];?></td>
+							<td width="65%" id="email"></td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['PASSWORD'];?></td>
-							<td>********</td>
+							<td width="35%" class="info_title"><?php echo $infos['PASSWORD'];?></td>
+							<td width="65%" >********</td>
 						  </tr>
 						  <tr>
-							<td class="info_title"><?php echo $infos['PROFILEPICTURE'];?></td>
-							<td id="image"></td>
+							<td width="35%" class="info_title"><?php echo $infos['PROFILEPICTURE'];?></td>
+							<td width="65%" id="image"></td>
 						  </tr>
 						</tbody>
 					  </table>
@@ -140,10 +140,10 @@
 							<form id="file-form" action="javascript:uploadFile(<?php echo $_SESSION['fct_id_user']; ?>);" method="POST">
 									<table>
 										<tr>
-											<td>
+											<td width="75%">
 												<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
 											</td>
-											<td align="right">
+											<td width="25%" align="right">
 												<button type="submit" id="upload-button" class="btn btn-success"><?php echo $infos['UPLOAD'];?></button>
 											</td>
 										</tr>

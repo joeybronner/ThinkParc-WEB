@@ -62,7 +62,7 @@ function updatePassword(id) {
         if (response[0].pass === oldpass) {
           // Update new password
           $.ajax({
-            type: "GET",
+            type: "PUT",
             url: "http://www.think-parc.com/webservice/v1/companies/users/password/update/" + id + "/" + newpass,
             success: function(data) {
               $(document).ready(function() {
@@ -184,14 +184,14 @@ function getNews() {
       for (var i = 0; i < response.length; i++) {
         var news = response[i];
         content += '<tr>';
-        content += '<td>' + reformatDate(news.date_news) + '<td>';
-        content += '<td>' + news.msg + '<td>';
+        content += '<td width="20%">' + reformatDate(news.date_news) + '<td>';
+        content += '<td width="60%">' + news.msg + '<td>';
         if (news.active == 1) {
-          content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 0);" checked></td>';
+          content += '<td width="5%"><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 0);" checked></td>';
         } else {
-          content += '<td><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 1);"></td>';
+          content += '<td width="5%"><input id="' + news.id_news + '" name="post_actif_' + news.id_news + '" type="checkbox" onclick="updateNewsStatus(' + news.id_news + ', 1);"></td>';
         }
-        content += '<td><a href="javascript:deleteNews(' + news.id_news + ');"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+        content += '<td width="5%"><a href="javascript:deleteNews(' + news.id_news + ');"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
         content += '</tr>';
       }
       content += '</table>';
@@ -203,7 +203,7 @@ function getNews() {
 /** Updates a news status (ON/OFF) */
 function updateNewsStatus(id, status) {
   $.ajax({
-    type: "GET",
+    type: "PUT",
     url: "http://www.think-parc.com/webservice/v1/news/" + id + "/status/" + status,
     success: function(data) {
       $(document).ready(function() {
