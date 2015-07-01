@@ -21,7 +21,7 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 	
 	// Retrieve values for login & password
 	$login=$_POST['login'];
-	$password=$_POST['pass'];
+	$password=md5($_POST['pass']);
 
 	// Check if login exists
 	$query = "SELECT * FROM users WHERE login='" . $login . "'";

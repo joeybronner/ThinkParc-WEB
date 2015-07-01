@@ -33,9 +33,9 @@ function getUserInfos() {
 /** Updates user's password */
 function updatePassword(id) {
   // Check if all fields are completed
-  var oldpass = document.getElementById("oldpass").value;
-  var newpass = document.getElementById("newpass").value;
-  var confpass = document.getElementById("confpass").value;
+  var oldpass = CryptoJS.MD5(document.getElementById("oldpass").value).toString();
+  var newpass = CryptoJS.MD5(document.getElementById("newpass").value).toString();
+  var confpass = CryptoJS.MD5(document.getElementById("confpass").value).toString();
   if (oldpass === "" || newpass === "" || confpass === "") {
     $(document).ready(function() {
       $.toast({

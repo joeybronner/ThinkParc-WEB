@@ -43,6 +43,9 @@ echo '<script src="' .INCLUDE_PATH. '/js/googlecharts.js"></script>';
 
 /* Angular JS */
 echo '<script src="' .INCLUDE_PATH. '/js/angular1.4.js"></script>';
+
+/* Crypto md5 */
+echo '<script src="' .INCLUDE_PATH. '/js/md5.js"></script>';
 ?>
 
 
