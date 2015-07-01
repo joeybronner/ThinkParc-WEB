@@ -51,6 +51,7 @@
 		var data_charts2;
 		var data_charts3;
 		var data_charts4;
+		var data_charts5;
 		var days_maintenance = 0;
 		var days_available = 0;
 		google.load("visualization", "1", {packages:["corechart"]});
@@ -162,6 +163,31 @@
 				  },
 				  async: false
 				});
+				// Maintenance parts
+				$.ajax({
+				  method: "GET",
+				  url: "http://think-parc.com/webservice/v1/companies/" + company + "/reporting/maintenance/parts/" + id_vehicle + "/start/" + date_start + "/end/" + date_end + "/filter/" + filter,
+				  success: function(data) {
+					var response = JSON.parse(data);
+					data_charts5 = new Array(response.length+1);
+					data_charts5[0] = new Array( "Parts", "Unit", { role: "style" } );
+					for (var i = 1; i<=response.length; i++) {
+						var col_name;
+						if (filter == "DAY") {
+							col_name = reformatDate(response[i-1].f);
+						} else if (filter == "MONTH") {
+							col_name = response[i-1].f + "/" + response[i-1].y;
+						} else if (filter == "YEAR") {
+							col_name = response[i-1].y;
+						}
+						data_charts5[i] = new Array( 	col_name, 
+														parseInt(response[i-1].maintparts), 
+														"#FFCC00" );
+					}
+					drawChart5();
+				  },
+				  async: false
+				});
 			});
 		}
 		function drawChart() {
@@ -254,7 +280,7 @@
 
 			  var chart = new google.visualization.PieChart(document.getElementById('typemaintenance'));
 			  chart.draw(data, options);
-			
+
 		}
 		function drawChart4() {
 			if (typeof(data_charts4) != "undefined") {
@@ -287,6 +313,41 @@
 					}
 				};
 				var chart = new google.visualization.ColumnChart(document.getElementById("maintenancecost"));
+				chart.draw(data, optionsData);	// 1st draw with data (animate)
+				chart.draw(view, optionsView);	// 2nd draw with data & view
+			}
+		}
+		function drawChart5() {
+			if (typeof(data_charts5) != "undefined") {
+				var data = google.visualization.arrayToDataTable(data_charts5);
+				var optionsData = {
+					backgroundColor: { fill:'transparent' },
+					titleTextStyle: { color: '#FFF' },
+					legendTextStyle: { color: '#FFF' },
+					vAxis:	{ textStyle: {color: '#FFF' }},
+					hAxis: 	{ textStyle: { color: '#FFF' } },
+					legend: { position: "right" },
+				};
+				var view = new google.visualization.DataView(data);
+				view.setColumns([ 0, 1, { 	calc: "stringify",
+											sourceColumn: 1,
+											type: "string",
+											role: "annotation" }, 2]);
+				var optionsView = {
+					title: "Maintenance parts",
+					backgroundColor: { fill:'transparent' },
+					titleTextStyle: { fontSize: 16, fontStyle: "normal", color: '#FFF' },
+					legendTextStyle: { color: '#FFF' },
+					bar: {groupWidth: "95%"},
+					vAxis:	{ textStyle: {color: '#FFF' }},
+					hAxis: 	{ textStyle: { color: '#FFF' } },
+					legend: { position: "right" },
+					animation:{
+						duration: 1000,
+						easing: 'in'
+					}
+				};
+				var chart = new google.visualization.ColumnChart(document.getElementById("maintenanceparts"));
 				chart.draw(data, optionsData);	// 1st draw with data (animate)
 				chart.draw(view, optionsView);	// 2nd draw with data & view
 			}
@@ -414,6 +475,11 @@
 									<tbody>
 										<tr id="chart2">
 											<td id="maintenancecost" style="max-height:500px;" colspan="3">
+												
+											</td>
+										</tr>
+										<tr id="chart3">
+											<td id="maintenanceparts" style="max-height:500px;" colspan="3">
 												
 											</td>
 										</tr>

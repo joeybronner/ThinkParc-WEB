@@ -63,7 +63,7 @@ class Reporting {
 			if ($filter == "DAY") {
 				$filter = "";
 			}
-			$sql = 	"SELECT concat(".$filter."(dl.date), YEAR(dl.date)) AS entiere, ".$filter."(dl.date) AS f, YEAR(dl.date) AS y, IFNULL(SUM(quanty*buyingprice), 0) AS maintcost, IFNULL(symbol, 0) AS symbol " .
+			$sql = 	"SELECT concat(".$filter."(dl.date), YEAR(dl.date)) AS entiere, ".$filter."(dl.date) AS f, YEAR(dl.date) AS y, IFNULL(SUM(quantity*buyingprice), 0) AS maintcost, IFNULL(symbol, 0) AS symbol " .
 					"FROM (datelist dl) ".
 							"LEFT JOIN maintenance m ON m.date_startmaintenance = dl.date ".
 													"AND m.id_vehicle = ".$id_vehicle." ".
@@ -71,6 +71,35 @@ class Reporting {
 							"LEFT JOIN stock s ON pm.id_stock = s.id_stock ".
 							"LEFT JOIN parts p ON s.id_part = p.id_part ".
 							"LEFT JOIN currencies c ON c.id_currency = p.id_currency ".
+					"WHERE dl.date BETWEEN '".$date_start."' AND '".$date_end."' ".
+					"GROUP BY entiere ".
+					"ORDER BY dl.date ASC;";
+			$stmt = $con->query($sql);
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+    /**
+     * Description.
+     *
+     * @url GET /companies/$id_company/reporting/maintenance/parts/$id_vehicle/start/$date_start/end/$date_end/filter/$filter
+     */
+    public function getMaintenancePartsForSpecificVehicle($id_company = null, $id_vehicle = null, $date_start = null, $date_end = null, $filter = null) {
+		try {
+			global $con;
+			if ($filter == "DAY") {
+				$filter = "";
+			}
+			$sql = 	"SELECT concat(".$filter."(dl.date), YEAR(dl.date)) AS entiere, ".$filter."(dl.date) AS f, YEAR(dl.date) AS y, IFNULL(SUM(quantity), 0) AS maintparts, IFNULL(measurement, 0) AS measure " .
+					"FROM (datelist dl) ".
+							"LEFT JOIN maintenance m ON m.date_startmaintenance = dl.date ".
+													"AND m.id_vehicle = ".$id_vehicle." ".
+							"LEFT JOIN partsmaintenance pm ON pm.id_maintenance = m.id_maintenance ".
+							"LEFT JOIN stock s ON pm.id_stock = s.id_stock ".
+							"LEFT JOIN parts p ON s.id_part = p.id_part ".
+							"LEFT JOIN measurement me ON me.id_measurement = s.id_measurement ".
 					"WHERE dl.date BETWEEN '".$date_start."' AND '".$date_end."' ".
 					"GROUP BY entiere ".
 					"ORDER BY dl.date ASC;";
