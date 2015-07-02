@@ -80,15 +80,15 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_BRANDMODEL']; ?></h5></td>
+											<td width="100%" colspan="2"><h5><?php echo $addvehicle['ADDVEHICLE_BRANDMODEL']; ?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td width="50%">
 												<select id="brand" name="brand" required="required" class="form-control" onchange="getModels(this.value);">
 													<!-- Retrieve brands with an AJAX [GET] query -->
 												</select>
 											</td>
-											<td>
+											<td width="50%">
 												<select id="model" name="model" required="required" class="form-control" disabled>
 													<option selected disabled><?php echo $addvehicle['ADDVEHICLE_MODEL']; ?></option>
 													<!-- Retrieve models with an AJAX [GET] query -->
@@ -96,95 +96,94 @@
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_KINDCAT']; ?></h5></td>
+											<td width="100%" colspan="2"><h5><?php echo $addvehicle['ADDVEHICLE_KINDCAT']; ?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td width="50%">
 												<select id="kinds" name="kinds" required="required" class="form-control">
 													<!-- Retrieve kinds with an AJAX [GET] query -->
 												</select>
 											</td>
-											<td>
+											<td width="50%">
 												<select id="categories" name="categories" required="required" class="form-control">
 													<!-- Retrieve categories with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_ENERGYEQUIPMENTS']; ?></h5></td>
+											<td width="100%" colspan="2"><h5><?php echo $addvehicle['ADDVEHICLE_ENERGYEQUIPMENTS']; ?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td width="50%">
 												<select id="energies" name="energies" required="required" class="form-control">
 													<!-- Retrieve energies with an AJAX [GET] query -->
 												</select>
 											</td>
-											<td>
+											<td width="50%">
 												<input class="form-control" type="text" id="equipments" name="equipments" placeholder="<?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?>"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></h5></td>
+											<td width="100%" colspan="2"><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td width="50%">
 												<input class="form-control" type="number" min="0" step="any" id="buyingprice" name="buyingprice" placeholder="<?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?>" required/>
 											</td>
-											<td>
+											<td width="50%">
 												<select id="currencies" name="currencies" required="required" class="form-control">
 													<!-- Retrieve equipments with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_PLATESERIAL']; ?></h5></td>
+											<td width="100%" colspan="2"><h5><?php echo $addvehicle['ADDVEHICLE_PLATESERIAL']; ?></h5></td>
 										</tr>
 										<tr>
-											<td>
+											<td width="50%">
 												<input class="form-control" type="text" id="nr_plate" name="nr_plate" placeholder="<?php echo $addvehicle['ADDVEHICLE_PLATE']; ?>"/>
 											</td>
-											<td>
+											<td width="50%">
 												<input class="form-control" type="text" id="nr_serial" name="nr_serial" placeholder="<?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?>"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></h5></td>
+											<td width="50%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_buy" name="date_buy" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></h5></td>
+											<td width="50%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_entryservice" name="date_entryservice" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_MILEAGE']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_MILEAGE']; ?></h5></td>
+											<td width="50%">
 												<input class="form-control" type="number" min="0" step="any" id="mileage" name="mileage" required="required" placeholder="100000"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></h5></td>
+											<td width="50%">
 												<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" placeholder="<?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?> "></textarea>
 											</td>
 										</tr>
 										<tr>
-											
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_SITE']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_SITE']; ?></h5></td>
+											<td width="50%">
 												<select id="sites" name="sites" required="required" class="form-control">
 													<!-- Retrieve sites with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $addvehicle['ADDVEHICLE_STATE']; ?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_STATE']; ?></h5></td>
+											<td width="50%">
 												<select id="states" name="states" required="required" class="form-control">
 													<!-- Retrieve states with an AJAX [GET] query -->
 												</select>

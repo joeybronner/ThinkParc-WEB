@@ -328,53 +328,53 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td>
+											<td width="25%">
 												Reference
 											</td>
-											<td>
+											<td width="25%">
 												From
 											</td>
-											<td>
+											<td width="25%">
 												To
 											</td>
-											<td>
+											<td width="25%" colspan="2">
 												Grouping
 											</td>
 										</tr>
 										<tr>
-											<td>
+											<td width="25%">
 												<select id="reference" name="reference" required="required" class="form-control">
 													<!-- Retrieve kinds with an AJAX [GET] query -->
 												</select>
 											</td>
-											<td>
+											<td width="25%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_start" name="date_start" placeholder="JJ/MM/AAAA" required>
 											</td>
-											<td>
+											<td width="25%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_end" name="date_end" placeholder="JJ/MM/AAAA" required>
 											</td>
-											<td>
+											<td width="20%">
 												<select id="filter" name="filter" class="form-control">
 													<option value="DAY">Day</option>
 													<option value="MONTH">Month</option>
 													<option value="YEAR">Year</option>
 												</select>
 											</td>
-											<td align="right">
+											<td width="5%" align="right">
 												<a href="javascript:refreshReport();">
 													<i class="fa fa-search"></i>
 												</a>
 											</td>
 										</tr>
 										<tr id="title_chart1">
-											<td style="padding-top:20px;" colspan="4">
+											<td style="padding-top:20px;" width="100%" colspan="5">
 												<center>
 													<h2>Parts consumed for maintenance</h2>
 												</center>
 											</td>
 										</tr>
 										<tr id="chart1">
-											<td id="columnchart_values" style="max-height:500px;" colspan="4">
+											<td id="columnchart_values" style="max-height:500px;" width="100%" colspan="5">
 												
 											</td>
 										</tr>
@@ -387,34 +387,34 @@
 											</td>
 										</tr>
 										<tr id="title_chart3">
-											<td style="padding-top:20px;" colspan="4">
+											<td style="padding-top:20px;" width="100%" colspan="5">
 												<center>
 													<h2>Parts transfered between different sites</h2>
 												</center>
 											</td>
 										</tr>
 										<tr id="chart3">
-											<td id="consumptiontransfert_values" style="max-height:500px;" colspan="4">
+											<td id="consumptiontransfert_values" style="max-height:500px;" width="100%" colspan="5">
 												
 											</td>
 										</tr>
 										<tr id="title_chart4">
-											<td align="center" colspan="4">
+											<td align="center" width="100%" colspan="5">
 												<h2>Quantity in stock</h2>
 											</td>
 										</tr>
 										<tr>
-											<td id="chart4" align="center" colspan="4" style="font-size:4vw">
+											<td id="chart4" align="center" style="font-size:4vw" width="100%" colspan="5">
 												-
 											</td>
 										</tr>
 										<tr id="title_chart5">
-											<td align="center" colspan="4">
+											<td align="center" width="100%" colspan="5">
 												<h2>Market value</h2>
 											</td>
 										</tr>
 										<tr>
-											<td id="chart5" align="center" colspan="4" style="font-size:4vw">
+											<td id="chart5" align="center" style="font-size:4vw" width="100%" colspan="5">
 												-
 											</td>
 										</tr>
@@ -423,12 +423,12 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr id="title_chart6">
-											<td align="center" colspan="4">
+											<td align="center" width="100%" colspan="5">
 												<h2>Parts localisation</h2>
 											</td>
 										</tr>
 										<tr id="chart6">
-											<td id="partslocalisation_values" style="width: 900px; height: 500px;" colspan="2">
+											<td id="partslocalisation_values" style="height: 500px;" width="100%" colspan="5">
 													
 											</td>
 										</tr>
