@@ -108,21 +108,18 @@
 			<div class="panel-body">
 				<div class="row"> 
 					<form id="addfile" action="javascript:uploadFile();" method="POST">
-						<table style="width:100%;">
+						<table width="100%" height="100%">
 							<tbody>
 								<tr>
-									<td colspan="2" id="files">
-										<table class="display" id="fileslist">
-											
-										</table>
+									<td align="center">
+										<img src="../../images/icons/files.png" width="64" height="64" alt="files" />
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Fichier</h5>
-									</td>
-									<td>
-										<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
+									<td width="100%">
+										<center>
+											<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
+										</center>
 									</td>
 								</tr>
 								<tr>

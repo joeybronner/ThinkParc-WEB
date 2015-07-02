@@ -227,10 +227,11 @@ th {
     top: -1em;
     right: -8em;
 }
-img {
+
+/*img {
     width: 160px;
     height: 70px;
-}
+}*/
 .imguser {
     width: 150px;
     height: auto;
