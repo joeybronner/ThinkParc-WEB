@@ -185,13 +185,13 @@ function addMaintenanceToTable(id_maintenance, start, end, typemaintenance, hour
   totalitems++;
   var id_vehicle = document.getElementById('listvehicles').value;
   var newmaintenance = '<tr id="maintenance-' + id_maintenance + '">' +
-    '<td>' + start + '</td>' +
-    '<td>' + end + '</td>' +
-    '<td>' + typemaintenance + '</td>' +
-    '<td>' + hours + '</td>' +
-    '<td>' + rate + ' ' + symbol + '</td>' +
-    '<td id="' + totalitems + '"><a href="javascript:removeMaintenanceFromTable(' + id_maintenance + ', ' + id_vehicle + ')"><i class="fa fa-times"></i></a></td>' +
-    '<td><a href="javascript:showPartsForMaintenance(' + id_maintenance + ')"><i class="fa fa-search"></i></a></td>' +
+    '<td width="15%">' + start + '</td>' +
+    '<td width="15%">' + end + '</td>' +
+    '<td width="20%">' + typemaintenance + '</td>' +
+    '<td width="15%">' + hours + '</td>' +
+    '<td width="15%">' + rate + ' ' + symbol + '</td>' +
+    '<td width="10%" id="' + totalitems + '"><a href="javascript:removeMaintenanceFromTable(' + id_maintenance + ', ' + id_vehicle + ')"><i class="fa fa-times"></i></a></td>' +
+    '<td width="10%"><a href="javascript:showPartsForMaintenance(' + id_maintenance + ')"><i class="fa fa-search"></i></a></td>' +
     '</tr>';
   document.getElementById("maintenancestable").innerHTML = document.getElementById("maintenancestable").innerHTML + newmaintenance;
 }

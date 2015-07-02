@@ -78,10 +78,10 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td>
+											<td width="50%">
 												<h2><?php echo $maintenance['HISTORY'];?></h2>
 											</td>
-											<td>
+											<td width="50%">
 												<select id="listvehicles" name="listvehicles" class="form-control" onchange="javascript:showMaintenanceHistoryForSpecificVehicle(this.value);">
 													<!-- Retrieve all vehicles with an AJAX [GET] query -->
 												</select>
@@ -103,26 +103,26 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td colspan="3">
+											<td>
 												<center><h2><?php echo $maintenance['HISTORY_DAYS_STATUS']; ?></h2></center>
 											</td>
 										</tr>
 										<tr>
-											<td id="donutchart" style="height:200px;">
+											<td width="100%" align="center" id="donutchart" style="height:200px;">
 												<!-- Google Donut chart to vizualize the number of days in maintenance / available -->
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3">
-												<table id="maintenancestable" class="partstable">
+											<td width="100%">
+												<table width="100%" id="maintenancestable" class="partstable">
 													<tr>
-														<td class="part_title"><?php echo $maintenance['HISTORY_TABLE_START']; ?></td>
-														<td class="part_title"><?php echo $maintenance['HISTORY_TABLE_END']; ?></td>
-														<td class="part_title"><?php echo $maintenance['HISTORY_TABLE_TYPE']; ?></td>
-														<td class="part_title"><?php echo $maintenance['HISTORY_TABLE_LABOUR_HOUR']; ?></td>
-														<td class="part_title"><?php echo $maintenance['HISTORY_TABLE_LABOUR_RATE']; ?></td>
-														<td class="part_title"><i class="fa fa-eraser"></i></td>
-														<td class="part_title"><i class="fa fa-search"></i></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['HISTORY_TABLE_START']; ?></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['HISTORY_TABLE_END']; ?></td>
+														<td width="20%" class="part_title"><?php echo $maintenance['HISTORY_TABLE_TYPE']; ?></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['HISTORY_TABLE_LABOUR_HOUR']; ?></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['HISTORY_TABLE_LABOUR_RATE']; ?></td>
+														<td width="10%" height="38px" class="part_title"><i class="fa fa-eraser"></i></td>
+														<td width="10%" height="38px" class="part_title"><i class="fa fa-search"></i></td>
 													</tr>
 												</table>
 											</td>

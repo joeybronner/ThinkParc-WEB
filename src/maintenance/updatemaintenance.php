@@ -81,8 +81,8 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5><?php echo $maintenance['VEHICLE'];?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $maintenance['VEHICLE'];?></h5></td>
+											<td width="50%">
 												<select id="listvehicles" name="listvehicles" class="form-control" onchange="javascript:showMaintenanceDetails(this.value);">
 													<!-- Retrieve all vehicles with an AJAX [GET] query -->
 												</select>
@@ -104,27 +104,27 @@
 								<table class="table-no-border">
 									<tbody>
 										<tr>
-											<td><h5><?php echo $maintenance['TYPE_MAINTENANCE'];?></h5></td>
-											<td colspan="2">
+											<td width="50%"><h5><?php echo $maintenance['TYPE_MAINTENANCE'];?></h5></td>
+											<td colspan="2" width="50%">
 												<select id="typemaintenance" name="typemaintenance" class="form-control" disabled>
 													<!-- Retrieve types of maintenance with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $maintenance['START_MAINTENANCE'];?></h5></td>
-											<td colspan="2">
+											<td width="50%"><h5><?php echo $maintenance['START_MAINTENANCE'];?></h5></td>
+											<td colspan="2" width="50%">
 												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_startmaintenance" disabled />
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $maintenance['END_MAINTENANCE'];?></h5></td>
-											<td colspan="2">
+											<td width="50%"><h5><?php echo $maintenance['END_MAINTENANCE'];?></h5></td>
+											<td colspan="2" width="50%">
 												<input data-format="yyyy-mm-dd" class="form-control" type="date" id="date_endmaintenance" />
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3" align="right">
+											<td width="100%" colspan="3" align="right">
 												<h5>
 													<a href="javascript:popup('custompopup');">
 														<input type="button" value="<?php echo $maintenance['ADD_PART'];?>" class="btn btn-normal" />
@@ -133,44 +133,44 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3">
+											<td width="100%" colspan="3">
 												<table id="partstable" class="partstable">
 													<tr>
-														<td class="part_title"><?php echo $maintenance['TABLE_REFERENCE'];?></td>
-														<td class="part_title"><?php echo $maintenance['TABLE_DESCRIPTION'];?></td>
-														<td class="part_title"><?php echo $maintenance['TABLE_QUANTITY'];?></td>
-														<td class="part_title"><?php echo $maintenance['TABLE_STOCKID'];?></td>
-														<td class="part_title"><?php echo $maintenance['TABLE_UNITPRICE'];?></td>
-														<td class="part_title"><i class="fa fa-eraser"></i></td>
+														<td width="20%" class="part_title"><?php echo $maintenance['TABLE_REFERENCE'];?></td>
+														<td width="30%" class="part_title"><?php echo $maintenance['TABLE_DESCRIPTION'];?></td>
+														<td width="10%" class="part_title"><?php echo $maintenance['TABLE_QUANTITY'];?></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['TABLE_STOCKID'];?></td>
+														<td width="15%" class="part_title"><?php echo $maintenance['TABLE_UNITPRICE'];?></td>
+														<td width="10%" height="38px" class="part_title"><i class="fa fa-eraser"></i></td>
 													</tr>
 												</table>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $maintenance['LABOUR_HOURS'];?></h5></td>
-											<td style="padding-top:25px;" colspan="2">
+											<td width="50%"><h5><?php echo $maintenance['LABOUR_HOURS'];?></h5></td>
+											<td width="50%" style="padding-top:25px;" colspan="2">
 												<input type="number" min="0" class="form-control" id="labour_hours" value="0" step="any"/>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $maintenance['LABOUR_HOURLYRATE'];?></h5></td>
-											<td>
+											<td width="50%"><h5><?php echo $maintenance['LABOUR_HOURLYRATE'];?></h5></td>
+											<td width="30%">
 												<input type="number" min="0" class="form-control" id="labour_hourlyrate" value="0" step="any"/>
 											</td>
-											<td>
+											<td width="20%">
 												<select id="currencies" name="currencies" class="form-control">
 													<!-- Retrieve equipments with an AJAX [GET] query -->
 												</select>
 											</td>
 										</tr>
 										<tr>
-											<td><h5><?php echo $maintenance['COMMENTARY'];?></h5></td>
-											<td colspan="2">
+											<td width="50%"><h5><?php echo $maintenance['COMMENTARY'];?></h5></td>
+											<td colspan="2" width="50%">
 												<textarea id="commentary" class="form-control" rows="3" maxlength="255"></textarea>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3" align="right" style="padding-top:25px;text-align:center;">
+											<td width="100%" colspan="3" align="right" style="padding-top:25px;text-align:center;">
 												<input type="button" value="<?php echo $maintenance['DELETE_MAINTENANCE'];?>" class="btn btn-danger" onclick="javascript:deleteMaintenance()"/>
 												<input type="button" value="<?php echo $maintenance['UPDATE_MAINTENANCE'];?>" class="btn btn-success" onclick="javascript:updateMaintenance()"/>
 											</td>

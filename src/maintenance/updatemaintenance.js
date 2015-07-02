@@ -152,12 +152,12 @@ function addPartToTable(reference, quantity, stocktopickin, designation, buyingp
     });
   }
   var newpart = '<tr id="part-' + totalitems + '">' +
-    '<td id="ref-' + totalitems + '">' + reference + '</td>' +
-    '<td id="des-' + totalitems + '">' + designation + '</td>' +
-    '<td id="qty-' + totalitems + '">' + quantity + '</td>' +
-    '<td id="stk-' + totalitems + '">' + stocktopickin + '</td>' +
-    '<td id="prx-' + totalitems + '">' + buyingprice + ' ' + symbol + '</td>' +
-    '<td><a href="javascript:removePartFromTable(' + totalitems + ')"><i class="fa fa-times"></i></a></td>' +
+    '<td width="20%" id="ref-' + totalitems + '">' + reference + '</td>' +
+    '<td width="30%" id="des-' + totalitems + '">' + designation + '</td>' +
+    '<td width="10%" id="qty-' + totalitems + '">' + quantity + '</td>' +
+    '<td width="15%" id="stk-' + totalitems + '">' + stocktopickin + '</td>' +
+    '<td width="15%" id="prx-' + totalitems + '">' + buyingprice + ' ' + symbol + '</td>' +
+    '<td width="10%"><a href="javascript:removePartFromTable(' + totalitems + ')"><i class="fa fa-times"></i></a></td>' +
     '</tr>';
   document.getElementById("partstable").innerHTML = document.getElementById("partstable").innerHTML + newpart;
 }

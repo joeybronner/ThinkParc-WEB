@@ -78,10 +78,10 @@
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5><?php echo $docsadm['SELECT_VEHICLE']; ?></h5></td>
+										<td width="100%"><h5><?php echo $docsadm['SELECT_VEHICLE']; ?></h5></td>
 									</tr>
 									<tr>
-										<td>
+										<td width="100%">
 											<select id="listvehicles" name="listvehicles" class="form-control" onchange="displayVehicle(this.value);">
 												<!-- Retrieve all vehicles with an AJAX [GET] query -->
 											</select>
@@ -103,100 +103,100 @@
 									<table id="vehicledetail" class="table-no-border">
 										<tbody>
 											<tr>
-												<td style="width:50%;"><?php echo $docsadm['INSURANCE_NR']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_NR']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="nr_contract" name="nr_contract" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['TECHNICALCTRL_LAST']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['TECHNICALCTRL_LAST']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_lastcontrol" name="date_lastcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['TECHNICALCTRL_NEXT']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['TECHNICALCTRL_NEXT']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_nextcontrol" name="date_nextcontrol" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_START']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_START']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_startinsurance" name="date_startinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_END']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_END']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_endinsurance" name="date_endinsurance" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCES']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCES']; ?></td>
+												<td width="40%">
 													<select id="insurances" name="insurances" required class="form-control"></select>
 												</td>
-												<td align="right">
+												<td width="10%" align="right">
 													<a href="javascript:newinsurancefields();"><i id="insur_choice" class="fa fa fa-sort-up"></i></a>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_NAME']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_NAME']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_name" name="ins_name" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_PHONE']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_PHONE']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_phone" name="ins_phone" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_EMAIL']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_EMAIL']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_email" name="ins_email" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_ADD1']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_ADD1']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_add1" name="ins_add1" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_ADD2']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_ADD2']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_add2" name="ins_add2" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_ADD3']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_ADD3']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_add3" name="ins_add3" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_ZIP']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_ZIP']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_zipcode" name="ins_zipcode" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_CITY']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_CITY']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_city" name="ins_city" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $docsadm['INSURANCE_COUNTRY']; ?></td>
-												<td>
+												<td width="50%"><?php echo $docsadm['INSURANCE_COUNTRY']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="ins_country" name="ins_country" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td>
+												<td align="right">
 													<input type="button" onclick="javascript:saveAdministrative();" id ="addAdministrative" value="<?php echo $docsadm['SAVE']; ?>" class="btn btn-success"/>
 													<input type="button" onclick="javascript:saveChangesAdministrative();" id ="updateAdministrative" value="<?php echo $docsadm['UPDATE']; ?>" class="btn btn-success"/>
 												</td>

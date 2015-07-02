@@ -80,10 +80,10 @@
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5><?php echo $vehanddri['SELECT_VEHICLE']; ?></h5></td>
+										<td width="100%"><h5><?php echo $vehanddri['SELECT_VEHICLE']; ?></h5></td>
 									</tr>
 									<tr>
-										<td>
+										<td width="100%">
 											<select id="listvehicles" name="listvehicles" class="form-control" onchange="displayVehicle(this.value);">
 												<!-- Retrieve all vehicles with an AJAX [GET] query -->
 											</select>
@@ -105,7 +105,7 @@
 									<table id="vehicledetail" class="table-no-border">
 										<tbody>
 											<tr>
-												<td><?php echo $vehanddri['DRIVERS_HISTORY']; ?></td>
+												<td width="100%"><?php echo $vehanddri['DRIVERS_HISTORY']; ?></td>
 											</tr>
 											<tr>
 												<td id="drivers">
@@ -124,58 +124,58 @@
 									<table id="addentry" class="table-no-border">
 										<tbody>
 											<tr>
-												<td><?php echo $vehanddri['DRIVERS']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DRIVERS']; ?></td>
+												<td width="40%">
 													<select id="listdrivers" name="listdrivers" required class="form-control"></select>
 												</td>
-												<td align="right">
+												<td align="right" width="10%">
 													<a href="javascript:newDriverFields();"><i id="driver_choice" class="fa fa-sort-down"></i></a>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['FIRSTNAME']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['FIRSTNAME']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="firstname" name="firstname" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['LASTNAME']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['LASTNAME']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="lastname" name="lastname" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['DRIVINGLICENCE']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DRIVINGLICENCE']; ?></td>
+												<td width="50%">
 													<input class="form-control" type="text" id="nr_drivinglicence" name="nr_drivinglicence" disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['DL_DELIVERY']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DL_DELIVERY']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="acquisition_drivinglicence" name="acquisition_drinvinglicence" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['DL_EXPIRE']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DL_EXPIRE']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="expire_drivinglicence" name="expire_drinvinglicence" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required disabled>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['DATE_START']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DATE_START']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_start" name="date_start" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td><?php echo $vehanddri['DATE_END']; ?></td>
-												<td>
+												<td width="50%"><?php echo $vehanddri['DATE_END']; ?></td>
+												<td width="50%">
 													<input type="text" class="form-control" id="date_end" name="date_end" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 												</td>
 											</tr>
 											<tr>
-												<td>
+												<td align="right">
 													<input type="button" onclick="javascript:addEntry();" value="<?php echo $vehanddri['BT_ADD']; ?>" class="btn btn-success"/>
 												</td>	
 											</tr>

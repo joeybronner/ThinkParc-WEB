@@ -80,10 +80,10 @@
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td><h5><?php echo $addvehicle['SEAVEHICLE_SELECT']; ?></h5></td>
+										<td width="100%"><h5><?php echo $addvehicle['SEAVEHICLE_SELECT']; ?></h5></td>
 									</tr>
 									<tr>
-										<td>
+										<td width="100%">
 											<select id="listvehicles" name="listvehicles" class="form-control" onchange="displayVehicle(this.value);">
 												<!-- Retrieve all vehicles with an AJAX [GET] query -->
 											</select>
@@ -104,93 +104,93 @@
 								<div class="col-md-12 col-lg-12">
 									<table class="table-no-border">
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_PLATE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_PLATE']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="text" id="nr_plate" name="nr_plate" required disabled/>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="text" id="nr_serial" name="nr_serial" required disabled/>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_BUYINGDATE']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="text" id="date_buy" name="date_buy" data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA" required>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_FIRSTDATE']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="text" id="date_entryservice" name="date_entryservice" required data-date-format="dd/mm/yyyy" placeholder="JJ/MM/AAAA">
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_BRAND']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_BRAND']; ?></td>
+											<td width="50%">
 												<select id="brand" name="brand" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_MODEL']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_MODEL']; ?></td>
+											<td width="50%">
 												<select id="model" name="model" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_MILEAGE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_MILEAGE']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="number" min="0" step="any" id="mileage" name="mileage" required>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_ENERGY']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_ENERGY']; ?></td>
+											<td width="50%">
 												<select id="energies" name="energies" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_STATE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_STATE']; ?></td>
+											<td width="50%">
 												<select id="states" name="states" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_CATEGORY']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_CATEGORY']; ?></td>
+											<td width="50%">
 												<select id="categories" name="categories" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_BUYINGPRICE']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="number" min="0" step="any" id="buyingprice" name="buyingprice" required />
 												<select id="currencies" name="currencies" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_TYPE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_TYPE']; ?></td>
+											<td width="50%">
 												<select id="kinds" name="kinds" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_EQUIPMENT']; ?></td>
+											<td width="50%">
 												<input class="form-control" type="text" id="equipments" name="equipments"/>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['SEAVEHICLE_SITE']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['SEAVEHICLE_SITE']; ?></td>
+											<td width="50%">
 												<select id="sites" name="sites" required="required" class="form-control"></select>
 											</td>
 										</tr>
 										<tr>
-											<td><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></td>
-											<td>
+											<td width="50%"><?php echo $addvehicle['ADDVEHICLE_COMMENTARY']; ?></td>
+											<td width="50%">
 												<textarea class="form-control" rows="5" maxlength="140" id="commentary" name="commentary" ></textarea>
 											</td>
 										</tr>
@@ -206,17 +206,17 @@
 				<form id="file-form" action="javascript:uploadFile();" method="POST">
 						<table>
 							<tr>
-								<td id="files" colspan="2">
+								<td width="100%" id="files" colspan="2">
 									<table class="display" id="fileslist">
 										<!-- Here, DataTable of files of selected vehicle -->
 									</table>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td width="70%">
 									<h5><input class="form-group" type="file" id="file-select" name="myfiles"/></h5>
 								</td>
-								<td align="right">
+								<td width="30%" align="right">
 									<button type="submit" id="upload-button" class="btn btn-success"><?php echo $lang['ADD_FILE']; ?></button>
 								</td>
 							</tr>

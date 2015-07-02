@@ -415,42 +415,42 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-12"> 
 							<form>
-								<table class="table-no-border">
+								<table class="table-no-border" width="100%">
 									<tbody>
 										<tr>
-											<td>
+											<td width="25%">
 												Vehicles
 											</td>
-											<td>
+											<td width="25%">
 												From
 											</td>
-											<td>
+											<td width="25%">
 												To
 											</td>
-											<td>
+											<td width="25%">
 												Grouping
 											</td>
 										</tr>
 										<tr>
-											<td>
+											<td width="25%">
 												<select id="listvehicles" name="listvehicles" required="required" class="form-control">
 													<!-- Retrieve kinds with an AJAX [GET] query -->
 												</select>
 											</td>
-											<td>
+											<td width="25%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_start" name="date_start" placeholder="JJ/MM/AAAA" required>
 											</td>
-											<td>
+											<td width="25%">
 												<input type="text" class="form-control" data-date-format="dd/mm/yyyy" id="date_end" name="date_end" placeholder="JJ/MM/AAAA" required>
 											</td>
-											<td>
+											<td width="20%">
 												<select id="filter" name="filter" class="form-control">
 													<option value="DAY">Day</option>
 													<option value="MONTH">Month</option>
 													<option value="YEAR">Year</option>
 												</select>
 											</td>
-											<td align="right">
+											<td width="5%" align="right">
 												<a href="javascript:refreshReport();">
 													<i class="fa fa-search"></i>
 												</a>
@@ -458,28 +458,28 @@
 										</tr>
 									</tbody>
 								</table>
-								<table class="table-no-border">
+								<table class="table-no-border" width="100%">
 									<thead>
 										<tr id="chart1">
-											<td id="availablemaintenancedays" style="width: 500px; height: auto;">
+											<td id="availablemaintenancedays" width="33%" align="center" style="height: auto;">
 												
 											</td>
-											<td id="partsused" style="width: 500px; height: auto;">
+											<td id="partsused" width="33%" align="center" style="height: auto;">
 												
 											</td>
-											<td id="typemaintenance" style="width: 500px; height: auto;">
+											<td id="typemaintenance" width="33%" align="center" style="height: auto;">
 												
 											</td>
 										</tr>
 									</thead>
 									<tbody>
 										<tr id="chart2">
-											<td id="maintenancecost" style="max-height:500px;" colspan="3">
+											<td id="maintenancecost" width="100%" style="max-height:500px;" colspan="3">
 												
 											</td>
 										</tr>
 										<tr id="chart3">
-											<td id="maintenanceparts" style="max-height:500px;" colspan="3">
+											<td id="maintenanceparts" width="100%" style="max-height:500px;" colspan="3">
 												
 											</td>
 										</tr>
