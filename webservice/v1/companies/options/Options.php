@@ -2,7 +2,7 @@
 
 /* ======================================================================== *
  * @filename:		Options.php												*
- * @topic:			Options 													*
+ * @topic:			Options 												*
  *																			*
  * @author(s): 		Said KHALID												*
  * @contact(s):		khalidsaid.box@gmail.com								*
@@ -17,7 +17,7 @@
 
 class Options {	
 
-	   /**
+	    /**
      * Add brand in company.
      *
      * @url POST /companies/options/addbrand/$brand
@@ -26,11 +26,13 @@ class Options {
 		try {
 			global $con;
 		/* Statement declaration */
-			$sql = 	"INSERT INTO brands (brand) 
-					 VALUES ('".$brand."');";
-				 
+			$sql = 	"INSERT INTO brands(brand) 
+					 VALUES (:brand);";
+			
+			
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':brand', $brand);
 			
 			/* Statement execution */
 			$stmt->execute();
@@ -39,7 +41,7 @@ class Options {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -47,6 +49,7 @@ class Options {
 			return array("error" => $e->getMessage());
 		}
     }
+	
 	
 	
 	 /**
@@ -59,10 +62,17 @@ class Options {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"INSERT INTO sites (name, id_company, address_ligne1, address_ligne2, address_ligne3, city, country) 
-					 VALUES ('".$name."', ".$id_company.",'".$adress1."','".$adress2."','".$adress3."','".$city."','".$country."');";
+					 VALUES (:name, :id_company, :adress1, :adress2, :adress3, :city , :country);";
 			
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':name', $name);
+			$stmt->bindParam(':id_company', $id_company);
+			$stmt->bindParam(':adress1', $adress1);
+			$stmt->bindParam(':adress2', $adress2);
+			$stmt->bindParam(':adress3', $adress3);
+			$stmt->bindParam(':city', $city);
+			$stmt->bindParam(':country', $country);
 			
 			/* Statement execution */
 			$stmt->execute();
@@ -71,7 +81,7 @@ class Options {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -90,11 +100,12 @@ class Options {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"INSERT INTO models (model, id_brand) 
-					 VALUES ('".$model."', ".$id_brand.");";
+					 VALUES (:model, :id_brand);";
 				 
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
-			
+			$stmt->bindParam(':model', $model);
+			$stmt->bindParam(':id_brand', $id_brand);
 			/* Statement execution */
 			$stmt->execute();
 			
@@ -102,7 +113,7 @@ class Options {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -216,11 +227,18 @@ class Options {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"INSERT INTO users (firstname, lastname, login, pass, email, image, id_role, id_company) 
-					 VALUES ('".$firstname."', '".$lastname."', '".$login."', '".$password."', '".$email."', '".$image."', ".$id_role.", ".$id_company.");";
+					 VALUES (:firstname, :lastname, :login, :password, :email, :image, :id_role, :id_company);";
 				 
 		/* Statement values & execution */
 			$stmt = $con->prepare($sql);
-			
+			$stmt->bindParam(':firstname', $firstname);
+			$stmt->bindParam(':lastname', $lastname);
+			$stmt->bindParam(':login', $login);
+			$stmt->bindParam(':password', $password);
+			$stmt->bindParam(':email', $email);
+			$stmt->bindParam(':image', $image);
+			$stmt->bindParam(':id_role', $id_role);
+			$stmt->bindParam(':id_company', $id_company);
 			/* Statement execution */
 			$stmt->execute();
 			
@@ -228,7 +246,7 @@ class Options {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
