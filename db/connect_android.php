@@ -78,7 +78,15 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 				// Write JSON
 				$data = array(
 					      "access" => "success",
-						  "token" => $authToken
+						  "token" => $authToken, 
+						  "id_company" => $user['id_company'],
+						  "id_role" => $user['id_role'], 
+						  "id_user" => $user['id_user'],
+						  "firstname" => $user['firstname'],
+						  "lastname" => $user['lastname'],
+						  "login" => $user['login'],
+						  "email" => $user['email'],
+						  "image" => $user['image']
 						);
 				echo json_encode($data);
 			} 
