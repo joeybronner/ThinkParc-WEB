@@ -59,21 +59,29 @@ class Stocks {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"UPDATE stock ".
-					"SET quanty='".$quanty."'".
-					"SET reference='".$reference."'".
-					"SET designation='".$designation."'".
-					"SET driveway='".$driveway."'".
-					"SET bay='".$bay."'".
-					"SET position='".$position."'".
-					"SET rack='".$rack."'".
-					"SET locker='".$locker."'".
-					"WHERE id_stock='".$id_stock."';";
+					"SET quanty=:quanty".
+					"SET reference=:reference".
+					"SET designation=:designation".
+					"SET driveway=:driveway".
+					"SET bay=:bay".
+					"SET position=:position".
+					"SET rack=:rack".
+					"SET locker=:locker".
+					"WHERE id_stock=:id_stock;";
 					
 					
 					
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
-			
+			$stmt->bindParam(':quanty', $quanty);
+			$stmt->bindParam(':reference', $reference);
+			$stmt->bindParam(':designation', $designation);
+			$stmt->bindParam(':driveway', $driveway);
+			$stmt->bindParam(':bay', $bay);
+			$stmt->bindParam(':position', $position);
+			$stmt->bindParam(':rack', $rack);
+			$stmt->bindParam(':locker', $locker);
+			$stmt->bindParam(':id_stock', $id_stock);
 			/* Statement execution */
 			$stmt->execute();
 			
@@ -81,7 +89,8 @@ class Stocks {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
+			
 			
 		/* Close statement */
 			$stmt->close();
@@ -136,15 +145,27 @@ class Stocks {
 			global $con;
 			/* Statement declaration */
 			$sql="INSERT INTO stock (quanty, driveway, bay, position, rack, id_site, id_part, locker, id_typestock, id_measurement, storehouse) 
-				  VALUES ('".$myquanty."' , '".$driveway."','".$bay."','".$position."','".$rack."','".$thereceiver."','".$idpart."','".$locker."','".$type."','".$measure."','".$storehouse."');
+				  VALUES (:myquanty , :driveway, :bay, :position, :rack, :thereceiver, :idpart, :locker, :type, :measure, :storehouse);
 				  
 				  Update transfert 
 				  SET validationdate = NOW(), validation=1
-				  WHERE id_transfert = '".$idtrans."';";
+				  WHERE id_transfert = :idtrans;";
 			
 			
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':myquanty', $myquanty);
+			$stmt->bindParam(':driveway', $driveway);
+			$stmt->bindParam(':bay', $bay);
+			$stmt->bindParam(':rack', $rack);
+			$stmt->bindParam(':thereceiver', $thereceiver);
+			$stmt->bindParam(':idpart', $idpart);
+			$stmt->bindParam(':locker', $locker);
+			$stmt->bindParam(':type', $type);
+			$stmt->bindParam(':measure', $measure);
+			$stmt->bindParam(':storehouse', $storehouse);
+			$stmt->bindParam(':position', $position);
+			$stmt->bindParam(':idtrans', $idtrans);
 			
 			/* Statement execution */
 			$stmt->execute();
@@ -153,7 +174,7 @@ class Stocks {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -242,14 +263,21 @@ class Stocks {
 			/* Statement declaration */
 				
 		$sql = 	"INSERT INTO transfert (receiver, id_part, quantity, validation, transferdate, type, measure, title) 
-				 VALUES ('".$id_site2."' , '".$ref."','".$productnumber."','0', NOW(), '".$type."','".$measure."','".$title."');
+				 VALUES (:id_site2, :ref, :productnumber,'0', NOW(), :type, :measure, :title);
 				
 				 Update stock st, parts pa 
-				 SET st.quanty = (quanty - '".$productnumber."') 
-				 WHERE st.id_stock = '".$idstock."';";
+				 SET st.quanty = (quanty - :productnumber) 
+				 WHERE st.id_stock = :idstock;";
 				
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site2', $id_site2);
+			$stmt->bindParam(':ref', $ref);
+			$stmt->bindParam(':productnumber', $productnumber);
+			$stmt->bindParam(':type', $type);
+			$stmt->bindParam(':measure', $measure);
+			$stmt->bindParam(':title', $title);
+			$stmt->bindParam(':idstock', $idstock);
 			
 			/* Statement execution */
 			$stmt->execute();
@@ -258,7 +286,7 @@ class Stocks {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -554,13 +582,13 @@ class Stocks {
 		 /**
      * Return site products or all sites products.
      *
-     * @url GET /companies/stocks/siteproduct/$id_site/company/$id_company
+     * @url GET /companies/stocks/siteproduct/$id_site/company/$fct_id_company
      */
-    public function getsiteproduct($id_site = null, $id_company=null) {
+    public function getsiteproduct($id_site = null, $fct_id_company=null) {
 		try {
 			global $con;
 			/* Statement declaration */
-			if($id_site==0)
+			if($id_site == 0)
 			{
 				$sql = "SELECT id_stock, reference, designation, buyingprice, cu.symbol as currency, co.name as company, family, quanty, measurement, driveway, bay, position, rack, si.name as site, ty.typestock, locker, pa.brand as brand, pa.comment as comment, st.storehouse as storehouse
 						FROM stock st, parts pa, measurement me, currencies cu, companies co, sites si, typestock ty, family fa
@@ -571,7 +599,7 @@ class Stocks {
 						AND pa.id_currency=cu.id_currency 
 						AND pa.id_company=co.id_company 
 						AND pa.id_family=fa.id_family 
-						AND pa.id_company = ".$id_company.";";
+						AND pa.id_company = ".$fct_id_company.";";
 			}
 			else {
 			
@@ -874,11 +902,18 @@ class Stocks {
 				global $con;
 				/* Statement declaration */
 			$sql = 	"INSERT INTO parts (reference, designation, buyingprice, id_currency, id_company, id_family, brand, comment) 
-					 VALUES ('".$reference."', '".$designation."', ".$buyingprice.", ".$id_currency.", ".$id_company.", ".$id_family.", '".$brand."', '".$comment."');";
+					 VALUES (:reference , :designation, :buyingprice, :id_currency, :id_company, :id_family, :brand, :comment);";
 			
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
-			
+			$stmt->bindParam(':reference', $reference);
+			$stmt->bindParam(':designation', $designation);
+			$stmt->bindParam(':buyingprice', $buyingprice);
+			$stmt->bindParam(':id_currency', $id_currency);
+			$stmt->bindParam(':id_company', $id_company);
+			$stmt->bindParam(':id_family', $id_family);
+			$stmt->bindParam(':brand', $brand);
+			$stmt->bindParam(':comment', $comment);
 			/* Statement execution */
 			$stmt->execute();
 			
@@ -886,7 +921,7 @@ class Stocks {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
@@ -905,10 +940,21 @@ class Stocks {
 			global $con;
 		/* Statement declaration */
 			$sql = 	"INSERT INTO stock (quanty, id_measurement, driveway, bay, position, rack, id_typestock, id_site, locker, id_part, storehouse) 
-					 VALUES (".$quanty.", ".$id_measurement.", '".$driveway."', '".$bay."', '".$position."', '".$rack."', ".$id_typestock.", ".$id_site.", '".$locker."', ".$id_part.", '".$storehouse."');";
+					 VALUES (:quanty, :id_measurement, :driveway, :bay, :position, :rack, :id_typestock, :id_site, :locker, :id_part, :storehouse);";
 			
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':quanty', $quanty);
+			$stmt->bindParam(':id_measurement', $id_measurement);
+			$stmt->bindParam(':driveway', $driveway);
+			$stmt->bindParam(':bay', $bay);
+			$stmt->bindParam(':position', $position);
+			$stmt->bindParam(':rack', $rack);
+			$stmt->bindParam(':id_typestock', $id_typestock);
+			$stmt->bindParam(':id_site', $id_site);
+			$stmt->bindParam(':locker', $locker);
+			$stmt->bindParam(':id_part', $id_part);
+			$stmt->bindParam(':storehouse', $storehouse);
 			
 			/* Statement execution */
 			$stmt->execute();
@@ -917,7 +963,7 @@ class Stocks {
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
 			else
-			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			  return array("success" => "OK");
 			
 		/* Close statement */
 			$stmt->close();
