@@ -434,6 +434,14 @@
 											</div>
 										</a>
 									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+										<a href="reporting/globalreporting.php" class="directlink-section">
+											<div class="black-bg btn-menu">
+												<i class="fa fa-building"></i>
+												<h2>Analyse<br>par site</h2>
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 							<div class="row margin-top-20">

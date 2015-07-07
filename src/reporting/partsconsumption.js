@@ -17,14 +17,6 @@ google.setOnLoadCallback(drawChart6);
 
 /** Method called on page loading */
 $(function onLoad() {
-    document.getElementById("title_chart1").style.display = "none";
-    document.getElementById("title_chart3").style.display = "none";
-    document.getElementById("title_chart4").style.display = "none";
-    document.getElementById("chart4").style.display = "none";
-    document.getElementById("title_chart5").style.display = "none";
-    document.getElementById("chart5").style.display = "none";
-    document.getElementById("title_chart6").style.display = "none";
-    document.getElementById("chart6").style.display = "none";
     getAllReferences();
     $('#date_start').datepicker();
     $('#date_end').datepicker();
@@ -33,14 +25,7 @@ $(function onLoad() {
 /** Refresh all reports */
 function refreshReport() {
     var sum_parts = 0;
-    document.getElementById("title_chart1").style.display = "block";
-    document.getElementById("title_chart3").style.display = "block";
-    document.getElementById("title_chart4").style.display = "block";
-    document.getElementById("chart4").style.display = "block";
-    document.getElementById("title_chart5").style.display = "block";
-    document.getElementById("chart5").style.display = "block";
-    document.getElementById("title_chart6").style.display = "block";
-    document.getElementById("chart6").style.display = "block";
+	document.getElementById("partsconsumptionreporting").style.display = "block";
     var reference = document.getElementById("reference").value;
     var date_start = document.getElementById("date_start").value.split("/").reverse().join("-");
     var date_end = document.getElementById("date_end").value.split("/").reverse().join("-");
@@ -121,8 +106,8 @@ function refreshReport() {
             url: "http://think-parc.com/webservice/v1/companies/" + company + "/reporting/reference/" + reference + "/stockvalue",
             success: function(data) {
                 var response = JSON.parse(data);
-                document.getElementById("chart4").innerHTML = response[0].stockquantity;
-                document.getElementById("chart5").innerHTML = response[0].marketvalue + " " + response[0].symbol;
+                document.getElementById("chart4").innerHTML = numberWithCommas(parseInt(response[0].stockquantity));
+                document.getElementById("chart5").innerHTML = numberWithCommas(parseFloat(response[0].marketvalue)) + " " + response[0].symbol;
             }
         });
         // Draw chart by sites
@@ -144,16 +129,20 @@ function refreshReport() {
     });
 }
 
+/** Returns a number with commas */
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 /** Draws chart by site */
 function drawChart6() {
     var data;
-    if (typeof(data_charts6) != "undefined") {
+    if (typeof(data_charts6) != "undefined" && data_charts6.length > 1) {
         data = google.visualization.arrayToDataTable(data_charts6);
     } else {
         data = google.visualization.arrayToDataTable([
             ['Site', 'Quantity'],
-            ['SiteA', 0],
-            ['SiteB', 0]
+            ['No values', 1]
         ]);
     }
 

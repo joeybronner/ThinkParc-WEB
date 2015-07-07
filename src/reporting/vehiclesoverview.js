@@ -193,12 +193,12 @@ function drawChart() {
 /** Draws chart for quantity used by reference */
 function drawChart2() {
     var data;
-    if (typeof(data_charts2) != "undefined") {
+    if (typeof(data_charts2) != "undefined" && data_charts2.length > 1) {
         data = google.visualization.arrayToDataTable(data_charts2);
     } else {
         data = google.visualization.arrayToDataTable([
             ['Reference', 'Quantity'],
-            ['PartA', 1]
+            ['No values', 1]
         ]);
     }
 
@@ -226,12 +226,20 @@ function drawChart2() {
 /** Draws chart for type of maintenance */
 function drawChart3() {
     var data;
-    if (typeof(data_charts3) != "undefined") {
+	var empty=0;
+	for (var i=1 ; i<data_charts3.length ; i++) {
+		var arr = data_charts3[i];
+		if (parseInt(arr[1]) > 0) {
+			empty=1;
+		}
+	}
+	
+    if (typeof(data_charts3) != "undefined" && empty == 1) {
         data = google.visualization.arrayToDataTable(data_charts3);
     } else {
         data = google.visualization.arrayToDataTable([
             ['Type', 'Quantity'],
-            ['Guarantee', 0]
+            ['No values', 1]
         ]);
     }
 
@@ -399,7 +407,8 @@ function drawChart5() {
             animation: {
                 duration: 1000,
                 easing: 'in'
-            }
+            },
+			colors: ['#FFCC00']
         };
         var chart = new google.visualization.ColumnChart(document.getElementById("maintenanceparts"));
         chart.draw(data, optionsData); // 1st draw with data (animate)

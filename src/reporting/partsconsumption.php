@@ -116,8 +116,22 @@
 												</a>
 											</td>
 										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="partsconsumptionreporting" class="black-bg btn-menu" style="display:none;">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12 col-lg-12"> 
+							<form>
+								<table class="table-no-border">
+									<tbody>
 										<tr id="title_chart1">
-											<td style="padding-top:20px;" width="100%" colspan="5">
+											<td width="100%" colspan="5">
 												<center>
 													<h2><?php echo $partsconsump['CONSUM_MAINTEN']; ?></h2>
 												</center>
@@ -129,7 +143,7 @@
 											</td>
 										</tr>
 										<tr id="chart2">
-											<td id="sum_parts" style="font-size:5vw" align="right">
+											<td id="sum_parts" style="font-size:5vw" align="right" colspan="2">
 											
 											</td>
 											<td id="text_usedparts" style="font-size:2vw" colspan="3">
@@ -168,18 +182,14 @@
 												-
 											</td>
 										</tr>
-									</tbody>
-								</table>
-								<table class="table-no-border">
-									<tbody>
 										<tr id="title_chart6">
-											<td align="center" width="100%" colspan="5">
-												<h2><?php echo $partsconsump['PARTS_LOCALISATION']; ?></h2>
+											<td width="100%" colspan="5">
+												<center><h2><?php echo $partsconsump['PARTS_LOCALISATION']; ?></h2></center>
 											</td>
 										</tr>
 										<tr id="chart6">
-											<td id="partslocalisation_values" style="height: 500px;" width="100%" colspan="5">
-													
+											<td id="partslocalisation_values" width="100%" align="center" style="height:200px;" colspan="5">
+												-
 											</td>
 										</tr>
 									</tbody>
