@@ -100,12 +100,12 @@
 										</tr>
 										<tr>
 											<td width="50%">
-												<select id="kinds" name="kinds" required="required" class="form-control">
+												<select id="kinds" name="kinds" class="form-control" required>
 													<!-- Retrieve kinds with an AJAX [GET] query -->
 												</select>
 											</td>
 											<td width="50%">
-												<select id="categories" name="categories" required="required" class="form-control">
+												<select id="categories" name="categories" class="form-control" required>
 													<!-- Retrieve categories with an AJAX [GET] query -->
 												</select>
 											</td>
@@ -115,7 +115,7 @@
 										</tr>
 										<tr>
 											<td width="50%">
-												<select id="energies" name="energies" required="required" class="form-control">
+												<select id="energies" name="energies" class="form-control" required>
 													<!-- Retrieve energies with an AJAX [GET] query -->
 												</select>
 											</td>
@@ -141,10 +141,10 @@
 										</tr>
 										<tr>
 											<td width="50%">
-												<input class="form-control" type="text" id="nr_plate" name="nr_plate" placeholder="<?php echo $addvehicle['ADDVEHICLE_PLATE']; ?>"/>
+												<input class="form-control" type="text" id="nr_plate" name="nr_plate" placeholder="<?php echo $addvehicle['ADDVEHICLE_PLATE']; ?>" required/>
 											</td>
 											<td width="50%">
-												<input class="form-control" type="text" id="nr_serial" name="nr_serial" placeholder="<?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?>"/>
+												<input class="form-control" type="text" id="nr_serial" name="nr_serial" placeholder="<?php echo $addvehicle['ADDVEHICLE_SERIAL']; ?>" required/>
 											</td>
 										</tr>
 										<tr>
@@ -162,7 +162,7 @@
 										<tr>
 											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_MILEAGE']; ?></h5></td>
 											<td width="50%">
-												<input class="form-control" type="number" min="0" step="any" id="mileage" name="mileage" required="required" placeholder="100000"/>
+												<input class="form-control" type="number" min="0" step="any" id="mileage" name="mileage" placeholder="100000" required/>
 											</td>
 										</tr>
 										<tr>
@@ -176,7 +176,7 @@
 										<tr>
 											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_SITE']; ?></h5></td>
 											<td width="50%">
-												<select id="sites" name="sites" required="required" class="form-control">
+												<select id="sites" name="sites" class="form-control" required>
 													<!-- Retrieve sites with an AJAX [GET] query -->
 												</select>
 											</td>
@@ -184,7 +184,7 @@
 										<tr>
 											<td width="50%"><h5><?php echo $addvehicle['ADDVEHICLE_STATE']; ?></h5></td>
 											<td width="50%">
-												<select id="states" name="states" required="required" class="form-control">
+												<select id="states" name="states" class="form-control" required>
 													<!-- Retrieve states with an AJAX [GET] query -->
 												</select>
 											</td>
