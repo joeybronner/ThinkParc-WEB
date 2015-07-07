@@ -60,6 +60,186 @@ class Reporting {
 		}
     }
 	
+		/**
+     * Get total vehicles
+     *
+     * @url GET /companies/reporting/getTotalVehicles/id_site/$id_site
+     */
+    public function getTotalVehicles($id_site) {
+		try {
+			global $con;
+			/* Statement declaration */
+			                    
+			$sql = "SELECT count(*) as total, 
+					count(case when id_site = :id_site then 1 end) as bysite 
+					FROM vehicles ;";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	/**
+     * Get total vehicles
+     *
+     * @url GET /companies/reporting/getTotalValuesVehicles/id_site/$id_site
+     */
+    public function getTotalValuesVehicles($id_site) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT SUM(buyingprice) as total, symbol 
+					FROM vehicles ve, currencies cu
+					WHERE id_site = :id_site
+					AND ve.id_currency=cu.id_currency;";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	/**
+     * Get total vehicles
+     *
+     * @url GET /companies/reporting/getTotalValuesOfStock/id_site/$id_site
+     */
+    public function getTotalValuesOfStock($id_site) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT SUM(pa.buyingprice*st.quanty) as total, symbol 
+					FROM stock st, currencies cu, parts pa
+					WHERE st.id_site = :id_site
+					AND pa.id_currency=cu.id_currency;";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	/**
+     * Get total parts
+     *
+     * @url GET /companies/reporting/getTotalParts/id_site/$id_site
+     */
+    public function getTotalParts($id_site) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT sum(st.id_part*quanty) as total, pa.reference as part
+					FROM stock st, parts pa 
+					WHERE st.id_site = :id_site
+					AND st.id_part = pa.id_part
+					GROUP BY st.id_part
+					HAVING count(quanty);";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
+	
+	
+	
+	 /**
+     * Reporting get state.
+     *
+     * @url GET /companies/reporting/getState/id_site/$id_site
+     */
+    public function getState($id_site) {
+		try {
+			global $con;
+				/* Statement declaration */
+			$sql="SELECT state, count(ve.id_state) as total
+				  FROM vehicles ve, states st 
+				  WHERE ve.id_state = st.id_state
+				  AND ve.id_site = :id_site
+				  GROUP BY ve.id_state
+				  HAVING count(st.id_state) ;";
+		
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
     /**
      * Returns reference used for transfert analysis.
      *
