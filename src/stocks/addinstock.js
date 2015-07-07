@@ -125,13 +125,13 @@ function addinstock() {
       url: "http://www.think-parc.com/webservice/v1/companies/stocks/addinstock/quanty/" + quanty + "/id_measurement/" + id_measurement + "/driveway/" + driveway + "/bay/" + bay + "/position/" + position + "/locker/" + locker + "/rack/" + rack + "/id_site/" + id_site + "/id_typestock/" + id_typestock + "/id_part/" + window.idpart + "/storehouse/" + storehouse,
       success: function(data) {
          $(document).ready(function() {
-            document.getElementById("addinstock").reset();
-			document.getElementById("textDiv").reset();
             $.toast({
                heading: "Success",
                text: "Product successfully added.",
                icon: "success"
             });
+			document.getElementById("addinstock").reset();
+			document.getElementById("textDiv").reset();
          });
 
       },

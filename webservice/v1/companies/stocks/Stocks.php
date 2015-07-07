@@ -17,6 +17,7 @@
  
 class Stocks {	
 
+
     /**
      * Return all parents family.
      *
@@ -50,6 +51,44 @@ class Stocks {
     }
 	
 	/**
+     * Return all parents family.
+     *
+     * @url GET /companies/stocks/getAllInformations/$id_site
+     */
+    public function getAllInformations($id_site = null) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT sum(quanty) as total, st.id_part, reference, buyingprice, si.name, pa.designation, pa.brand, pa.comment
+					FROM stock st, sites si, companies co, parts pa
+					WHERE st.id_site = si.id_site
+					AND st.id_site = :id_site
+					AND st.id_part = pa.id_part
+					AND si.id_company = co.id_company
+					GROUP BY reference";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
+	/**
      * Description.
      *
      * @url PUT /companies/stocks/updatestock/$quanty/id_stock/$id_stock/$reference/$designation/$driveway/$bay/$position/$rack/$id_part/$locker
@@ -59,15 +98,15 @@ class Stocks {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"UPDATE stock ".
-					"SET quanty=:quanty".
-					"SET reference=:reference".
-					"SET designation=:designation".
-					"SET driveway=:driveway".
+					"SET quanty=: quanty".
+					"SET reference=: reference".
+					"SET designation=: designation".
+					"SET driveway=: driveway".
 					"SET bay=:bay".
-					"SET position=:position".
-					"SET rack=:rack".
-					"SET locker=:locker".
-					"WHERE id_stock=:id_stock;";
+					"SET position=: position".
+					"SET rack=: rack".
+					"SET locker=: locker".
+					"WHERE id_stock=: id_stock;";
 					
 					
 					
@@ -91,6 +130,78 @@ class Stocks {
 			else
 			  return array("success" => "OK");
 			
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	 /**
+     * Get total of vehicles in one site.
+     *
+     * @url GET /companies/stocks/getreporting/id_site/$id_site
+     */
+    public function getvehiculereporting($id_site) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT count(*) as total
+					FROM vehicles
+					WHERE id_site= : id_site ;";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(': id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
+	
+	
+	 /**
+     * Reporting .
+     *
+     * @url GET /companies/stocks/getstate/id_site/$id_site
+     */
+    public function getvehiculestate($id_site) {
+		try {
+			global $con;
+				/* Statement declaration */
+			$sql="SELECT state, count(ve.id_state) as total
+				  FROM vehicles ve, states st 
+				  WHERE ve.id_state = st.id_state
+				  AND ve.id_site = :id_site
+				  GROUP BY ve.id_state
+				  HAVING count(st.id_state) ;";
+		
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
 			
 		/* Close statement */
 			$stmt->close();
