@@ -87,6 +87,42 @@ class Stocks {
 		}
     }
 	
+	/**
+     * Returns the quantity in stock for a specific reference and site.
+     *
+     * @url GET /companies/stocks/available/site/$id_site/reference/$id_part
+     */
+    public function getStockAvailableForRefBySite($id_site = null, $id_part = null) {
+		try {
+			global $con;
+			/* Statement declaration */
+			$sql = "SELECT IFNULL(SUM(quanty), 0) as quantitytotal ".
+					"FROM stock s, parts p ".
+					"WHERE s.id_part = p.id_part ".
+					"AND s.id_part = :id_part ".
+					"AND id_site = :id_site";
+					
+			/* Statement values & execution */
+			$stmt = $con->prepare($sql);
+			$stmt->bindParam(':id_part', $id_part);
+			$stmt->bindParam(':id_site', $id_site);
+			
+			/* Statement execution */
+			$stmt->execute();
+			
+			/* Handle errors */
+			if ($stmt->errno)
+			  throw new PDOException($stmt->error);
+			else
+			  return $stmt->fetchAll(PDO::FETCH_OBJ);
+			
+		/* Close statement */
+			$stmt->close();
+		} catch(PDOException $e) {
+			return array("error" => $e->getMessage());
+		}
+    }
+	
 	
 	/**
      * Description.
