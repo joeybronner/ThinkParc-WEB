@@ -84,7 +84,7 @@ function refreshReport() {
     url: "http://think-parc.com/webservice/v1/companies/reporting/getTotalValuesVehicles/id_site/" + id_site,
     success: function(data) {
       var response = JSON.parse(data);
-      document.getElementById("chart4").innerHTML = response[0].total + " " + response[0].symbol;
+      document.getElementById("chart4").innerHTML = numberWithCommas(response[0].total) + " " + response[0].symbol;
     }
 
 
@@ -97,7 +97,7 @@ function refreshReport() {
     url: "http://think-parc.com/webservice/v1/companies/reporting/getTotalValuesOfStock/id_site/" + id_site,
     success: function(data) {
       var response = JSON.parse(data);
-      document.getElementById("chart5").innerHTML = response[0].total + " " + response[0].symbol;
+      document.getElementById("chart5").innerHTML = numberWithCommas(response[0].total) + " " + response[0].symbol;
     }
 
 
@@ -269,6 +269,11 @@ function getSelectedText(elementId) {
   if (elt.selectedIndex == -1)
     return null;
   return elt.options[elt.selectedIndex].text;
+}
+
+/** Returns a number with commas */
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 /** Method who retrieves all sites */

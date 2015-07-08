@@ -140,6 +140,7 @@ class Reporting {
 			$sql = "SELECT SUM(pa.buyingprice*st.quanty) as total, symbol 
 					FROM stock st, currencies cu, parts pa
 					WHERE st.id_site = :id_site
+					AND st.id_part = pa.id_part
 					AND pa.id_currency=cu.id_currency;";
 					
 			/* Statement values & execution */
@@ -171,7 +172,7 @@ class Reporting {
 		try {
 			global $con;
 			/* Statement declaration */
-			$sql = "SELECT sum(st.id_part*quanty) as total, pa.reference as part
+			$sql = "SELECT sum(quanty) as total, pa.reference as part
 					FROM stock st, parts pa 
 					WHERE st.id_site = :id_site
 					AND st.id_part = pa.id_part

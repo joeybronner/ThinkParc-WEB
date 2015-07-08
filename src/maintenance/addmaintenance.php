@@ -172,7 +172,7 @@
 	<!-- PopUp section -->
 	<div id="blanket" style="display:none"></div>
 	<div id="custompopup" style="display:none">
-			<div class="panel-body">
+			<div class="panel-body" style="padding:30px;">
 				<div class="row"> 
 						<form id="addmaintenance" action="javascript:addParts();">
 							<table style="width:100%;">
