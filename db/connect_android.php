@@ -53,7 +53,7 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 			$user = mysqli_fetch_assoc($user_profile);
 			
 			// Expire token
-			$stamp_expire = date('Y-m-d H:i:s', strtotime("+30 min"));
+			$stamp_expire = date('Y-m-d H:i:s', strtotime("+15 min"));
 			
 			$user_cred = array (
 				'login'    	=> $user['login'],
@@ -74,7 +74,7 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 				session_start();
 				// Private session cache & expires in a delay of 15 minutes
 				session_cache_limiter('public');
-				session_cache_expire(30);
+				session_cache_expire(15);
 				// Write JSON
 				$data = array(
 					      "access" => "success",
