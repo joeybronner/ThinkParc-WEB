@@ -16,11 +16,10 @@
  * ------------------------------------------------------------------------ *
  * 19/06/2015 | S.KHALID      | Creation									*
  * ------------------------------------------------------------------------ *
- * JJ/MM/AAAA | ...			   | ...			 							*
+ * 09/07/2015 | J.BRONNER     | Cleaning unclosed tags						*
  * =========================================================================*/
 ?>
    <html>
-
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,13 +39,13 @@
 		
 		/* 4. Import language values: French or English files */
 		if($_SESSION['fct_lang'] == 'FR')
-		include('../../lang/options/addbrand.fr.php');
+			include('../../lang/options/addbrand.fr.php');
 		else
-		include('../../lang/options/addbrand.en.php');
+			include('../../lang/options/addbrand.en.php');
 		
 		/* 5. Import specific JavaScript file for this page */
 		echo '<script type="text/javascript" src="addbrand.js"></script>';
-	?>
+	  ?>
          <title>
             <?php echo $options['TITLE_ADDBRAND'];?>
          </title>
@@ -63,7 +62,7 @@
          </div>
 
          <!-- Background image for this page-->
-         <img src="../../images/zoom-bg-4.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
+         <img src="../../images/background/options/think-parc-addbrand.jpg" id="menu-img" class="main-img inactive" alt="FCT Partners">
 
          <!-- Page content -->
          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
