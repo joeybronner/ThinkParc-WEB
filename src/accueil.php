@@ -191,7 +191,7 @@
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
 									<div class="black-bg btn-menu">
 										<i class="fa fa-users white"></i>
-										<h2>News</h2>
+										<h2><?php echo $home['NEWS']; ?></h2>
 										<div id="newsContent" style="width:60%;margin:auto;">
 											<!-- Here are loaded news -->
 										</div>
@@ -201,7 +201,7 @@
 									<a href="#products" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-cubes"></i>
-											<h2>Stocks</h2>
+											<h2><?php echo $home['STOCKS']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -209,7 +209,7 @@
 									<a href="#vehicles" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-car"></i>
-											<h2>Véhicules</h2>
+											<h2><?php echo $home['VEHICLES']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -217,7 +217,7 @@
 									<a href="#maintenance" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-wrench"></i>
-											<h2>Maintenance</h2>
+											<h2><?php echo $home['MAINTENANCE']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -225,42 +225,42 @@
 									<a href="#reporting" class="change-section">
 										<div class="black-bg btn-menu">
 											<i class="fa fa-signal"></i>
-											<h2>Reporting</h2>
+											<h2><?php echo $home['REPORTING']; ?></h2>
 										</div>
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 pull-right">
 									<a href="#options" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Options</h2>
+											<h2><?php echo $home['OPTIONS']; ?></h2>
 										</div>
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 text-center">
 									<a href="documents/documents.php" class="directlink-section">
 										<div class="black-bg btn-menu">
-											<h2>Documents</h2>
+											<h2><?php echo $home['DOCUMENTS']; ?></h2>
 										</div>
 									</a>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-bottom-20 text-center">
 									<div class="black-bg btn-menu">
-										<h2>Vue rapide</h2>
+										<h2><?php echo $home['QUICK_VIEW']; ?></h2>
 										<table>
 											<tr>
-												<td width="80%">Véhicule(s) en maintenance</td>
+												<td width="80%"><?php echo $home['VEHICLES_MAINTENANCE']; ?></td>
 												<td width="20%" id="qv_vehicles_maint" align="center">-</td>
 											</tr>
 											<tr>
-												<td width="80%">Réception(s) en attente</td>
+												<td width="80%"><?php echo $home['PENDING_TRANSFERT']; ?></td>
 												<td width="20%" id="qv_transfert_wait" align="center">-</td>
 											</tr>
 											<tr>
-												<td width="80%">Echéance(s) assurances</td>
+												<td width="80%"><?php echo $home['TERM_INSURANCE']; ?></td>
 												<td width="20%" id="qv_assurances_end" align="center">-</td>
 											</tr>
 											<tr>
-												<td width="80%">Echéance(s) contrôles techniques</td>
+												<td width="80%"><?php echo $home['TERM_CT']; ?></td>
 												<td width="20%" id="qv_techcontrol_end" align="center">-</td>
 											</tr>
 										</table>
@@ -272,15 +272,12 @@
 						<section id="products-section" class="inactive" >
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Gestions des stocks</h2>
-									<div class="col-sm-12 col-md-12">
-										<p>Cette espace vous permet de gérer les <a href="Reparation.html">stocks</a> de produits. Il vous permet aussi les consulter</p>
-									</div>
+									<h2 class="text-center"><?php echo $home['STOCK_MANAGEMENT']; ?></h2>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
 										<a href="stocks/consultationproduct.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-eye"></i>
-												<h2>Consultation</h2>
+												<h2><?php echo $home['STOCK_SEARCH']; ?></h2>
 											</div>
 											<br/>
 										</a>
@@ -289,7 +286,7 @@
 										<a href="stocks/addinstock.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-plus"></i>
-												<h2>Ajout stock</h2>
+												<h2><?php echo $home['STOCK_ADD']; ?></h2>
 											</div>
 											<br/>
 										</a>
@@ -298,7 +295,7 @@
 										<a href="stocks/addproduct.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-in"></i>
-												<h2>Ajout produit</h2>
+												<h2><?php echo $home['STOCK_ADD_PRODUCT']; ?></h2>
 											</div>
 											<br/>
 										</a>
@@ -307,7 +304,7 @@
 										<a href="stocks/history.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-out"></i>
-												<h2>Historiques</h2>
+												<h2><?php echo $home['STOCK_HISTORY']; ?></h2>
 											</div>
 											<br/>
 										</a>
@@ -320,7 +317,7 @@
 										<a href="stocks/transfert.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-random"></i>
-												<h2>Transferts</h2>
+												<h2><?php echo $home['STOCK_TRANSFERTS']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -329,7 +326,7 @@
 										<a href="stocks/reception.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-edit"></i>
-												<h2>Récéptions</h2>
+												<h2><?php echo $home['STOCK_RECEIPT']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -341,7 +338,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
 									<a href="#menu" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
+											<h2><?php echo $home['BACK_MENU']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -351,29 +348,20 @@
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<div class="col-sm-12 col-md-12 col-lg-12 black-bg">
-										<h2 class="text-center">Parc automobile</h2>
-										<p>Gestion du parc de véhicules</p>
-										<?php
-											// Privilège destiné uniquement aux administrateurs
-											if ($_SESSION['fct_id_role']==1) 
-											{
-											?>
+										<h2 class="text-center"><?php echo $home['VEHICLES_PARK']; ?></h2>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
 											<a href="vehicules/addvehicle.php" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-car"></i>
-													<h2>Ajouter<br>un véhicule</h2>
+													<h2><?php echo $home['VEHICLES_ADD']; ?></h2>
 												</div>
 											</a>
 										</div>
-										<?php
-											}
-											?>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
 											<a href="vehicules/searchvehicle.php" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-edit"></i>
-													<h2>Consulter<br>un véhicule</h2>
+													<h2><?php echo $home['VEHICLES_SEARCH']; ?></h2>
 												</div>
 											</a>
 										</div>
@@ -381,7 +369,7 @@
 											<a href="vehicules/docsadministratives.php" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-file"></i>
-													<h2>Gérer les docs<br>administratifs</h2>
+													<h2><?php echo $home['VEHICLES_ADMDOCS']; ?></h2>
 												</div>
 											</a>
 										</div>
@@ -389,7 +377,7 @@
 											<a href="vehicules/vehiclesanddrivers.php" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-user"></i>
-													<h2>Conducteurs<br>des véhicules</h2>
+													<h2><?php echo $home['VEHICLES_DRIVERS']; ?></h2>
 												</div>
 											</a>
 										</div>
@@ -397,7 +385,7 @@
 											<a href="vehicules/vehicles.php" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-search"></i>
-													<h2>Voir tous les véhicules</h2>
+													<h2><?php echo $home['VEHICLES_ALL']; ?></h2>
 												</div>
 											</a>
 										</div>
@@ -408,7 +396,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
 									<a href="#menu" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
+											<h2><?php echo $home['BACK_MENU']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -417,12 +405,12 @@
 						<section id="reporting-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Reporting</h2>
+									<h2 class="text-center"><?php echo $home['REPORTING']; ?></h2>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
 										<a href="reporting/partsconsumption.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-cubes"></i>
-												<h2>Analyse<br>des pièces</h2>
+												<h2><?php echo $home['REPORTING_PARTS']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -430,7 +418,7 @@
 										<a href="reporting/vehiclesoverview.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-car"></i>
-												<h2>Analyse<br>des véhicules</h2>
+												<h2><?php echo $home['REPORTING_VEHICLES']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -438,7 +426,7 @@
 										<a href="reporting/globalreporting.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-building"></i>
-												<h2>Analyse<br>par site</h2>
+												<h2><?php echo $home['REPORTING_GLOBAL']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -448,7 +436,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
 									<a href="#menu" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
+											<h2><?php echo $home['BACK_MENU']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -457,12 +445,12 @@
 						<section id="maintenance-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Maintenance</h2>
+									<h2 class="text-center"><?php echo $home['MAINTENANCE']; ?></h2>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
 										<a href="maintenance/addmaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-wrench"></i>
-												<h2>Nouvelle<br>maintenance</h2>
+												<h2><?php echo $home['MAINTENANCE_NEW']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -470,7 +458,7 @@
 										<a href="maintenance/updatemaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-repeat"></i>
-												<h2>Mise à jour<br>maintenance</h2>
+												<h2><?php echo $home['MAINTENANCE_UPDATE']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -478,7 +466,7 @@
 										<a href="maintenance/historymaintenance.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-history"></i>
-												<h2>Historique<br>maintenance</h2>
+												<h2><?php echo $home['MAINTENANCE_HISTORY']; ?></h2>
 											</div>
 										</a>
 									</div>
@@ -488,7 +476,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
 									<a href="#menu" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
+											<h2><?php echo $home['BACK_MENU']; ?></h2>
 										</div>
 									</a>
 								</div>
@@ -497,15 +485,12 @@
 						<section id="options-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Options</h2>
-									<div class="col-sm-12 col-md-12">
-										<p> Vous trouverez dans cette rubrique, toutes les options disponibles</p>
-									</div>
+									<h2 class="text-center"><?php echo $home['OPTIONS']; ?></h2>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
 										<a href="options/addbrand.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark-o"></i>
-												<h2>Ajout Marque</h2>
+												<h2><?php echo $home['OPTIONS_BRAND']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -514,7 +499,7 @@
 										<a href="options/addmodel.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark"></i>
-												<h2>Ajout Modèle</h2>
+												<h2><?php echo $home['OPTIONS_MODEL']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -524,7 +509,7 @@
 										<a href="options/adduser.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-users"></i>
-												<h2>Ajout utilisateurs</h2>
+												<h2><?php echo $home['OPTIONS_USER']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -534,7 +519,7 @@
 										<a href="options/addsite.php" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-building"></i>
-												<h2>Ajout site</h2>
+												<h2><?php echo $home['OPTIONS_SITE']; ?></h2>
 											</div>
 											<br/>
 									</div>
@@ -546,62 +531,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
 									<a href="#menu" class="change-section">
 										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
-										</div>
-									</a>
-								</div>
-							</div>
-						</section>
-						<section id="testimonials-section" class="inactive">
-							<div class="row">
-								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
-									<h2 class="text-center">Documents Techniques</h2>
-									<div class="col-sm-12 col-md-12">
-										<p>Vous trouverez dans cette rubrique, tous les documents techniques nécessaire à la prise en main du logiciel</p>
-									</div>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="#">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-wrench"></i>
-												<h2>Documents techniques machines</h2>
-											</div>
-											<br/>
-									</div>
-									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="documents/docstechniquesvehicules.php">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-flag-checkered"></i>
-												<h2>Documents techniques véhicules</h2>
-											</div>
-										</a>
-									</div>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="#">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-recycle"></i>
-												<h2>Documents techniques FCT Software</h2>
-											</div>
-											<br/>
-									</div>
-									</a>
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="#">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-list-alt"></i>
-												<h2>Autres documents format PDF</h2>
-											</div>
-											<br/>
-									</div>
-									</a>
-									<div class="clearfix"></div>
-								</div>
-							</div>
-							<div class="row margin-top-20">
-								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6  pull-right">
-									<a href="#menu" class="change-section">
-										<div class="black-bg btn-menu">
-											<h2>Retour au menu</h2>
+											<h2><?php echo $home['BACK_MENU']; ?></h2>
 										</div>
 									</a>
 								</div>
