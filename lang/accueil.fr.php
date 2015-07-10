@@ -21,12 +21,12 @@ $home['PENDING_TRANSFERT'] = 'Transfert(s) en attente';
 $home['TERM_INSURANCE'] = 'Echéance(s) assurance';
 $home['TERM_CT'] = 'Echéance(s) contrôle technique';
 
-$home['STOCK_MANAGEMENT'] = 'gestion du stock';
+$home['STOCK_MANAGEMENT'] = 'Gestion du stock';
 $home['STOCK_SEARCH'] = 'Consultation';
 $home['STOCK_ADD'] = 'Entrée en stock';
 $home['STOCK_ADD_PRODUCT'] = 'Ajouter un produit';
 $home['STOCK_HISTORY'] = 'Historique<br>des transferts';
-$home['STOCK_TRANSFERTS'] = 'Effectuer<br>un transferts';
+$home['STOCK_TRANSFERTS'] = 'Effectuer<br>un transfert';
 $home['STOCK_RECEIPT'] = 'Réceptionner<br>un transfert';
 
 $home['VEHICLES_PARK'] = 'Parc automobile';
