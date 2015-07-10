@@ -49,6 +49,6 @@ $home['OPTIONS_MODEL'] = 'Ajouter<br>un modèle';
 $home['OPTIONS_SITE'] = 'Ajouter<br>un site';
 $home['OPTIONS_USER'] = 'Ajouter<br>un utilisateur';
 
-$home['BACK_MENU'] = 'Back menu';
+$home['BACK_MENU'] = 'Retour menu';
 
 ?>
