@@ -15,6 +15,7 @@ require 'companies/Company.php';
 require 'companies/maintenance/Maintenance.php';
 require 'companies/reporting/Reporting.php';
 require 'companies/options/Options.php';
+require 'tests/Tests.php';
 
 $server = new RESTServer('debug');
 $server->addClass('About');
@@ -28,4 +29,5 @@ $server->addClass('Company');
 $server->addClass('Maintenance');
 $server->addClass('Reporting');
 $server->addClass('Options');
+$server->addClass('Tests');
 $server->handle();
