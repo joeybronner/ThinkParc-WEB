@@ -36,6 +36,21 @@ class Tests {
 			$stmt = $con->prepare($sqlfiles);
 			$stmt->execute();
 			
+			/* DELETE MAINTENANCE */
+			$sqlfiles = "DELETE FROM maintenance WHERE id_vehicle = 34;";
+			$stmt = $con->prepare($sqlfiles);
+			$stmt->execute();
+			
+			/* DELETE ADMINISTRATIVE */
+			$sqlfiles = "DELETE FROM insurances WHERE id_company = 3;";
+			$stmt = $con->prepare($sqlfiles);
+			$stmt->execute();
+			
+			/* DELETE DRIVERS */
+			$sqlfiles = "DELETE FROM drivers WHERE id_company = 3;";
+			$stmt = $con->prepare($sqlfiles);
+			$stmt->execute();
+			
 			/* Handle errors */
 			if ($stmt->errno)
 			  throw new PDOException($stmt->error);
