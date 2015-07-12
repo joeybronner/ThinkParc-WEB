@@ -6,15 +6,13 @@
 
 require('authenticationtoken.php');
 
-$DB_serveur = 'thinkparqnroot.mysql.db';
-$DB_utilisateur = 'thinkparqnroot';
-$DB_motdepasse = 'Thinkparc1';
+$DB_srvr = 'thinkparqnroot.mysql.db';
+$DB_user = 'thinkparqnroot';
+$DB_pass = 'Thinkparc1';
 $DB_base = 'thinkparqnroot';
 
-// Server connection
-$connection = mysqli_connect($DB_serveur, $DB_utilisateur, $DB_motdepasse, $DB_base) 
-or die("Error " . mysqli_error($connection));
-
+/* Server connection */
+$connection = mysqli_connect($DB_srvr, $DB_user, $DB_pass, $DB_base) or die("Error: " . mysqli_error($connection));
 
 /* If POST */
 if(isset($_POST['login']) && isset($_POST['pass'])) {

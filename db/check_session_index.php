@@ -21,6 +21,9 @@ try {
 				$params["secure"], $params["httponly"]
 			);
 		}
+		
+		// Delete Cookie
+		//setcookie("fct_token", "", time()-3600);
 
 		// Finally, destroy the session
 		session_destroy();
