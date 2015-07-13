@@ -2,6 +2,8 @@
     "require": {
         "guzzle/guzzle": "3.*",
         "phpunit/phpunit": "4.*",
-        "guzzlehttp/guzzle": "4.*"
+        "guzzlehttp/guzzle": "4.*",
+		"twitter/bootstrap": "3.3.2",
+		"components/jquery": "1.11.3"
     }
 }
