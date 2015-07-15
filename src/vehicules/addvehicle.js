@@ -6,14 +6,14 @@
  * @version 1.0
  */
  
-/** Method called on page loading */
-$(function() {
+ /** Method called on page loading */
+ $(function() {
   $('#date_buy').datepicker();
   $('#date_entryservice').datepicker();
 });
 
-/** Retrieves all brands */
-$(function getBrands() {
+ /** Retrieves all brands */
+ $(function getBrands() {
   $.ajax({
     method: "GET",
     url: "http://think-parc.com/webservice/v1/companies/vehicles/brands",
@@ -28,8 +28,8 @@ $(function getBrands() {
   });
 });
 
-/** Retrieves all models */
-function getModels(idbrand) {
+ /** Retrieves all models */
+ function getModels(idbrand) {
   $.ajax({
     method: "GET",
     url: "http://think-parc.com/webservice/v1/companies/vehicles/models/" + idbrand,
@@ -174,30 +174,35 @@ function addVehicule() {
   var site = document.getElementById("sites").value;
   var commentary = document.getElementById("commentary").value;
 
-  $.ajax({
-    method: "POST",
-    url: "http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial +
+  var d_buy = new Date(date_buy);
+  var d_entryservice = new Date(date_entryservice);
+
+  if (d_entryservice <= d_buy) {
+    $.ajax({
+      method: "POST",
+      url: "http://think-parc.com/webservice/v1/companies/sites/" + site + "/vehicles/" + nr_plate + "/" + nr_serial +
       "/" + mileage + "/" + buyingprice + "/" + date_buy + "/" + date_entryservice + "/" + energy +
       "/" + model + "/" + kind + "/" + category + "/" + equipments + "/" + state + "/" + currency +
       "/" + commentary,
-    success: function(data) {
-      $(document).ready(function() {
-        document.getElementById("addvehicle").reset();
-        $.toast({
-          heading: "Success",
-          text: "Vehicle successfully added.",
-          icon: "success"
+      success: function(data) {
+        $(document).ready(function() {
+          document.getElementById("addvehicle").reset();
+          $.toast({
+            heading: "Success",
+            text: "Vehicle successfully added.",
+            icon: "success"
+          });
         });
-      });
-    },
-    error: function(xhr, status, error) {
-      $(document).ready(function() {
-        $.toast({
-          heading: "Error",
-          text: "An error occured, a value is required for all fields. Please check your entries and try again.",
-          icon: "error"
+      },
+      error: function(xhr, status, error) {
+        $(document).ready(function() {
+          $.toast({
+            heading: "Error",
+            text: "An error occured, a value is required for all fields. Please check your entries and try again.",
+            icon: "error"
+          });
         });
-      });
-    }
-  });
+      }
+    });
+  } 
 };

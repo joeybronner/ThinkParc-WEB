@@ -164,7 +164,7 @@ class Options {
 			global $con;
 			/* Statement declaration */
 			$sql = 	"SELECT id_company, name
-					 FROM companies;";
+					 FROM companies WHERE id_company<>3;";
 				 
 			/* Statement values & execution */
 			$stmt = $con->prepare($sql);
