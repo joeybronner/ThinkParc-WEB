@@ -237,7 +237,7 @@
 									</a>
 								</div>
 								<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20 text-center">
-									<a href="documents/documents.php" class="directlink-section">
+									<a href="documents/documents" class="directlink-section">
 										<div class="black-bg btn-menu">
 											<h2><?php echo $home['DOCUMENTS']; ?></h2>
 										</div>
@@ -274,7 +274,7 @@
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center"><?php echo $home['STOCK_MANAGEMENT']; ?></h2>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="stocks/consultationproduct.php" class="directlink-section">
+										<a href="stocks/consultationproduct" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-eye"></i>
 												<h2><?php echo $home['STOCK_SEARCH']; ?></h2>
@@ -283,7 +283,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="stocks/addinstock.php" class="directlink-section">
+										<a href="stocks/addinstock" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-plus"></i>
 												<h2><?php echo $home['STOCK_ADD']; ?></h2>
@@ -292,7 +292,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="stocks/addproduct.php" class="directlink-section">
+										<a href="stocks/addproduct" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-in"></i>
 												<h2><?php echo $home['STOCK_ADD_PRODUCT']; ?></h2>
@@ -301,7 +301,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="stocks/history.php" class="directlink-section">
+										<a href="stocks/history" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-sign-out"></i>
 												<h2><?php echo $home['STOCK_HISTORY']; ?></h2>
@@ -314,7 +314,7 @@
 								
 									</a>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
-										<a href="stocks/transfert.php" class="directlink-section">
+										<a href="stocks/transfert" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-random"></i>
 												<h2><?php echo $home['STOCK_TRANSFERTS']; ?></h2>
@@ -323,7 +323,7 @@
 									</div>
 									</a>
 									<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
-										<a href="stocks/reception.php" class="directlink-section">
+										<a href="stocks/reception" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-edit"></i>
 												<h2><?php echo $home['STOCK_RECEIPT']; ?></h2>
@@ -350,7 +350,7 @@
 									<div class="col-sm-12 col-md-12 col-lg-12 black-bg">
 										<h2 class="text-center"><?php echo $home['VEHICLES_PARK']; ?></h2>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-											<a href="vehicules/addvehicle.php" class="directlink-section">
+											<a href="vehicules/addvehicle" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-car"></i>
 													<h2><?php echo $home['VEHICLES_ADD']; ?></h2>
@@ -358,7 +358,7 @@
 											</a>
 										</div>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-											<a href="vehicules/searchvehicle.php" class="directlink-section">
+											<a href="vehicules/searchvehicle" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-edit"></i>
 													<h2><?php echo $home['VEHICLES_SEARCH']; ?></h2>
@@ -366,7 +366,7 @@
 											</a>
 										</div>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-											<a href="vehicules/docsadministratives.php" class="directlink-section">
+											<a href="vehicules/docsadministratives" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-file"></i>
 													<h2><?php echo $home['VEHICLES_ADMDOCS']; ?></h2>
@@ -374,7 +374,7 @@
 											</a>
 										</div>
 										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-bottom-20">
-											<a href="vehicules/vehiclesanddrivers.php" class="directlink-section">
+											<a href="vehicules/vehiclesanddrivers" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-user"></i>
 													<h2><?php echo $home['VEHICLES_DRIVERS']; ?></h2>
@@ -382,7 +382,7 @@
 											</a>
 										</div>
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
-											<a href="vehicules/vehicles.php" class="directlink-section">
+											<a href="vehicules/vehicles" class="directlink-section">
 												<div class="black-bg btn-menu">
 													<i class="fa fa-search"></i>
 													<h2><?php echo $home['VEHICLES_ALL']; ?></h2>
@@ -407,7 +407,7 @@
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center"><?php echo $home['REPORTING']; ?></h2>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
-										<a href="reporting/partsconsumption.php" class="directlink-section">
+										<a href="reporting/partsconsumption" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-cubes"></i>
 												<h2><?php echo $home['REPORTING_PARTS']; ?></h2>
@@ -415,7 +415,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
-										<a href="reporting/vehiclesoverview.php" class="directlink-section">
+										<a href="reporting/vehiclesoverview" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-car"></i>
 												<h2><?php echo $home['REPORTING_VEHICLES']; ?></h2>
@@ -423,7 +423,7 @@
 										</a>
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
-										<a href="reporting/globalreporting.php" class="directlink-section">
+										<a href="reporting/globalreporting" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-building"></i>
 												<h2><?php echo $home['REPORTING_GLOBAL']; ?></h2>
@@ -447,7 +447,7 @@
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center"><?php echo $home['MAINTENANCE']; ?></h2>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
-										<a href="maintenance/addmaintenance.php" class="directlink-section">
+										<a href="maintenance/addmaintenance" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-wrench"></i>
 												<h2><?php echo $home['MAINTENANCE_NEW']; ?></h2>
@@ -455,7 +455,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-										<a href="maintenance/updatemaintenance.php" class="directlink-section">
+										<a href="maintenance/updatemaintenance" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-repeat"></i>
 												<h2><?php echo $home['MAINTENANCE_UPDATE']; ?></h2>
@@ -463,7 +463,7 @@
 										</a>
 									</div>
 									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 margin-bottom-20">
-										<a href="maintenance/historymaintenance.php" class="directlink-section">
+										<a href="maintenance/historymaintenance" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-history"></i>
 												<h2><?php echo $home['MAINTENANCE_HISTORY']; ?></h2>
@@ -487,7 +487,7 @@
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
 									<h2 class="text-center"><?php echo $home['OPTIONS']; ?></h2>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
-										<a href="options/addbrand.php" class="directlink-section">
+										<a href="options/addbrand" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark-o"></i>
 												<h2><?php echo $home['OPTIONS_BRAND']; ?></h2>
@@ -496,7 +496,7 @@
 									</div>
 									</a>
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/addmodel.php" class="directlink-section">
+										<a href="options/addmodel" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-bookmark"></i>
 												<h2><?php echo $home['OPTIONS_MODEL']; ?></h2>
@@ -506,7 +506,7 @@
 									</a>
 									
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/adduser.php" class="directlink-section">
+										<a href="options/adduser" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-users"></i>
 												<h2><?php echo $home['OPTIONS_USER']; ?></h2>
@@ -516,7 +516,7 @@
 									</a>
 									
 									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/addsite.php" class="directlink-section">
+										<a href="options/addsite" class="directlink-section">
 											<div class="black-bg btn-menu">
 												<i class="fa fa-building"></i>
 												<h2><?php echo $home['OPTIONS_SITE']; ?></h2>

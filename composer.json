@@ -1,9 +1,26 @@
 {
+	"description": "Think-Parc | Dependency management",
+	"authors": [
+        {
+            "name": "Joey Bronner",
+            "email": "joeybronner@gmail.com"
+        }
+    ],
     "require": {
         "guzzle/guzzle": "3.*",
         "phpunit/phpunit": "4.*",
         "guzzlehttp/guzzle": "4.*",
 		"twitter/bootstrap": "3.3.2",
-		"components/jquery": "1.11.3"
+		"components/jquery": "1.11.3", 
+		"neuralys/casperjs": "1.1.0",
+        "jakoch/phantomjs-installer": "2.0.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
     }
 }
