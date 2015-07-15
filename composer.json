@@ -11,7 +11,8 @@
         "phpunit/phpunit": "4.*",
         "guzzlehttp/guzzle": "4.*",
 		"twitter/bootstrap": "3.3.2",
-		"components/jquery": "1.11.3", 
+		"components/jquery": "1.11.3",
+        "datatables/datatables": "1.10.7",
 		"neuralys/casperjs": "1.1.0",
         "jakoch/phantomjs-installer": "2.0.0"
     },

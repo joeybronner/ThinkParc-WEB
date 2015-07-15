@@ -504,26 +504,30 @@
 											<br/>
 									</div>
 									</a>
-									
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/adduser" class="directlink-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-users"></i>
-												<h2><?php echo $home['OPTIONS_USER']; ?></h2>
-											</div>
-											<br/>
-									</div>
-									</a>
-									
-									<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-										<a href="options/addsite" class="directlink-section">
-											<div class="black-bg btn-menu">
-												<i class="fa fa-building"></i>
-												<h2><?php echo $home['OPTIONS_SITE']; ?></h2>
-											</div>
-											<br/>
-									</div>
-									</a>
+									<?php
+										if ($_SESSION['fct_id_role']==1) {
+									?>
+											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+												<a href="options/adduser" class="directlink-section">
+													<div class="black-bg btn-menu">
+														<i class="fa fa-users"></i>
+														<h2><?php echo $home['OPTIONS_USER']; ?></h2>
+													</div>
+													<br/>
+												</div>
+											</a>
+											<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+												<a href="options/addsite" class="directlink-section">
+													<div class="black-bg btn-menu">
+														<i class="fa fa-building"></i>
+														<h2><?php echo $home['OPTIONS_SITE']; ?></h2>
+													</div>
+													<br/>
+												</div>
+											</a>
+									<?php
+										}
+									?>
 									<div class="clearfix"></div>
 								</div>
 							</div>
