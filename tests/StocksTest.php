@@ -60,7 +60,7 @@ class StocksTest extends PHPUnit_Framework_TestCase {
     {
 		// Client declaration, URL & method
         $client = new Client(['base_url' => 'http://think-parc.com']);
-        $response = $client->get('webservice/v1/companies/stocks/checkref/Ref123/company/1');
+        $response = $client->get('webservice/v1/companies/stocks/checkref/A1545115/company/1');
 
 		// Response processing & assertion
         $decodedResponse = $response->json();
@@ -126,7 +126,7 @@ class StocksTest extends PHPUnit_Framework_TestCase {
     {
 		// Client declaration, URL & method
         $client = new Client(['base_url' => 'http://think-parc.com']);
-        $response = $client->get('webservice/v1/companies/stocks/getalltransferts/company/1/title/Sans titre');
+        $response = $client->get('webservice/v1/companies/stocks/getalltransferts/company/1/title/Dépannage urgent client');
 
 		// Response processing & assertion
         $decodedResponse = $response->json();
@@ -175,7 +175,7 @@ class StocksTest extends PHPUnit_Framework_TestCase {
     {
 		// Client declaration, URL & method
         $client = new Client(['base_url' => 'http://think-parc.com']);
-        $response = $client->get('webservice/v1/companies/stocks/historylist/test 1/company/1');
+        $response = $client->get('webservice/v1/companies/stocks/historylist/Retour pièces/company/1');
 
 		// Response processing & assertion
         $decodedResponse = $response->json();

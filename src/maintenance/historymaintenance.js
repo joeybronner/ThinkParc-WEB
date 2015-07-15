@@ -168,8 +168,8 @@ function getVehicleHistory(id_vehicle) {
         var response = JSON.parse(data);
         for (var i = 0; i < response.length; i++) {
           addMaintenanceToTable(response[i].id_maintenance,
-            response[i].date_startmaintenance,
-            response[i].date_endmaintenance,
+            reformatDate(response[i].date_startmaintenance),
+            reformatDate(response[i].date_endmaintenance),
             response[i].typemaintenance,
             response[i].labour_hours,
             response[i].labour_hourlyrate,
@@ -268,6 +268,12 @@ Object.size = function(obj) {
     if (obj.hasOwnProperty(key)) size++;
   }
   return size;
+}
+
+/** eformates a date in french format JJ/MM/AAAA */
+function reformatDate(dateStr) {
+  dArr = dateStr.split("-");
+  return dArr[2] + "/" + dArr[1] + "/" + dArr[0];
 }
 
 /** Removes prototype */

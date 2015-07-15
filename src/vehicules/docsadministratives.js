@@ -226,8 +226,8 @@ function insertInsurance(handleData) {
   var ins_phone = document.getElementById("ins_phone").value;
   var ins_email = document.getElementById("ins_email").value;
   var ins_add1 = document.getElementById("ins_add1").value;
-  var ins_add2 = document.getElementById("ins_add2").value;
-  var ins_add3 = document.getElementById("ins_add3").value;
+  var ins_add2 = ((document.getElementById("ins_add2").value == "") ? "NULL" : document.getElementById("ins_add2").value);
+  var ins_add3 = ((document.getElementById("ins_add3").value == "") ? "NULL" : document.getElementById("ins_add3").value);
   var ins_zipcode = document.getElementById("ins_zipcode").value;
   var ins_city = document.getElementById("ins_city").value;
   var ins_country = document.getElementById("ins_country").value;

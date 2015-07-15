@@ -63,7 +63,7 @@
 	<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
 	
 	<!-- Page content -->
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-2 toppad">
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-left margin-bottom-20">
 				<a href="../accueil.php?section=vehicles">
@@ -80,10 +80,10 @@
 							<form>
 								<table class="table-no-border">
 									<tr>
-										<td width="100%"><h5><?php echo $vehanddri['SELECT_VEHICLE']; ?></h5></td>
+										<td><h5><?php echo $vehanddri['SELECT_VEHICLE']; ?></h5></td>
 									</tr>
 									<tr>
-										<td width="100%">
+										<td>
 											<select id="listvehicles" name="listvehicles" class="form-control" onchange="displayVehicle(this.value);">
 												<!-- Retrieve all vehicles with an AJAX [GET] query -->
 											</select>
@@ -105,7 +105,7 @@
 									<table id="vehicledetail" class="table-no-border">
 										<tbody>
 											<tr>
-												<td width="100%"><?php echo $vehanddri['DRIVERS_HISTORY']; ?></td>
+												<td><?php echo $vehanddri['DRIVERS_HISTORY']; ?></td>
 											</tr>
 											<tr>
 												<td id="drivers">
