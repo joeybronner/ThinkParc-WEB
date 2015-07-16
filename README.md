@@ -18,7 +18,12 @@ Saïd Khalid [@Khalidsaid](http://github.com/Khalidsaid)
 Client
 ----
 
-Slimane Hamzaoui   
+Slimane Hamzaoui 
+
+Architecture
+----
+
+![Alt text](http://img15.hostingpics.net/pics/368166archi.jpg)   
 
 Pictures
 ----
