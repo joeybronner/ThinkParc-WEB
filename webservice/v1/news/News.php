@@ -106,7 +106,7 @@ class News {
     /**
      * Deletes a specific news (by ID).
      *
-     * @url GET /news/$id_news/delete
+     * @url DELETE /news/$id_news/delete
      */
     public function deleteNews($id_news = null) {
 		try {
@@ -138,7 +138,7 @@ class News {
     /**
      * Adds a news.
      *
-     * @url GET /news/add/$id_user/$msg
+     * @url POST /news/add/$id_user/$msg
      */
     public function addNews($id_user = null, $msg = null) {
 		try {

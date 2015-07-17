@@ -52,7 +52,6 @@ function drawChart() {
     backgroundColor: {
       fill: 'transparent'
     },
-    /*title: 'Vehicle status',*/
     pieHole: 0.4,
     titleTextStyle: {
       color: '#FFF'

@@ -42,7 +42,7 @@ function refreshReport() {
             success: function(data) {
                 var response = JSON.parse(data);
                 data_charts1 = new Array(response.length + 1);
-                data_charts1[0] = new Array("Part", "Used", {
+                data_charts1[0] = new Array("Pièces", "Utilisation", {
                     role: "style"
                 });
                 for (var i = 1; i <= response.length; i++) {
@@ -62,9 +62,9 @@ function refreshReport() {
                 }
                 drawChart();
                 document.getElementById("sum_parts").innerHTML = sum_parts;
-                document.getElementById("text_usedparts").innerHTML = "parts used for maintenance between " +
+                document.getElementById("text_usedparts").innerHTML = "pièce(s) utilisée(s) pour la maintenance entre le " +
                     reformatDate(date_start) +
-                    " and " +
+                    " et le " +
                     reformatDate(date_end);
             }
         });
@@ -79,7 +79,7 @@ function refreshReport() {
             success: function(data) {
                 var response = JSON.parse(data);
                 data_charts3 = new Array(response.length + 1);
-                data_charts3[0] = new Array("Part", "Transfert", {
+                data_charts3[0] = new Array("Pièce", "Transfert", {
                     role: "style"
                 });
                 for (var i = 1; i <= response.length; i++) {
@@ -117,7 +117,7 @@ function refreshReport() {
             success: function(data) {
                 var response = JSON.parse(data);
                 data_charts6 = new Array(response.length + 1);
-                data_charts6[0] = new Array("Site", "Quantity");
+                data_charts6[0] = new Array("Site", "Quantité");
                 for (var i = 1; i <= response.length; i++) {
                     data_charts6[i] = new Array(response[i - 1].name,
                         parseInt(response[i - 1].partssum)

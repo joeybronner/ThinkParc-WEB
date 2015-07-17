@@ -4,7 +4,6 @@
  * An authentication token generator
  *
  * @author		Lars Kumbier <lars@kumbier.it>
- * @copyright	GPLv2
  * @usage		Create an array of data and call GetTokenByArray($data)
  */
 class AuthenticationToken {

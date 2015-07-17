@@ -46,131 +46,16 @@
 		}
 		
 		/* 5. Import specific JavaScript file for this page */
-		// echo '<script type="text/javascript" src="addvehicle.js"></script>';
+		echo '<script type="text/javascript" src="accueil.js"></script>';
 
 	?>
 		<title>Think-Parc | Home</title>
-		<script>			
-			/** AngularJS module for HTTP requests */
-			angular.module('HomeModule', []).controller('HomeController', function ($scope, $http) {
-				$scope.getRandomNews = function (data) {
-					$http.get('http://think-parc.com/webservice/v1/news/random').
-						success(function(data, status, headers, config) {
-							var response = angular.fromJson(data);
-							var content = '<h6>Posté par ' + response[0].firstname + ' ' + response[0].lastname + ' le ' + reformatDate(response[0].date_news) + '</h6>';
-							content = content + '<h5>' + response[0].msg + '</h5>';
-							document.getElementById("newsContent").innerHTML = content;
-						});
-				};
-			});
-			
-			$(function onLoad(){
-			   	// If any parameters exists to redirect to a specific section
-				var section = getParameterByName('section');
-				if (section != "") {
-					changeSection("#" + section);
-				}
-				/* Load random news */
-				angular.element($("#main-wrapper")).scope().getRandomNews();
-				
-				/* Load QuickView values */
-				getCompany(function(company){
-					$.ajax({
-						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/vehicles/all",  
-						success:	function(data) {
-										var response1 = JSON.parse(data);
-										var totalvehicles = response1.length;
-										$.ajax({
-											method: 	"GET",
-											url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/vehicles/currentlyinmaintenance",  
-											success:	function(data) {
-															var response2 = JSON.parse(data);
-															var vehiclesmaintenance = response2.length;
-															document.getElementById("qv_vehicles_maint").innerHTML = vehiclesmaintenance + "/" + totalvehicles;
-															if ((vehiclesmaintenance/totalvehicles)*100 > 50) {
-																document.getElementById("qv_vehicles_maint").style.color='red';
-															} else if ((vehiclesmaintenance/totalvehicles)*100 > 10) {
-																document.getElementById("qv_vehicles_maint").style.color='orange';
-															} else {
-																document.getElementById("qv_vehicles_maint").style.color='green';
-															}
-														}
-										});
-									}
-					});
-					$.ajax({
-						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/stocks/gettransferlist/company/" + company, 
-						success:	function(data) {				
-										var response = JSON.parse(data);										
-										document.getElementById("qv_transfert_wait").innerHTML = response.length;
-										if (response.length > 0) {
-											document.getElementById("qv_transfert_wait").style.color='red';
-										} else {
-											document.getElementById("qv_transfert_wait").style.color='green';
-										}
-									}
-					});
-					$.ajax({
-						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/insurances/alert", 
-						success:	function(data) {				
-										var response = JSON.parse(data);										
-										document.getElementById("qv_assurances_end").innerHTML = response.length;
-										if (response.length > 0) {
-											document.getElementById("qv_assurances_end").style.color='red';
-										} else {
-											document.getElementById("qv_assurances_end").style.color='green';
-										}
-									}
-					});
-					$.ajax({
-						method: 	"GET",
-						url:		"http://think-parc.com/webservice/v1/companies/" + company + "/reporting/technicalcontrol/alert", 
-						success:	function(data) {				
-										var response = JSON.parse(data);										
-										document.getElementById("qv_techcontrol_end").innerHTML = response.length;
-										if (response.length > 0) {
-											document.getElementById("qv_techcontrol_end").style.color='red';
-										} else {
-											document.getElementById("qv_techcontrol_end").style.color='green';
-										}
-									}
-					});
-				});
-			});
-			
-			/** Good date format JJ/MM/AAAA */
-			function reformatDate(dateStr) {
-			  dArr = dateStr.split("-");
-			  return dArr[2] + "/" + dArr[1] + "/" + dArr[0];
-			}
-			
-			/** Retrieves company's ID */
-			function getCompany(handleData){
-				var id_user = <?php echo $_SESSION['fct_id_user']; ?>;
-				$.ajax({
-					method: 	"GET",
-					url:		"http://think-parc.com/webservice/v1/companies/users/" + id_user,  
-					success:	function(data) {
-									var response = JSON.parse(data);
-									handleData(response[0].id_company);
-								}
-				});
-			};
-			
-			/** Retrieves parameter on page loading (performed with back button) */
-			function getParameterByName(name) {
-				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-					results = regex.exec(location.search);
-				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-		</script>
 	</head>
 	<body>
-		<?php include('header/navbar.php'); ?>
+		<!-- Include navbar with home, informations & logout shortcuts -->
+		<?php require(BASE_PATH . '/src/header/navbar.php'); ?>
+
+		<!-- Background images for all pages (Zoom template) -->
 		<div id="main-wrapper" ng-app='HomeModule' ng-controller="HomeController">
 			<div class="image-section">
 				<div class="image-container">
@@ -183,6 +68,10 @@
 					<img src="../images/background/home/think_parc_home_1.jpg" id="testimonials-img" class="inactive" alt="Testimonials">
 				</div>
 			</div>
+			<!-- Hidden div(s) for JS values -->
+			<div id="fct_id_user" style="display: none;"><?php echo $_SESSION['fct_id_user']; ?></div>
+
+			<!-- Global home dashboard (stocks, vehicles, reporting, maintenance, settings, documents...) -->
 			<div class="container">
 				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 templatemo-content-wrapper">
 					<div class="templatemo-content">
@@ -268,7 +157,9 @@
 								</div>
 							</div>
 						</section>
-						<!-- /.menu-section -->    
+						<!-- End global -->
+
+						<!-- Section stock -->    
 						<section id="products-section" class="inactive" >
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -344,6 +235,9 @@
 								</div>
 							</div>
 						</section>
+						<!-- End section stock -->
+
+						<!-- Section vehicles -->
 						<section id="vehicles-section" class="inactive">
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -401,7 +295,10 @@
 									</a>
 								</div>
 							</div>
-						</section> 
+						</section>
+						<!-- End section vehicles -->
+
+						<!-- Section reporting -->
 						<section id="reporting-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -442,6 +339,9 @@
 								</div>
 							</div>
 						</section>
+						<!-- End section reporting -->
+
+						<!-- Section maintenance -->
 						<section id="maintenance-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -482,6 +382,9 @@
 								</div>
 							</div>
 						</section>
+						<!-- End section maintenance -->
+
+						<!-- Section options -->
 						<section id="options-section" class="inactive">
 							<div class="row">
 								<div class="black-bg col-sm-12 col-md-12 col-lg-12">
@@ -541,9 +444,12 @@
 								</div>
 							</div>
 						</section>
+						<!-- End section options -->
 					</div>
 				</div>
-				<?php include('footer/footer.php'); ?>
+				
+				<!-- Include footer bar with language switch & global website informations -->
+				<?php require(BASE_PATH . '/src/footer/footer.php'); ?>
 			</div>
 		</div>
 	</body>

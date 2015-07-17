@@ -22,7 +22,6 @@
 //		- xml_encode()
 //		- json_format(string)
 //		- Exceptions
-//
 /////////////////////////////////////////////////////////////////
 
 /**
@@ -56,6 +55,11 @@ class RESTServer
 	public $mode;
 	public $root;
 	public $token;
+
+	public $dbhost = 'thinkparqnroot.mysql.db';
+	public $dbuser = 'thinkparqnroot';
+	public $dbpass = 'Thinkparc1';
+	public $dbname = 'thinkparqnroot';
 	
 	protected $map = array();
 	protected $errorClasses = array();
@@ -83,6 +87,10 @@ class RESTServer
 		}
 	}
 	
+	/**
+	* The destructor.
+	*
+	**/
 	public function  __destruct() {
 		if ($this->mode == 'production' && !$this->cached) {
 			if (function_exists('apc_store')) {
@@ -100,8 +108,6 @@ class RESTServer
 	
 	public function unauthorized($ask = false) {
 		if ($ask) {
-			session_start();
-			session_destroy();
 			throw new RestException(401, "You are not authorized to access this resource. Your unauthorized token:".$this->token);
 		} 
 	}
@@ -110,18 +116,21 @@ class RESTServer
 		// Check if token is always alive
 		try {
 			
-			$dbhost = 'thinkparqnroot.mysql.db';
-			$dbuser = 'thinkparqnroot';
-			$dbpass = 'Thinkparc1';
-			$dbname = 'thinkparqnroot';
-			
+			// If no session variable, than, retrieve token from header.
 			if ($this->token == "") {
-				$this->token = $_COOKIE['fct_token'];
+				foreach (getallheaders() as $name => $value) {
+				    if ($name=="fct_token") {
+				    	$this->token = $value;
+				    }
+				}
+				if ($this->token == "") {
+					$this->token = $_COOKIE['fct_token'];
+				}
 			}
 			
-			/* 
-			 *	Establish connection
-			 */
+			// Establish connection
+			// 1. check if a token is active (else, unauthorize user)
+			// 2. if token is active, expiration token datetime extension
 			$link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 			if ($result = mysqli_query($link, "SELECT token FROM users_auth_tokens WHERE token = '".$this->token."' AND expire > NOW();")) {
 				$row_cnt = mysqli_num_rows($result);
@@ -130,7 +139,7 @@ class RESTServer
 					mysqli_query($link, "UPDATE users_auth_tokens SET expire = ADDTIME(now(), 60 * 60) WHERE token = '".$this->token."';");
 					return true;
 				} else {
-					return true;
+					return false;
 				}
 			} else {
 				return false;
@@ -140,6 +149,7 @@ class RESTServer
 		}
 	}
 	
+	/* Handle new HTPP request (GET/PUT/POST/DELETE) */
 	public function handle() {
 		$this->url = $this->getPath();
 		$this->method = $this->getMethod();

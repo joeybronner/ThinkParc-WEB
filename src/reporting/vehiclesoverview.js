@@ -136,7 +136,7 @@ function refreshReport() {
             success: function(data) {
                 var response = JSON.parse(data);
                 data_charts5 = new Array(response.length + 1);
-                data_charts5[0] = new Array("Parts", "Unit", {
+                data_charts5[0] = new Array("Pièces", "Unités", {
                     role: "style"
                 });
                 for (var i = 1; i <= response.length; i++) {
@@ -163,13 +163,13 @@ function refreshReport() {
 function drawChart() {
     var data;
     data = google.visualization.arrayToDataTable([
-        ['Available', 'Maintenance'],
-        ['Available', days_available],
+        ['Disponibilité', 'Maintenance'],
+        ['Disponibilité', days_available],
         ['Maintenance', days_maintenance]
     ]);
 
     var options = {
-        title: "Available vs Maintenance (global)",
+        title: "Disponibilité vs Maintenance (global)",
         backgroundColor: {
             fill: 'transparent'
         },
@@ -197,13 +197,13 @@ function drawChart2() {
         data = google.visualization.arrayToDataTable(data_charts2);
     } else {
         data = google.visualization.arrayToDataTable([
-            ['Reference', 'Quantity'],
-            ['No values', 1]
+            ['Reference', 'Quantité'],
+            ['Pas de valeurs', 1]
         ]);
     }
 
     var options = {
-        title: "Used parts",
+        title: "Pièces utilisées",
         backgroundColor: {
             fill: 'transparent'
         },
@@ -238,13 +238,13 @@ function drawChart3() {
         data = google.visualization.arrayToDataTable(data_charts3);
     } else {
         data = google.visualization.arrayToDataTable([
-            ['Type', 'Quantity'],
-            ['No values', 1]
+            ['Type', 'Quantité'],
+            ['Pas de valeurs', 1]
         ]);
     }
 
     var options = {
-        title: "Type of maintenance",
+        title: "Type de maintenance",
         backgroundColor: {
             fill: 'transparent'
         },
@@ -301,7 +301,7 @@ function drawChart4() {
             role: "annotation"
         }, 2]);
         var optionsView = {
-            title: "Maintenance cost",
+            title: "Coût de maintenance",
             backgroundColor: {
                 fill: 'transparent'
             },
@@ -376,7 +376,7 @@ function drawChart5() {
             role: "annotation"
         }, 2]);
         var optionsView = {
-            title: "Maintenance parts",
+            title: "Pièces de la maintenance",
             backgroundColor: {
                 fill: 'transparent'
             },
